@@ -1,3 +1,5 @@
+import { UsersIcon } from 'lucide-react'
+
 import {
 	Accordion,
 	AccordionContent,
@@ -9,15 +11,22 @@ import { Badge } from '@/components/ui/badge'
 export const AboutUs = () => {
 	return (
 		<div className='pt-28 pb-3'>
-			<Badge
-				className='border text-sm font-normal'
-				variant='outline'
-			>
-				Про нас
-			</Badge>
-			<h2 className='scroll-m-20 pt-10 text-3xl font-semibold tracking-tight first:mt-0'>
-				Факультет майбутнього <br /> для сучасного світу
+			<div className='mb-6 flex items-center gap-3'>
+				<UsersIcon className='h-5 w-5 text-[#017369]' />
+				<Badge
+					className='border border-[#017369]/20 text-sm font-normal text-[#017369]'
+					variant='outline'
+				>
+					Про нас
+				</Badge>
+			</div>
+			<h2 className='mb-4 text-3xl font-semibold text-gray-900'>
+				Факультет майбутнього для сучасного світу
 			</h2>
+			<p className='mb-8 max-w-2xl text-lg text-gray-600'>
+				Більше 90 років досвіду в підготовці математиків, програмістів та вчителів. Ваш шлях до
+				успіху в цифровому світі починається тут.
+			</p>
 			<div className='flex w-full items-baseline justify-between pt-2'>
 				<Accordion
 					type='single'

@@ -1,4 +1,5 @@
 import { Header } from './(components)/Header/Header'
+import { Footer } from './dashboard/components/Footer/Footer'
 
 interface Props {
 	children: React.ReactNode
@@ -7,10 +8,11 @@ interface Props {
 const DashboardLayout = ({ children }: Props) => {
 	return (
 		<>
-			<div className='absolute h-full border-l'></div>
+			<div className='absolute -z-10 h-full border-l'></div>
 			<main className='pl-[15px]'>
 				<Header />
 				{children}
+				<Footer />
 			</main>
 		</>
 	)

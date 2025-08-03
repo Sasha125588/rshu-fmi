@@ -23,7 +23,7 @@ export const News = ({ news }: Props) => {
 	return (
 		<div
 			id='news'
-			className='pt-28'
+			className='pt-28 pb-10'
 		>
 			<div className='mb-12'>
 				<div className='flex items-center gap-3'>
@@ -61,7 +61,7 @@ export const News = ({ news }: Props) => {
 					>
 						<Button
 							variant='outline'
-							className='group flex items-center gap-3 rounded-full border-[#017369]/30 px-6 py-3 text-[#017369] transition-all duration-200 hover:border-[#017369] hover:bg-[#017369]/5'
+							className='group flex cursor-pointer items-center gap-3 rounded-full border-[#017369]/30 px-6 py-3 text-[#017369] transition-all duration-200 hover:border-[#017369] hover:bg-[#017369]/5'
 						>
 							<span className='font-medium'>Всі новини факультету</span>
 							<ArrowRightIcon className='h-4 w-4 transition-transform duration-200 group-hover:translate-x-1' />

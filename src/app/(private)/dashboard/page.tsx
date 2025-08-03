@@ -63,7 +63,7 @@ const HomePage = async () => {
 								<Link href='#specializations'>
 									<Button
 										variant='outline'
-										className='flex h-12 cursor-pointer items-center rounded-full border-1 border-[#7B7B7E] transition-all duration-200 hover:border-transparent hover:bg-[#017369]/10'
+										className='flex h-12 cursor-pointer items-center rounded-full border-1 border-[#7B7B7E] transition-all duration-200 hover:bg-zinc-100'
 									>
 										<p className='text-base font-normal'>Спеціальності</p>
 									</Button>
@@ -92,6 +92,7 @@ const HomePage = async () => {
 			<Specializations />
 			<div className='mr-[-35px] ml-[-55px] border-b' />
 			<News news={newsWithTags} />
+			<div className='mr-[-35px] ml-[-55px] border-b' />
 		</>
 	)
 }
