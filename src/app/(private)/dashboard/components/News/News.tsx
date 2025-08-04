@@ -55,10 +55,18 @@ export const News = ({ defaultNews }: Props) => {
 				</p>
 			</div>
 
+			<div className='mb-4'>
+				<PaginationComponent
+					currentPage={currentPage}
+					onPageChange={setCurrentPage}
+					totalPages={213}
+				/>
+			</div>
+
 			<div className='space-y-0'>
 				{newsWithTags.map((newsItem, index) => (
 					<NewsItem
-						key={index}
+						key={`${currentPage}-${newsItem.link}`}
 						item={newsItem}
 						index={index}
 						isLast={index === newsWithTags.length - 1}
@@ -83,13 +91,6 @@ export const News = ({ defaultNews }: Props) => {
 					</Link>
 				</div>
 			)}
-			<div className='mt-12'>
-				<PaginationComponent
-					currentPage={currentPage}
-					onPageChange={setCurrentPage}
-					totalPages={213}
-				/>
-			</div>
 		</div>
 	)
 }
