@@ -1,7 +1,7 @@
 import { ArrowUpRightIcon, EyeIcon } from 'lucide-react'
 import Link from 'next/link'
 
-import { NewsItem as NewsItemProps } from '../constants/types'
+import { NewsItem as NewsItemProps } from '../../constants/types'
 
 interface Props {
 	item: NewsItemProps
@@ -17,9 +17,7 @@ export const NewsItem = ({ item, index, isLast }: Props) => {
 			</div>
 
 			<div className='min-w-0 flex-1 transition-transform duration-200 group-hover:translate-x-1'>
-				<div className='mb-2 text-sm font-normal text-gray-500'>
-					{item.tags ? item.tags.join(' & ') : 'Новини'}
-				</div>
+				<div className='mb-2 text-sm font-normal text-gray-500'>{item.tags?.join(' • ')}</div>
 
 				<Link
 					href={item.link}
@@ -31,7 +29,7 @@ export const NewsItem = ({ item, index, isLast }: Props) => {
 						{item.title}
 					</h3>
 				</Link>
-				<div className='mt-4 flex items-center gap-1 text-sm text-gray-500'>
+				<div className='mt-5 flex items-center gap-1 text-sm text-gray-500'>
 					<EyeIcon className='h-4 w-4' />
 					<span>{item.views.toLocaleString('uk-UA')} переглядів</span>
 				</div>

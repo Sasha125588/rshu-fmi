@@ -2,57 +2,63 @@ export const generateTags = (title: string) => {
 	const normalizedTitle = title.toLowerCase()
 	const tags: string[] = []
 
-	const checkKeywords = (keywords: string[]): boolean => {
+	const checkKeywords = (keywords: string[]) => {
 		return keywords.some(keyword => normalizedTitle.includes(keyword))
 	}
 
-	switch (true) {
-		case checkKeywords(['студент', 'освіт', 'навчан', 'диплом']):
-			tags.push('Освіта')
-			break
-
-		case checkKeywords(['грант']):
-			tags.push('Грант')
-			break
-
-		case checkKeywords(['день', 'днем', 'свято', 'ювілей']):
-			tags.push('Свята')
-			break
-
-		case checkKeywords(['досліджен', 'наук', 'конференц']):
-			tags.push('Наука')
-			break
-
-		case checkKeywords(['факультет', 'кафедр', 'університет']):
-			tags.push('Факультет')
-			break
-
-		case checkKeywords(['програму', 'інформат', "комп'ютер"]):
-			tags.push('IT')
-			break
-
-		case checkKeywords(['математик', 'алгебр', 'геометр']):
-			tags.push('Математика')
-			break
-
-		case checkKeywords(['подія', 'захід', 'семінар', 'лекція', 'форум', 'участ']):
-			tags.push('Події')
-			break
-
-		case checkKeywords(['нагород', 'перемог', 'досягнен', 'призер']):
-			tags.push('Досягнення')
-			break
-
-		case checkKeywords(['міжнародн', 'обмін', 'партнер']):
-			tags.push('Міжнародне')
-			break
-
-		case checkKeywords(["кар'єр", 'робот', 'працевлаштуван']):
-			tags.push("Кар'єра")
-			break
+	if (checkKeywords(['студент', 'освіт', 'навчан', 'диплом', 'урок', 'курс'])) {
+		tags.push('Освіта')
+	}
+	if (checkKeywords(['грант'])) {
+		tags.push('Грант')
+	}
+	if (checkKeywords(['день', 'днем', 'свято', 'ювілей'])) {
+		tags.push('Свята')
+	}
+	if (checkKeywords(['досліджен', 'наук', 'конференц'])) {
+		tags.push('Наука')
+	}
+	if (checkKeywords(['факультет', 'кафедр', 'університет'])) {
+		tags.push('Факультет')
+	}
+	if (checkKeywords(['програму', 'інформат', "комп'ютер"])) {
+		tags.push('IT')
+	}
+	if (checkKeywords(['математик', 'алгебр', 'геометр'])) {
+		tags.push('Математика')
+	}
+	if (
+		checkKeywords([
+			'подія',
+			'захід',
+			'семінар',
+			'лекція',
+			'форум',
+			'участ',
+			'конкурс',
+			'концерт',
+			'вікенд',
+			'профорієнтаці',
+			'засіданн',
+			'відкритих дверей'
+		])
+	) {
+		tags.push('Події')
+	}
+	if (checkKeywords(['нагород', 'перемог', 'досягнен', 'призер', 'срібл', 'золот', 'відзнак'])) {
+		tags.push('Досягнення')
+	}
+	if (checkKeywords(['міжнародн', 'обмін', 'партнер', 'стажування', 'україно-'])) {
+		tags.push('Міжнародне')
+	}
+	if (checkKeywords(["кар'єр", 'робот', 'працевлаштуван'])) {
+		tags.push("Кар'єра")
+	}
+	if (checkKeywords(['меморандум', 'співпрац'])) {
+		tags.push('Університет')
 	}
 
-	if (tags.length === 0) {
+	if (!tags.length) {
 		tags.push('Новини')
 	}
 

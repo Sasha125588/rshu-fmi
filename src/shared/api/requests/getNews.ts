@@ -1,3 +1,5 @@
+'use server'
+
 import * as cheerio from 'cheerio'
 
 export interface ParsedNewsItem {
@@ -6,9 +8,10 @@ export interface ParsedNewsItem {
 	views: number
 }
 
-export const getNews = async (): Promise<ParsedNewsItem[]> => {
+export const getNews = async (page = 1): Promise<ParsedNewsItem[]> => {
 	try {
-		const response = await fetch('https://www.rshu.edu.ua/novyny-rdhu')
+		const response = await fetch(`https://www.rshu.edu.ua/novyny-rdhu?start=${(page - 1) * 10}`)
+
 		const html = await response.text()
 
 		const $ = cheerio.load(html)

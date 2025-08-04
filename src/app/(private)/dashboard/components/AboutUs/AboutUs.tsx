@@ -1,4 +1,4 @@
-import { UsersIcon } from 'lucide-react'
+import { Briefcase, GraduationCap, LayoutGrid, School, Users2, UsersIcon } from 'lucide-react'
 
 import {
 	Accordion,
@@ -34,7 +34,12 @@ export const AboutUs = () => {
 					className='w-full max-w-[500px] pt-8'
 				>
 					<AccordionItem value='item-1'>
-						<AccordionTrigger>Чому варто обрати наш факультет?</AccordionTrigger>
+						<AccordionTrigger className='flex items-center gap-2'>
+							<div className='flex items-center gap-4'>
+								<GraduationCap className='h-5 w-5 text-[#017369]' />
+								Чому варто обрати наш факультет?
+							</div>
+						</AccordionTrigger>
 						<AccordionContent>
 							Ми поєднуємо класичну математичну освіту з сучасними IT-технологіями. Наші випускники
 							працюють в провідних компаніях світу та успішно викладають у навчальних закладах.
@@ -42,7 +47,12 @@ export const AboutUs = () => {
 					</AccordionItem>
 
 					<AccordionItem value='item-2'>
-						<AccordionTrigger>Які можливості для практики?</AccordionTrigger>
+						<AccordionTrigger className='flex items-center gap-2'>
+							<div className='flex items-center gap-4'>
+								<Briefcase className='h-5 w-5 text-[#017369]' />
+								Які можливості для практики?
+							</div>
+						</AccordionTrigger>
 						<AccordionContent>
 							Студенти проходять стажування в IT-компаніях, беруть участь у хакатонах, олімпіадах з
 							програмування та мають доступ до сучасних лабораторій з новітнім обладнанням.
@@ -50,7 +60,12 @@ export const AboutUs = () => {
 					</AccordionItem>
 
 					<AccordionItem value='item-3'>
-						<AccordionTrigger>Яка підтримка після випуску?</AccordionTrigger>
+						<AccordionTrigger className='flex items-center gap-2'>
+							<div className='flex items-center gap-4'>
+								<Users2 className='h-5 w-5 text-[#017369]' />
+								Яка підтримка після випуску?
+							</div>
+						</AccordionTrigger>
 						<AccordionContent>
 							Факультет підтримує зв&apos;язок з випускниками, надає допомогу в працевлаштуванні та
 							створює можливості для професійного розвитку через Alumni-спільноту.
@@ -58,7 +73,12 @@ export const AboutUs = () => {
 					</AccordionItem>
 
 					<AccordionItem value='item-4'>
-						<AccordionTrigger>Хто наші викладачі?</AccordionTrigger>
+						<AccordionTrigger className='flex items-center gap-2'>
+							<div className='flex items-center gap-4'>
+								<School className='h-5 w-5 text-[#017369]' />
+								Хто наші викладачі?
+							</div>
+						</AccordionTrigger>
 						<AccordionContent>
 							Наш професорсько-викладацький склад складається з досвідчених науковців, кандидатів та
 							докторів наук, а також практикуючих IT-спеціалістів з провідних компаній галузі.
@@ -66,7 +86,12 @@ export const AboutUs = () => {
 					</AccordionItem>
 
 					<AccordionItem value='item-6'>
-						<AccordionTrigger>Які умови навчання та обладнання?</AccordionTrigger>
+						<AccordionTrigger className='flex items-center gap-2'>
+							<div className='flex items-center gap-4'>
+								<LayoutGrid className='h-5 w-5 text-[#017369]' />
+								Які умови навчання та обладнання?
+							</div>
+						</AccordionTrigger>
 						<AccordionContent>
 							Факультет оснащений сучасними комп&apos;ютерними лабораторіями, має доступ до
 							ліцензійного програмного забезпечення та онлайн-платформ для дистанційного навчання.

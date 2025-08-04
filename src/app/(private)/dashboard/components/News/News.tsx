@@ -1,24 +1,36 @@
+'use client'
+
 import { ArrowRightIcon, NewspaperIcon } from 'lucide-react'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
-import { NewsItem } from './components/NewsItem'
+import { NewsItem } from './components/NewsItem/NewsItem'
+import PaginationComponent from './components/Pagination/Pagination'
 import { NewsItem as NewsItemProps } from './constants/types'
-import { generateTags } from './utils/generateTags'
+import { getNewsWithTags } from './utils/getNewsWithTags'
+import { getNews } from '@/shared/api/requests/getNews'
+import { usePagination } from '@/shared/context/pagination'
 
 interface Props {
-	news: NewsItemProps[]
+	defaultNews: NewsItemProps[]
 }
 
-export const News = ({ news }: Props) => {
-	const newsWithTags = news.map(item => ({
-		...item,
-		tags: generateTags(item.title)
-	}))
+export const News = ({ defaultNews }: Props) => {
+	const { currentPage, setCurrentPage } = usePagination()
+	const [newsPaginated, setNewsPaginated] = useState<NewsItemProps[]>(defaultNews)
 
-	const displayNews = newsWithTags.slice(0, 6)
+	useEffect(() => {
+		const fetchNews = async () => {
+			const response = await getNews(currentPage)
+			setNewsPaginated(response)
+		}
+		fetchNews()
+	}, [currentPage])
+
+	const newsWithTags = getNewsWithTags(newsPaginated)
 
 	return (
 		<div
@@ -44,17 +56,17 @@ export const News = ({ news }: Props) => {
 			</div>
 
 			<div className='space-y-0'>
-				{displayNews.map((newsItem, index) => (
+				{newsWithTags.map((newsItem, index) => (
 					<NewsItem
 						key={index}
 						item={newsItem}
 						index={index}
-						isLast={index === displayNews.length - 1}
+						isLast={index === newsWithTags.length - 1}
 					/>
 				))}
 			</div>
 
-			{news.length > 4 && (
+			{newsPaginated.length > 4 && (
 				<div className='mt-12 flex justify-center'>
 					<Link
 						href='https://www.rshu.edu.ua/novyny-rdhu'
@@ -71,6 +83,13 @@ export const News = ({ news }: Props) => {
 					</Link>
 				</div>
 			)}
+			<div className='mt-12'>
+				<PaginationComponent
+					currentPage={currentPage}
+					onPageChange={setCurrentPage}
+					totalPages={213}
+				/>
+			</div>
 		</div>
 	)
 }

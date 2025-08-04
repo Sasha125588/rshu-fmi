@@ -2,11 +2,11 @@ import { ArrowRightIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { HoverBorderGradient } from '@/components/aceternity-ui/components/hover-border-gradient'
 import { Button } from '@/components/ui/button'
 
 import { AboutUs } from './components/AboutUs/AboutUs'
 import { News } from './components/News/News'
-import { NewsItem } from './components/News/constants/types'
 import { Specializations } from './components/Specializations/Specializations'
 import { getNews } from '@/shared/api/requests/getNews'
 
@@ -14,22 +14,6 @@ export const revalidate = 43200 // 12 hours
 
 const HomePage = async () => {
 	const news = await getNews()
-
-	const addTags = (news: NewsItem[]) => {
-		const tags = news.reduce((acc, news) => {
-			if (news.title.includes('ПЕРСПЕКТИВИ')) {
-				acc.push('Перспективи')
-			}
-			return acc
-		}, [] as string[])
-
-		return news.map(news => ({
-			...news,
-			tags: tags
-		}))
-	}
-
-	const newsWithTags = addTags(news)
 
 	return (
 		<>
@@ -61,12 +45,13 @@ const HomePage = async () => {
 									</div>
 								</Button>
 								<Link href='#specializations'>
-									<Button
-										variant='outline'
-										className='flex h-12 cursor-pointer items-center rounded-full border-1 border-[#7B7B7E] transition-all duration-200 hover:bg-zinc-100'
+									<HoverBorderGradient
+										containerClassName='rounded-full'
+										as='button'
+										className='flex h-12 cursor-pointer items-center space-x-2 bg-white text-black dark:bg-black dark:text-white'
 									>
 										<p className='text-base font-normal'>Спеціальності</p>
-									</Button>
+									</HoverBorderGradient>
 								</Link>
 							</div>
 							<p className='w-1/3 text-start text-lg/5 text-balance'>
@@ -91,7 +76,7 @@ const HomePage = async () => {
 			<div className='mr-[-35px] ml-[-55px] border-b' />
 			<Specializations />
 			<div className='mr-[-35px] ml-[-55px] border-b' />
-			<News news={newsWithTags} />
+			<News defaultNews={news} />
 			<div className='mr-[-35px] ml-[-55px] border-b' />
 		</>
 	)
