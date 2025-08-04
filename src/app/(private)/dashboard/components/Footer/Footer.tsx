@@ -4,9 +4,9 @@ import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
 
-import { FacebookIcon } from '../../../../../../public/images/components/FacebookIcon'
-import { InstagramIcon } from '../../../../../../public/images/components/InstagramIcon'
-import { TiktokIcon } from '../../../../../../public/images/components/TiktokIcon'
+import { FacebookIcon } from '@/public/images/components/FacebookIcon'
+import { InstagramIcon } from '@/public/images/components/InstagramIcon'
+import { TiktokIcon } from '@/public/images/components/TiktokIcon'
 
 export const Footer = () => {
 	return (

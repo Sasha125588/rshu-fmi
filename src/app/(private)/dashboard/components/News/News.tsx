@@ -18,7 +18,7 @@ export const News = ({ news }: Props) => {
 		tags: generateTags(item.title)
 	}))
 
-	const displayNews = newsWithTags.slice(0, 4)
+	const displayNews = newsWithTags.slice(0, 6)
 
 	return (
 		<div
@@ -39,15 +39,17 @@ export const News = ({ news }: Props) => {
 					Що відбувається в університеті
 				</h2>
 				<p className='mt-2 text-lg text-gray-600'>
-					Слідкуйте за останніми подіями та досягненнями нашого факультету
+					Слідкуйте за останніми подіями та досягненнями нашого університету
 				</p>
 			</div>
 
-			<div className='grid gap-6 md:grid-cols-2'>
+			<div className='space-y-0'>
 				{displayNews.map((newsItem, index) => (
 					<NewsItem
 						key={index}
 						item={newsItem}
+						index={index}
+						isLast={index === displayNews.length - 1}
 					/>
 				))}
 			</div>
@@ -61,9 +63,9 @@ export const News = ({ news }: Props) => {
 					>
 						<Button
 							variant='outline'
-							className='group flex cursor-pointer items-center gap-3 rounded-full border-[#017369]/30 px-6 py-3 text-[#017369] transition-all duration-200 hover:border-[#017369] hover:bg-[#017369]/5'
+							className='group flex cursor-pointer items-center gap-3 rounded-full border-[#017369]/30 px-6 py-3 text-[#017369] transition-all duration-200 hover:bg-[#017369]/5 hover:text-[#017369]'
 						>
-							<span className='font-medium'>Всі новини факультету</span>
+							<span className='font-medium'>Всі новини університету</span>
 							<ArrowRightIcon className='h-4 w-4 transition-transform duration-200 group-hover:translate-x-1' />
 						</Button>
 					</Link>

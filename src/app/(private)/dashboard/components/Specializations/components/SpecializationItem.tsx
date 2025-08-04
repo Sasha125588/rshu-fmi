@@ -13,11 +13,11 @@ export const SpecializationItem = ({ item, isLast }: Props) => {
 
 	return (
 		<div className='w-full'>
-			<div className='flex items-center justify-between gap-6 py-7'>
+			<div className='flex items-center justify-between gap-6 py-5'>
 				<div className='flex flex-1 gap-4'>
 					<div className='mt-1 flex-shrink-0'>
 						<div className='flex h-12 w-12 items-center justify-center rounded-lg bg-[#017369]/10'>
-							<IconComponent className='h-6 w-6 text-gray-600' />
+							<IconComponent className='h-6 w-6 text-[#017369]' />
 						</div>
 					</div>
 					<div className='flex items-center gap-10'>

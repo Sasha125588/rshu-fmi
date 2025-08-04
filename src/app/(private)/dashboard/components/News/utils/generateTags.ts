@@ -1,85 +1,60 @@
-// Автоматическое определение тегов на основе заголовка новости
-export const generateTags = (title: string): string[] => {
+export const generateTags = (title: string) => {
 	const normalizedTitle = title.toLowerCase()
 	const tags: string[] = []
 
-	if (
-		normalizedTitle.includes('студент') ||
-		normalizedTitle.includes('освіт') ||
-		normalizedTitle.includes('навчан')
-	) {
-		tags.push('Освіта')
+	const checkKeywords = (keywords: string[]): boolean => {
+		return keywords.some(keyword => normalizedTitle.includes(keyword))
 	}
 
-	if (
-		normalizedTitle.includes('досліджен') ||
-		normalizedTitle.includes('наук') ||
-		normalizedTitle.includes('конференц')
-	) {
-		tags.push('Наука')
-	}
+	switch (true) {
+		case checkKeywords(['студент', 'освіт', 'навчан', 'диплом']):
+			tags.push('Освіта')
+			break
 
-	if (
-		normalizedTitle.includes('факультет') ||
-		normalizedTitle.includes('кафедр') ||
-		normalizedTitle.includes('університет')
-	) {
-		tags.push('Факультет')
-	}
+		case checkKeywords(['грант']):
+			tags.push('Грант')
+			break
 
-	if (
-		normalizedTitle.includes('програму') ||
-		normalizedTitle.includes('інформат') ||
-		normalizedTitle.includes("комп'ютер")
-	) {
-		tags.push('IT')
-	}
+		case checkKeywords(['день', 'днем', 'свято', 'ювілей']):
+			tags.push('Свята')
+			break
 
-	if (
-		normalizedTitle.includes('математик') ||
-		normalizedTitle.includes('алгебр') ||
-		normalizedTitle.includes('геометр')
-	) {
-		tags.push('Математика')
-	}
+		case checkKeywords(['досліджен', 'наук', 'конференц']):
+			tags.push('Наука')
+			break
 
-	if (
-		normalizedTitle.includes('подія') ||
-		normalizedTitle.includes('захід') ||
-		normalizedTitle.includes('семінар') ||
-		normalizedTitle.includes('лекція')
-	) {
-		tags.push('Події')
-	}
+		case checkKeywords(['факультет', 'кафедр', 'університет']):
+			tags.push('Факультет')
+			break
 
-	if (
-		normalizedTitle.includes('нагород') ||
-		normalizedTitle.includes('перемог') ||
-		normalizedTitle.includes('досягнен') ||
-		normalizedTitle.includes('призер')
-	) {
-		tags.push('Досягнення')
-	}
+		case checkKeywords(['програму', 'інформат', "комп'ютер"]):
+			tags.push('IT')
+			break
 
-	if (
-		normalizedTitle.includes('міжнародн') ||
-		normalizedTitle.includes('обмін') ||
-		normalizedTitle.includes('партнер')
-	) {
-		tags.push('Міжнародне')
-	}
+		case checkKeywords(['математик', 'алгебр', 'геометр']):
+			tags.push('Математика')
+			break
 
-	if (
-		normalizedTitle.includes("кар'єр") ||
-		normalizedTitle.includes('робот') ||
-		normalizedTitle.includes('працевлаштуван')
-	) {
-		tags.push("Кар'єра")
+		case checkKeywords(['подія', 'захід', 'семінар', 'лекція', 'форум', 'участ']):
+			tags.push('Події')
+			break
+
+		case checkKeywords(['нагород', 'перемог', 'досягнен', 'призер']):
+			tags.push('Досягнення')
+			break
+
+		case checkKeywords(['міжнародн', 'обмін', 'партнер']):
+			tags.push('Міжнародне')
+			break
+
+		case checkKeywords(["кар'єр", 'робот', 'працевлаштуван']):
+			tags.push("Кар'єра")
+			break
 	}
 
 	if (tags.length === 0) {
 		tags.push('Новини')
 	}
 
-	return tags.slice(0, 3)
+	return tags
 }
