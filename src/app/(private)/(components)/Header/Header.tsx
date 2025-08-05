@@ -11,6 +11,8 @@ export const Header = () => {
 					<Image
 						className='py-2'
 						src='/images/logo.svg'
+						priority
+						loading='eager'
 						alt='logo'
 						width={120}
 						height={120}

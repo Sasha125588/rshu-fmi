@@ -1,7 +1,7 @@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
-import { SpecializationItem as SpecializationItemProps } from '../constants/types'
+import type { SpecializationItem as SpecializationItemProps } from '../constants/types'
 
 interface Props {
 	item: SpecializationItemProps

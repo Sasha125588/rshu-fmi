@@ -7,7 +7,7 @@
 
 // import { useI18n } from '@/utils/providers'
 
-// export function SearchForm({ ...props }: ComponentProps<'form'>) {
+// export const SearchForm = ({ ...props }: ComponentProps<'form'>) => {
 // 	const i18n = useI18n()
 // 	return (
 // 		<form {...props}>

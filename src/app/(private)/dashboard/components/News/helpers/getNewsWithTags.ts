@@ -1,4 +1,4 @@
-import { NewsItem } from '../constants/types'
+import type { NewsItem } from '../constants/types'
 
 import { generateTags } from './generateTags'
 

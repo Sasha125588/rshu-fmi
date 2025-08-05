@@ -1,6 +1,6 @@
 import { BookOpen, Calculator, Code, Cpu, GraduationCap, Layers } from 'lucide-react'
 
-import { SpecializationItem } from './types'
+import type { SpecializationItem } from './types'
 
 export const SPECIALIZATIONS_DATA: SpecializationItem[] = [
 	{

@@ -8,7 +8,7 @@ import {
 	PaginationLink
 } from '@/components/ui/pagination'
 
-import { usePagination } from '@/shared/hooks/use-pagination'
+import { usePagination } from '@/shared/hooks/usePagination'
 
 type PaginationProps = {
 	currentPage: number
@@ -35,9 +35,8 @@ export default function PaginationComponent({
 				{/* First page button */}
 				<PaginationItem>
 					<PaginationLink
-						className='aria-disabled:pointer-events-none aria-disabled:opacity-50'
+						className='cursor-pointer aria-disabled:pointer-events-none aria-disabled:opacity-50'
 						onClick={() => onPageChange(1)}
-						href={currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}
 						aria-label='Go to first page'
 						aria-disabled={currentPage === 1 ? true : undefined}
 						role={currentPage === 1 ? 'link' : undefined}
@@ -52,9 +51,8 @@ export default function PaginationComponent({
 				{/* Previous page button */}
 				<PaginationItem>
 					<PaginationLink
-						className='aria-disabled:pointer-events-none aria-disabled:opacity-50'
+						className='cursor-pointer aria-disabled:pointer-events-none aria-disabled:opacity-50'
 						onClick={() => onPageChange(currentPage - 1)}
-						href={currentPage === 1 ? undefined : `#/page/${currentPage - 1}`}
 						aria-label='Go to previous page'
 						aria-disabled={currentPage === 1 ? true : undefined}
 						role={currentPage === 1 ? 'link' : undefined}
@@ -77,9 +75,8 @@ export default function PaginationComponent({
 				{pages.map(page => (
 					<PaginationItem key={page}>
 						<PaginationLink
-							className='hover:bg-[#017369]/10'
+							className='cursor-pointer hover:bg-[#017369]/10'
 							onClick={() => onPageChange(page)}
-							href={`#/page/${page}`}
 							isActive={page === currentPage}
 						>
 							{page}
@@ -97,9 +94,8 @@ export default function PaginationComponent({
 				{/* Next page button */}
 				<PaginationItem>
 					<PaginationLink
-						className='aria-disabled:pointer-events-none aria-disabled:opacity-50'
+						className='cursor-pointer aria-disabled:pointer-events-none aria-disabled:opacity-50'
 						onClick={() => onPageChange(currentPage + 1)}
-						href={currentPage === totalPages ? undefined : `#/page/${currentPage + 1}`}
 						aria-label='Go to next page'
 						aria-disabled={currentPage === totalPages ? true : undefined}
 						role={currentPage === totalPages ? 'link' : undefined}
@@ -114,9 +110,8 @@ export default function PaginationComponent({
 				{/* Last page button */}
 				<PaginationItem>
 					<PaginationLink
-						className='aria-disabled:pointer-events-none aria-disabled:opacity-50'
+						className='cursor-pointer aria-disabled:pointer-events-none aria-disabled:opacity-50'
 						onClick={() => onPageChange(totalPages)}
-						href={currentPage === totalPages ? undefined : `#/page/${totalPages}`}
 						aria-label='Go to last page'
 						aria-disabled={currentPage === totalPages ? true : undefined}
 						role={currentPage === totalPages ? 'link' : undefined}

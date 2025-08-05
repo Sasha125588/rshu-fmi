@@ -2,35 +2,22 @@
 
 import { ArrowRightIcon, NewspaperIcon } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
-import { NewsItem } from './components/NewsItem/NewsItem'
+import { NewsItem, NewsItemSkeleton } from './components/NewsItem/NewsItem'
 import PaginationComponent from './components/Pagination/Pagination'
-import { NewsItem as NewsItemProps } from './constants/types'
-import { getNewsWithTags } from './utils/getNewsWithTags'
-import { getNews } from '@/shared/api/requests/getNews'
-import { usePagination } from '@/shared/context/pagination'
+import type { NewsItem as NewsItemProps } from './constants/types'
+import { useNews } from './hooks/useNews'
 
 interface Props {
-	defaultNews: NewsItemProps[]
+	initialNews: NewsItemProps[]
+	initialPage: number
 }
 
-export const News = ({ defaultNews }: Props) => {
-	const { currentPage, setCurrentPage } = usePagination()
-	const [newsPaginated, setNewsPaginated] = useState<NewsItemProps[]>(defaultNews)
-
-	useEffect(() => {
-		const fetchNews = async () => {
-			const response = await getNews(currentPage)
-			setNewsPaginated(response)
-		}
-		fetchNews()
-	}, [currentPage])
-
-	const newsWithTags = getNewsWithTags(newsPaginated)
+export const News = ({ initialNews, initialPage }: Props) => {
+	const { state, functions } = useNews({ initialNews, initialPage })
 
 	return (
 		<div
@@ -57,24 +44,31 @@ export const News = ({ defaultNews }: Props) => {
 
 			<div className='mb-4'>
 				<PaginationComponent
-					currentPage={currentPage}
-					onPageChange={setCurrentPage}
-					totalPages={213}
+					currentPage={state.currentPage ?? initialPage}
+					onPageChange={functions.setCurrentPage}
+					totalPages={state.totalPages}
 				/>
 			</div>
 
 			<div className='space-y-0'>
-				{newsWithTags.map((newsItem, index) => (
-					<NewsItem
-						key={`${currentPage}-${newsItem.link}`}
-						item={newsItem}
-						index={index}
-						isLast={index === newsWithTags.length - 1}
-					/>
-				))}
+				{state.isLoading
+					? Array.from({ length: 10 }).map((_, index) => (
+							<NewsItemSkeleton
+								key={`skeleton-${index}`}
+								isLast={index === 9}
+							/>
+						))
+					: state.newsWithTags.map((newsItem, index) => (
+							<NewsItem
+								key={`${state.currentPage}-${newsItem.link}`}
+								item={newsItem}
+								index={index}
+								isLast={index === state.newsWithTags.length - 1}
+							/>
+						))}
 			</div>
 
-			{newsPaginated.length > 4 && (
+			{!state.isLoading && state.news.length > 4 && (
 				<div className='mt-12 flex justify-center'>
 					<Link
 						href='https://www.rshu.edu.ua/novyny-rdhu'

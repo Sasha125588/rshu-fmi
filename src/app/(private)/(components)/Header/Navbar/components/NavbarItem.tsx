@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
 
-import { NavbarDataItem } from '../constants/types'
+import type { NavbarDataItem } from '../constants/types'
 
 import { cn } from '@/lib/utils'
 

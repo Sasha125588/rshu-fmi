@@ -1,4 +1,4 @@
-import { NavbarData } from './types'
+import type { NavbarData } from './types'
 
 export const NAVBAR_DOWN_DATA: NavbarData = {
 	items: [

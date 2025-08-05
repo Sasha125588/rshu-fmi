@@ -1,6 +1,7 @@
 import { ArrowRightIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { type SearchParams, createLoader, parseAsInteger } from 'nuqs/server'
 
 import { HoverBorderGradient } from '@/components/aceternity-ui/components/hover-border-gradient'
 import { Button } from '@/components/ui/button'
@@ -10,10 +11,22 @@ import { News } from './components/News/News'
 import { Specializations } from './components/Specializations/Specializations'
 import { getNews } from '@/shared/api/requests/getNews'
 
-export const revalidate = 43200 // 12 hours
+export const revalidate = 43200 // 12 годин
 
-const HomePage = async () => {
-	const news = await getNews()
+interface HomePageProps {
+	searchParams: Promise<SearchParams>
+}
+
+const HomePage = async ({ searchParams }: HomePageProps) => {
+	const resolvedSearchParams = await searchParams
+	const loadersResult = createLoader({
+		'news-page': parseAsInteger
+	})
+	const { 'news-page': page } = loadersResult(resolvedSearchParams)
+
+	const pageNumber = page ?? 1
+
+	const news = await getNews(pageNumber)
 
 	return (
 		<>
@@ -27,6 +40,8 @@ const HomePage = async () => {
 								<span className='flex gap-2'>
 									та інформатики
 									<Image
+										priority
+										loading='eager'
 										className='-mt-2 pl-2'
 										src='/images/coding.svg'
 										alt='coding'
@@ -62,6 +77,8 @@ const HomePage = async () => {
 					</div>
 					<div className='mt-[-8.8125rem] mr-[-35px]'>
 						<Image
+							priority
+							loading='eager'
 							className='h-[600px] w-[600px]'
 							src='/images/main-screen.png'
 							alt='main-screen'
@@ -76,7 +93,10 @@ const HomePage = async () => {
 			<div className='mr-[-35px] ml-[-55px] border-b' />
 			<Specializations />
 			<div className='mr-[-35px] ml-[-55px] border-b' />
-			<News defaultNews={news} />
+			<News
+				initialNews={news}
+				initialPage={pageNumber}
+			/>
 			<div className='mr-[-35px] ml-[-55px] border-b' />
 		</>
 	)
