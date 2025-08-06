@@ -16,6 +16,7 @@ export const Footer = () => {
 					<div className='col-span-1 lg:col-span-2'>
 						<div className='mb-6 flex items-center gap-3'>
 							<Image
+								loading='lazy'
 								src='/images/logo.svg'
 								alt='РДГУ Logo'
 								width={156}

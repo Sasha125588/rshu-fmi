@@ -16,13 +16,13 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
 	title: {
-		absolute: 'FMI - Home',
-		template: 'FMI - %s'
+		absolute: 'ФМІ - Головна',
+		template: 'ФМІ - %s'
 	},
 	icons: {
 		icon: '/images/logo.svg'
 	},
-	description: 'FMI - Home'
+	description: 'Офіційний сайт ФМІ'
 }
 
 const RootLayout = ({
