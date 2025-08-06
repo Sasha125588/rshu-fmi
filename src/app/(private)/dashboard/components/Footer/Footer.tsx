@@ -156,7 +156,7 @@ export const Footer = () => {
 							© {new Date().getFullYear()} Рівненський державний гуманітарний університет. Всі
 							права захищені.
 						</p>
-						<div className='flex gap-6'>
+						<div className='flex items-center gap-6'>
 							<Link
 								href='/privacy'
 								className='text-sm text-gray-500 transition-colors hover:text-[#017369]'
@@ -168,6 +168,16 @@ export const Footer = () => {
 								className='text-sm text-gray-500 transition-colors hover:text-[#017369]'
 							>
 								Умови використання
+							</Link>
+							<Link
+								href='https://github.com/Sasha125588'
+								target='_blank'
+								className='flex items-center gap-1 text-sm text-gray-500 transition-colors hover:text-violet-400'
+							>
+								Created by{' '}
+								<span className='rounded-full bg-violet-300/50 p-1.5 font-semibold text-gray-600'>
+									<p>SV</p>
+								</span>
 							</Link>
 						</div>
 					</div>

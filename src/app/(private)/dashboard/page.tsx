@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { type SearchParams, createLoader, parseAsInteger } from 'nuqs/server'
 
 import { AboutUs } from './components/AboutUs/AboutUs'
 import { BecomeAStudent } from './components/BecomeAStudent/BecomeAStudent'
@@ -9,21 +8,18 @@ import { getNews } from '@/shared/api/requests/getNews'
 
 export const revalidate = 43200 // 12 годин
 
-interface HomePageProps {
-	searchParams: Promise<SearchParams>
-}
+export const generateMetadata = async (): Promise<Metadata> => {
+	const news = await getNews(1)
 
-export const generateMetadata = async ({ searchParams }: HomePageProps): Promise<Metadata> => {
-	const page = (await searchParams).page ?? 1
-
-	const news = await getNews(+page)
-
-	const baseTitle = 'Головна'
+	const baseTitle = 'Факультет математики та інформатики'
 	const baseDescription =
-		'Офіційний сайт ФМІ. Новини, спеціальності, освітні програми та можливості для студентів.'
+		'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.'
 
 	const newsPreview = news.length
-		? ` Останні новини: ${news.map(item => item.title).join(', ')}.`
+		? ` Останні новини: ${news
+				.slice(0, 5)
+				.map(item => item.title)
+				.join(', ')}.`
 		: ''
 
 	return {
@@ -32,16 +28,8 @@ export const generateMetadata = async ({ searchParams }: HomePageProps): Promise
 	}
 }
 
-const HomePage = async ({ searchParams }: HomePageProps) => {
-	const resolvedSearchParams = await searchParams
-	const loadersResult = createLoader({
-		'news-page': parseAsInteger
-	})
-	const { 'news-page': page } = loadersResult(resolvedSearchParams)
-
-	const pageNumber = page ?? 1
-
-	const news = await getNews(pageNumber)
+const HomePage = async () => {
+	const news = await getNews(1)
 
 	return (
 		<>
@@ -53,7 +41,7 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
 			<div className='mr-[-35px] ml-[-55px] border-b' />
 			<News
 				initialNews={news}
-				initialPage={pageNumber}
+				initialPage={1}
 			/>
 			<div className='mr-[-35px] ml-[-55px] border-b' />
 		</>

@@ -16,13 +16,14 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
 	title: {
-		absolute: 'ФМІ - Головна',
-		template: 'ФМІ - %s'
+		absolute: 'РДГУ - Головна',
+		template: 'РДГУ - %s'
 	},
 	icons: {
 		icon: '/images/logo.svg'
 	},
-	description: 'Офіційний сайт ФМІ'
+	description:
+		'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.'
 }
 
 const RootLayout = ({

@@ -9,7 +9,7 @@ export const Specializations = () => {
 	return (
 		<div
 			id='specializations'
-			className='pt-28'
+			className='pt-28 pb-10'
 		>
 			<div className='mb-16'>
 				<div className='mb-6 flex items-center gap-3'>
@@ -30,12 +30,11 @@ export const Specializations = () => {
 				</p>
 			</div>
 
-			<div className='grid gap-6 lg:gap-8'>
-				{SPECIALIZATIONS_DATA.map((item, index) => (
+			<div className='grid gap-6 md:grid-cols-2 lg:gap-8'>
+				{SPECIALIZATIONS_DATA.map(item => (
 					<SpecializationItem
 						key={item.title}
 						item={item}
-						isLast={index === SPECIALIZATIONS_DATA.length - 1}
 					/>
 				))}
 			</div>

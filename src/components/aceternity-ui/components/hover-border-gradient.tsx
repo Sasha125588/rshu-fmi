@@ -54,11 +54,11 @@ export const HoverBorderGradient = ({
 				variants={{
 					initial: {
 						opacity: 0,
-						transition: { duration: 0.4, ease: 'easeOut' }
+						transition: { duration: 0.6, ease: 'linear' }
 					},
 					hover: {
 						opacity: 1,
-						transition: { duration: 0.4, ease: 'easeOut' }
+						transition: { duration: 0.6, ease: 'linear' }
 					}
 				}}
 			/>

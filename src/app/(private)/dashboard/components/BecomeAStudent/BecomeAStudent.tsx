@@ -22,8 +22,6 @@ export const BecomeAStudent = () => {
 									alt='coding'
 									width={128}
 									height={128}
-									priority
-									sizes='128px'
 								/>
 							</span>
 						</h1>

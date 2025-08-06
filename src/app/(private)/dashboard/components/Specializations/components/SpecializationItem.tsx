@@ -1,3 +1,6 @@
+import { ArrowUpRight } from 'lucide-react'
+import Link from 'next/link'
+
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
@@ -5,49 +8,76 @@ import type { SpecializationItem as SpecializationItemProps } from '../constants
 
 interface Props {
 	item: SpecializationItemProps
-	isLast?: boolean
 }
 
-export const SpecializationItem = ({ item, isLast }: Props) => {
+export const SpecializationItem = ({ item }: Props) => {
 	const IconComponent = item.icon
 
 	return (
-		<div className='w-full'>
-			<div className='flex items-center justify-between gap-6 py-5'>
-				<div className='flex flex-1 gap-4'>
-					<div className='mt-1 flex-shrink-0'>
-						<div className='flex h-12 w-12 items-center justify-center rounded-lg bg-[#017369]/10'>
-							<IconComponent className='h-6 w-6 text-[#017369]' />
+		<div className='group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:border-[#017369]/30 hover:shadow-lg'>
+			<div className='pointer-events-none absolute inset-0 bg-gradient-to-br from-[#017369]/3 via-transparent to-[#017369]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
+
+			<div className='space-y-4'>
+				<div className='flex items-start justify-between'>
+					<div className='flex items-center gap-3'>
+						<div className='flex size-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#017369] to-[#015951] transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-[#017369]/20'>
+							<IconComponent className='size-5 text-white transition-all duration-300 group-hover:scale-110' />
 						</div>
 					</div>
-					<div className='flex items-center gap-10'>
-						<div className='flex-1'>
-							<h3 className='mb-2 text-xl font-semibold text-gray-900'>{item.title}</h3>
-							<p className='mb-4 w-lg leading-relaxed text-gray-600'>{item.description}</p>
-						</div>
-						<div className='flex flex-1 flex-wrap gap-1'>
-							{item.tags.map(tag => (
-								<Badge
-									key={tag}
-									variant='outline'
-									className='h-8 px-4 py-1 text-sm font-medium'
-								>
-									{tag}
-								</Badge>
-							))}
-						</div>
-					</div>
+					<Badge
+						variant='outline'
+						className='relative border-[#017369]/40 bg-white/80 font-semibold text-[#017369] backdrop-blur-sm transition-all duration-300'
+					>
+						{item.date}
+					</Badge>
 				</div>
 
-				<div className='flex flex-shrink-0 items-center gap-4'>
-					<span className='text-sm font-medium text-gray-500'>{item.date}</span>
-					<Button className='cursor-pointer rounded-full bg-black px-6 py-2 text-white transition-colors hover:bg-zinc-800'>
-						Детальніше
+				<Link
+					href={`/dashboard/specializations/${item.title}`}
+					className='cursor-pointer text-lg leading-tight font-semibold text-gray-900 transition-colors duration-300 hover:text-[#017369]'
+				>
+					{item.title}
+				</Link>
+
+				<p className='line-clamp-3 text-sm leading-relaxed text-gray-600'>{item.description}</p>
+
+				<div className='flex flex-wrap gap-1.5'>
+					{item.tags.slice(0, 3).map(tag => (
+						<Badge
+							variant='outline'
+							key={tag}
+							className='inline-block border-none bg-gray-100! px-2 py-1 text-xs font-medium text-gray-600 transition-colors duration-300 group-hover:bg-[#017369]/10! group-hover:text-[#017369]!'
+						>
+							{tag}
+						</Badge>
+					))}
+					{item.tags.length > 3 && (
+						<span className='inline-block rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-500'>
+							+{item.tags.length - 3}
+						</span>
+					)}
+				</div>
+
+				<div className='flex items-center justify-between pt-2'>
+					<Button
+						variant='link'
+						size='sm'
+						className='group/btn cursor-pointer px-0 text-[#017369] transition-all duration-300 group-hover:translate-x-1.5 hover:text-[#015951]'
+					>
+						Дізнатися більше
+						<ArrowUpRight
+							size={16}
+							className='transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5'
+						/>
 					</Button>
+
+					<div className='mx-4 h-px flex-1 bg-gradient-to-r from-transparent via-gray-200 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
+
+					<span className='text-xs text-gray-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
+						Перейти
+					</span>
 				</div>
 			</div>
-
-			{!isLast && <div className='border-b border-gray-200' />}
 		</div>
 	)
 }
