@@ -6,7 +6,7 @@ import { News } from './components/News/News'
 import { Specializations } from './components/Specializations/Specializations'
 import { getNews } from '@/shared/api/requests/getNews'
 
-export const revalidate = 43200 // 12 годин
+export const revalidate = 21600 // 6 годин
 
 export const generateMetadata = async (): Promise<Metadata> => {
 	const news = await getNews(1)

@@ -9,9 +9,9 @@ export const BecomeAStudent = () => {
 	return (
 		<div className='w-full'>
 			<div className='flex w-full justify-between'>
-				<div className='w-full'>
+				<div className='flex w-full flex-col justify-between'>
 					<div>
-						<h1 className='scroll-m-20 text-start text-[68px]/[90px] font-medium tracking-tight text-balance'>
+						<h1 className='scroll-m-20 text-start text-[68px]/[90px] font-semibold tracking-tight text-balance'>
 							Факультет математики
 							<br />
 							<span className='flex gap-2'>
@@ -19,7 +19,7 @@ export const BecomeAStudent = () => {
 								<Image
 									className='-mt-2 pl-2'
 									loading='eager'
-									src='/images/coding.svg'
+									src='/images/coding.webp'
 									alt='coding'
 									width={128}
 									height={128}
@@ -27,17 +27,18 @@ export const BecomeAStudent = () => {
 							</span>
 						</h1>
 					</div>
-					<div className='flex w-full items-end justify-between pt-50 pr-2'>
+					<div className='flex w-full items-end justify-between pr-2 pb-2'>
 						<div className='flex gap-4'>
 							<Link
+								className='w-full'
 								href='https://www.rshu.edu.ua/pryimalna-komisiia'
 								target='_blank'
 								rel='noopener noreferrer'
 								aria-label='Перейти на сторінку приймальної комісії'
 							>
-								<Button className='group flex h-12 w-50 cursor-pointer items-center rounded-full bg-[#017369] transition-all duration-200 hover:w-53 hover:bg-[#01635b]'>
-									<p className='pl-2 text-base'>Стати студентом</p>
-									<div className='rounded-full bg-white p-2 transition-all duration-200 group-hover:translate-x-2'>
+								<Button className='group flex h-12 w-50 cursor-pointer items-center rounded-full bg-[#017369] hover:bg-[#01635b]'>
+									<p className='pl-3 text-base font-semibold'>Стати студентом</p>
+									<div className='rounded-full bg-white p-2'>
 										<ArrowRightIcon className='size-5 text-black/80 transition-all duration-200 group-hover:translate-x-0.5' />
 									</div>
 								</Button>
@@ -51,7 +52,7 @@ export const BecomeAStudent = () => {
 								</HoverBorderGradient>
 							</Link>
 						</div>
-						<p className='w-1/3 text-start text-lg/5 text-balance'>
+						<p className='w-1/3 text-start text-lg/5'>
 							Більше 90 років досвіду в підготовці математиків, програмістів та вчителів. Ваш шлях
 							до успіху в цифровому світі починається тут.
 						</p>

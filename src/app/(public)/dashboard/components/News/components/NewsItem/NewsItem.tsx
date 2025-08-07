@@ -46,7 +46,11 @@ export const NewsItem = ({ item, index, isLast }: Props) => {
 				rel='noopener noreferrer'
 				className='flex-shrink-0'
 			>
-				<ArrowUpRightIcon className='h-5 w-5 text-gray-900 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1' />
+				<ArrowUpRightIcon
+					aria-label='Перейти на сторінку новини'
+					aria-hidden='true'
+					className='h-5 w-5 text-gray-900 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1'
+				/>
 			</Link>
 
 			{!isLast && <div className='absolute right-0 bottom-0 left-0 h-px bg-gray-200' />}

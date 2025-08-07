@@ -15,13 +15,13 @@ export const SpecializationItem = ({ item }: Props) => {
 
 	return (
 		<div className='group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:border-[#017369]/30 hover:shadow-lg'>
-			<div className='pointer-events-none absolute inset-0 bg-gradient-to-br from-[#017369]/3 via-transparent to-[#017369]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
+			<div className='pointer-events-none absolute inset-0 bg-gradient-to-br from-[#017369]/4 via-transparent to-[#017369]/4 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
 			<div className='space-y-4'>
 				<div className='flex items-start justify-between'>
 					<div className='flex items-center gap-3'>
-						<div className='flex size-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#017369] to-[#015951] transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-[#017369]/20'>
-							<IconComponent className='size-5 text-white transition-all duration-300 group-hover:scale-110' />
+						<div className='flex size-12 items-center justify-center rounded-lg bg-gradient-to-br from-[#017369] to-[#015951] transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-[#017369]/20'>
+							<IconComponent className='size-6 text-white transition-all duration-300 group-hover:scale-110' />
 						</div>
 					</div>
 					<Badge
@@ -62,6 +62,7 @@ export const SpecializationItem = ({ item }: Props) => {
 						Дізнатися більше
 						<ArrowUpRight
 							size={16}
+							aria-label='Перейти на сторінку спеціальності'
 							className='transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5'
 						/>
 					</Button>

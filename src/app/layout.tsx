@@ -1,17 +1,13 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Nunito } from 'next/font/google'
 
 import './globals.css'
 import { Providers } from './providers'
 
-const geistSans = Geist({
-	variable: '--font-geist-sans',
-	subsets: ['latin']
-})
-
-const geistMono = Geist_Mono({
-	variable: '--font-geist-mono',
-	subsets: ['latin']
+const nunito = Nunito({
+	variable: '--font-nunito',
+	subsets: ['latin'],
+	weight: ['200', '300', '400', '500', '600', '700', '800', '900']
 })
 
 export const metadata: Metadata = {
@@ -22,6 +18,10 @@ export const metadata: Metadata = {
 	},
 	description:
 		'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
+	icons: {
+		icon: '/favicon.ico',
+		shortcut: '/favicon.ico'
+	},
 	openGraph: {
 		siteName: 'Факультет математики та інформатики | РДГУ',
 		title: 'Факультет математики та інформатики Рівненського державного гуманітарного університету',
@@ -69,7 +69,7 @@ const RootLayout = ({
 				/>
 			</head>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} relative overflow-x-hidden antialiased`}
+				className={`${nunito.variable} relative overflow-x-hidden antialiased`}
 				suppressHydrationWarning
 			>
 				<Providers>{children}</Providers>
