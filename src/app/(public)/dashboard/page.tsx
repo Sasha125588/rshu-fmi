@@ -36,14 +36,14 @@ const HomePage = async () => {
 			<BecomeAStudent />
 			<div className='ml-[-55px] border-b' />
 			<AboutUs />
-			<div className='mr-[-35px] ml-[-55px] border-b' />
+			<div className='mr-[-35px] ml-[-55px] border-b pt-6' />
 			<Specializations />
-			<div className='mr-[-35px] ml-[-55px] border-b' />
+			<div className='mr-[-35px] ml-[-55px] border-b pt-6' />
 			<News
 				initialNews={news}
 				initialPage={1}
 			/>
-			<div className='mr-[-35px] ml-[-55px] border-b' />
+			<div className='mr-[-35px] ml-[-55px] border-b pt-6' />
 		</>
 	)
 }

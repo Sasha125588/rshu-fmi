@@ -1,6 +1,7 @@
 'use server'
 
 import * as cheerio from 'cheerio'
+import { cache } from 'react'
 
 export interface ParsedNewsItem {
 	title: string
@@ -8,7 +9,7 @@ export interface ParsedNewsItem {
 	views: number
 }
 
-export const getNews = async (currentPage = 1): Promise<ParsedNewsItem[]> => {
+export const getNews = cache(async (currentPage = 1): Promise<ParsedNewsItem[]> => {
 	const response = await fetch(
 		`https://www.rshu.edu.ua/novyny-rdhu?start=${(currentPage - 1) * 10}`
 	)
@@ -39,4 +40,4 @@ export const getNews = async (currentPage = 1): Promise<ParsedNewsItem[]> => {
 	})
 
 	return newsItems ?? []
-}
+})

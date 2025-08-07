@@ -42,7 +42,7 @@ export const SpecializationItem = ({ item }: Props) => {
 				<p className='line-clamp-3 text-sm leading-relaxed text-gray-600'>{item.description}</p>
 
 				<div className='flex flex-wrap gap-1.5'>
-					{item.tags.slice(0, 3).map(tag => (
+					{item.tags.map(tag => (
 						<Badge
 							variant='outline'
 							key={tag}
@@ -51,11 +51,6 @@ export const SpecializationItem = ({ item }: Props) => {
 							{tag}
 						</Badge>
 					))}
-					{item.tags.length > 3 && (
-						<span className='inline-block rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-500'>
-							+{item.tags.length - 3}
-						</span>
-					)}
 				</div>
 
 				<div className='flex items-center justify-between pt-2'>

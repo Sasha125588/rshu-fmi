@@ -49,7 +49,7 @@ export const NAVBAR_UP_DATA: NavbarData = {
 		},
 		{
 			name: 'КОНТАКТИ',
-			href: '/gallery',
+			href: '/contacts',
 			hasDropdown: true
 		}
 	]

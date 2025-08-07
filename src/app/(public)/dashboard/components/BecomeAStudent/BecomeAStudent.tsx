@@ -18,6 +18,7 @@ export const BecomeAStudent = () => {
 								та інформатики
 								<Image
 									className='-mt-2 pl-2'
+									loading='eager'
 									src='/images/coding.svg'
 									alt='coding'
 									width={128}
@@ -26,14 +27,21 @@ export const BecomeAStudent = () => {
 							</span>
 						</h1>
 					</div>
-					<div className='flex w-full items-end justify-between pt-40 pr-2'>
+					<div className='flex w-full items-end justify-between pt-50 pr-2'>
 						<div className='flex gap-4'>
-							<Button className='flex h-12 w-50 cursor-pointer items-center rounded-full bg-[#017369] hover:bg-[#01635b]'>
-								<p className='pl-2 text-base'>Стати студентом</p>
-								<div className='rounded-full bg-white p-2'>
-									<ArrowRightIcon className='size-5 text-black/80' />
-								</div>
-							</Button>
+							<Link
+								href='https://www.rshu.edu.ua/pryimalna-komisiia'
+								target='_blank'
+								rel='noopener noreferrer'
+								aria-label='Перейти на сторінку приймальної комісії'
+							>
+								<Button className='group flex h-12 w-50 cursor-pointer items-center rounded-full bg-[#017369] transition-all duration-200 hover:w-53 hover:bg-[#01635b]'>
+									<p className='pl-2 text-base'>Стати студентом</p>
+									<div className='rounded-full bg-white p-2 transition-all duration-200 group-hover:translate-x-2'>
+										<ArrowRightIcon className='size-5 text-black/80 transition-all duration-200 group-hover:translate-x-0.5' />
+									</div>
+								</Button>
+							</Link>
 							<Link href='#specializations'>
 								<HoverBorderGradient
 									containerClassName='rounded-full'
@@ -49,16 +57,13 @@ export const BecomeAStudent = () => {
 						</p>
 					</div>
 				</div>
-				<div className='mt-[-8.8125rem] mr-[-35px]'>
+				<div className='mt-[-141px] mr-[-35px]'>
 					<Image
 						loading='eager'
-						className='h-[600px] w-[600px]'
 						src='/images/main-screen.webp'
-						alt='main-screen'
+						alt='Main Screen'
 						width={600}
 						height={600}
-						priority
-						sizes='600px'
 					/>
 				</div>
 			</div>

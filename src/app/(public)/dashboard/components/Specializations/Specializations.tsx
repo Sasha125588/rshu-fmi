@@ -9,9 +9,9 @@ export const Specializations = () => {
 	return (
 		<div
 			id='specializations'
-			className='pt-28 pb-10'
+			className='pt-28'
 		>
-			<div className='mb-16'>
+			<div className=''>
 				<div className='mb-6 flex items-center gap-3'>
 					<GraduationCapIcon className='h-5 w-5 text-[#017369]' />
 					<Badge
@@ -30,7 +30,7 @@ export const Specializations = () => {
 				</p>
 			</div>
 
-			<div className='grid gap-6 md:grid-cols-2 lg:gap-8'>
+			<div className='grid gap-6 pt-10 md:grid-cols-2 lg:gap-8'>
 				{SPECIALIZATIONS_DATA.map(item => (
 					<SpecializationItem
 						key={item.title}

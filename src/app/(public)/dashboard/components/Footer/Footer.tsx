@@ -17,8 +17,8 @@ export const Footer = () => {
 						<div className='mb-6 flex items-center gap-3'>
 							<Image
 								loading='lazy'
-								src='/images/logo.svg'
-								alt='РДГУ Logo'
+								src='/images/logo.webp'
+								alt='FMI Logo'
 								width={156}
 								height={156}
 							/>

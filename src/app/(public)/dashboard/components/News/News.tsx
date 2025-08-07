@@ -22,9 +22,9 @@ export const News = ({ initialNews, initialPage }: Props) => {
 	return (
 		<div
 			id='news'
-			className='pt-28 pb-10'
+			className='pt-28'
 		>
-			<div className='mb-12'>
+			<div className=''>
 				<div className='flex items-center gap-3'>
 					<NewspaperIcon className='h-5 w-5 text-[#017369]' />
 					<Badge
@@ -42,7 +42,7 @@ export const News = ({ initialNews, initialPage }: Props) => {
 				</p>
 			</div>
 
-			<div className='mb-4'>
+			<div className='mb-4 pt-10'>
 				<PaginationComponent
 					currentPage={state.currentPage ?? initialPage}
 					onPageChange={functions.setCurrentPage}

@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge'
 
 export const AboutUs = () => {
 	return (
-		<div className='pt-28 pb-3'>
+		<div className='pt-28'>
 			<div className='mb-6 flex items-center gap-3'>
 				<UsersIcon className='h-5 w-5 text-[#017369]' />
 				<Badge
@@ -23,15 +23,15 @@ export const AboutUs = () => {
 			<h2 className='mb-4 text-3xl font-semibold text-gray-900'>
 				Факультет майбутнього для сучасного світу
 			</h2>
-			<p className='mb-8 max-w-2xl text-lg text-gray-600'>
+			<p className='max-w-2xl text-lg text-gray-600'>
 				Більше 90 років досвіду в підготовці математиків, програмістів та вчителів. Ваш шлях до
 				успіху в цифровому світі починається тут.
 			</p>
-			<div className='flex w-full items-baseline justify-between pt-2'>
+			<div className='flex w-full items-baseline justify-between pt-10'>
 				<Accordion
 					type='single'
 					collapsible
-					className='w-full max-w-[500px] pt-8'
+					className='w-full max-w-[500px]'
 				>
 					<AccordionItem value='item-1'>
 						<AccordionTrigger className='flex items-center gap-2'>

@@ -10,10 +10,10 @@ export const Header = () => {
 				<Link href='/'>
 					<Image
 						className='py-2'
-						src='/images/logo.svg'
+						src='/images/logo.webp'
 						priority
 						loading='eager'
-						alt='logo'
+						alt='FMI Logo'
 						width={120}
 						height={120}
 					/>
