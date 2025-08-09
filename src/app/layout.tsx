@@ -12,10 +12,13 @@ const nunito = Nunito({
 
 export const metadata: Metadata = {
 	applicationName: 'Факультет математики та інформатики - РДГУ',
-	metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
+	metadataBase: process.env.NEXT_PUBLIC_BASE_URL
+		? new URL(process.env.NEXT_PUBLIC_BASE_URL)
+		: undefined,
 	title: {
-		absolute: 'Факультет математики та інформатики - РДГУ',
-		template: 'РДГУ - %s'
+		absolute: 'РДГУ - Факультет математики та інформатики',
+		default: 'РДГУ - Факультет математики та інформатики',
+		template: '%s | ФМІ РДГУ'
 	},
 	description:
 		'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',

@@ -5,7 +5,15 @@ import { Badge } from '@/components/ui/badge'
 
 export const metadata: Metadata = {
 	title: 'Вчена рада факультету математики та інформатики',
-	description: 'Склад та керівництво Вченої ради факультету математики та інформатики РДГУ'
+	description: 'Склад та керівництво Вченої ради факультету математики та інформатики РДГУ',
+	openGraph: {
+		title: 'Вчена рада факультету математики та інформатики',
+		description: 'Склад та керівництво Вченої ради факультету математики та інформатики РДГУ',
+		images: ['/images/logo.webp'],
+		url: process.env.NEXT_PUBLIC_BASE_URL + '/vchena-rada',
+		type: 'website',
+		locale: 'uk_UA'
+	}
 }
 
 const VchenaRadaPage = () => {

@@ -11,7 +11,16 @@ import { TiktokIcon } from '@/public/images/components/TiktokIcon'
 export const metadata: Metadata = {
 	title: 'Контакти факультету математики та інформатики',
 	description:
-		'Контактна інформація факультету математики та інформатики РДГУ: адреса, телефони, електронна пошта'
+		'Контактна інформація факультету математики та інформатики РДГУ: адреса, телефони, електронна пошта',
+	openGraph: {
+		title: 'Контакти факультету математики та інформатики',
+		description:
+			'Контактна інформація факультету математики та інформатики РДГУ: адреса, телефони, електронна пошта',
+		images: ['/images/logo.webp'],
+		url: process.env.NEXT_PUBLIC_BASE_URL + '/contacts',
+		type: 'website',
+		locale: 'uk_UA'
+	}
 }
 
 const ContactsPage = () => {

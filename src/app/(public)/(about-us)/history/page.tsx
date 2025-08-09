@@ -16,7 +16,15 @@ import { Badge } from '@/components/ui/badge'
 
 export const metadata: Metadata = {
 	title: 'Історія факультету математики та інформатики',
-	description: 'Історія факультету математики та інформатики'
+	description: 'Історія факультету математики та інформатики',
+	openGraph: {
+		title: 'Історія факультету математики та інформатики',
+		description: 'Історія факультету математики та інформатики',
+		images: ['/images/logo.webp'],
+		url: process.env.NEXT_PUBLIC_BASE_URL + '/history',
+		type: 'website',
+		locale: 'uk_UA'
+	}
 }
 
 const HistoryPage = () => {

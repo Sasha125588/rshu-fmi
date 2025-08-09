@@ -18,7 +18,16 @@ import { Badge } from '@/components/ui/badge'
 export const metadata: Metadata = {
 	title: 'Міжнародна співпраця факультету математики та інформатики',
 	description:
-		'Міжнародні стажування, програми подвійного диплому та семестрового навчання факультету математики та інформатики РДГУ'
+		'Міжнародні стажування, програми подвійного диплому та семестрового навчання факультету математики та інформатики РДГУ',
+	openGraph: {
+		title: 'Міжнародна співпраця факультету математики та інформатики',
+		description:
+			'Міжнародні стажування, програми подвійного диплому та семестрового навчання факультету математики та інформатики РДГУ',
+		images: ['/images/logo.webp'],
+		url: process.env.NEXT_PUBLIC_BASE_URL + '/mizhnarodna-spivpratsya',
+		type: 'website',
+		locale: 'uk_UA'
+	}
 }
 
 const MizhnarodnaSpivpratsyaPage = () => {
