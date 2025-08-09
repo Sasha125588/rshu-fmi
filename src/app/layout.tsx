@@ -11,6 +11,7 @@ const nunito = Nunito({
 })
 
 export const metadata: Metadata = {
+	applicationName: 'Факультет математики та інформатики | РДГУ',
 	metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
 	title: {
 		absolute: 'РДГУ - Головна',
@@ -18,10 +19,6 @@ export const metadata: Metadata = {
 	},
 	description:
 		'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
-	icons: {
-		icon: '/favicon.ico',
-		shortcut: '/favicon.ico'
-	},
 	openGraph: {
 		siteName: 'Факультет математики та інформатики | РДГУ',
 		title: 'Факультет математики та інформатики Рівненського державного гуманітарного університету',
@@ -39,8 +36,15 @@ export const metadata: Metadata = {
 		type: 'website',
 		locale: 'uk_UA'
 	},
+	authors: [
+		{
+			name: 'Факультет математики та інформатики | РДГУ',
+			url: process.env.NEXT_PUBLIC_BASE_URL
+		}
+	],
 	keywords: [
 		'РДГУ',
+		'Факультет',
 		'Факультет математики та інформатики',
 		'Рівненський державний гуманітарний університет',
 		'ФМІ',

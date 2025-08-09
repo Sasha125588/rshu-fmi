@@ -1,5 +1,4 @@
 import { SearchIcon } from 'lucide-react'
-import { useId } from 'react'
 
 import { Input } from '@/components/ui/input'
 
@@ -8,8 +7,6 @@ import { NAVBAR_DOWN_DATA } from './constants/data'
 import { NAVBAR_UP_DATA } from './constants/data'
 
 export const Navbar = () => {
-	const id = useId()
-
 	return (
 		<div className='w-full'>
 			<div className='mr-[-35px] w-full'>
@@ -27,7 +24,6 @@ export const Navbar = () => {
 						<div className='pr-[35px]'>
 							<div className='relative'>
 								<Input
-									id={id}
 									className='peer h-8 rounded-full ps-8 pe-10'
 									placeholder='Пошук...'
 									type='search'

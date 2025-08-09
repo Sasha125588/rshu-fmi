@@ -6,7 +6,11 @@ const nextConfig: NextConfig = {
 		reactCompiler: true
 	},
 	images: {
-		remotePatterns: [{ protocol: 'https', hostname: 'www.rshu.edu.ua' }]
+		remotePatterns: [
+			new URL('https://avatars.githubusercontent.com/**'),
+			{ protocol: 'https', hostname: 'www.rshu.edu.ua' },
+			{ protocol: 'https', hostname: 'avatars.githubusercontent.com' }
+		]
 	}
 }
 

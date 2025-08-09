@@ -1,6 +1,14 @@
+'use client'
+
 import { ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger
+} from '@/components/animate-ui/radix/tooltip'
 import { Badge } from '@/components/ui/badge'
 
 import type { NavbarDataItem } from '../constants/types'
@@ -14,18 +22,44 @@ export const NavbarItem = ({
 	item: NavbarDataItem
 	variant: 'default' | 'secondary' | 'destructive' | 'outline' | 'link'
 }) => {
+	if (!item.hasDropdown) {
+		return (
+			<Link href={item.href}>
+				<Badge
+					className='text-sm font-medium'
+					variant={variant}
+				>
+					{item.name}
+				</Badge>
+			</Link>
+		)
+	}
+
 	return (
-		<Link href={item.href}>
-			<Badge
-				variant={variant}
-				className={cn(
-					'flex cursor-pointer items-center justify-center rounded-full text-sm font-medium transition-colors',
-					variant === 'outline' && 'border-[#017369] hover:bg-[#017369] hover:text-white'
-				)}
-			>
-				{item.name}
-				<ChevronDown className='size-4' />
-			</Badge>{' '}
-		</Link>
+		<TooltipProvider>
+			<Tooltip delayDuration={0}>
+				<TooltipTrigger asChild>
+					<Link href={item.href}>
+						<Badge
+							variant={variant}
+							className={cn(
+								'flex cursor-pointer items-center justify-center rounded-full text-sm font-medium transition-colors',
+								variant === 'outline' && 'border-[#017369] hover:bg-[#017369] hover:text-white'
+							)}
+						>
+							{item.name}
+							{item.hasDropdown && <ChevronDown className='size-4' />}
+						</Badge>
+					</Link>
+				</TooltipTrigger>
+				<TooltipContent
+					arrow={false}
+					side='bottom'
+					className='border-t-2 border-t-[#017369] bg-white text-black'
+				>
+					{item.component}
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
 	)
 }

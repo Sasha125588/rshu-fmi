@@ -172,12 +172,16 @@ export const Footer = () => {
 							<Link
 								href='https://github.com/Sasha125588'
 								target='_blank'
-								className='flex items-center gap-1 text-sm text-gray-500 transition-colors hover:text-violet-400'
+								className='flex items-center text-sm text-gray-500 transition-colors hover:text-violet-400'
 							>
 								Created by{' '}
-								<span className='rounded-full bg-violet-300/50 p-1.5 font-semibold text-gray-600'>
-									<p>SV</p>
-								</span>
+								<Image
+									src='https://avatars.githubusercontent.com/u/155098366?v=4'
+									alt='Sasha'
+									width={40}
+									height={40}
+									className='rounded-full bg-cover bg-center p-1.5 font-semibold text-gray-600'
+								/>
 							</Link>
 						</div>
 					</div>
