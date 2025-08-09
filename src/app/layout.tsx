@@ -11,16 +11,16 @@ const nunito = Nunito({
 })
 
 export const metadata: Metadata = {
-	applicationName: 'Факультет математики та інформатики | РДГУ',
+	applicationName: 'Факультет математики та інформатики - РДГУ',
 	metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
 	title: {
-		absolute: 'РДГУ - Головна',
+		absolute: 'Факультет математики та інформатики - РДГУ',
 		template: 'РДГУ - %s'
 	},
 	description:
 		'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
 	openGraph: {
-		siteName: 'Факультет математики та інформатики | РДГУ',
+		siteName: 'Факультет математики та інформатики - РДГУ',
 		title: 'Факультет математики та інформатики Рівненського державного гуманітарного університету',
 		description: 'Офіційна сторінка ФМІ Рівненського державного гуманітарного університету.',
 		images: [
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 	},
 	authors: [
 		{
-			name: 'Факультет математики та інформатики | РДГУ',
+			name: 'Факультет математики та інформатики - РДГУ',
 			url: process.env.NEXT_PUBLIC_BASE_URL
 		}
 	],
@@ -63,8 +63,9 @@ const RootLayout = ({
 }>) => {
 	return (
 		<html
-			lang='en'
+			lang='uk'
 			className='px-[35px]'
+			suppressHydrationWarning
 		>
 			<head>
 				<meta
@@ -72,10 +73,7 @@ const RootLayout = ({
 					content='6mUir8KEMMAZUD-dJJzWtE3-0gY1K-OWxeRhjtJSSak'
 				/>
 			</head>
-			<body
-				className={`${nunito.variable} relative overflow-x-hidden antialiased`}
-				suppressHydrationWarning
-			>
+			<body className={`${nunito.variable} relative overflow-x-hidden antialiased`}>
 				<Providers>{children}</Providers>
 			</body>
 		</html>

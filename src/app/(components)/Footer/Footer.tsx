@@ -43,19 +43,22 @@ export const Footer = () => {
 							</Badge>
 							<div className='flex gap-3'>
 								<Link
-									href='https://www.instagram.com/rshu.university/'
+									target='_blank'
+									href='https://www.instagram.com/fmi_rshu/'
 									className='flex h-8 w-8 items-center justify-center rounded-full bg-[#017369]/10 transition-colors hover:bg-[#017369]/20'
 								>
 									<InstagramIcon className='h-4 w-4 text-[#017369]' />
 								</Link>
 								<Link
-									href='https://www.tiktok.com/@rshu_university'
+									target='_blank'
+									href='https://www.tiktok.com/@fmi_rshu'
 									className='flex h-8 w-8 items-center justify-center rounded-full bg-[#017369]/10 transition-colors hover:bg-[#017369]/20'
 								>
 									<TiktokIcon className='h-4 w-4 text-[#017369]' />
 								</Link>
 								<Link
-									href='https://www.facebook.com/rdgu1998/'
+									target='_blank'
+									href='https://www.facebook.com/groups/1748613002125956/'
 									className='flex h-8 w-8 items-center justify-center rounded-full bg-[#017369]/10 transition-colors hover:bg-[#017369]/20'
 								>
 									<FacebookIcon className='h-4 w-4 text-[#017369]' />

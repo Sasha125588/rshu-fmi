@@ -6,7 +6,7 @@ export const NAVBAR_UP_DATA: NavbarData = {
 	items: [
 		{
 			name: 'ОСВІТНЯ ДІЯЛЬНІСТЬ',
-			href: '/faculties',
+			href: '#',
 			hasDropdown: true,
 			component: (
 				<div className='flex flex-col gap-2 p-1'>
@@ -20,20 +20,14 @@ export const NAVBAR_UP_DATA: NavbarData = {
 			)
 		},
 		{
-			name: 'АБІТУРІЄНТУ',
-			href: '/departments',
-			hasDropdown: true,
-			component: <div>АБІТУРІЄНТУ</div>
-		},
-		{
 			name: 'НОВИНИ',
 			href: '#news',
 			hasDropdown: false,
 			component: <div>НОВИНИ</div>
 		},
 		{
-			name: 'ПРО НАС',
-			href: '/about-us',
+			name: 'ПРО ФАКУЛЬТЕТ',
+			href: '#',
 			hasDropdown: true,
 			component: (
 				<div className='flex w-[800px] flex-col gap-24 p-8'>
@@ -41,22 +35,40 @@ export const NAVBAR_UP_DATA: NavbarData = {
 						<div>
 							<p className='text-xl font-bold'>Адміністрація</p>
 							<div className='flex flex-col gap-1 pt-2 text-base font-medium text-[#017369]'>
-								<p className='w-fit cursor-pointer hover:text-[#02574f]'>Деканат</p>
-								<p className='w-fit cursor-pointer hover:text-[#02574f]'>Вчена рада</p>
-								<p className='w-fit cursor-pointer hover:text-[#02574f]'>Студентська рада</p>
-								<p className='w-fit cursor-pointer hover:text-[#02574f]'>Контакти</p>
+								<Link
+									href='/vchena-rada'
+									className='w-fit cursor-pointer hover:text-[#02574f]'
+								>
+									Вчена рада
+								</Link>
+								<Link
+									href='/contacts'
+									className='w-fit cursor-pointer hover:text-[#02574f]'
+								>
+									Контакти
+								</Link>
 							</div>
 						</div>
 						<div>
 							<p className='text-xl font-bold'>Історія та сьогодення</p>
 							<div className='flex flex-col gap-1 pt-2 text-base font-medium text-[#017369]'>
-								<p className='w-fit cursor-pointer hover:text-[#02574f]'>Історія</p>
+								<Link
+									href='/history'
+									className='w-fit cursor-pointer hover:text-[#02574f]'
+								>
+									Історія
+								</Link>
 							</div>
 						</div>
 						<div>
-							<p className='text-xl font-bold'>Інфраструктура</p>
+							<p className='text-xl font-bold'>Міжнародне</p>
 							<div className='flex flex-col gap-1 pt-2 text-base font-medium text-[#017369]'>
-								<p className='w-fit cursor-pointer hover:text-[#02574f]'>Кабінети</p>
+								<Link
+									href='/mizhnarodna-spivpratsya'
+									className='w-fit cursor-pointer hover:text-[#02574f]'
+								>
+									Міжнародна співпраця
+								</Link>
 							</div>
 						</div>
 					</div>
@@ -117,7 +129,7 @@ export const NAVBAR_DOWN_DATA: NavbarData = {
 	items: [
 		{
 			name: 'КАФЕДРИ',
-			href: '/departments',
+			href: '#',
 			hasDropdown: true,
 			component: (
 				<div className='flex flex-col gap-2 p-1'>
@@ -153,14 +165,8 @@ export const NAVBAR_DOWN_DATA: NavbarData = {
 			)
 		},
 		{
-			name: 'ПРАЦІВНИКИ',
-			href: '/staff',
-			hasDropdown: true,
-			component: <div>ПРАЦІВНИКИ</div>
-		},
-		{
 			name: 'ГАЛЕРЕЯ',
-			href: '/gallery',
+			href: '#',
 			hasDropdown: true,
 			component: <div>ГАЛЕРЕЯ</div>
 		}

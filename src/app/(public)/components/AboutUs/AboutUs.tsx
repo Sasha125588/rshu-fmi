@@ -1,4 +1,5 @@
 import { Briefcase, GraduationCap, LayoutGrid, School, Users2, UsersIcon } from 'lucide-react'
+import Link from 'next/link'
 
 import {
 	Accordion,
@@ -11,14 +12,37 @@ import { Badge } from '@/components/ui/badge'
 export const AboutUs = () => {
 	return (
 		<div className='pt-24'>
-			<div className='mb-6 flex items-center gap-3'>
-				<UsersIcon className='h-5 w-5 text-[#017369]' />
-				<Badge
-					className='border border-[#017369]/20 text-sm font-normal text-[#017369]'
-					variant='outline'
+			<div className='mb-6 flex items-center justify-between'>
+				<div className='flex items-center gap-3'>
+					<UsersIcon className='h-5 w-5 text-[#017369]' />
+					<Badge
+						className='border border-[#017369]/20 text-sm font-normal text-[#017369]'
+						variant='outline'
+					>
+						Про нас
+					</Badge>
+				</div>
+				<Link
+					href='/history'
+					className='group flex items-center gap-2 rounded-full bg-[#017369]/5 px-4 py-2 text-sm font-medium text-[#017369] transition-all duration-200 hover:scale-105 hover:bg-[#017369]/10'
 				>
-					Про нас
-				</Badge>
+					<p>Детальніше про історію</p>
+					<svg
+						className='transition-transform duration-200 group-hover:translate-x-1'
+						width={16}
+						height={16}
+						fill='none'
+						viewBox='0 0 24 24'
+						stroke='currentColor'
+					>
+						<path
+							strokeLinecap='round'
+							strokeLinejoin='round'
+							strokeWidth={2}
+							d='M9 5l7 7-7 7'
+						/>
+					</svg>
+				</Link>
 			</div>
 			<h2 className='mb-4 text-3xl font-semibold text-gray-900'>
 				Факультет майбутнього для сучасного світу

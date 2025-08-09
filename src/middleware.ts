@@ -1,10 +1,18 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export const middleware = (request: NextRequest) => {
-	return NextResponse.redirect(new URL('/dashboard', request.url))
+// This function can be marked `async` if using `await` inside
+const middleware = (request: NextRequest) => {
+	const pathname = request.nextUrl.pathname
+
+	if (pathname !== '/') {
+		return NextResponse.redirect(new URL('/', request.url))
+	}
+
+	return NextResponse.next()
 }
 
 export const config = {
-	matcher: '/'
+	matcher: ['/']
 }
+
+export default middleware
