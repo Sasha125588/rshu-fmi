@@ -11,15 +11,25 @@ import {
 	Users
 } from 'lucide-react'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
+import {
+	Tabs,
+	TabsContent,
+	TabsContents,
+	TabsList,
+	TabsTrigger
+} from '@/components/animate-ui/radix/tabs'
 import { Badge } from '@/components/ui/badge'
 
 export const metadata: Metadata = {
 	title: 'Історія факультету математики та інформатики',
-	description: 'Історія факультету математики та інформатики',
+	description:
+		'Історія факультету математики та інформатики РДГУ: від заснування Учительського інституту до сучасного факультету інноваційних технологій',
 	openGraph: {
 		title: 'Історія факультету математики та інформатики',
-		description: 'Історія факультету математики та інформатики',
+		description:
+			'Історія факультету математики та інформатики РДГУ: від заснування Учительського інституту до сучасного факультету інноваційних технологій',
 		images: ['/images/logo.webp'],
 		url: process.env.NEXT_PUBLIC_BASE_URL + '/history',
 		type: 'website',
@@ -298,66 +308,342 @@ const HistoryPage = () => {
 				</div>
 
 				{/* Faculty structure */}
-				<div className='rounded-2xl bg-gradient-to-r from-[#017369]/5 to-transparent p-8'>
+				<div className='rounded-2xl border border-gray-100 p-8'>
 					<div className='mb-6 flex items-center gap-3'>
 						<Users className='h-6 w-6 text-[#017369]' />
 						<h2 className='text-2xl font-semibold text-gray-900'>Структура факультету</h2>
 					</div>
 
-					<div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
-						<div className='space-y-4'>
-							<h3 className='mb-3 text-lg font-semibold text-gray-800'>4 випускові кафедри:</h3>
-							<div className='space-y-3'>
-								<div className='rounded-lg border border-gray-100 bg-white p-4'>
-									<p className='mb-2 font-medium text-gray-800'>
-										Математики з методикою викладання та вищої математики
-									</p>
-									<p className='text-sm text-gray-600'>
-										Підготовка математиків – майбутніх викладачів та вчителів з додатковими
-										спеціальностями: фізика, економіка, інформатика
-									</p>
-								</div>
-								<div className='rounded-lg border border-gray-100 bg-white p-4'>
-									<p className='mb-2 font-medium text-gray-800'>
-										Інформаційно-комунікаційних технологій та методики викладання інформатики
-									</p>
-									<p className='text-sm text-gray-600'>
-										Підготовка фахівців з інформатики для роботи вчителями у школах і ВНЗ, а також в
-										галузі комп&apos;ютерних технологій
-									</p>
-								</div>
-								<div className='rounded-lg border border-gray-100 bg-white p-4'>
-									<p className='mb-2 font-medium text-gray-800'>
-										Інформатики та прикладної математики
-									</p>
-									<p className='text-sm text-gray-600'>
-										Підготовка фахівців з математичного моделювання, розробки та експлуатації
-										інформаційних технологій і програмних систем
-									</p>
-								</div>
-							</div>
-						</div>
+					{/* 4 випускові кафедри в табах */}
+					<div className='mb-8'>
+						<h3 className='mb-4 text-lg font-semibold text-gray-800'>4 випускові кафедри:</h3>
+						<Tabs
+							defaultValue='kiktmvi'
+							className='w-full'
+						>
+							<TabsList className='grid w-full grid-cols-4'>
+								<TabsTrigger
+									value='kiktmvi'
+									className='text-xs'
+								>
+									Цифрові технології
+								</TabsTrigger>
+								<TabsTrigger
+									value='kitm'
+									className='text-xs'
+								>
+									ІТ та моделювання
+								</TabsTrigger>
+								<TabsTrigger
+									value='kvm'
+									className='text-xs'
+								>
+									Вища математика
+								</TabsTrigger>
+								<TabsTrigger
+									value='kmmv'
+									className='text-xs'
+								>
+									Математика з методикою
+								</TabsTrigger>
+							</TabsList>
+							<TabsContents className='mt-6'>
+								{/* Кафедра цифрових технологій та методики навчання інформатики */}
+								<TabsContent
+									value='kiktmvi'
+									className='space-y-4'
+								>
+									<div className='rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-6'>
+										<h4 className='mb-4 text-xl font-semibold text-gray-800'>
+											Кафедра цифрових технологій та методики навчання інформатики
+										</h4>
+										<div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+											<div className='space-y-3'>
+												<h5 className='font-medium text-gray-800'>Керівництво кафедри:</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Завідувач кафедри:</strong> Павлова Наталія Степанівна, кандидат
+														педагогічних наук, доцент
+													</p>
+													<p>
+														<strong>e-mail:</strong> nataliia.pavlova@rshu.edu.ua
+													</p>
+													<p>
+														<strong>Старший лаборант:</strong> Литвак Людмила Петрівна
+													</p>
+													<p>
+														<strong>e-mail:</strong> kiktmvi@rshu.edu.ua
+													</p>
+												</div>
+											</div>
+											<div className='space-y-3'>
+												<h5 className='font-medium text-gray-800'>Контактна інформація:</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Адреса:</strong> 33000, м. Рівне, вул Пластова, 31, каб. 205
+													</p>
+													<p>
+														<strong>Веб-сайт:</strong>{' '}
+														<a
+															href='http://iktmvi.rshu.edu.ua/'
+															className='text-[#017369] hover:underline'
+															target='_blank'
+															rel='noopener noreferrer'
+														>
+															iktmvi.rshu.edu.ua
+														</a>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div className='mt-6 grid grid-cols-1 gap-4 md:grid-cols-2'>
+											<div className='rounded-lg bg-white p-4 shadow-sm'>
+												<h5 className='mb-3 font-medium text-gray-800'>
+													Спеціальність 014.09 Середня освіта (Інформатика)
+												</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Бакалавр:</strong> Вчитель інформатики
+													</p>
+													<p>
+														<strong>Магістр:</strong> Вчитель інформатики
+													</p>
+												</div>
+											</div>
+											<div className='rounded-lg bg-white p-4 shadow-sm'>
+												<h5 className='mb-3 font-medium text-gray-800'>
+													Спеціальність 015.39 Професійна освіта (Цифрові технології)
+												</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Бакалавр:</strong> Викладач + Фахівець з ІТ
+													</p>
+													<p>
+														<strong>Магістр:</strong> Викладач + Розробник обчислювальних систем
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</TabsContent>
 
-						<div className='space-y-4'>
-							<h3 className='mb-3 text-lg font-semibold text-gray-800'>53 викладачі:</h3>
-							<div className='space-y-3'>
-								<div className='rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-4'>
-									<h4 className='mb-2 font-medium text-gray-800'>Відомі вчені та організатори:</h4>
-									<ul className='space-y-1 text-sm text-gray-600'>
-										<li>• проф. А.О. Сяський</li>
-										<li>• проф. А.Я. Бомба</li>
-										<li>• проф. Я.Б. Петрівський</li>
-										<li>• проф. І.С. Войтович</li>
-										<li>• проф. Я.А. Пасічник</li>
-									</ul>
-								</div>
-								<div className='rounded-lg bg-green-50 p-4'>
-									<h4 className='mb-2 font-medium text-gray-800'>39 кандидатів наук</h4>
-									<p className='text-sm text-gray-600'>
-										Ведуть науково-дослідну роботу в галузі комп&apos;ютерного моделювання процесів
-										і систем, чисельних методів, інформаційних систем та методики викладання
-									</p>
-								</div>
+								{/* Кафедра інформаційних технологій та моделювання */}
+								<TabsContent
+									value='kitm'
+									className='space-y-4'
+								>
+									<div className='rounded-lg bg-gradient-to-r from-green-50 to-emerald-50 p-6'>
+										<h4 className='mb-4 text-xl font-semibold text-gray-800'>
+											Кафедра інформаційних технологій та моделювання
+										</h4>
+										<div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+											<div className='space-y-3'>
+												<h5 className='font-medium text-gray-800'>Керівництво кафедри:</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Завідувач кафедри:</strong> Мороз Ігор Петрович, кандидат
+														фізико-математичних наук, доцент
+													</p>
+													<p>
+														<strong>e-mail:</strong> kipm@rshu.edu.ua
+													</p>
+												</div>
+											</div>
+											<div className='space-y-3'>
+												<h5 className='font-medium text-gray-800'>Контактна інформація:</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Адреса:</strong> 33000, м. Рівне, вул Пластова, 31, каб. 110
+													</p>
+													<p>
+														<strong>Веб-сайт:</strong>{' '}
+														<Link
+															href='https://kitm.rshu.edu.ua/'
+															className='text-[#017369] hover:underline'
+															target='_blank'
+															rel='noopener noreferrer'
+														>
+															kitm.rshu.edu.ua
+														</Link>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div className='mt-6 grid grid-cols-1 gap-4 md:grid-cols-2'>
+											<div className='rounded-lg bg-white p-4 shadow-sm'>
+												<h5 className='mb-3 font-medium text-gray-800'>
+													Спеціальність 122 Компʼютерні науки
+												</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Бакалавр:</strong> Фахівець з розробки ПЗ
+													</p>
+													<p>
+														<strong>Магістр:</strong> Розробник обчислювальних систем
+													</p>
+												</div>
+											</div>
+											<div className='rounded-lg bg-white p-4 shadow-sm'>
+												<h5 className='mb-3 font-medium text-gray-800'>
+													Спеціальність 121 Інженерія програмного забезпечення
+												</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Бакалавр:</strong> Фахівець з ІТ та розробки ПЗ
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</TabsContent>
+
+								{/* Кафедра вищої математики */}
+								<TabsContent
+									value='kvm'
+									className='space-y-4'
+								>
+									<div className='rounded-lg bg-gradient-to-r from-purple-50 to-pink-50 p-6'>
+										<h4 className='mb-4 text-xl font-semibold text-gray-800'>
+											Кафедра вищої математики
+										</h4>
+										<div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+											<div className='space-y-3'>
+												<h5 className='font-medium text-gray-800'>Керівництво кафедри:</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Завідувач кафедри:</strong> Петрівський Ярослав Борисович,
+														доктор технічних наук, професор
+													</p>
+													<p>
+														<strong>e-mail:</strong> yaroslav.petrivskyi@rshu.edu.ua
+													</p>
+												</div>
+											</div>
+											<div className='space-y-3'>
+												<h5 className='font-medium text-gray-800'>Контактна інформація:</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Старший лаборант:</strong> Хмель Тетяна Олександрівна
+													</p>
+													<p>
+														<strong>e-mail:</strong> kvm@rshu.edu.ua
+													</p>
+													<p>
+														<strong>Адреса:</strong> 33000, м. Рівне, вул Пластова, 31, каб. 310
+													</p>
+													<p>
+														<strong>Веб-сайт:</strong>{' '}
+														<Link
+															href='http://vmivm.gavrysha.com/'
+															className='text-[#017369] hover:underline'
+															target='_blank'
+															rel='noopener noreferrer'
+														>
+															vmivm.gavrysha.com
+														</Link>
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</TabsContent>
+
+								{/* Кафедра математики з методикою викладання */}
+								<TabsContent
+									value='kmmv'
+									className='space-y-4'
+								>
+									<div className='rounded-lg bg-gradient-to-r from-orange-50 to-yellow-50 p-6'>
+										<h4 className='mb-4 text-xl font-semibold text-gray-800'>
+											Кафедра математики з методикою викладання
+										</h4>
+										<div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+											<div className='space-y-3'>
+												<h5 className='font-medium text-gray-800'>Керівництво кафедри:</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Завідувач кафедри:</strong> Крайчук Олександр Васильович,
+														кандидат фізико-математичних наук, доцент
+													</p>
+													<p>
+														<strong>e-mail:</strong> kmmv@rshu.edu.ua
+													</p>
+												</div>
+											</div>
+											<div className='space-y-3'>
+												<h5 className='font-medium text-gray-800'>Контактна інформація:</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Старший лаборант:</strong> Цимбалюк Ольга Олександрівна
+													</p>
+													<p>
+														<strong>e-mail:</strong> kmmv@rshu.edu.ua
+													</p>
+													<p>
+														<strong>Адреса:</strong> 33000, м. Рівне, вул. Пластова 31, к.311
+													</p>
+													<p>
+														<strong>Веб-сайт:</strong>{' '}
+														<Link
+															href='http://vmivm.gavrysha.com/'
+															className='text-[#017369] hover:underline'
+															target='_blank'
+															rel='noopener noreferrer'
+														>
+															vmivm.gavrysha.com
+														</Link>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div className='mt-6 grid grid-cols-1 gap-4 md:grid-cols-2'>
+											<div className='rounded-lg bg-white p-4 shadow-sm'>
+												<h5 className='mb-3 font-medium text-gray-800'>
+													Спеціальність 014 Середня освіта (Математика. Інформатика)
+												</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Бакалавр:</strong> Вчитель математики та інформатики
+													</p>
+												</div>
+											</div>
+											<div className='rounded-lg bg-white p-4 shadow-sm'>
+												<h5 className='mb-3 font-medium text-gray-800'>
+													Спеціальність 014 Середня освіта (Математика)
+												</h5>
+												<div className='space-y-2 text-sm text-gray-600'>
+													<p>
+														<strong>Магістр:</strong> Вчитель математики
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</TabsContent>
+							</TabsContents>
+						</Tabs>
+					</div>
+
+					{/* 53 викладачі */}
+					<div className='space-y-4'>
+						<h3 className='mb-3 text-lg font-semibold text-gray-800'>53 викладачі:</h3>
+						<div className='space-y-3'>
+							<div className='rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-4'>
+								<h4 className='mb-2 font-medium text-gray-800'>Відомі вчені та організатори:</h4>
+								<ul className='space-y-1 text-sm text-gray-600'>
+									<li>• проф. А.О. Сяський</li>
+									<li>• проф. А.Я. Бомба</li>
+									<li>• проф. Я.Б. Петрівський</li>
+									<li>• проф. І.С. Войтович</li>
+									<li>• проф. Я.А. Пасічник</li>
+								</ul>
+							</div>
+							<div className='rounded-lg bg-green-50 p-4'>
+								<h4 className='mb-2 font-medium text-gray-800'>39 кандидатів наук</h4>
+								<p className='text-sm text-gray-600'>
+									Ведуть науково-дослідну роботу в галузі комп&apos;ютерного моделювання процесів і
+									систем, чисельних методів, інформаційних систем та методики викладання
+								</p>
 							</div>
 						</div>
 					</div>
@@ -570,39 +856,7 @@ const HistoryPage = () => {
 						</div>
 					</div>
 
-					<h3 className='mb-6 text-xl font-semibold text-gray-900'>
-						Спеціальності факультету за галузями знань:
-					</h3>
-
-					<div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
-						<div className='space-y-3'>
-							<h4 className='font-semibold text-[#017369]'>Освіта</h4>
-							<ul className='space-y-2 text-gray-600'>
-								<li>• Середня освіта. Математика</li>
-								<li>• Середня освіта. Інформатика</li>
-								<li>• Професійна освіта (Комп&apos;ютерні технології)</li>
-							</ul>
-							<p className='text-xs text-gray-500'>
-								Поєднується з додатковими спеціальностями: інформатика, математика, фізика,
-								економіка, іноземна мова
-							</p>
-						</div>
-						<div className='space-y-3'>
-							<h4 className='font-semibold text-[#017369]'>Інформаційні технології</h4>
-							<ul className='space-y-2 text-gray-600'>
-								<li>• Комп&apos;ютерні науки</li>
-								<li>• Інженерія програмного забезпечення</li>
-							</ul>
-						</div>
-						<div className='space-y-3'>
-							<h4 className='font-semibold text-[#017369]'>Математика та статистика</h4>
-							<ul className='space-y-2 text-gray-600'>
-								<li>• Прикладна математика</li>
-							</ul>
-						</div>
-					</div>
-
-					<div className='mt-6 rounded-lg bg-blue-50 p-4'>
+					<div className='mt-12 rounded-lg bg-orange-50 p-4'>
 						<p className='text-sm text-gray-700'>
 							<strong>Ліцензія:</strong> Факультет здійснює освітню діяльність на підставі ліцензії
 							серії АВ №636414 за освітньо-кваліфікаційними рівнями «бакалавр», «спеціаліст» та

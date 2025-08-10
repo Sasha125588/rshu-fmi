@@ -21,7 +21,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 			url: `${baseUrl}/history`,
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
-			priority: 1,
+			priority: 0.9,
 			alternates: {
 				languages: {
 					uk: `${baseUrl}/history`,
@@ -34,7 +34,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 			url: `${baseUrl}/contacts`,
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
-			priority: 1,
+			priority: 0.9,
 			alternates: {
 				languages: {
 					uk: `${baseUrl}/contacts`,
@@ -47,7 +47,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 			url: `${baseUrl}/mizhnarodna-spivpratsya`,
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
-			priority: 1,
+			priority: 0.9,
 			alternates: {
 				languages: {
 					uk: `${baseUrl}/mizhnarodna-spivpratsya`,
@@ -60,7 +60,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
 			url: `${baseUrl}/vchena-rada`,
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
-			priority: 1,
+			priority: 0.9,
 			alternates: {
 				languages: {
 					uk: `${baseUrl}/vchena-rada`,

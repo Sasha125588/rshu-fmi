@@ -58,8 +58,8 @@ const ContactsPage = () => {
 					</div>
 
 					<div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
-						<div className='space-y-4'>
-							<div className='rounded-lg border border-[#017369]/20 bg-white p-6'>
+						<div className='flex h-full flex-col space-y-4'>
+							<div className='flex-1 rounded-lg border border-[#017369]/20 bg-white p-6'>
 								<div className='mb-4 flex items-center gap-3'>
 									<Building className='h-5 w-5 text-[#017369]' />
 									<h3 className='text-lg font-semibold text-gray-900'>
@@ -70,15 +70,15 @@ const ContactsPage = () => {
 									<p className='text-gray-700'>
 										<strong>Рівненський державний гуманітарний університет</strong>
 									</p>
-									<p className='text-gray-600'>33000, Україна</p>
+									<p className='text-gray-600'>33028, Україна</p>
 									<p className='text-gray-600'>м. Рівне, вул. Пластова, 31</p>
 									<p className='text-gray-600'>каб. 108</p>
 								</div>
 							</div>
 						</div>
 
-						<div className='space-y-4'>
-							<div className='rounded-lg bg-blue-50 p-6'>
+						<div className='flex h-full flex-col space-y-4'>
+							<div className='flex-1 rounded-lg bg-blue-50 p-6'>
 								<h3 className='mb-3 text-lg font-semibold text-gray-800'>Як нас знайти</h3>
 								<ul className='space-y-2 text-gray-600'>
 									<li className='flex items-start gap-2'>
@@ -104,16 +104,16 @@ const ContactsPage = () => {
 				</div>
 
 				{/* Contact Methods */}
-				<div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+				<div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
 					{/* Phone */}
-					<div className='rounded-2xl border border-gray-100 bg-white p-8'>
+					<div className='flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-8'>
 						<div className='mb-6 flex items-center gap-3'>
 							<Phone className='h-6 w-6 text-[#017369]' />
 							<h2 className='text-2xl font-semibold text-gray-900'>Телефони</h2>
 						</div>
 
-						<div className='space-y-4'>
-							<div className='rounded-lg bg-green-50 p-4'>
+						<div className='flex h-full flex-col space-y-4'>
+							<div className='flex-1 rounded-lg bg-green-50 p-4'>
 								<h3 className='mb-2 font-semibold text-gray-800'>Деканат факультету</h3>
 								<p className='text-2xl font-bold text-[#017369]'>(0362) 26-65-94</p>
 								<p className='mt-2 text-sm text-gray-600'>
@@ -121,7 +121,7 @@ const ContactsPage = () => {
 								</p>
 							</div>
 
-							<div className='rounded-lg bg-gray-50 p-4'>
+							<div className='flex-1 rounded-lg bg-gray-50 p-4'>
 								<h3 className='mb-2 font-medium text-gray-800'>Коли телефонувати:</h3>
 								<ul className='space-y-1 text-sm text-gray-600'>
 									<li>• Питання щодо вступу та навчання</li>
@@ -134,14 +134,14 @@ const ContactsPage = () => {
 					</div>
 
 					{/* Email */}
-					<div className='rounded-2xl border border-gray-100 bg-white p-8'>
+					<div className='flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-8'>
 						<div className='mb-6 flex items-center gap-3'>
 							<Mail className='h-6 w-6 text-[#017369]' />
 							<h2 className='text-2xl font-semibold text-gray-900'>Електронна пошта</h2>
 						</div>
 
-						<div className='space-y-4'>
-							<div className='rounded-lg bg-blue-50 p-4'>
+						<div className='flex h-full flex-col space-y-4'>
+							<div className='flex-1 rounded-lg bg-blue-50 p-4'>
 								<h3 className='mb-2 font-semibold text-gray-800'>Деканат факультету</h3>
 								<a
 									href='mailto:dekanat.fmi@rshu.edu.ua'
@@ -152,7 +152,7 @@ const ContactsPage = () => {
 								<p className='mt-2 text-sm text-gray-600'>Відповідаємо протягом 1-2 робочих днів</p>
 							</div>
 
-							<div className='rounded-lg bg-gray-50 p-4'>
+							<div className='flex-1 rounded-lg bg-gray-50 p-4'>
 								<h3 className='mb-2 font-medium text-gray-800'>Що можна запитати:</h3>
 								<ul className='space-y-1 text-sm text-gray-600'>
 									<li>• Детальна інформація про програми</li>
@@ -163,13 +163,59 @@ const ContactsPage = () => {
 							</div>
 						</div>
 					</div>
+
+					{/* Приймальна комісія */}
+					<div className='flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-8'>
+						<div className='mb-6 flex items-center gap-3'>
+							<Building className='h-6 w-6 text-[#017369]' />
+							<h2 className='text-2xl font-semibold text-gray-900'>Приймальна комісія</h2>
+						</div>
+
+						<div className='flex h-full flex-col space-y-4'>
+							<div className='flex-1 rounded-lg bg-orange-50 p-4'>
+								<div className='space-y-2 text-sm text-gray-600'>
+									<p>
+										<strong>Адреса:</strong> вул. С. Бандери, 12, м. Рівне, Україна, 33028
+									</p>
+									<p>
+										<strong>E-mail:</strong>{' '}
+										<a
+											href='mailto:pk@rshu.edu.ua'
+											className='text-[#017369] hover:underline'
+										>
+											pk@rshu.edu.ua
+										</a>
+									</p>
+									<p>
+										<strong>Телефон для консультацій:</strong>{' '}
+										<a
+											href='tel:+38098475672'
+											className='text-[#017369] hover:underline'
+										>
+											+38 (098) 475 67 2
+										</a>
+									</p>
+								</div>
+							</div>
+
+							<div className='flex-1 rounded-lg bg-gray-50 p-4'>
+								<h3 className='mb-2 font-medium text-gray-800'>Коли звертатися:</h3>
+								<ul className='space-y-1 text-sm text-gray-600'>
+									<li>• Питання про вступ</li>
+									<li>• Консультації для абітурієнтів</li>
+									<li>• Подача документів</li>
+									<li>• Вступні екзамени</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				{/* Working Hours */}
 				<div className='rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 p-8'>
 					<div className='mb-6 flex items-center gap-3'>
 						<Clock className='h-6 w-6 text-[#017369]' />
-						<h2 className='text-2xl font-semibold text-gray-900'>Режим роботи</h2>
+						<h2 className='text-2xl font-semibold text-gray-900'>Графік роботи</h2>
 					</div>
 
 					<div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
@@ -193,18 +239,50 @@ const ContactsPage = () => {
 
 						<div className='rounded-lg bg-white p-4'>
 							<h3 className='mb-3 font-semibold text-gray-800'>Приймальна комісія</h3>
-							<div className='space-y-2 text-sm text-gray-600'>
+							<div className='space-y-3 text-sm text-gray-600'>
 								<div className='flex justify-between'>
-									<span>Червень - Серпень:</span>
-									<span className='font-medium'>8:00 - 18:00</span>
+									<span>Понеділок-п&apos;ятниця:</span>
+									<span className='font-medium'>9:00-17:00 год.</span>
 								</div>
+
+								<div className='space-y-2'>
+									<div className='text-xs font-medium text-gray-500'>
+										В окремі дні робота подовжується до 18:00 год:
+									</div>
+									<div className='space-y-1 pl-3 text-xs'>
+										<div>
+											<span className='font-medium'>10.07, 25.07, 01.08, 09.08</span> – для
+											працівників відбіркової комісії № 1;
+										</div>
+										<div>
+											<span className='font-medium'>06.08, 25.08, 28.08, 01.09</span> – для
+											працівників відбіркової комісії № 2;
+										</div>
+										<div>
+											<span className='font-medium'>15.09, 19.09, 29.09, 06.10</span> – для
+											працівників відбіркової комісії № 4.
+										</div>
+									</div>
+								</div>
+
 								<div className='flex justify-between'>
 									<span>Субота:</span>
-									<span className='font-medium'>9:00 - 15:00</span>
+									<span className='font-medium'>01.07-31.08.2025 з 9:00 до 13:00 год.</span>
 								</div>
+
 								<div className='flex justify-between'>
-									<span>Неділя:</span>
-									<span className='font-medium'>Вихідний</span>
+									<span>Обідня перерва:</span>
+									<span className='font-medium'>13:00-14:00 год.</span>
+								</div>
+
+								<div className='flex justify-between'>
+									<span>Вихідні:</span>
+									<span className='font-medium'>Неділя</span>
+								</div>
+
+								<div className='mt-3 rounded border border-yellow-200 bg-yellow-50 p-2 text-xs text-gray-600'>
+									<strong>Примітка:</strong> Порядок роботи Приймальної комісії може бути змінений
+									відповідно до прийнятого нею рішення.
 								</div>
 							</div>
 						</div>
@@ -307,7 +385,7 @@ const ContactsPage = () => {
 						</div>
 					</div>
 
-					<div className='mt-8 rounded-lg bg-gradient-to-r from-[#017369]/5 to-transparent p-6'>
+					<div className='mt-8 rounded-lg bg-violet-50 p-6'>
 						<h3 className='mb-3 text-lg font-semibold text-gray-800'>
 							Чому варто слідкувати за нами?
 						</h3>

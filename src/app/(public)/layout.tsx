@@ -12,6 +12,8 @@ interface Props {
 export const generateMetadata = async (): Promise<Metadata> => {
 	const news = await getNews(1)
 
+	const baseTitle = 'Факультет математики та інформатики - РДГУ'
+
 	const baseDescription =
 		'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.'
 
@@ -23,6 +25,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 		: ''
 
 	return {
+		title: baseTitle,
 		description: baseDescription + newsPreview
 	}
 }

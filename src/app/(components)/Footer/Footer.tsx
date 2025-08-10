@@ -119,24 +119,17 @@ export const Footer = () => {
 							<div className='flex items-center gap-3'>
 								<MapPinIcon className='mt-0.5 h-4 w-4 flex-shrink-0 text-[#017369]' />
 								<div className='text-sm text-gray-600'>
-									<p>вул. Степана Бандери 12,</p>
-									<p>м. Рівне, 33028</p>
+									<p>м. Рівне, вул. Пластова, 31, 33028</p>
 								</div>
 							</div>
 							<div className='flex items-center gap-3'>
 								<PhoneIcon className='h-4 w-4 text-[#017369]' />
 								<div className='flex flex-col'>
 									<a
-										href='tel:+380362620356'
+										href='tel:+0362266594'
 										className='text-sm text-gray-600 transition-colors hover:text-[#017369]'
 									>
-										(0362) 62-03-56
-									</a>
-									<a
-										href='tel:+380362634224'
-										className='text-sm text-gray-600 transition-colors hover:text-[#017369]'
-									>
-										(0362) 63-42-24
+										(0362) 26-65-94
 									</a>
 								</div>
 							</div>
