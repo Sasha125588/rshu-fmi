@@ -23,15 +23,27 @@ import {
 import { Badge } from '@/components/ui/badge'
 
 export const metadata: Metadata = {
-	title: 'Історія факультету математики та інформатики',
+	title: 'Історія',
 	description:
 		'Історія факультету математики та інформатики РДГУ: від заснування Учительського інституту до сучасного факультету інноваційних технологій',
 	openGraph: {
 		title: 'Історія факультету математики та інформатики',
 		description:
 			'Історія факультету математики та інформатики РДГУ: від заснування Учительського інституту до сучасного факультету інноваційних технологій',
-		images: ['/images/logo.webp'],
-		url: process.env.NEXT_PUBLIC_BASE_URL + '/history',
+		images: [
+			{
+				url: new URL(
+					'/images/logo.webp',
+					process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
+				).href,
+
+				width: 120,
+				height: 120,
+				type: 'image/webp',
+				alt: 'ФМІ логотип'
+			}
+		],
+		url: new URL('/history', process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000').href,
 		type: 'website',
 		locale: 'uk_UA'
 	}

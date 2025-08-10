@@ -4,13 +4,25 @@ import type { Metadata } from 'next'
 import { Badge } from '@/components/ui/badge'
 
 export const metadata: Metadata = {
-	title: 'Вчена рада факультету математики та інформатики',
+	title: 'Вчена рада',
 	description: 'Склад та керівництво Вченої ради факультету математики та інформатики РДГУ',
 	openGraph: {
 		title: 'Вчена рада факультету математики та інформатики',
 		description: 'Склад та керівництво Вченої ради факультету математики та інформатики РДГУ',
-		images: ['/images/logo.webp'],
-		url: process.env.NEXT_PUBLIC_BASE_URL + '/vchena-rada',
+		images: [
+			{
+				url: new URL(
+					'/images/logo.webp',
+					process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
+				).href,
+
+				width: 120,
+				height: 120,
+				type: 'image/webp',
+				alt: 'ФМІ логотип'
+			}
+		],
+		url: new URL('/vchena-rada', process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000').href,
 		type: 'website',
 		locale: 'uk_UA'
 	}

@@ -3,34 +3,18 @@ import type { Metadata } from 'next'
 import { Footer } from '../(components)/Footer/Footer'
 import { Header } from '../(components)/Header/Header'
 
-import { getNews } from '@/shared/api/requests/getNews'
-
 interface Props {
 	children: React.ReactNode
 }
 
-export const generateMetadata = async (): Promise<Metadata> => {
-	const news = await getNews(1)
-
-	const baseTitle = 'Факультет математики та інформатики - РДГУ'
-
-	const baseDescription =
-		'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.'
-
-	const newsPreview = news.length
-		? ` Останні новини: ${news
-				.slice(0, 5)
-				.map(item => item.title)
-				.join(', ')}.`
-		: ''
-
-	return {
-		title: baseTitle,
-		description: baseDescription + newsPreview
+export const metadata: Metadata = {
+	title: {
+		default: 'РДГУ - Факультет математики та інформатики',
+		template: 'ФМІ - %s'
 	}
 }
 
-const DashboardLayout = ({ children }: Props) => {
+const PublicLayout = ({ children }: Props) => {
 	return (
 		<>
 			<div className='absolute -z-10 h-full border-l'></div>
@@ -43,4 +27,4 @@ const DashboardLayout = ({ children }: Props) => {
 	)
 }
 
-export default DashboardLayout
+export default PublicLayout
