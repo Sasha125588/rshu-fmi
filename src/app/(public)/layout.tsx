@@ -23,11 +23,6 @@ export const generateMetadata = async (): Promise<Metadata> => {
 		: ''
 
 	return {
-		title: {
-			default: 'РДГУ - Факультет математики та інформатики',
-			absolute: 'РДГУ - Факультет математики та інформатики',
-			template: 'РДГУ - %s'
-		},
 		description: baseDescription + newsPreview
 	}
 }

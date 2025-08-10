@@ -16,28 +16,8 @@ export const metadata: Metadata = {
 		? new URL(process.env.NEXT_PUBLIC_BASE_URL)
 		: undefined,
 	title: {
-		absolute: 'РДГУ - Факультет математики та інформатики',
 		default: 'РДГУ - Факультет математики та інформатики',
 		template: '%s | ФМІ РДГУ'
-	},
-	description:
-		'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
-	openGraph: {
-		siteName: 'Факультет математики та інформатики - РДГУ',
-		title: 'Факультет математики та інформатики Рівненського державного гуманітарного університету',
-		description: 'Офіційна сторінка ФМІ Рівненського державного гуманітарного університету.',
-		images: [
-			{
-				url: '/images/logo.webp',
-				width: 120,
-				height: 120,
-				type: 'image/webp',
-				alt: 'ФМІ логотип'
-			}
-		],
-		url: process.env.NEXT_PUBLIC_BASE_URL,
-		type: 'website',
-		locale: 'uk_UA'
 	},
 	authors: [
 		{
