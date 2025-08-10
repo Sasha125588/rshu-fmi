@@ -16,7 +16,7 @@ import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 
 export const metadata: Metadata = {
-	title: 'Міжнародна співпраця',
+	title: 'Міжнародна співпраця факультету математики та інформатики',
 	description:
 		'Міжнародні стажування, програми подвійного диплому та семестрового навчання факультету математики та інформатики РДГУ',
 	openGraph: {

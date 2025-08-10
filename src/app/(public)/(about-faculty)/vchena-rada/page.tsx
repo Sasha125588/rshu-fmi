@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { Badge } from '@/components/ui/badge'
 
 export const metadata: Metadata = {
-	title: 'Вчена рада',
+	title: 'Вчена рада факультету математики та інформатики',
 	description: 'Склад та керівництво Вченої ради факультету математики та інформатики РДГУ',
 	openGraph: {
 		title: 'Вчена рада факультету математики та інформатики',

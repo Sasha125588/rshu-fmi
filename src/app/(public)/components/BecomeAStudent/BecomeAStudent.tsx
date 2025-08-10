@@ -43,7 +43,10 @@ export const BecomeAStudent = () => {
 									</div>
 								</Button>
 							</Link>
-							<Link href='#specializations'>
+							<Link
+								href='#specializations'
+								aria-label='Перейти до спеціальностей факультету'
+							>
 								<HoverBorderGradient
 									containerClassName='rounded-full'
 									className='flex h-12 cursor-pointer items-center space-x-2 bg-white text-black dark:bg-black dark:text-white'
@@ -61,6 +64,7 @@ export const BecomeAStudent = () => {
 				<div className='mt-[-141px] mr-[-35px]'>
 					<Image
 						loading='eager'
+						priority
 						src='/images/main-screen.webp'
 						alt='Main Screen'
 						width={600}

@@ -9,7 +9,7 @@ import { InstagramIcon } from '@/public/images/components/InstagramIcon'
 import { TiktokIcon } from '@/public/images/components/TiktokIcon'
 
 export const metadata: Metadata = {
-	title: 'Контакти',
+	title: 'Контакти факультету математики та інформатики',
 	description:
 		'Контактна інформація факультету математики та інформатики РДГУ: адреса, телефони, електронна пошта',
 	openGraph: {

@@ -1,43 +1,43 @@
 {
-  "name": "rshu",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@radix-ui/react-navigation-menu": "^1.2.13",
-    "@radix-ui/react-popover": "^1.1.14",
-    "@radix-ui/react-slot": "^1.2.3",
-    "@tanstack/react-query": "^5.84.1",
-    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
-    "babel-plugin-react-compiler": "^19.1.0-rc.2",
-    "cheerio": "^1.1.2",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide-react": "^0.536.0",
-    "motion": "^12.23.12",
-    "next": "15.4.5",
-    "nuqs": "^2.4.3",
-    "prettier-plugin-tailwindcss": "^0.6.14",
-    "radix-ui": "^1.4.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "tailwind-merge": "^3.3.1"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.4.5",
-    "tailwindcss": "^4",
-    "tw-animate-css": "^1.3.6",
-    "typescript": "^5"
-  }
+	"name": "rshu",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --turbopack",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@radix-ui/react-navigation-menu": "^1.2.13",
+		"@radix-ui/react-popover": "^1.1.14",
+		"@radix-ui/react-slot": "^1.2.3",
+		"@tanstack/react-query": "^5.84.1",
+		"cheerio": "^1.1.2",
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"lucide-react": "^0.536.0",
+		"motion": "^12.23.12",
+		"next": "15.4.5",
+		"nuqs": "^2.4.3",
+		"radix-ui": "^1.4.2",
+		"react": "19.1.0",
+		"react-dom": "19.1.0",
+		"tailwind-merge": "^3.3.1"
+	},
+	"devDependencies": {
+		"@eslint/eslintrc": "^3",
+		"@tailwindcss/postcss": "^4",
+		"@trivago/prettier-plugin-sort-imports": "^5.2.2",
+		"@types/node": "^20",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"babel-plugin-react-compiler": "^19.1.0-rc.2",
+		"eslint": "^9",
+		"eslint-config-next": "15.4.5",
+		"prettier-plugin-tailwindcss": "^0.6.14",
+		"tailwindcss": "^4",
+		"tw-animate-css": "^1.3.6",
+		"typescript": "^5"
+	}
 }

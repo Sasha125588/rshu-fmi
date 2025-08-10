@@ -23,7 +23,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 
 export const metadata: Metadata = {
-	title: 'Історія',
+	title: 'Історія факультету математики та інформатики',
 	description:
 		'Історія факультету математики та інформатики РДГУ: від заснування Учительського інституту до сучасного факультету інноваційних технологій',
 	openGraph: {
