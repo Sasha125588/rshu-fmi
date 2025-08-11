@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import type { NewsItem as NewsItemProps } from '../../constants/types'
 
-import { truncateText } from '@/shared/helpers/truncateText'
+import { truncateText } from '@/shared/helpers/text/truncateText'
 
 interface Props {
 	item: NewsItemProps

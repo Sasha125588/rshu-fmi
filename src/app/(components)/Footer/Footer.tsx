@@ -72,7 +72,7 @@ export const Footer = () => {
 						<ul className='space-y-3'>
 							<li>
 								<Link
-									href='#about'
+									href='/#about'
 									className='text-sm text-gray-600 transition-colors hover:text-[#017369]'
 								>
 									Про нас
@@ -80,7 +80,7 @@ export const Footer = () => {
 							</li>
 							<li>
 								<Link
-									href='#specializations'
+									href='/#specializations'
 									className='text-sm text-gray-600 transition-colors hover:text-[#017369]'
 								>
 									Спеціальності
@@ -88,7 +88,7 @@ export const Footer = () => {
 							</li>
 							<li>
 								<Link
-									href='#news'
+									href='/#news'
 									className='text-sm text-gray-600 transition-colors hover:text-[#017369]'
 								>
 									Новини

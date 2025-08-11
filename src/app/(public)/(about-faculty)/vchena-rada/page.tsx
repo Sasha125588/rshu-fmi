@@ -1,7 +1,9 @@
-import { Crown, FileText, GraduationCap, UserCheck, Users } from 'lucide-react'
+import { Crown, GraduationCap, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 
 import { Badge } from '@/components/ui/badge'
+
+import { academicCouncilData, roleConfig } from './constants/data'
 
 export const metadata: Metadata = {
 	title: 'Вчена рада факультету математики та інформатики',
@@ -66,61 +68,34 @@ const VchenaRadaPage = () => {
 							size={24}
 							className='text-[#017369]'
 						/>
-						<h2 className='text-2xl font-semibold text-gray-900'>Керівництво Вченої ради</h2>
+						<p className='text-2xl font-semibold text-gray-900'>Керівництво Вченої ради</p>
 					</div>
 
 					<div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
-						{/* Chairman */}
-						<div className='rounded-lg border border-[#017369]/20 bg-white p-6'>
-							<div className='mb-3 flex items-center gap-2'>
-								<Crown
-									size={20}
-									className='text-[#017369]'
-								/>
-								<span className='text-sm font-medium text-[#017369]'>Голова Вченої ради</span>
-							</div>
-							<h3 className='mb-2 text-lg font-semibold text-gray-900'>Юрій МАКСИМЦЕВ</h3>
-							<p className='mb-2 text-sm font-medium text-gray-700'>Декан факультету</p>
-							<p className='text-sm text-gray-600'>
-								Кандидат фізико-математичних наук, доцент, кафедра фізики, астрономії та методики
-								викладання
-							</p>
-						</div>
+						{academicCouncilData.leadership.map(leader => {
+							const config = roleConfig[leader.role]
+							const IconComponent = config.icon
 
-						{/* Deputy Chairman */}
-						<div className='rounded-lg border border-blue-200 bg-blue-50 p-6'>
-							<div className='mb-3 flex items-center gap-2'>
-								<UserCheck
-									size={20}
-									className='text-blue-600'
-								/>
-								<span className='text-sm font-medium text-blue-600'>Заступник голови</span>
-							</div>
-							<h3 className='mb-2 text-lg font-semibold text-gray-900'>Микола АНТОНЮК</h3>
-							<p className='mb-2 text-sm font-medium text-gray-700'>
-								Заступник декана з навчальної роботи
-							</p>
-							<p className='text-sm text-gray-600'>
-								Кандидат педагогічних наук, доцент, кафедра цифрових технологій та методики навчання
-								інформатики
-							</p>
-						</div>
-
-						{/* Secretary */}
-						<div className='rounded-lg border border-green-200 bg-green-50 p-6'>
-							<div className='mb-3 flex items-center gap-2'>
-								<FileText
-									size={20}
-									className='text-green-600'
-								/>
-								<span className='text-sm font-medium text-green-600'>Секретар</span>
-							</div>
-							<h3 className='mb-2 text-lg font-semibold text-gray-900'>Наталія СИНІЦЬКА</h3>
-							<p className='mb-2 text-sm font-medium text-gray-700'>Секретар Вченої ради</p>
-							<p className='text-sm text-gray-600'>
-								Кандидат педагогічних наук, доцент, кафедра математики з методикою викладання
-							</p>
-						</div>
+							return (
+								<div
+									key={leader.role}
+									className={`rounded-lg border ${config.containerClass} p-6`}
+								>
+									<div className='mb-3 flex items-center gap-2'>
+										<IconComponent
+											size={20}
+											className={config.iconClass}
+										/>
+										<span className={`text-sm font-medium ${config.iconClass}`}>
+											{config.label}
+										</span>
+									</div>
+									<h3 className='mb-2 text-lg font-semibold text-gray-900'>{leader.name}</h3>
+									<p className='mb-2 text-sm font-medium text-gray-700'>{leader.position}</p>
+									<p className='text-sm text-gray-600'>{leader.description}</p>
+								</div>
+							)
+						})}
 					</div>
 				</div>
 
@@ -131,133 +106,20 @@ const VchenaRadaPage = () => {
 							size={24}
 							className='text-[#017369]'
 						/>
-						<h2 className='text-2xl font-semibold text-gray-900'>Члени Вченої ради</h2>
+						<p className='text-2xl font-semibold text-gray-900'>Члени Вченої ради</p>
 					</div>
 
 					<div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-						{/* Member cards */}
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>БІЛЕЦЬКИЙ В&apos;ячеслав</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>
-								Заступник декана з виховної роботи
-							</p>
-							<p className='text-sm text-gray-600'>
-								Кандидат педагогічних наук, доцент, кафедра вищої математики, голова НМК факультету
-							</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>ВОЙТОВИЧ Ігор</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>
-								Проректор з навчально-виховної роботи
-							</p>
-							<p className='text-sm text-gray-600'>Доктор педагогічних наук, професор</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>ГЕНСІЦЬКА-АНТОНЮК Наталія</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>Доцент</p>
-							<p className='text-sm text-gray-600'>
-								Кандидат педагогічних наук, доцент, кафедра математики з методикою викладання
-							</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>ЖАРЧИНСЬКА Анастасія</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>В.о. профорга факультету</p>
-							<p className='text-sm text-gray-600'>Факультет математики та інформатики</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>КРАЙЧУК Олександр</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>Завідувач кафедри</p>
-							<p className='text-sm text-gray-600'>
-								Кандидат фізико-математичних наук, професор, кафедра математики з методикою
-								викладання
-							</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>ЛИТВАК Андрій</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>Завідувач лабораторіями</p>
-							<p className='text-sm text-gray-600'>
-								Кафедра інформаційних технологій та моделювання
-							</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>МОРОЗ Ігор</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>Завідувач кафедри</p>
-							<p className='text-sm text-gray-600'>
-								Кандидат фізико-математичних наук, доцент, кафедра інформаційних технологій та
-								моделювання
-							</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>ПАВЕЛКО Ілля</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>Студдекан факультету</p>
-							<p className='text-sm text-gray-600'>Факультет математики та інформатики</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>ПАВЛОВА Наталія</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>Завідувач кафедри</p>
-							<p className='text-sm text-gray-600'>
-								Кандидат педагогічних наук, професор, кафедра цифрових технологій та методики
-								навчання інформатики
-							</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>ПЕТРІВСЬКИЙ Борис</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>Професор</p>
-							<p className='text-sm text-gray-600'>
-								Кандидат фізико-математичних наук, професор, кафедра вищої математики
-							</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>ПЕТРІВСЬКИЙ Ярослав</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>Завідувач кафедри</p>
-							<p className='text-sm text-gray-600'>
-								Доктор технічних наук, професор, кафедра вищої математики
-							</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>ПОЛЮХОВИЧ Наталія</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>Доцент</p>
-							<p className='text-sm text-gray-600'>
-								Кандидат педагогічних наук, доцент, кафедра цифрових технологій та методики навчання
-								інформатики
-							</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>ПРИСЯЖНЮК Ігор</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>Доцент</p>
-							<p className='text-sm text-gray-600'>
-								Кандидат технічних наук, доцент, кафедра вищої математики
-							</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>СЯСЬКИЙ Володимир</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>Доцент</p>
-							<p className='text-sm text-gray-600'>
-								Кандидат технічних наук, доцент, кафедра інформаційних технологій та моделювання
-							</p>
-						</div>
-
-						<div className='rounded-lg border border-gray-100 bg-gray-50 p-4'>
-							<h3 className='mb-2 font-semibold text-gray-900'>ШРОЛЬ Тетяна</h3>
-							<p className='mb-1 text-sm font-medium text-gray-700'>Голова профбюро факультету</p>
-							<p className='text-sm text-gray-600'>
-								Кандидат педагогічних наук, доцент, кафедра цифрових технологій та методики навчання
-								інформатики
-							</p>
-						</div>
+						{academicCouncilData.members.map((member, index) => (
+							<div
+								key={index}
+								className='rounded-lg border border-gray-100 bg-gray-50 p-4'
+							>
+								<h3 className='mb-2 font-semibold text-gray-900'>{member.name}</h3>
+								<p className='mb-1 text-sm font-medium text-gray-700'>{member.position}</p>
+								<p className='text-sm text-gray-600'>{member.description}</p>
+							</div>
+						))}
 					</div>
 				</div>
 

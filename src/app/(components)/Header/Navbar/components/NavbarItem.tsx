@@ -13,7 +13,7 @@ import { Badge } from '@/components/ui/badge'
 
 import type { NavbarDataItem } from '../constants/types'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/helpers/common/cn'
 
 export const NavbarItem = ({
 	item,

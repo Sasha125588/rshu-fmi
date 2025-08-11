@@ -3,7 +3,7 @@
 import { AnimatePresence, type Transition, motion } from 'motion/react'
 import * as React from 'react'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/helpers/common/cn'
 
 type MotionHighlightMode = 'children' | 'parent'
 
