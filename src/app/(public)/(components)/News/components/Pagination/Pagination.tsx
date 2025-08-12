@@ -2,7 +2,7 @@ import { ChevronFirstIcon, ChevronLastIcon, ChevronLeftIcon, ChevronRightIcon } 
 import { useEffect } from 'react'
 
 import {
-	Pagination,
+	Pagination as PaginationComponent,
 	PaginationContent,
 	PaginationEllipsis,
 	PaginationItem,
@@ -18,12 +18,12 @@ type PaginationProps = {
 	onPageChange: (page: number) => void
 }
 
-export default function PaginationComponent({
+export const Pagination = ({
 	currentPage,
 	totalPages,
 	paginationItemsToDisplay = 5,
 	onPageChange
-}: PaginationProps) {
+}: PaginationProps) => {
 	const { pages, showLeftEllipsis, showRightEllipsis } = usePagination({
 		currentPage,
 		totalPages,
@@ -75,16 +75,16 @@ export default function PaginationComponent({
 
 	return (
 		<div className='space-y-2'>
-			<div className='text-center text-xs text-gray-500'>
+			<div className='text-muted-foreground text-center text-xs'>
 				Навігація: стрілки ← → та Home/End для першої/останньої сторінки
 			</div>
 
-			<Pagination>
+			<PaginationComponent>
 				<PaginationContent>
 					{/* First page button */}
 					<PaginationItem>
 						<PaginationLink
-							className='cursor-pointer focus:ring-2 focus:ring-[#017369] focus:outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50'
+							className='focus:ring-green-primary cursor-pointer focus:ring-2 focus:outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50'
 							onClick={currentPage === 1 ? undefined : () => onPageChange(1)}
 							onKeyDown={e => {
 								if ((e.key === 'Enter' || e.key === ' ') && currentPage !== 1) {
@@ -106,7 +106,7 @@ export default function PaginationComponent({
 					{/* Previous page button */}
 					<PaginationItem>
 						<PaginationLink
-							className='cursor-pointer focus:ring-2 focus:ring-[#017369] focus:outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50'
+							className='focus:ring-green-primary cursor-pointer focus:ring-2 focus:outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50'
 							onClick={currentPage === 1 ? undefined : () => onPageChange(currentPage - 1)}
 							onKeyDown={e => {
 								if ((e.key === 'Enter' || e.key === ' ') && currentPage > 1) {
@@ -138,9 +138,7 @@ export default function PaginationComponent({
 						return (
 							<PaginationItem key={page}>
 								<PaginationLink
-									className={`cursor-pointer hover:bg-[#017369]/10 focus:ring-2 focus:ring-[#017369] focus:outline-none ${
-										isCurrentPage ? 'pointer-events-none' : ''
-									}`}
+									className={`focus:ring-green-primary cursor-pointer focus:ring-2 focus:outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50`}
 									onClick={isCurrentPage ? undefined : () => onPageChange(page)}
 									onKeyDown={e => {
 										if ((e.key === 'Enter' || e.key === ' ') && !isCurrentPage) {
@@ -169,7 +167,7 @@ export default function PaginationComponent({
 					{/* Next page button */}
 					<PaginationItem>
 						<PaginationLink
-							className='cursor-pointer focus:ring-2 focus:ring-[#017369] focus:outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50'
+							className='focus:ring-green-primary cursor-pointer focus:ring-2 focus:outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50'
 							onClick={currentPage === totalPages ? undefined : () => onPageChange(currentPage + 1)}
 							onKeyDown={e => {
 								if ((e.key === 'Enter' || e.key === ' ') && currentPage < totalPages) {
@@ -191,7 +189,7 @@ export default function PaginationComponent({
 					{/* Last page button */}
 					<PaginationItem>
 						<PaginationLink
-							className='cursor-pointer focus:ring-2 focus:ring-[#017369] focus:outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50'
+							className='focus:ring-green-primary cursor-pointer focus:ring-2 focus:outline-none aria-disabled:pointer-events-none aria-disabled:opacity-50'
 							onClick={currentPage === totalPages ? undefined : () => onPageChange(totalPages)}
 							onKeyDown={e => {
 								if ((e.key === 'Enter' || e.key === ' ') && currentPage !== totalPages) {
@@ -210,7 +208,7 @@ export default function PaginationComponent({
 						</PaginationLink>
 					</PaginationItem>
 				</PaginationContent>
-			</Pagination>
+			</PaginationComponent>
 		</div>
 	)
 }

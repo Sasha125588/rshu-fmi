@@ -44,18 +44,19 @@ export const NavbarItem = ({
 							variant={variant}
 							className={cn(
 								'flex cursor-pointer items-center justify-center rounded-full text-sm font-medium transition-colors',
-								variant === 'outline' && 'border-[#017369] hover:bg-[#017369] hover:text-white'
+								variant === 'outline' &&
+									'border-green-primary hover:bg-green-primary hover:text-white'
 							)}
 						>
 							{item.name}
-							{item.hasDropdown && <ChevronDown className='size-4' />}
+							{item.hasDropdown && <ChevronDown size={16} />}
 						</Badge>
 					</Link>
 				</TooltipTrigger>
 				<TooltipContent
 					arrow={false}
 					side='bottom'
-					className='border-t-2 border-t-[#017369] bg-white text-black'
+					className='border-t-green-primary bg-background border-t-2 text-black'
 				>
 					{item.component}
 				</TooltipContent>

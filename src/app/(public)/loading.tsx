@@ -1,4 +1,4 @@
-import { NewsItemSkeleton } from './components/News/components/NewsItem/NewsItem'
+import { NewsItemSkeleton } from './(components)/News/components/NewsItem/NewsItem'
 
 const BecomeAStudentSkeleton = () => {
 	return (

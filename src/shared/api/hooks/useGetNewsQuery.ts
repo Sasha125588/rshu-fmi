@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { getNews } from '../requests/getNews'
 
-import type { NewsItem } from '@/app/(public)/components/News/constants/types'
+import type { NewsItem } from '@/app/(public)/(components)/News/constants/types'
 
 interface GetNewsParams {
 	currentPage: number

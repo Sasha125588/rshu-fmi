@@ -23,13 +23,11 @@ export const Footer = () => {
 								height={156}
 							/>
 							<div>
-								<h3 className='text-xl font-semibold text-gray-900'>
-									Факультет математики та інформатики
-								</h3>
-								<p className='text-sm text-gray-600'>РДГУ</p>
+								<h3 className='text-xl font-semibold'>Факультет математики та інформатики</h3>
+								<p className='text-sm'>РДГУ</p>
 							</div>
 						</div>
-						<p className='mb-6 max-w-md text-sm leading-relaxed text-gray-600'>
+						<p className='text-muted-foreground mb-6 max-w-md text-sm leading-relaxed'>
 							Більше 90 років досвіду в підготовці математиків, програмістів та вчителів. Ваш шлях
 							до успіху в цифровому світі починається тут.
 						</p>
@@ -68,12 +66,12 @@ export const Footer = () => {
 					</div>
 
 					<div>
-						<h4 className='mb-4 font-semibold text-gray-900'>Швидкі посилання</h4>
+						<h4 className='mb-4 font-semibold'>Швидкі посилання</h4>
 						<ul className='space-y-3'>
 							<li>
 								<Link
 									href='/#about'
-									className='text-sm text-gray-600 transition-colors hover:text-[#017369]'
+									className='text-sm transition-colors hover:text-[#017369]'
 								>
 									Про нас
 								</Link>
@@ -81,7 +79,7 @@ export const Footer = () => {
 							<li>
 								<Link
 									href='/#specializations'
-									className='text-sm text-gray-600 transition-colors hover:text-[#017369]'
+									className='text-sm transition-colors hover:text-[#017369]'
 								>
 									Спеціальності
 								</Link>
@@ -89,7 +87,7 @@ export const Footer = () => {
 							<li>
 								<Link
 									href='/#news'
-									className='text-sm text-gray-600 transition-colors hover:text-[#017369]'
+									className='text-sm transition-colors hover:text-[#017369]'
 								>
 									Новини
 								</Link>
@@ -97,7 +95,7 @@ export const Footer = () => {
 							<li>
 								<Link
 									href='/staff'
-									className='text-sm text-gray-600 transition-colors hover:text-[#017369]'
+									className='text-sm transition-colors hover:text-[#017369]'
 								>
 									Викладачі
 								</Link>
@@ -105,7 +103,7 @@ export const Footer = () => {
 							<li>
 								<Link
 									href='/gallery'
-									className='text-sm text-gray-600 transition-colors hover:text-[#017369]'
+									className='text-sm transition-colors hover:text-[#017369]'
 								>
 									Галерея
 								</Link>
@@ -114,11 +112,11 @@ export const Footer = () => {
 					</div>
 
 					<div>
-						<h4 className='mb-4 font-semibold text-gray-900'>Контакти</h4>
+						<h4 className='mb-4 font-semibold'>Контакти</h4>
 						<div className='space-y-3'>
 							<div className='flex items-center gap-3'>
 								<MapPinIcon className='mt-0.5 h-4 w-4 flex-shrink-0 text-[#017369]' />
-								<div className='text-sm text-gray-600'>
+								<div className='text-sm'>
 									<p>м. Рівне, вул. Пластова, 31, 33028</p>
 								</div>
 							</div>
@@ -127,7 +125,7 @@ export const Footer = () => {
 								<div className='flex flex-col'>
 									<a
 										href='tel:+0362266594'
-										className='text-sm text-gray-600 transition-colors hover:text-[#017369]'
+										className='text-sm transition-colors hover:text-[#017369]'
 									>
 										(0362) 26-65-94
 									</a>
@@ -137,7 +135,7 @@ export const Footer = () => {
 								<MailIcon className='h-4 w-4 text-[#017369]' />
 								<a
 									href='mailto:info@rshu.edu.ua'
-									className='text-sm text-gray-600 transition-colors hover:text-[#017369]'
+									className='text-sm transition-colors hover:text-[#017369]'
 								>
 									dekanat.fmi@rshu.edu.ua
 								</a>
@@ -148,27 +146,27 @@ export const Footer = () => {
 
 				<div className='border-t border-gray-200 pt-6'>
 					<div className='flex flex-col items-center justify-between gap-4 md:flex-row'>
-						<p className='text-sm text-gray-500'>
+						<p className='text-muted-foreground text-sm'>
 							© {new Date().getFullYear()} Рівненський державний гуманітарний університет. Всі
 							права захищені.
 						</p>
 						<div className='flex items-center gap-6'>
 							<Link
 								href='/privacy'
-								className='text-sm text-gray-500 transition-colors hover:text-[#017369]'
+								className='text-sm transition-colors hover:text-[#017369]'
 							>
 								Політика конфіденційності
 							</Link>
 							<Link
 								href='/terms'
-								className='text-sm text-gray-500 transition-colors hover:text-[#017369]'
+								className='text-sm transition-colors hover:text-[#017369]'
 							>
 								Умови використання
 							</Link>
 							<Link
 								href='https://github.com/Sasha125588'
 								target='_blank'
-								className='flex items-center text-sm text-gray-500 transition-colors hover:text-violet-400'
+								className='flex items-center text-sm transition-colors hover:text-violet-400'
 							>
 								Created by{' '}
 								<Image
@@ -176,7 +174,7 @@ export const Footer = () => {
 									alt='Sasha'
 									width={40}
 									height={40}
-									className='rounded-full bg-cover bg-center p-1.5 font-semibold text-gray-600'
+									className='rounded-full bg-cover bg-center p-1.5 font-semibold'
 								/>
 							</Link>
 						</div>

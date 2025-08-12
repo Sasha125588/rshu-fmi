@@ -14,7 +14,7 @@ export const SpecializationItem = ({ item }: Props) => {
 	const IconComponent = item.icon
 
 	return (
-		<div className='group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:border-[#017369]/30 hover:shadow-lg'>
+		<div className='group border-border bg-accent/5 relative overflow-hidden rounded-xl border p-6 transition-all duration-300 hover:border-[#017369]/30 hover:shadow-lg'>
 			<div className='pointer-events-none absolute inset-0 bg-gradient-to-br from-[#017369]/4 via-transparent to-[#017369]/4 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
 			<div className='space-y-4'>
@@ -26,7 +26,7 @@ export const SpecializationItem = ({ item }: Props) => {
 					</div>
 					<Badge
 						variant='outline'
-						className='relative border-[#017369]/40 bg-white/80 font-semibold text-[#017369] backdrop-blur-sm transition-all duration-300'
+						className='bg-accent/10 relative border-[#017369]/40 font-semibold text-[#017369] backdrop-blur-sm transition-all duration-300'
 					>
 						{item.date}
 					</Badge>
@@ -34,19 +34,21 @@ export const SpecializationItem = ({ item }: Props) => {
 
 				<Link
 					href={`/dashboard/specializations/${item.title}`}
-					className='cursor-pointer text-lg leading-tight font-semibold text-gray-900 transition-colors duration-300 hover:text-[#017369]'
+					className='cursor-pointer text-lg leading-tight font-semibold transition-colors duration-300 hover:text-[#017369]'
 				>
 					{item.title}
 				</Link>
 
-				<p className='line-clamp-3 text-sm leading-relaxed text-gray-600'>{item.description}</p>
+				<p className='text-muted-foreground line-clamp-3 text-sm leading-relaxed'>
+					{item.description}
+				</p>
 
 				<div className='flex flex-wrap gap-1.5'>
 					{item.tags.map(tag => (
 						<Badge
 							variant='outline'
 							key={tag}
-							className='inline-block border-none bg-gray-100! px-2 py-1 text-xs font-medium text-gray-600 transition-colors duration-300 group-hover:bg-[#017369]/10! group-hover:text-[#017369]!'
+							className='inline-block border-none bg-gray-100! px-2 py-1 text-xs font-medium text-gray-600 transition-colors duration-300 group-hover:bg-[#017369]/10! group-hover:text-[#017369]! dark:group-hover:bg-[#017369]/20! dark:group-hover:text-white!'
 						>
 							{tag}
 						</Badge>

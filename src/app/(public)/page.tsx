@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
-import { AboutUs } from './components/AboutUs/AboutUs'
-import { BecomeAStudent } from './components/BecomeAStudent/BecomeAStudent'
-import { News } from './components/News/News'
-import { Specializations } from './components/Specializations/Specializations'
+import { AboutUs } from './(components)/AboutUs/AboutUs'
+import { BecomeAStudent } from './(components)/BecomeAStudent/BecomeAStudent'
+import { News } from './(components)/News/News'
+import { Specializations } from './(components)/Specializations/Specializations'
 import { getNews } from '@/shared/api/requests/getNews'
 
 export const revalidate = 21600 // 6 годин
@@ -63,7 +63,7 @@ const HomePage = async () => {
 	const news = await getNews(1)
 
 	return (
-		<>
+		<div>
 			<BecomeAStudent />
 			<div className='ml-[-55px] border-b' />
 			<AboutUs />
@@ -75,7 +75,7 @@ const HomePage = async () => {
 				initialPage={1}
 			/>
 			<div className='mr-[-35px] ml-[-55px] border-b pt-6' />
-		</>
+		</div>
 	)
 }
 

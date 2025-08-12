@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
 import { NewsItem, NewsItemSkeleton } from './components/NewsItem/NewsItem'
-import PaginationComponent from './components/Pagination/Pagination'
+import { Pagination } from './components/Pagination/Pagination'
 import type { NewsItem as NewsItemProps } from './constants/types'
 import { useNews } from './hooks/useNews'
 
@@ -34,16 +34,14 @@ export const News = ({ initialNews, initialPage }: Props) => {
 						Останні новини
 					</Badge>
 				</div>
-				<h2 className='mt-6 text-3xl font-semibold text-gray-900'>
-					Що відбувається в університеті
-				</h2>
-				<p className='mt-2 text-lg text-gray-600'>
+				<h2 className='mt-6 text-3xl font-semibold'>Що відбувається в університеті</h2>
+				<p className='text-muted-foreground mt-2 text-lg'>
 					Слідкуйте за останніми подіями та досягненнями нашого університету
 				</p>
 			</div>
 
 			<div className='mb-4 pt-10'>
-				<PaginationComponent
+				<Pagination
 					currentPage={state.currentPage ?? initialPage}
 					onPageChange={functions.setCurrentPage}
 					totalPages={state.totalPages}
@@ -76,11 +74,14 @@ export const News = ({ initialNews, initialPage }: Props) => {
 						rel='noopener noreferrer'
 					>
 						<Button
-							variant='outline'
-							className='group flex cursor-pointer items-center gap-3 rounded-full border-[#017369]/30 px-6 py-3 text-[#017369] transition-all duration-200 hover:bg-[#017369]/5 hover:text-[#017369]'
+							variant='green-ghost'
+							className='group text-green-primary hover:bg-green-primary/15 hover:text-green-primary flex cursor-pointer items-center gap-3 rounded-full px-6 py-3 transition-all duration-200'
 						>
-							<span className='font-medium'>Всі новини університету</span>
-							<ArrowRightIcon className='h-4 w-4 transition-transform duration-200 group-hover:translate-x-1' />
+							<span className='text-[15px] font-medium'>Всі новини університету</span>
+							<ArrowRightIcon
+								size={16}
+								className='transition-transform duration-200 group-hover:translate-x-1'
+							/>
 						</Button>
 					</Link>
 				</div>

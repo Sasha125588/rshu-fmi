@@ -36,8 +36,8 @@ export const BecomeAStudent = () => {
 								rel='noopener noreferrer'
 								aria-label='Перейти на сторінку приймальної комісії'
 							>
-								<Button className='group flex h-12 w-50 cursor-pointer items-center rounded-full bg-[#017369] hover:bg-[#01635b]'>
-									<p className='pl-3 text-base font-semibold'>Стати студентом</p>
+								<Button className='group bg-green-primary hover:bg-green-secondary flex h-12 w-50 cursor-pointer items-center rounded-full'>
+									<p className='pl-3 text-base font-semibold text-white'>Стати студентом</p>
 									<div className='rounded-full bg-white p-2'>
 										<ArrowRightIcon className='size-5 text-black/80 transition-all duration-200 group-hover:translate-x-0.5' />
 									</div>
@@ -49,7 +49,7 @@ export const BecomeAStudent = () => {
 							>
 								<HoverBorderGradient
 									containerClassName='rounded-full'
-									className='flex h-12 cursor-pointer items-center space-x-2 bg-white text-black dark:bg-black dark:text-white'
+									className='text-accent-foreground bg-background flex h-12 cursor-pointer items-center space-x-2'
 								>
 									<p className='text-base font-normal'>Спеціальності</p>
 								</HoverBorderGradient>

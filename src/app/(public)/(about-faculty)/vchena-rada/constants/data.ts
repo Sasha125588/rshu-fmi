@@ -31,21 +31,21 @@ export interface RoleConfig {
 export const roleConfig: RoleConfig = {
 	chairman: {
 		icon: Crown,
-		iconClass: 'text-[#017369]',
+		iconClass: 'text-emerald-400',
 		label: 'Голова Вченої ради',
-		containerClass: 'border-[#017369]/20 bg-white'
+		containerClass: 'border-[#017369]/20 bg-white dark:bg-emerald-950 dark:border-emerald-900'
 	},
 	deputy: {
 		icon: UserCheck,
-		iconClass: 'text-blue-600',
+		iconClass: 'text-blue-300',
 		label: 'Заступник голови',
-		containerClass: 'border-blue-200 bg-blue-50'
+		containerClass: 'border-blue-200 bg-blue-50 dark:bg-indigo-950 dark:border-indigo-900'
 	},
 	secretary: {
 		icon: FileText,
-		iconClass: 'text-green-600',
+		iconClass: 'text-yellow-300',
 		label: 'Секретар',
-		containerClass: 'border-green-200 bg-green-50'
+		containerClass: 'border-green-200 bg-green-50 dark:bg-yellow-950 dark:border-yellow-900'
 	}
 }
 

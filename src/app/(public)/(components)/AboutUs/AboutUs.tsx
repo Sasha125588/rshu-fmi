@@ -14,9 +14,9 @@ export const AboutUs = () => {
 		<div className='pt-24'>
 			<div className='mb-6 flex items-center justify-between'>
 				<div className='flex items-center gap-3'>
-					<UsersIcon className='h-5 w-5 text-[#017369]' />
+					<UsersIcon className='text-green-primary h-5 w-5' />
 					<Badge
-						className='border border-[#017369]/20 text-sm font-normal text-[#017369]'
+						className='border-green-primary/20 text-green-primary border text-sm font-normal'
 						variant='outline'
 					>
 						Про нас
@@ -24,7 +24,7 @@ export const AboutUs = () => {
 				</div>
 				<Link
 					href='/history'
-					className='group flex items-center gap-2 rounded-full bg-[#017369]/5 px-4 py-2 text-sm font-medium text-[#017369] transition-all duration-200 hover:scale-105 hover:bg-[#017369]/10'
+					className='group bg-green-primary/10 text-green-primary hover:bg-green-primary/20 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 hover:scale-102'
 				>
 					<p>Детальніше про історію</p>
 					<svg
@@ -44,10 +44,8 @@ export const AboutUs = () => {
 					</svg>
 				</Link>
 			</div>
-			<h2 className='mb-4 text-3xl font-semibold text-gray-900'>
-				Факультет майбутнього для сучасного світу
-			</h2>
-			<p className='max-w-2xl text-lg text-gray-600'>
+			<h2 className='mb-4 text-3xl font-semibold'>Факультет майбутнього для сучасного світу</h2>
+			<p className='text-muted-foreground max-w-2xl text-lg'>
 				Більше 90 років досвіду в підготовці математиків, програмістів та вчителів. Ваш шлях до
 				успіху в цифровому світі починається тут.
 			</p>
@@ -60,7 +58,7 @@ export const AboutUs = () => {
 					<AccordionItem value='item-1'>
 						<AccordionTrigger className='flex items-center gap-2'>
 							<div className='flex items-center gap-4'>
-								<GraduationCap className='h-5 w-5 text-[#017369]' />
+								<GraduationCap className='text-green-primary h-5 w-5' />
 								Чому варто обрати наш факультет?
 							</div>
 						</AccordionTrigger>
@@ -73,7 +71,7 @@ export const AboutUs = () => {
 					<AccordionItem value='item-2'>
 						<AccordionTrigger className='flex items-center gap-2'>
 							<div className='flex items-center gap-4'>
-								<Briefcase className='h-5 w-5 text-[#017369]' />
+								<Briefcase className='text-green-primary h-5 w-5' />
 								Які можливості для практики?
 							</div>
 						</AccordionTrigger>
@@ -86,7 +84,7 @@ export const AboutUs = () => {
 					<AccordionItem value='item-3'>
 						<AccordionTrigger className='flex items-center gap-2'>
 							<div className='flex items-center gap-4'>
-								<Users2 className='h-5 w-5 text-[#017369]' />
+								<Users2 className='text-green-primary h-5 w-5' />
 								Яка підтримка після випуску?
 							</div>
 						</AccordionTrigger>
@@ -99,7 +97,7 @@ export const AboutUs = () => {
 					<AccordionItem value='item-4'>
 						<AccordionTrigger className='flex items-center gap-2'>
 							<div className='flex items-center gap-4'>
-								<School className='h-5 w-5 text-[#017369]' />
+								<School className='text-green-primary h-5 w-5' />
 								Хто наші викладачі?
 							</div>
 						</AccordionTrigger>
@@ -112,7 +110,7 @@ export const AboutUs = () => {
 					<AccordionItem value='item-6'>
 						<AccordionTrigger className='flex items-center gap-2'>
 							<div className='flex items-center gap-4'>
-								<LayoutGrid className='h-5 w-5 text-[#017369]' />
+								<LayoutGrid className='text-green-primary h-5 w-5' />
 								Які умови навчання та обладнання?
 							</div>
 						</AccordionTrigger>

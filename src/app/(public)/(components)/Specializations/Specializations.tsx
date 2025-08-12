@@ -21,10 +21,8 @@ export const Specializations = () => {
 						Спеціальності
 					</Badge>
 				</div>
-				<h2 className='mb-4 text-3xl font-semibold text-gray-900'>
-					Обирайте напрямок свого майбутнього
-				</h2>
-				<p className='max-w-2xl text-lg text-gray-600'>
+				<h2 className='mb-4 text-3xl font-semibold'>Обирайте напрямок свого майбутнього</h2>
+				<p className='text-muted-foreground max-w-2xl text-lg'>
 					Наші освітні програми поєднують фундаментальні знання з практичними навичками, необхідними
 					для успішної кар&apos;єри в IT та освіті.
 				</p>
