@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
 
+import { ThemeSwitcher } from '@/components/common/ThemeSwitcher'
+
 import './globals.css'
 import { Providers } from './providers'
 
@@ -68,7 +70,10 @@ const RootLayout = ({
 				/>
 			</head>
 			<body className={`${nunito.variable} relative overflow-x-hidden antialiased`}>
-				<Providers>{children}</Providers>
+				<Providers>
+					{children}
+					<ThemeSwitcher />
+				</Providers>
 			</body>
 		</html>
 	)

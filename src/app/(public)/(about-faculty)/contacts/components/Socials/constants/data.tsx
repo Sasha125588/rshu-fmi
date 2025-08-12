@@ -9,28 +9,8 @@ export interface Social {
 	image: React.ComponentType<{ className?: string }>
 	actionTitle: string
 	link: string
-}
-
-export interface SocialColorConfig {
-	[key: string]: {
-		bgColor: string
-		iconColor: string
-	}
-}
-
-export const socialColorConfig: SocialColorConfig = {
-	Instagram: {
-		bgColor: 'bg-gradient-to-br from-pink-50 to-purple-50',
-		iconColor: 'bg-gradient-to-br from-pink-500 to-purple-600'
-	},
-	TikTok: {
-		bgColor: 'bg-gradient-to-br from-gray-50 to-gray-100',
-		iconColor: 'bg-black'
-	},
-	Facebook: {
-		bgColor: 'bg-gradient-to-br from-blue-50 to-indigo-50',
-		iconColor: 'bg-blue-600'
-	}
+	bgColor: string
+	iconColor: string
 }
 
 export const SocialData: Social[] = [
@@ -40,7 +20,9 @@ export const SocialData: Social[] = [
 		description: 'Фото з життя університету, події та досягнення студентів',
 		image: InstagramIcon,
 		actionTitle: 'Підписатися',
-		link: 'https://www.instagram.com/fmi_rshu/'
+		link: 'https://www.instagram.com/fmi_rshu/',
+		bgColor: 'bg-gradient-to-br from-pink-50 to-purple-50',
+		iconColor: 'bg-gradient-to-br from-pink-500 to-purple-600'
 	},
 	{
 		title: 'TikTok',
@@ -48,7 +30,9 @@ export const SocialData: Social[] = [
 		description: 'Короткі відео про студентське життя та навчальний процес',
 		image: TiktokIcon,
 		actionTitle: 'Стежити',
-		link: 'https://www.tiktok.com/@fmi_rshu'
+		link: 'https://www.tiktok.com/@fmi_rshu',
+		bgColor: 'bg-gradient-to-br from-gray-50 to-gray-100',
+		iconColor: 'bg-black'
 	},
 	{
 		title: 'Facebook',
@@ -56,6 +40,8 @@ export const SocialData: Social[] = [
 		description: 'Офіційні новини, оголошення та анонси подій університету',
 		image: FacebookIcon,
 		actionTitle: 'Слідкувати',
-		link: 'https://www.facebook.com/groups/1748613002125956/'
+		link: 'https://www.facebook.com/groups/1748613002125956/',
+		bgColor: 'bg-gradient-to-br from-blue-50 to-indigo-50',
+		iconColor: 'bg-blue-600'
 	}
 ]

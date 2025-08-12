@@ -1,7 +1,7 @@
 import { Share2 } from 'lucide-react'
 import Link from 'next/link'
 
-import { SocialData, socialColorConfig } from '../../constants/data'
+import { SocialData } from './constants/data'
 
 export const Socials = () => {
 	return (
@@ -13,16 +13,15 @@ export const Socials = () => {
 
 			<div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
 				{SocialData.map(social => {
-					const colorConfig = socialColorConfig[social.title]
 					const IconComponent = social.image
 					return (
 						<div
 							key={social.title}
-							className={`rounded-lg ${colorConfig.bgColor} p-6`}
+							className={`rounded-lg ${social.bgColor} p-6`}
 						>
 							<div className='mb-4 flex items-center gap-3'>
 								<div
-									className={`flex h-10 w-10 items-center justify-center rounded-full ${colorConfig.iconColor}`}
+									className={`flex h-10 w-10 items-center justify-center rounded-full ${social.iconColor}`}
 								>
 									<IconComponent className='h-5 w-5 text-white' />
 								</div>
@@ -36,7 +35,7 @@ export const Socials = () => {
 								href={social.link}
 								target='_blank'
 								rel='noopener noreferrer'
-								className={`inline-flex items-center gap-2 rounded-full ${colorConfig.iconColor} px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:scale-105`}
+								className={`inline-flex items-center gap-2 rounded-full ${social.iconColor} px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:scale-105`}
 							>
 								{social.actionTitle}
 							</Link>
