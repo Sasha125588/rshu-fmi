@@ -11,52 +11,50 @@ interface Props {
 	isLast: boolean
 }
 
-export const NewsItem = ({ item, index, isLast }: Props) => {
-	return (
-		<div className='group hover:bg-accent-foreground/5 relative flex min-h-32 items-start gap-6 px-4 py-4 transition-colors duration-200'>
-			<div className='flex-shrink-0 text-lg font-medium'>{String(index + 1).padStart(2, '0')}</div>
+export const NewsItem = ({ item, index, isLast }: Props) => (
+	<div className='group hover:bg-accent-foreground/5 relative flex min-h-32 items-start gap-6 px-4 py-4 transition-colors duration-200'>
+		<div className='flex-shrink-0 text-lg font-medium'>{String(index + 1).padStart(2, '0')}</div>
 
-			<div className='min-w-0 flex-1 transition-transform duration-200 group-hover:translate-x-1'>
-				<div>
-					<div className='text-muted-foreground mb-2 text-sm font-normal'>
-						{item.tags?.join(' • ')}
-					</div>
-
-					<Link
-						href={item.link}
-						target='_blank'
-						rel='noopener noreferrer'
-						className='block'
-					>
-						<h3 className='mb-3 text-lg leading-tight font-semibold transition-colors duration-200 group-hover:text-[#017369]'>
-							{truncateText(item.title, 100)}
-						</h3>
-					</Link>
+		<div className='min-w-0 flex-1 transition-transform duration-200 group-hover:translate-x-1'>
+			<div>
+				<div className='text-muted-foreground mb-2 text-sm font-normal'>
+					{item.tags?.join(' • ')}
 				</div>
 
-				<div className='text-muted-foreground mt-4 flex items-center gap-1 text-sm'>
-					<EyeIcon size={16} />
-					<span>{item.views.toLocaleString('uk-UA')} переглядів</span>
-				</div>
+				<Link
+					href={item.link}
+					target='_blank'
+					rel='noopener noreferrer'
+					className='block'
+				>
+					<h3 className='mb-3 text-lg leading-tight font-semibold transition-colors duration-200 group-hover:text-[#017369]'>
+						{truncateText(item.title, 100)}
+					</h3>
+				</Link>
 			</div>
 
-			<Link
-				href={item.link}
-				target='_blank'
-				rel='noopener noreferrer'
-				className='flex-shrink-0'
-			>
-				<ArrowUpRightIcon
-					aria-label='Перейти на сторінку новини'
-					aria-hidden='true'
-					className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1'
-				/>
-			</Link>
-
-			{!isLast && <div className='bg-border absolute right-0 bottom-0 left-0 h-px' />}
+			<div className='text-muted-foreground mt-4 flex items-center gap-1 text-sm'>
+				<EyeIcon size={16} />
+				<span>{item.views.toLocaleString('uk-UA')} переглядів</span>
+			</div>
 		</div>
-	)
-}
+
+		<Link
+			href={item.link}
+			target='_blank'
+			rel='noopener noreferrer'
+			className='flex-shrink-0'
+		>
+			<ArrowUpRightIcon
+				aria-label='Перейти на сторінку новини'
+				aria-hidden='true'
+				className='h-5 w-5 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1'
+			/>
+		</Link>
+
+		{!isLast && <div className='bg-border absolute right-0 bottom-0 left-0 h-px' />}
+	</div>
+)
 
 export const NewsItemSkeleton = ({ isLast }: { isLast: boolean }) => (
 	<div className='group relative flex min-h-32 items-start gap-6 px-4 py-4 transition-colors duration-200'>

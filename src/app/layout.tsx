@@ -56,27 +56,25 @@ const RootLayout = ({
 	children
 }: Readonly<{
 	children: React.ReactNode
-}>) => {
-	return (
-		<html
-			lang='uk'
-			className='px-[35px]'
-			suppressHydrationWarning
-		>
-			<head>
-				<meta
-					name='google-site-verification'
-					content='6mUir8KEMMAZUD-dJJzWtE3-0gY1K-OWxeRhjtJSSak'
-				/>
-			</head>
-			<body className={`${nunito.variable} relative overflow-x-hidden antialiased`}>
-				<Providers>
-					{children}
-					<ThemeSwitcher />
-				</Providers>
-			</body>
-		</html>
-	)
-}
+}>) => (
+	<html
+		lang='uk'
+		className='px-[35px]'
+		suppressHydrationWarning
+	>
+		<head>
+			<meta
+				name='google-site-verification'
+				content='6mUir8KEMMAZUD-dJJzWtE3-0gY1K-OWxeRhjtJSSak'
+			/>
+		</head>
+		<body className={`${nunito.variable} relative overflow-x-hidden antialiased`}>
+			<Providers>
+				{children}
+				<ThemeSwitcher />
+			</Providers>
+		</body>
+	</html>
+)
 
 export default RootLayout

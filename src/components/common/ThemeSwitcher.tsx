@@ -2,13 +2,20 @@
 
 import { MoonIcon, SunIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { useId } from 'react'
+import { useEffect, useId, useState } from 'react'
 
 import { Switch } from '@/components/ui/switch'
 
 export const ThemeSwitcher = () => {
 	const id = useId()
 	const { setTheme, theme } = useTheme()
+	const [mounted, setMounted] = useState(false)
+
+	useEffect(() => {
+		setMounted(true)
+	}, [])
+
+	if (!mounted) return null
 
 	const handleChangeTheme = () => {
 		if (document.startViewTransition) {
