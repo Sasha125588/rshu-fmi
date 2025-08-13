@@ -19,11 +19,40 @@ export const NAVBAR_UP_DATA: NavbarData = {
 				</div>
 			)
 		},
+
 		{
 			name: 'НОВИНИ',
 			href: '/#news',
 			hasDropdown: false,
 			component: <div>НОВИНИ</div>
+		},
+		{
+			name: 'СТУДЕНТУ',
+			href: '#',
+			hasDropdown: true,
+			component: (
+				<div className='flex w-[800px] flex-col gap-24 p-8'>
+					<div className='flex items-baseline justify-between'>
+						<div>
+							<p className='text-accent-foreground text-xl font-bold'>Text</p>
+						</div>
+						<div>
+							<p className='text-accent-foreground text-xl font-bold'>Text</p>
+						</div>
+						<div>
+							<p className='text-accent-foreground text-xl font-bold'>Корисне</p>
+							<div className='text-green-primary flex flex-col gap-1 pt-2 text-base font-medium'>
+								<Link
+									href='/vartist-navchannia'
+									className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
+								>
+									Вартість навчання
+								</Link>
+							</div>
+						</div>
+					</div>
+				</div>
+			)
 		},
 		{
 			name: 'ПРО ФАКУЛЬТЕТ',
