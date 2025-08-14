@@ -3,7 +3,7 @@ import { Clock } from 'lucide-react'
 export const WorkingHours = () => (
 	<div className='rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 p-8'>
 		<div className='mb-6 flex items-center gap-3'>
-			<Clock className='h-6 w-6 text-[#017369]' />
+			<Clock className='text-green-primary h-6 w-6' />
 			<h2 className='text-2xl font-semibold text-gray-900'>Графік роботи</h2>
 		</div>
 

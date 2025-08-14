@@ -27,7 +27,7 @@ export const NewsItem = ({ item, index, isLast }: Props) => (
 					rel='noopener noreferrer'
 					className='block'
 				>
-					<h3 className='mb-3 text-lg leading-tight font-semibold transition-colors duration-200 group-hover:text-[#017369]'>
+					<h3 className='group-hover:text-green-primary mb-3 text-lg leading-tight font-semibold transition-colors duration-200'>
 						{truncateText(item.title, 100)}
 					</h3>
 				</Link>

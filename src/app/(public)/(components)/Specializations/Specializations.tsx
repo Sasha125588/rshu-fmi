@@ -12,9 +12,9 @@ export const Specializations = () => (
 	>
 		<div className=''>
 			<div className='mb-6 flex items-center gap-3'>
-				<GraduationCapIcon className='h-5 w-5 text-[#017369]' />
+				<GraduationCapIcon className='text-green-primary h-5 w-5' />
 				<Badge
-					className='border-[#017369]/20 text-sm font-normal text-[#017369]'
+					className='border-green-primary/20 text-green-primary text-sm font-normal'
 					variant='outline'
 				>
 					Спеціальності

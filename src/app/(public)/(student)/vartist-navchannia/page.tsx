@@ -126,7 +126,7 @@ export default function TuitionCostsPage() {
 				})}
 			</div>
 
-			<div className='mt-6 rounded-lg border border-orange-100 bg-orange-50 p-4'>
+			<div className='mt-6 rounded-lg border border-orange-100 bg-orange-50 p-4 dark:border-yellow-900 dark:bg-yellow-950'>
 				<div className='flex items-start gap-3'>
 					<GraduationCap className='text-green-primary mt-0.5 h-5 w-5' />
 					<div className='text-muted-foreground text-sm'>

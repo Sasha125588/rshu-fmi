@@ -12,14 +12,14 @@ import {
 import { departmentsData } from './constants/data'
 
 export const FacultyStructure = () => (
-	<div className='rounded-2xl border border-gray-100 p-8'>
+	<div className='border-border rounded-2xl border p-8'>
 		<div className='mb-6 flex items-center gap-3'>
-			<Users className='h-6 w-6 text-[#017369]' />
-			<h2 className='text-2xl font-semibold text-gray-900'>Структура факультету</h2>
+			<Users className='text-green-primary h-6 w-6' />
+			<h2 className='text-2xl font-semibold'>Структура факультету</h2>
 		</div>
 
 		<div className='mb-8'>
-			<h3 className='mb-4 text-lg font-semibold text-gray-800'>4 випускові кафедри:</h3>
+			<h3 className='mb-4 text-lg font-semibold'>4 випускові кафедри:</h3>
 			<Tabs
 				defaultValue={departmentsData[0].name}
 				className='w-full'
@@ -43,11 +43,11 @@ export const FacultyStructure = () => (
 							className='space-y-4'
 						>
 							<div className={`rounded-lg bg-gradient-to-r ${department.gradient} p-6`}>
-								<h3 className='mb-4 text-xl font-semibold text-gray-800'>{department.name}</h3>
+								<h3 className='mb-4 text-xl font-semibold'>{department.name}</h3>
 								<div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
 									<div className='space-y-3'>
-										<h5 className='font-medium text-gray-800'>Керівництво кафедри:</h5>
-										<div className='space-y-2 text-sm text-gray-600'>
+										<h5 className='font-medium'>Керівництво кафедри:</h5>
+										<div className='text-muted-foreground space-y-2 text-sm'>
 											{department.leadership.map((leader, index) => (
 												<div key={index}>
 													<p>
@@ -64,8 +64,8 @@ export const FacultyStructure = () => (
 										</div>
 									</div>
 									<div className='space-y-3'>
-										<h5 className='font-medium text-gray-800'>Контактна інформація:</h5>
-										<div className='space-y-2 text-sm text-gray-600'>
+										<h5 className='font-medium'>Контактна інформація:</h5>
+										<div className='text-muted-foreground space-y-2 text-sm'>
 											<p>
 												<strong>Адреса:</strong> {department.contact.address}
 											</p>
@@ -75,7 +75,7 @@ export const FacultyStructure = () => (
 													{department.contact.websiteUrl ? (
 														<Link
 															href={department.contact.websiteUrl}
-															className='text-[#017369] hover:underline'
+															className='text-green-primary hover:underline'
 															target='_blank'
 															rel='noopener noreferrer'
 														>
@@ -94,12 +94,12 @@ export const FacultyStructure = () => (
 										{department.specializations.map((spec, index) => (
 											<div
 												key={index}
-												className='rounded-lg bg-white p-4 shadow-sm'
+												className='dark:bg-primary/10 rounded-lg bg-white p-4 shadow-sm'
 											>
-												<h5 className='mb-3 font-medium text-gray-800'>
+												<h5 className='mb-3 font-medium'>
 													Спеціальність {spec.code} {spec.name}
 												</h5>
-												<div className='space-y-2 text-sm text-gray-600'>
+												<div className='text-primary/90 space-y-2 text-sm'>
 													{spec.bachelor && (
 														<p>
 															<strong>Бакалавр:</strong> {spec.bachelor}
@@ -123,11 +123,11 @@ export const FacultyStructure = () => (
 		</div>
 
 		<div className='space-y-4'>
-			<h3 className='mb-3 text-lg font-semibold text-gray-800'>53 викладачі:</h3>
+			<h3 className='mb-3 text-lg font-semibold'>53 викладачі:</h3>
 			<div className='space-y-3'>
-				<div className='rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-4'>
-					<h4 className='mb-2 font-medium text-gray-800'>Відомі вчені та організатори:</h4>
-					<ul className='space-y-1 text-sm text-gray-600'>
+				<div className='rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-4 dark:from-indigo-950 dark:to-fuchsia-950'>
+					<h4 className='mb-2 font-medium'>Відомі вчені та організатори:</h4>
+					<ul className='text-primary/90 space-y-1 text-sm'>
 						<li>• проф. А.О. Сяський</li>
 						<li>• проф. А.Я. Бомба</li>
 						<li>• проф. Я.Б. Петрівський</li>
@@ -135,9 +135,9 @@ export const FacultyStructure = () => (
 						<li>• проф. Я.А. Пасічник</li>
 					</ul>
 				</div>
-				<div className='rounded-lg bg-green-50 p-4'>
-					<h4 className='mb-2 font-medium text-gray-800'>39 кандидатів наук</h4>
-					<p className='text-sm text-gray-600'>
+				<div className='rounded-lg bg-green-50 p-4 dark:bg-amber-950'>
+					<h4 className='mb-2 font-medium'>39 кандидатів наук</h4>
+					<p className='text-muted-foreground text-sm'>
 						Ведуть науково-дослідну роботу в галузі комп&apos;ютерного моделювання процесів і
 						систем, чисельних методів, інформаційних систем та методики викладання
 					</p>

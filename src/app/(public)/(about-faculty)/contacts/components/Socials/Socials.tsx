@@ -6,7 +6,7 @@ import { SocialData } from './constants/data'
 export const Socials = () => (
 	<div className='rounded-2xl border border-gray-100 bg-white p-8'>
 		<div className='mb-6 flex items-center gap-3'>
-			<Share2 className='h-6 w-6 text-[#017369]' />
+			<Share2 className='text-green-primary h-6 w-6' />
 			<h2 className='text-2xl font-semibold text-gray-900'>Соціальні мережі</h2>
 		</div>
 
@@ -48,29 +48,29 @@ export const Socials = () => (
 			<div className='grid grid-cols-1 gap-3 md:grid-cols-2'>
 				<ul className='space-y-2 text-sm text-gray-600'>
 					<li className='flex items-start gap-2'>
-						<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+						<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 						<span>Перші дізнаватися про важливі події</span>
 					</li>
 					<li className='flex items-start gap-2'>
-						<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+						<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 						<span>Бачити досягнення наших студентів</span>
 					</li>
 					<li className='flex items-start gap-2'>
-						<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+						<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 						<span>Отримувати корисні поради про навчання</span>
 					</li>
 				</ul>
 				<ul className='space-y-2 text-sm text-gray-600'>
 					<li className='flex items-start gap-2'>
-						<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+						<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 						<span>Дивитися фото з університетського життя</span>
 					</li>
 					<li className='flex items-start gap-2'>
-						<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+						<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 						<span>Дізнаватися про нові спеціальності</span>
 					</li>
 					<li className='flex items-start gap-2'>
-						<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+						<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 						<span>Бути в курсі всіх новин факультету</span>
 					</li>
 				</ul>

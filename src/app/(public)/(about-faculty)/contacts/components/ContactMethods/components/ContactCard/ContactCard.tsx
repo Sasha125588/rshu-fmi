@@ -28,7 +28,7 @@ const ContactCardTitle = ({ className, ...props }: React.ComponentProps<'div'>) 
 	<div
 		data-slot='card-title'
 		className={cn(
-			'flex items-center gap-3 text-2xl leading-none font-semibold text-gray-900',
+			'text-foreground flex items-center gap-3 text-2xl leading-none font-semibold',
 			className
 		)}
 		{...props}

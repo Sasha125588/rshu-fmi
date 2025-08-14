@@ -14,19 +14,19 @@ export const SpecializationItem = ({ item }: Props) => {
 	const IconComponent = item.icon
 
 	return (
-		<div className='group border-border bg-accent/5 relative overflow-hidden rounded-xl border p-6 transition-all duration-300 hover:border-[#017369]/30 hover:shadow-lg'>
-			<div className='pointer-events-none absolute inset-0 bg-gradient-to-br from-[#017369]/4 via-transparent to-[#017369]/4 opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
+		<div className='group border-border bg-accent/5 hover:border-green-primary/30 relative overflow-hidden rounded-xl border p-6 transition-all duration-300 hover:shadow-lg'>
+			<div className='from-green-primary/4 to-green-primary/4 pointer-events-none absolute inset-0 bg-gradient-to-br via-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
 			<div className='space-y-4'>
 				<div className='flex items-start justify-between'>
 					<div className='flex items-center gap-3'>
-						<div className='flex size-12 items-center justify-center rounded-lg bg-gradient-to-br from-[#017369] to-[#015951] transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-[#017369]/20'>
+						<div className='from-green-primary to-green-secondary group-hover:bg-green-primary/20 flex size-12 items-center justify-center rounded-lg bg-gradient-to-br transition-all duration-300 group-hover:scale-110 group-hover:rotate-3'>
 							<IconComponent className='size-6 text-white transition-all duration-300 group-hover:scale-110' />
 						</div>
 					</div>
 					<Badge
 						variant='outline'
-						className='bg-accent/10 relative border-[#017369]/40 font-semibold text-[#017369] backdrop-blur-sm transition-all duration-300'
+						className='bg-accent/10 border-green-primary/40 text-green-primary relative font-semibold backdrop-blur-sm transition-all duration-300'
 					>
 						{item.date}
 					</Badge>
@@ -34,7 +34,7 @@ export const SpecializationItem = ({ item }: Props) => {
 
 				<Link
 					href={`/dashboard/specializations/${item.title}`}
-					className='cursor-pointer text-lg leading-tight font-semibold transition-colors duration-300 hover:text-[#017369]'
+					className='group-hover:text-green-primary cursor-pointer text-lg leading-tight font-semibold transition-colors duration-300'
 				>
 					{item.title}
 				</Link>
@@ -48,7 +48,7 @@ export const SpecializationItem = ({ item }: Props) => {
 						<Badge
 							variant='outline'
 							key={tag}
-							className='inline-block border-none bg-gray-100! px-2 py-1 text-xs font-medium text-gray-600 transition-colors duration-300 group-hover:bg-[#017369]/10! group-hover:text-[#017369]! dark:group-hover:bg-[#017369]/20! dark:group-hover:text-white!'
+							className='group-hover:bg-green-primary/10! group-hover:text-green-primary! dark:group-hover:bg-green-primary/20! bg-accent text-muted-foreground border-none px-2 py-1 text-xs font-medium transition-colors duration-300 dark:group-hover:text-white!'
 						>
 							{tag}
 						</Badge>
@@ -59,7 +59,7 @@ export const SpecializationItem = ({ item }: Props) => {
 					<Button
 						variant='link'
 						size='sm'
-						className='group/btn cursor-pointer px-0 text-[#017369] transition-all duration-300 group-hover:translate-x-1.5 hover:text-[#015951]'
+						className='group/btn text-green-primary hover:text-green-secondary cursor-pointer px-0 transition-all duration-300 group-hover:translate-x-1.5'
 					>
 						Дізнатися більше
 						<ArrowUpRight
@@ -71,7 +71,7 @@ export const SpecializationItem = ({ item }: Props) => {
 
 					<div className='mx-4 h-px flex-1 bg-gradient-to-r from-transparent via-gray-200 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
 
-					<span className='text-xs text-gray-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
+					<span className='text-muted-foreground text-xs opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
 						Перейти
 					</span>
 				</div>

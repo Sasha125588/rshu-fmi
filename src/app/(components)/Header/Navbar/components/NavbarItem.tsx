@@ -56,7 +56,7 @@ export const NavbarItem = ({
 				<TooltipContent
 					arrow={false}
 					side='bottom'
-					className='border-t-green-primary bg-background border-t-2 text-black'
+					className='border-t-green-primary dark:border-t-green-primary/60 bg-background border-t-2 text-black'
 				>
 					{item.component}
 				</TooltipContent>

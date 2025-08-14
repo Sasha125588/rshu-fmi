@@ -33,7 +33,7 @@ export const Footer = () => (
 
 					<div className='flex items-center gap-4'>
 						<Badge
-							className='border-[#017369]/20 text-sm font-normal text-[#017369]'
+							className='border-green-primary/20 text-green-primary text-sm font-normal'
 							variant='outline'
 						>
 							Слідкуйте за нами
@@ -42,23 +42,23 @@ export const Footer = () => (
 							<Link
 								target='_blank'
 								href='https://www.instagram.com/fmi_rshu/'
-								className='flex h-8 w-8 items-center justify-center rounded-full bg-[#017369]/10 transition-colors hover:bg-[#017369]/20'
+								className='bg-green-primary/10 hover:bg-green-primary/20 flex h-8 w-8 items-center justify-center rounded-full transition-colors'
 							>
-								<InstagramIcon className='h-4 w-4 text-[#017369]' />
+								<InstagramIcon className='text-green-primary h-4 w-4' />
 							</Link>
 							<Link
 								target='_blank'
 								href='https://www.tiktok.com/@fmi_rshu'
-								className='flex h-8 w-8 items-center justify-center rounded-full bg-[#017369]/10 transition-colors hover:bg-[#017369]/20'
+								className='bg-green-primary/10 hover:bg-green-primary/20 flex h-8 w-8 items-center justify-center rounded-full transition-colors'
 							>
-								<TiktokIcon className='h-4 w-4 text-[#017369]' />
+								<TiktokIcon className='text-green-primary h-4 w-4' />
 							</Link>
 							<Link
 								target='_blank'
 								href='https://www.facebook.com/groups/1748613002125956/'
-								className='flex h-8 w-8 items-center justify-center rounded-full bg-[#017369]/10 transition-colors hover:bg-[#017369]/20'
+								className='bg-green-primary/10 hover:bg-green-primary/20 flex h-8 w-8 items-center justify-center rounded-full transition-colors'
 							>
-								<FacebookIcon className='h-4 w-4 text-[#017369]' />
+								<FacebookIcon className='text-green-primary h-4 w-4' />
 							</Link>
 						</div>
 					</div>
@@ -70,7 +70,7 @@ export const Footer = () => (
 						<li>
 							<Link
 								href='/#about'
-								className='text-sm transition-colors hover:text-[#017369]'
+								className='hover:text-green-primary text-sm transition-colors'
 							>
 								Про нас
 							</Link>
@@ -78,7 +78,7 @@ export const Footer = () => (
 						<li>
 							<Link
 								href='/#specializations'
-								className='text-sm transition-colors hover:text-[#017369]'
+								className='hover:text-green-primary text-sm transition-colors'
 							>
 								Спеціальності
 							</Link>
@@ -86,7 +86,7 @@ export const Footer = () => (
 						<li>
 							<Link
 								href='/#news'
-								className='text-sm transition-colors hover:text-[#017369]'
+								className='hover:text-green-primary text-sm transition-colors'
 							>
 								Новини
 							</Link>
@@ -94,7 +94,7 @@ export const Footer = () => (
 						<li>
 							<Link
 								href='/staff'
-								className='text-sm transition-colors hover:text-[#017369]'
+								className='hover:text-green-primary text-sm transition-colors'
 							>
 								Викладачі
 							</Link>
@@ -102,7 +102,7 @@ export const Footer = () => (
 						<li>
 							<Link
 								href='/gallery'
-								className='text-sm transition-colors hover:text-[#017369]'
+								className='hover:text-green-primary text-sm transition-colors'
 							>
 								Галерея
 							</Link>
@@ -114,27 +114,27 @@ export const Footer = () => (
 					<h4 className='mb-4 font-semibold'>Контакти</h4>
 					<div className='space-y-3'>
 						<div className='flex items-center gap-3'>
-							<MapPinIcon className='mt-0.5 h-4 w-4 flex-shrink-0 text-[#017369]' />
+							<MapPinIcon className='text-green-primary mt-0.5 h-4 w-4 flex-shrink-0' />
 							<div className='text-sm'>
 								<p>м. Рівне, вул. Пластова, 31, 33028</p>
 							</div>
 						</div>
 						<div className='flex items-center gap-3'>
-							<PhoneIcon className='h-4 w-4 text-[#017369]' />
+							<PhoneIcon className='text-green-primary h-4 w-4' />
 							<div className='flex flex-col'>
 								<a
 									href='tel:+0362266594'
-									className='text-sm transition-colors hover:text-[#017369]'
+									className='hover:text-green-primary text-sm transition-colors'
 								>
 									(0362) 26-65-94
 								</a>
 							</div>
 						</div>
 						<div className='flex items-center gap-3'>
-							<MailIcon className='h-4 w-4 text-[#017369]' />
+							<MailIcon className='text-green-primary h-4 w-4' />
 							<a
 								href='mailto:info@rshu.edu.ua'
-								className='text-sm transition-colors hover:text-[#017369]'
+								className='hover:text-green-primary text-sm transition-colors'
 							>
 								dekanat.fmi@rshu.edu.ua
 							</a>
@@ -143,7 +143,7 @@ export const Footer = () => (
 				</div>
 			</div>
 
-			<div className='border-t border-gray-200 pt-6'>
+			<div className='border-border border-t pt-6'>
 				<div className='flex flex-col items-center justify-between gap-4 md:flex-row'>
 					<p className='text-muted-foreground text-sm'>
 						© {new Date().getFullYear()} Рівненський державний гуманітарний університет. Всі права
@@ -152,13 +152,13 @@ export const Footer = () => (
 					<div className='flex items-center gap-6'>
 						<Link
 							href='/privacy'
-							className='text-sm transition-colors hover:text-[#017369]'
+							className='hover:text-green-primary text-sm transition-colors'
 						>
 							Політика конфіденційності
 						</Link>
 						<Link
 							href='/terms'
-							className='text-sm transition-colors hover:text-[#017369]'
+							className='hover:text-green-primary text-sm transition-colors'
 						>
 							Умови використання
 						</Link>

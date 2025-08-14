@@ -50,9 +50,9 @@ const MizhnarodnaSpivpratsyaPage = () => (
 		{/* Hero Section */}
 		<div className='pb-12'>
 			<div className='mb-6 flex items-center gap-3'>
-				<Globe className='h-5 w-5 text-[#017369]' />
+				<Globe className='text-green-primary h-5 w-5' />
 				<Badge
-					className='border border-[#017369]/20 text-sm font-normal text-[#017369]'
+					className='border-green-primary/20 text-green-primary text-sm font-normal'
 					variant='outline'
 				>
 					Міжнародна діяльність
@@ -61,7 +61,7 @@ const MizhnarodnaSpivpratsyaPage = () => (
 			<h1 className='mb-6 text-5xl leading-tight font-semibold text-gray-900'>
 				Міжнародна
 				<br />
-				<span className='text-[#017369]'>співпраця</span>
+				<span className='text-green-primary'>співпраця</span>
 			</h1>
 			<p className='max-w-3xl text-xl leading-relaxed text-gray-600'>
 				Факультет активно розвиває міжнародні зв&apos;язки, надаючи студентам та викладачам
@@ -73,9 +73,9 @@ const MizhnarodnaSpivpratsyaPage = () => (
 		{/* Content Sections */}
 		<div className='space-y-12'>
 			{/* International Internships */}
-			<div className='rounded-2xl bg-gradient-to-r from-[#017369]/5 to-transparent p-8'>
+			<div className='from-green-primary/5 rounded-2xl bg-gradient-to-r to-transparent p-8'>
 				<div className='mb-8 flex items-center gap-3'>
-					<Award className='h-6 w-6 text-[#017369]' />
+					<Award className='text-green-primary h-6 w-6' />
 					<h2 className='text-3xl font-semibold text-gray-900'>Міжнародні стажування</h2>
 				</div>
 
@@ -97,8 +97,8 @@ const MizhnarodnaSpivpratsyaPage = () => (
 						{/* 2018 */}
 						<div className='rounded-lg bg-white p-4'>
 							<div className='mb-3 flex items-center gap-2'>
-								<Calendar className='h-4 w-4 text-[#017369]' />
-								<span className='font-semibold text-[#017369]'>2018 рік</span>
+								<Calendar className='text-green-primary h-4 w-4' />
+								<span className='text-green-primary font-semibold'>2018 рік</span>
 							</div>
 							<div className='grid grid-cols-1 gap-2 md:grid-cols-2'>
 								<ul className='space-y-1 text-sm text-gray-700'>
@@ -116,8 +116,8 @@ const MizhnarodnaSpivpratsyaPage = () => (
 						{/* 2019 */}
 						<div className='rounded-lg bg-white p-4'>
 							<div className='mb-3 flex items-center gap-2'>
-								<Calendar className='h-4 w-4 text-[#017369]' />
-								<span className='font-semibold text-[#017369]'>2019 рік</span>
+								<Calendar className='text-green-primary h-4 w-4' />
+								<span className='text-green-primary font-semibold'>2019 рік</span>
 							</div>
 							<div className='grid grid-cols-1 gap-2 md:grid-cols-2'>
 								<ul className='space-y-1 text-sm text-gray-700'>
@@ -133,8 +133,8 @@ const MizhnarodnaSpivpratsyaPage = () => (
 						{/* 2020 */}
 						<div className='rounded-lg bg-white p-4'>
 							<div className='mb-3 flex items-center gap-2'>
-								<Calendar className='h-4 w-4 text-[#017369]' />
-								<span className='font-semibold text-[#017369]'>2020 рік</span>
+								<Calendar className='text-green-primary h-4 w-4' />
+								<span className='text-green-primary font-semibold'>2020 рік</span>
 							</div>
 							<ul className='space-y-1 text-sm text-gray-700'>
 								<li>• Полюхович Наталія Вікторівна – к.п.н.</li>
@@ -151,7 +151,7 @@ const MizhnarodnaSpivpratsyaPage = () => (
 						</h4>
 						<p className='mb-3 text-sm text-green-700'>м. Люблін, Польща</p>
 						<div className='rounded bg-white p-3'>
-							<p className='mb-1 text-sm font-medium text-[#017369]'>2021 рік</p>
+							<p className='text-green-primary mb-1 text-sm font-medium'>2021 рік</p>
 							<p className='text-sm text-gray-700'>• Гнедко Наталя Михайлівна – к.п.н., доцент</p>
 						</div>
 					</div>
@@ -160,7 +160,7 @@ const MizhnarodnaSpivpratsyaPage = () => (
 						<h4 className='mb-2 font-semibold text-gray-900'>Вища школа Банкової Познані (WSB)</h4>
 						<p className='mb-3 text-sm text-purple-700'>м. Щецин, Польща</p>
 						<div className='rounded bg-white p-3'>
-							<p className='mb-1 text-sm font-medium text-[#017369]'>2017 рік</p>
+							<p className='text-green-primary mb-1 text-sm font-medium'>2017 рік</p>
 							<p className='text-sm text-gray-700'>• Петренко Сергій Вікторович – к.п.н., доцент</p>
 						</div>
 					</div>
@@ -169,7 +169,7 @@ const MizhnarodnaSpivpratsyaPage = () => (
 						<h4 className='mb-2 font-semibold text-gray-900'>Вища школа менеджменту</h4>
 						<p className='mb-3 text-sm text-orange-700'>Варшава, Польща</p>
 						<div className='rounded bg-white p-3'>
-							<p className='mb-1 text-sm font-medium text-[#017369]'>2019 рік</p>
+							<p className='text-green-primary mb-1 text-sm font-medium'>2019 рік</p>
 							<p className='text-sm text-gray-700'>
 								• Руденко Володимир Миколайович – д.п.н., професор
 							</p>
@@ -181,13 +181,13 @@ const MizhnarodnaSpivpratsyaPage = () => (
 			{/* Double Diploma Program */}
 			<div className='rounded-2xl border border-gray-100 bg-white p-8'>
 				<div className='mb-6 flex items-center gap-3'>
-					<GraduationCap className='h-6 w-6 text-[#017369]' />
+					<GraduationCap className='text-green-primary h-6 w-6' />
 					<h2 className='text-3xl font-semibold text-gray-900'>Програма «Подвійний диплом»</h2>
 				</div>
 
 				<div className='rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-6'>
 					<div className='mb-4 flex items-center gap-3'>
-						<div className='flex h-10 w-10 items-center justify-center rounded-full bg-[#017369]'>
+						<div className='bg-green-primary flex h-10 w-10 items-center justify-center rounded-full'>
 							<BookOpen className='h-5 w-5 text-white' />
 						</div>
 						<div>
@@ -205,15 +205,15 @@ const MizhnarodnaSpivpratsyaPage = () => (
 							<h4 className='font-semibold text-gray-800'>Переваги програми:</h4>
 							<ul className='space-y-2 text-sm text-gray-600'>
 								<li className='flex items-start gap-2'>
-									<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>Два дипломи: українського та європейського зразка</span>
 								</li>
 								<li className='flex items-start gap-2'>
-									<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>Працевлаштування в ЄС без нострифікації</span>
 								</li>
 								<li className='flex items-start gap-2'>
-									<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>Без оформлення дозволу на роботу в ЄС</span>
 								</li>
 							</ul>
@@ -222,15 +222,15 @@ const MizhnarodnaSpivpratsyaPage = () => (
 							<h4 className='font-semibold text-gray-800'>Можливості:</h4>
 							<ul className='space-y-2 text-sm text-gray-600'>
 								<li className='flex items-start gap-2'>
-									<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>Паралельне навчання в двох університетах</span>
 								</li>
 								<li className='flex items-start gap-2'>
-									<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>Визнання в усіх країнах ЄС</span>
 								</li>
 								<li className='flex items-start gap-2'>
-									<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>Працевлаштування в Україні без нострифікації</span>
 								</li>
 							</ul>
@@ -248,7 +248,7 @@ const MizhnarodnaSpivpratsyaPage = () => (
 			{/* Semester Programs */}
 			<div className='rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 p-8'>
 				<div className='mb-6 flex items-center gap-3'>
-					<Users className='h-6 w-6 text-[#017369]' />
+					<Users className='text-green-primary h-6 w-6' />
 					<h2 className='text-3xl font-semibold text-gray-900'>Програми семестрового навчання</h2>
 				</div>
 
@@ -319,7 +319,7 @@ const MizhnarodnaSpivpratsyaPage = () => (
 			{/* International Relations Center */}
 			<div className='rounded-2xl border border-gray-100 bg-white p-8'>
 				<div className='mb-6 flex items-center gap-3'>
-					<Globe className='h-6 w-6 text-[#017369]' />
+					<Globe className='text-green-primary h-6 w-6' />
 					<h2 className='text-2xl font-semibold text-gray-900'>
 						Центр міжнародних відносин та роботи з іноземними студентами РДГУ
 					</h2>
@@ -327,16 +327,16 @@ const MizhnarodnaSpivpratsyaPage = () => (
 
 				<div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
 					<div className='space-y-4'>
-						<div className='rounded-lg bg-[#017369]/5 p-4'>
+						<div className='bg-green-primary/5 rounded-lg p-4'>
 							<div className='mb-3 flex items-center gap-2'>
-								<ExternalLink className='h-4 w-4 text-[#017369]' />
+								<ExternalLink className='text-green-primary h-4 w-4' />
 								<span className='font-medium text-gray-800'>Веб-сайт</span>
 							</div>
 							<Link
 								href='http://dir.rshu.edu.ua/'
 								target='_blank'
 								rel='noopener noreferrer'
-								className='text-[#017369] hover:underline'
+								className='text-green-primary hover:underline'
 							>
 								http://dir.rshu.edu.ua/
 							</Link>
@@ -389,7 +389,7 @@ const MizhnarodnaSpivpratsyaPage = () => (
 			</div>
 
 			{/* Call to action */}
-			<div className='rounded-2xl bg-gradient-to-r from-[#017369] to-[#01635b] p-8 text-white'>
+			<div className='from-green-primary to-green-secondary rounded-2xl bg-gradient-to-r p-8 text-white'>
 				<div className='text-center'>
 					<h2 className='mb-4 text-3xl font-semibold'>Цікавить міжнародна освіта?</h2>
 					<p className='mx-auto mb-6 max-w-2xl text-xl leading-relaxed opacity-90'>

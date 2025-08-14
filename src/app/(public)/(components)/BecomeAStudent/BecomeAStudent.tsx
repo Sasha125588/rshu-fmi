@@ -35,7 +35,7 @@ export const BecomeAStudent = () => (
 							rel='noopener noreferrer'
 							aria-label='Перейти на сторінку приймальної комісії'
 						>
-							<Button className='group bg-green-primary hover:bg-green-secondary flex h-12 w-50 cursor-pointer items-center rounded-full'>
+							<Button className='group bg-button-primary hover:bg-green-secondary flex h-12 w-50 cursor-pointer items-center rounded-full dark:bg-gradient-to-r dark:from-green-950/70 dark:to-violet-950/70'>
 								<p className='pl-3 text-base font-semibold text-white'>Стати студентом</p>
 								<div className='rounded-full bg-white p-2'>
 									<ArrowRightIcon className='size-5 text-black/80 transition-all duration-200 group-hover:translate-x-0.5' />
@@ -60,14 +60,14 @@ export const BecomeAStudent = () => (
 					</p>
 				</div>
 			</div>
-			<div className='mt-[-141px] mr-[-35px]'>
+			<div className='mt-[-117px] mr-[-35px]'>
 				<Image
 					loading='eager'
 					priority
 					src='/images/main-screen.webp'
 					alt='Main Screen'
-					width={600}
-					height={600}
+					width={550}
+					height={550}
 				/>
 			</div>
 		</div>

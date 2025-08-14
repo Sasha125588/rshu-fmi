@@ -33,19 +33,20 @@ export const roleConfig: RoleConfig = {
 		icon: Crown,
 		iconClass: 'text-emerald-400',
 		label: 'Голова Вченої ради',
-		containerClass: 'border-[#017369]/20 bg-white dark:bg-emerald-950 dark:border-emerald-900'
+		containerClass:
+			'border-green-primary/20 bg-emerald-50 dark:bg-emerald-950 dark:border-emerald-900'
 	},
 	deputy: {
 		icon: UserCheck,
-		iconClass: 'text-blue-300',
+		iconClass: 'text-blue-400',
 		label: 'Заступник голови',
 		containerClass: 'border-blue-200 bg-blue-50 dark:bg-indigo-950 dark:border-indigo-900'
 	},
 	secretary: {
 		icon: FileText,
-		iconClass: 'text-yellow-300',
+		iconClass: 'text-orange-400',
 		label: 'Секретар',
-		containerClass: 'border-green-200 bg-green-50 dark:bg-yellow-950 dark:border-yellow-900'
+		containerClass: 'border-orange-200 bg-orange-50 dark:bg-yellow-950 dark:border-yellow-900'
 	}
 }
 

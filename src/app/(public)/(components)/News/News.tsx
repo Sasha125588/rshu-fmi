@@ -26,9 +26,9 @@ export const News = ({ initialNews, initialPage }: Props) => {
 		>
 			<div className=''>
 				<div className='flex items-center gap-3'>
-					<NewspaperIcon className='h-5 w-5 text-[#017369]' />
+					<NewspaperIcon className='text-green-primary h-5 w-5' />
 					<Badge
-						className='border-[#017369]/20 text-sm font-normal text-[#017369]'
+						className='border-green-primary/20 text-green-primary text-sm font-normal'
 						variant='outline'
 					>
 						Останні новини

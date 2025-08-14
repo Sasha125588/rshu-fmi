@@ -39,20 +39,20 @@ const ContactsPage = () => (
 		{/* Hero Section */}
 		<div className='pb-12'>
 			<div className='mb-6 flex items-center gap-3'>
-				<Phone className='h-5 w-5 text-[#017369]' />
+				<Phone className='text-green-primary h-5 w-5' />
 				<Badge
-					className='border border-[#017369]/20 text-sm font-normal text-[#017369]'
+					className='border-green-primary/20 text-green-primary text-sm font-normal'
 					variant='outline'
 				>
 					Зв&apos;язок з нами
 				</Badge>
 			</div>
-			<h1 className='mb-6 text-5xl leading-tight font-semibold text-gray-900'>
+			<h1 className='mb-6 text-5xl leading-tight font-semibold'>
 				Контакти
 				<br />
-				<span className='text-[#017369]'>факультету</span>
+				<span className='text-green-primary'>факультету</span>
 			</h1>
-			<p className='max-w-3xl text-xl leading-relaxed text-gray-600'>
+			<p className='text-muted-foreground max-w-3xl text-xl leading-relaxed'>
 				Ми завжди готові відповісти на ваші питання та надати необхідну інформацію про навчання,
 				вступ та діяльність факультету математики та інформатики.
 			</p>
@@ -61,17 +61,17 @@ const ContactsPage = () => (
 		{/* Contact Information */}
 		<div className='space-y-8'>
 			{/* Address Section */}
-			<div className='rounded-2xl bg-gradient-to-r from-[#017369]/5 to-transparent p-8'>
+			<div className='from-green-primary/5 rounded-2xl bg-gradient-to-r to-transparent p-8'>
 				<div className='mb-6 flex items-center gap-3'>
-					<MapPin className='h-6 w-6 text-[#017369]' />
-					<h2 className='text-2xl font-semibold text-gray-900'>Адреса</h2>
+					<MapPin className='text-green-primary h-6 w-6' />
+					<h2 className='text-2xl font-semibold'>Адреса</h2>
 				</div>
 
 				<div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
 					<div className='flex h-full flex-col space-y-4'>
-						<div className='flex-1 rounded-lg border border-[#017369]/20 bg-white p-6'>
+						<div className='border-green-primary/20 flex-1 rounded-lg border bg-white p-6'>
 							<div className='mb-4 flex items-center gap-3'>
-								<Building className='h-5 w-5 text-[#017369]' />
+								<Building className='text-green-primary h-5 w-5' />
 								<h3 className='text-lg font-semibold text-gray-900'>
 									Факультет математики та інформатики
 								</h3>
@@ -92,19 +92,19 @@ const ContactsPage = () => (
 							<h3 className='mb-3 text-lg font-semibold text-gray-800'>Як нас знайти</h3>
 							<ul className='space-y-2 text-gray-600'>
 								<li className='flex items-start gap-2'>
-									<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>Центральний корпус університету</span>
 								</li>
 								<li className='flex items-start gap-2'>
-									<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>1-й поверх, кабінет 108</span>
 								</li>
 								<li className='flex items-start gap-2'>
-									<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>Зручне транспортне сполучення</span>
 								</li>
 								<li className='flex items-start gap-2'>
-									<div className='mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-[#017369]'></div>
+									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>Паркування поблизу університету</span>
 								</li>
 							</ul>
@@ -120,7 +120,7 @@ const ContactsPage = () => (
 			<Socials />
 
 			{/* Call to action */}
-			<div className='rounded-2xl bg-gradient-to-r from-[#017369] to-[#01635b] p-8 text-white'>
+			<div className='from-green-primary to-green-secondary rounded-2xl bg-gradient-to-r p-8 text-white'>
 				<div className='text-center'>
 					<h2 className='mb-4 text-3xl font-semibold'>Маєте питання?</h2>
 					<p className='mx-auto mb-6 max-w-2xl text-xl leading-relaxed opacity-90'>

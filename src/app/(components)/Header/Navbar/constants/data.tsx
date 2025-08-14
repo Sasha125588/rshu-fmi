@@ -10,10 +10,10 @@ export const NAVBAR_UP_DATA: NavbarData = {
 			hasDropdown: true,
 			component: (
 				<div className='flex flex-col gap-2 p-1'>
-					<p className='bg-green-primary hover:bg-green-primary/90 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'>
+					<p className='bg-green-primary hover:bg-green-primary/90 dark:bg-green-primary/30 dark:hover:bg-green-primary/40 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'>
 						Денна форма навчання
 					</p>
-					<p className='bg-green-primary hover:bg-green-primary/90 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'>
+					<p className='bg-green-primary hover:bg-green-primary/90 dark:bg-green-primary/30 dark:hover:bg-green-primary/40 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'>
 						Заочна форма навчання
 					</p>
 				</div>
@@ -31,74 +31,119 @@ export const NAVBAR_UP_DATA: NavbarData = {
 			href: '#',
 			hasDropdown: true,
 			component: (
-				<div className='flex w-[800px] flex-col gap-24 p-8'>
-					<div className='flex items-baseline justify-between'>
-						<div>
-							<p className='text-accent-foreground text-xl font-bold'>Text</p>
+				<div className='grid w-[800px] grid-cols-3 gap-8 p-6'>
+					<div>
+						<p className='text-accent-foreground mb-3 text-xl font-bold'>Навчання</p>
+						<div className='text-green-primary flex flex-col gap-2 text-base font-medium'>
+							<Link
+								href='#'
+								className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
+							>
+								{'Ще немає :('}
+							</Link>
 						</div>
-						<div>
-							<p className='text-accent-foreground text-xl font-bold'>Text</p>
+					</div>
+					<div>
+						<p className='text-accent-foreground mb-3 text-xl font-bold'>Студентське життя</p>
+						<div className='text-green-primary flex flex-col gap-2 text-base font-medium'>
+							<Link
+								href='#'
+								className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
+							>
+								{'Ще немає :('}
+							</Link>
 						</div>
-						<div>
-							<p className='text-accent-foreground text-xl font-bold'>Корисне</p>
-							<div className='text-green-primary flex flex-col gap-1 pt-2 text-base font-medium'>
-								<Link
-									href='/vartist-navchannia'
-									className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
-								>
-									Вартість навчання
-								</Link>
-							</div>
+					</div>
+					<div>
+						<p className='text-accent-foreground mb-3 text-xl font-bold'>Корисне</p>
+						<div className='text-green-primary flex flex-col gap-2 text-base font-medium'>
+							<Link
+								href='/vartist-navchannia'
+								className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
+							>
+								Вартість навчання
+							</Link>
 						</div>
 					</div>
 				</div>
 			)
 		},
 		{
-			name: 'ПРО ФАКУЛЬТЕТ',
+			name: 'ПРО НАС',
 			href: '#',
 			hasDropdown: true,
 			component: (
-				<div className='flex w-[800px] flex-col gap-24 p-8'>
-					<div className='flex items-baseline justify-between'>
-						<div>
-							<p className='text-accent-foreground text-xl font-bold'>Адміністрація</p>
-							<div className='text-green-primary flex flex-col gap-1 pt-2 text-base font-medium'>
-								<Link
-									href='/vchena-rada'
-									className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
-								>
-									Вчена рада
-								</Link>
-								<Link
-									href='/contacts'
-									className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
-								>
-									Контакти
-								</Link>
-							</div>
+				<div className='grid w-[800px] grid-cols-3 gap-8 p-6'>
+					<div>
+						<p className='text-accent-foreground mb-3 text-xl font-bold'>Адміністрація</p>
+						<div className='text-green-primary flex flex-col gap-2 text-base font-medium'>
+							<Link
+								href='/vchena-rada'
+								className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
+							>
+								Вчена рада
+							</Link>
+							<Link
+								href='/contacts'
+								className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
+							>
+								Контакти
+							</Link>
 						</div>
-						<div>
-							<p className='text-accent-foreground text-xl font-bold'>Історія та сьогодення</p>
-							<div className='text-green-primary flex flex-col gap-1 pt-2 text-base font-medium'>
-								<Link
-									href='/history'
-									className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
-								>
-									Історія
-								</Link>
-							</div>
+					</div>
+					<div>
+						<p className='text-accent-foreground mb-3 text-xl font-bold'>Історія та сьогодення</p>
+						<div className='text-green-primary flex flex-col gap-2 text-base font-medium'>
+							<Link
+								href='/history'
+								className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
+							>
+								Історія
+							</Link>
 						</div>
-						<div>
-							<p className='text-accent-foreground text-xl font-bold'>Міжнародне</p>
-							<div className='text-green-primary flex flex-col gap-1 pt-2 text-base font-medium'>
-								<Link
-									href='/mizhnarodna-spivpratsya'
-									className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
-								>
-									Міжнародна співпраця
-								</Link>
-							</div>
+					</div>
+					<div>
+						<p className='text-accent-foreground mb-3 text-xl font-bold'>Міжнародне</p>
+						<div className='text-green-primary flex flex-col gap-2 text-base font-medium'>
+							<Link
+								href='/mizhnarodna-spivpratsya'
+								className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
+							>
+								Міжнародна співпраця
+							</Link>
+						</div>
+					</div>
+					<div>
+						<p className='text-accent-foreground mb-3 text-xl font-bold'>Наука</p>
+						<div className='text-green-primary flex flex-col gap-2 text-base font-medium'>
+							<Link
+								href='#'
+								className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
+							>
+								{'Ще немає :('}
+							</Link>
+						</div>
+					</div>
+					<div>
+						<p className='text-accent-foreground mb-3 text-xl font-bold'>Освіта</p>
+						<div className='text-green-primary flex flex-col gap-2 text-base font-medium'>
+							<Link
+								href='#'
+								className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
+							>
+								{'Ще немає :('}
+							</Link>
+						</div>
+					</div>
+					<div>
+						<p className='text-accent-foreground mb-3 text-xl font-bold'>Публічна інформація</p>
+						<div className='text-green-primary flex flex-col gap-2 text-base font-medium'>
+							<Link
+								href='/normatyvni-dokumenty'
+								className='hover:text-green-secondary w-fit cursor-pointer transition-colors duration-200'
+							>
+								Нормативні документи
+							</Link>
 						</div>
 					</div>
 				</div>
@@ -109,38 +154,38 @@ export const NAVBAR_UP_DATA: NavbarData = {
 			href: '#',
 			hasDropdown: true,
 			component: (
-				<div className='flex flex-col gap-2 p-1'>
+				<div className='grid w-[350px] grid-cols-2 gap-2 p-1'>
 					<Link
 						href='https://docs.google.com/spreadsheets/d/1fBkuq2Px_urcfrJzzCwfkMvCmipoP-Kj/edit'
-						className='bg-green-primary hover:bg-green-primary/90 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'
+						className='bg-green-primary hover:bg-green-primary/90 dark:bg-green-primary/30 dark:hover:bg-green-primary/40 cursor-pointer rounded-md p-3 text-center text-white transition-colors duration-200'
 						target='_blank'
 					>
 						1 курс
 					</Link>
 					<Link
 						href='https://docs.google.com/spreadsheets/d/1vC741Yi_tDEFF22hfdOQ29HJ5zNqZNf7/edit'
-						className='bg-green-primary hover:bg-green-primary/90 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'
+						className='bg-green-primary hover:bg-green-primary/90 dark:bg-green-primary/30 dark:hover:bg-green-primary/40 cursor-pointer rounded-md p-3 text-center text-white transition-colors duration-200'
 						target='_blank'
 					>
 						2 курс
 					</Link>
 					<Link
 						href='https://docs.google.com/spreadsheets/d/1S2HYtfgnUc2ZTfxo7qqMcNgIPA3A2gkg/edit'
-						className='bg-green-primary hover:bg-green-primary/90 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'
+						className='bg-green-primary hover:bg-green-primary/90 dark:bg-green-primary/30 dark:hover:bg-green-primary/40 cursor-pointer rounded-md p-3 text-center text-white transition-colors duration-200'
 						target='_blank'
 					>
 						3 курс
 					</Link>
 					<Link
 						href='https://docs.google.com/spreadsheets/d/1911GrINIqew_nuPVGDOgY8P_3Mcokods/edit'
-						className='bg-green-primary hover:bg-green-primary/90 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'
+						className='bg-green-primary hover:bg-green-primary/90 dark:bg-green-primary/30 dark:hover:bg-green-primary/40 cursor-pointer rounded-md p-3 text-center text-white transition-colors duration-200'
 						target='_blank'
 					>
 						4 курс
 					</Link>
 					<Link
 						href='https://docs.google.com/spreadsheets/d/18XvUSeAot7r8XnWQ02NFmVr9H-UJ-u2w/edit'
-						className='bg-green-primary hover:bg-green-primary/90 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'
+						className='bg-green-primary hover:bg-green-primary/90 dark:bg-green-primary/30 dark:hover:bg-green-primary/40 col-span-2 cursor-pointer rounded-md p-3 text-center text-white transition-colors duration-200'
 						target='_blank'
 					>
 						Магістри 1 курс

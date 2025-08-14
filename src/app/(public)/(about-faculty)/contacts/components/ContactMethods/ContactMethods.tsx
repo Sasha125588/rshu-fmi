@@ -14,14 +14,14 @@ export const ContactMethods = () => (
 		<ContactCard>
 			<ContactCardHeader>
 				<ContactCardTitle>
-					<Phone className='h-6 w-6 text-[#017369]' />
+					<Phone className='text-green-primary h-6 w-6' />
 					<p>Телефон</p>
 				</ContactCardTitle>
 			</ContactCardHeader>
 			<ContactCardContent>
 				<ContactCardContentHeader>
 					<h3 className='mb-2 font-semibold text-gray-800'>Деканат факультету</h3>
-					<p className='text-2xl font-bold text-[#017369]'>(0362) 26-65-94</p>
+					<p className='text-green-primary text-2xl font-bold'>(0362) 26-65-94</p>
 					<p className='mt-2 text-sm text-gray-600'>Понеділок - П&apos;ятниця: 8:00 - 17:00</p>
 				</ContactCardContentHeader>
 				<ContactCardContentFooter>
@@ -39,7 +39,7 @@ export const ContactMethods = () => (
 		<ContactCard>
 			<ContactCardHeader>
 				<ContactCardTitle>
-					<Phone className='h-6 w-6 text-[#017369]' />
+					<Phone className='text-green-primary h-6 w-6' />
 					<p>Електронна пошта</p>
 				</ContactCardTitle>
 			</ContactCardHeader>
@@ -48,7 +48,7 @@ export const ContactMethods = () => (
 					<h3 className='mb-2 font-semibold text-gray-800'>Деканат факультету</h3>
 					<a
 						href='mailto:dekanat.fmi@rshu.edu.ua'
-						className='block text-xl font-bold text-[#017369] hover:underline'
+						className='text-green-primary block text-xl font-bold hover:underline'
 					>
 						dekanat.fmi@rshu.edu.ua
 					</a>
@@ -69,7 +69,7 @@ export const ContactMethods = () => (
 		<ContactCard>
 			<ContactCardHeader>
 				<ContactCardTitle>
-					<Building className='h-6 w-6 text-[#017369]' />
+					<Building className='text-green-primary h-6 w-6' />
 					<p>Приймальна комісія</p>
 				</ContactCardTitle>
 			</ContactCardHeader>
@@ -84,7 +84,7 @@ export const ContactMethods = () => (
 								<strong>E-mail:</strong>{' '}
 								<a
 									href='mailto:pk@rshu.edu.ua'
-									className='text-[#017369] hover:underline'
+									className='text-green-primary hover:underline'
 								>
 									pk@rshu.edu.ua
 								</a>
@@ -93,7 +93,7 @@ export const ContactMethods = () => (
 								<strong>Телефон для консультацій:</strong>{' '}
 								<a
 									href='tel:+38098475672'
-									className='text-[#017369] hover:underline'
+									className='text-green-primary hover:underline'
 								>
 									+38 (098) 475 67 2
 								</a>

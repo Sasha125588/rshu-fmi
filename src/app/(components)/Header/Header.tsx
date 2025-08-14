@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Navbar } from './Navbar/Navbar'
 
 export const Header = () => (
-	<div className='mr-[-35px] flex justify-between gap-4 pb-22'>
+	<div className='mr-[-35px] flex justify-between gap-4 pb-16'>
 		<div className='flex w-full gap-4'>
 			<Link href='/'>
 				<Image

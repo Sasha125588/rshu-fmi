@@ -32,7 +32,6 @@ export const metadata: Metadata = {
 
 const VchenaRadaPage = () => (
 	<div className='min-h-screen'>
-		{/* Hero Section */}
 		<div className='pb-12'>
 			<div className='mb-6 flex items-center gap-3'>
 				<Users
@@ -101,7 +100,7 @@ const VchenaRadaPage = () => (
 				<div className='mb-6 flex items-center gap-3'>
 					<GraduationCap
 						size={24}
-						className='text-[#017369]'
+						className='text-green-primary'
 					/>
 					<p className='text-2xl font-semibold'>Члени Вченої ради</p>
 				</div>

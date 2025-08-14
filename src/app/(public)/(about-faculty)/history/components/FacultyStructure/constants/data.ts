@@ -31,7 +31,7 @@ export const departmentsData: Department[] = [
 	{
 		name: 'Кафедра цифрових технологій та методики навчання інформатики',
 		tabName: 'Цифрові технології',
-		gradient: 'from-blue-50 to-indigo-50',
+		gradient: 'from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950',
 		leadership: [
 			{
 				title: 'Завідувач кафедри',
@@ -68,7 +68,7 @@ export const departmentsData: Department[] = [
 	{
 		name: 'Кафедра інформаційних технологій та моделювання',
 		tabName: 'ІТ та моделювання',
-		gradient: 'from-green-50 to-emerald-50',
+		gradient: 'from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950',
 		leadership: [
 			{
 				title: 'Завідувач кафедри',
@@ -99,7 +99,7 @@ export const departmentsData: Department[] = [
 	{
 		name: 'Кафедра вищої математики',
 		tabName: 'Вища математика',
-		gradient: 'from-purple-50 to-pink-50',
+		gradient: 'from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950',
 		leadership: [
 			{
 				title: 'Завідувач кафедри',
@@ -122,7 +122,7 @@ export const departmentsData: Department[] = [
 	{
 		name: 'Кафедра математики з методикою викладання',
 		tabName: 'Математика з методикою',
-		gradient: 'from-orange-50 to-yellow-50',
+		gradient: 'from-orange-50 to-yellow-50 dark:from-orange-950 dark:to-yellow-950',
 		leadership: [
 			{
 				title: 'Завідувач кафедри',
