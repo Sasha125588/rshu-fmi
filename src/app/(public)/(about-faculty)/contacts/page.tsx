@@ -61,7 +61,7 @@ const ContactsPage = () => (
 		{/* Contact Information */}
 		<div className='space-y-8'>
 			{/* Address Section */}
-			<div className='from-green-primary/5 rounded-2xl bg-gradient-to-r to-transparent p-8'>
+			<div className='from-green-primary/5 to-green-primary/2 rounded-2xl bg-gradient-to-r p-8 shadow-sm'>
 				<div className='mb-6 flex items-center gap-3'>
 					<MapPin className='text-green-primary h-6 w-6' />
 					<h2 className='text-2xl font-semibold'>Адреса</h2>
@@ -69,42 +69,40 @@ const ContactsPage = () => (
 
 				<div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
 					<div className='flex h-full flex-col space-y-4'>
-						<div className='border-green-primary/20 flex-1 rounded-lg border bg-white p-6'>
+						<div className='border-green-primary/20 bg-background flex-1 rounded-lg border p-6'>
 							<div className='mb-4 flex items-center gap-3'>
 								<Building className='text-green-primary h-5 w-5' />
-								<h3 className='text-lg font-semibold text-gray-900'>
-									Факультет математики та інформатики
-								</h3>
+								<h3 className='text-lg font-semibold'>Факультет математики та інформатики</h3>
 							</div>
-							<div className='space-y-2'>
-								<p className='text-gray-700'>
+							<div className='text-muted-foreground space-y-2'>
+								<p className='text-primary/80'>
 									<strong>Рівненський державний гуманітарний університет</strong>
 								</p>
-								<p className='text-gray-600'>33028, Україна</p>
-								<p className='text-gray-600'>м. Рівне, вул. Пластова, 31</p>
-								<p className='text-gray-600'>каб. 108</p>
+								<p>33028, Україна</p>
+								<p>м. Рівне, вул. Пластова, 31</p>
+								<p>каб. 108</p>
 							</div>
 						</div>
 					</div>
 
 					<div className='flex h-full flex-col space-y-4'>
-						<div className='flex-1 rounded-lg bg-blue-50 p-6'>
-							<h3 className='mb-3 text-lg font-semibold text-gray-800'>Як нас знайти</h3>
-							<ul className='space-y-2 text-gray-600'>
+						<div className='bg-primary/3 border-primary/10 flex-1 rounded-lg border p-6'>
+							<h3 className='mb-3 text-lg font-semibold'>Як нас знайти</h3>
+							<ul className='text-primary/80 space-y-2'>
 								<li className='flex items-start gap-2'>
-									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
+									<div className='bg-green-primary/80 mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>Центральний корпус університету</span>
 								</li>
 								<li className='flex items-start gap-2'>
-									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
+									<div className='bg-green-primary/80 mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>1-й поверх, кабінет 108</span>
 								</li>
 								<li className='flex items-start gap-2'>
-									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
+									<div className='bg-green-primary/80 mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>Зручне транспортне сполучення</span>
 								</li>
 								<li className='flex items-start gap-2'>
-									<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
+									<div className='bg-green-primary/80 mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
 									<span>Паркування поблизу університету</span>
 								</li>
 							</ul>
@@ -120,10 +118,10 @@ const ContactsPage = () => (
 			<Socials />
 
 			{/* Call to action */}
-			<div className='from-green-primary to-green-secondary rounded-2xl bg-gradient-to-r p-8 text-white'>
+			<div className='from-green-primary to-green-secondary dark:from-green-primary/30 dark:to-green-secondary/30 rounded-2xl bg-gradient-to-r p-8 text-white'>
 				<div className='text-center'>
 					<h2 className='mb-4 text-3xl font-semibold'>Маєте питання?</h2>
-					<p className='mx-auto mb-6 max-w-2xl text-xl leading-relaxed opacity-90'>
+					<p className='mx-auto mb-6 max-w-2xl text-xl leading-relaxed text-white/90 opacity-90'>
 						Наша команда завжди готова допомогти. Зв&apos;яжіться з нами зручним для вас способом, і
 						ми надамо всю необхідну інформацію про навчання на факультеті.
 					</p>

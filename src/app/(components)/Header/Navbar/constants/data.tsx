@@ -207,28 +207,28 @@ export const NAVBAR_DOWN_DATA: NavbarData = {
 					<Link
 						target='_blank'
 						href='https://kitm.rshu.edu.ua/'
-						className='bg-green-primary hover:bg-green-primary/90 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'
+						className='bg-green-primary hover:bg-green-primary/90 dark:bg-green-primary/30 dark:hover:bg-green-primary/40 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'
 					>
 						Кафедра інформаційних технологій та моделювання
 					</Link>
 					<Link
 						target='_blank'
 						href='https://iktmvi.rshu.edu.ua/'
-						className='bg-green-primary hover:bg-green-primary/90 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'
+						className='bg-green-primary hover:bg-green-primary/90 dark:bg-green-primary/30 dark:hover:bg-green-primary/40 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'
 					>
 						Кафедра ЦТ та МНІ
 					</Link>
 					<Link
 						target='_blank'
 						href='http://vmivm.gavrysha.com/'
-						className='bg-green-primary hover:bg-green-primary/90 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'
+						className='bg-green-primary hover:bg-green-primary/90 dark:bg-green-primary/30 dark:hover:bg-green-primary/40 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'
 					>
 						Кафедра вищої математики
 					</Link>
 					<Link
 						target='_blank'
 						href='http://vmivm.gavrysha.com/'
-						className='bg-green-primary hover:bg-green-primary/90 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'
+						className='bg-green-primary hover:bg-green-primary/90 dark:bg-green-primary/30 dark:hover:bg-green-primary/40 cursor-pointer rounded-md p-2 text-white transition-colors duration-200'
 					>
 						Кафедра математики з методикою викладання
 					</Link>

@@ -21,7 +21,7 @@ export const SocialData: Social[] = [
 		image: InstagramIcon,
 		actionTitle: 'Підписатися',
 		link: 'https://www.instagram.com/fmi_rshu/',
-		bgColor: 'bg-gradient-to-br from-pink-50 to-purple-50',
+		bgColor: 'bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-950 dark:to-purple-950',
 		iconColor: 'bg-gradient-to-br from-pink-500 to-purple-600'
 	},
 	{
@@ -31,7 +31,7 @@ export const SocialData: Social[] = [
 		image: TiktokIcon,
 		actionTitle: 'Стежити',
 		link: 'https://www.tiktok.com/@fmi_rshu',
-		bgColor: 'bg-gradient-to-br from-gray-50 to-gray-100',
+		bgColor: 'bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950/50 dark:to-gray-800',
 		iconColor: 'bg-black'
 	},
 	{
@@ -41,7 +41,7 @@ export const SocialData: Social[] = [
 		image: FacebookIcon,
 		actionTitle: 'Слідкувати',
 		link: 'https://www.facebook.com/groups/1748613002125956/',
-		bgColor: 'bg-gradient-to-br from-blue-50 to-indigo-50',
+		bgColor: 'bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950',
 		iconColor: 'bg-blue-600'
 	}
 ]

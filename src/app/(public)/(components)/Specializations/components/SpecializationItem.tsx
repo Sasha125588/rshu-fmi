@@ -14,13 +14,13 @@ export const SpecializationItem = ({ item }: Props) => {
 	const IconComponent = item.icon
 
 	return (
-		<div className='group border-border bg-accent/5 hover:border-green-primary/30 relative overflow-hidden rounded-xl border p-6 transition-all duration-300 hover:shadow-lg'>
+		<div className='group border-border bg-accent/5 hover:border-green-primary/30 relative overflow-hidden rounded-xl border p-6 shadow-xs transition-all duration-300 hover:shadow-lg'>
 			<div className='from-green-primary/4 to-green-primary/4 pointer-events-none absolute inset-0 bg-gradient-to-br via-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
 			<div className='space-y-4'>
 				<div className='flex items-start justify-between'>
 					<div className='flex items-center gap-3'>
-						<div className='from-green-primary to-green-secondary group-hover:bg-green-primary/20 flex size-12 items-center justify-center rounded-lg bg-gradient-to-br transition-all duration-300 group-hover:scale-110 group-hover:rotate-3'>
+						<div className='from-green-primary to-green-secondary dark:to-green-secondary group-hover:bg-green-primary/20 flex size-12 items-center justify-center rounded-lg bg-gradient-to-br transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 dark:from-black/60'>
 							<IconComponent className='size-6 text-white transition-all duration-300 group-hover:scale-110' />
 						</div>
 					</div>

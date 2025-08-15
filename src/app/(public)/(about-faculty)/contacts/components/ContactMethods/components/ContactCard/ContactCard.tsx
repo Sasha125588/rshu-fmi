@@ -6,7 +6,7 @@ const ContactCard = ({ className, ...props }: React.ComponentProps<'div'>) => (
 	<div
 		data-slot='card'
 		className={cn(
-			'text-card-foreground flex h-full flex-col gap-6 rounded-2xl border border-gray-100 bg-white p-8 shadow-sm',
+			'text-card-foreground bg-background border-border flex h-full flex-col gap-6 rounded-2xl border p-8 shadow-sm',
 			className
 		)}
 		{...props}
@@ -46,7 +46,7 @@ const ContactCardContent = ({ className, ...props }: React.ComponentProps<'div'>
 const ContactCardContentHeader = ({ className, ...props }: React.ComponentProps<'div'>) => (
 	<div
 		data-slot='card-content-header'
-		className={cn('flex-1 rounded-lg bg-green-50 p-4', className)}
+		className={cn('flex-1 rounded-lg bg-green-50 p-4 dark:bg-emerald-950', className)}
 		{...props}
 	/>
 )
@@ -54,7 +54,7 @@ const ContactCardContentHeader = ({ className, ...props }: React.ComponentProps<
 const ContactCardContentFooter = ({ className, ...props }: React.ComponentProps<'div'>) => (
 	<div
 		data-slot='card-content-footer'
-		className={cn('flex-1 rounded-lg bg-gray-50 p-4', className)}
+		className={cn('dark:bg-card flex-1 rounded-lg bg-blue-50 p-4', className)}
 		{...props}
 	/>
 )

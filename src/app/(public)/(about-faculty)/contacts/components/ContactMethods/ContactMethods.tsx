@@ -1,4 +1,4 @@
-import { Building, Phone } from 'lucide-react'
+import { Building, Mail, Phone } from 'lucide-react'
 
 import {
 	ContactCard,
@@ -20,13 +20,13 @@ export const ContactMethods = () => (
 			</ContactCardHeader>
 			<ContactCardContent>
 				<ContactCardContentHeader>
-					<h3 className='mb-2 font-semibold text-gray-800'>Деканат факультету</h3>
+					<h3 className='mb-2 font-semibold'>Деканат факультету</h3>
 					<p className='text-green-primary text-2xl font-bold'>(0362) 26-65-94</p>
-					<p className='mt-2 text-sm text-gray-600'>Понеділок - П&apos;ятниця: 8:00 - 17:00</p>
+					<p className='mt-2 text-sm'>Понеділок - П&apos;ятниця: 8:00 - 17:00</p>
 				</ContactCardContentHeader>
 				<ContactCardContentFooter>
-					<h3 className='mb-2 font-medium text-gray-800'>Коли телефонувати:</h3>
-					<ul className='space-y-1 text-sm text-gray-600'>
+					<h3 className='mb-2 font-medium'>Коли звертатися:</h3>
+					<ul className='text-primary/90 space-y-1 text-sm'>
 						<li>• Питання щодо вступу та навчання</li>
 						<li>• Інформація про спеціальності</li>
 						<li>• Консультації для абітурієнтів</li>
@@ -39,24 +39,24 @@ export const ContactMethods = () => (
 		<ContactCard>
 			<ContactCardHeader>
 				<ContactCardTitle>
-					<Phone className='text-green-primary h-6 w-6' />
+					<Mail className='text-green-primary h-6 w-6' />
 					<p>Електронна пошта</p>
 				</ContactCardTitle>
 			</ContactCardHeader>
 			<ContactCardContent>
 				<ContactCardContentHeader>
-					<h3 className='mb-2 font-semibold text-gray-800'>Деканат факультету</h3>
+					<h3 className='mb-2 font-semibold'>Деканат факультету</h3>
 					<a
 						href='mailto:dekanat.fmi@rshu.edu.ua'
 						className='text-green-primary block text-xl font-bold hover:underline'
 					>
 						dekanat.fmi@rshu.edu.ua
 					</a>
-					<p className='mt-2 text-sm text-gray-600'>Відповідаємо протягом 1-2 робочих днів</p>
+					<p className='mt-2 text-sm'>Відповідаємо протягом 1-2 робочих днів</p>
 				</ContactCardContentHeader>
 				<ContactCardContentFooter>
-					<h3 className='mb-2 font-medium text-gray-800'>Коли телефонувати:</h3>
-					<ul className='space-y-1 text-sm text-gray-600'>
+					<h3 className='mb-2 font-medium'>Коли звертатися:</h3>
+					<ul className='text-primary/90 space-y-1 text-sm'>
 						<li>• Детальна інформація про програми</li>
 						<li>• Документи для вступу</li>
 						<li>• Співпраця та партнерство</li>
@@ -74,9 +74,9 @@ export const ContactMethods = () => (
 				</ContactCardTitle>
 			</ContactCardHeader>
 			<ContactCardContent>
-				<ContactCardContentHeader className='bg-orange-50 text-sm'>
+				<ContactCardContentHeader className='text-sm'>
 					<div className='flex-1'>
-						<div className='space-y-2 text-sm text-gray-600'>
+						<div className='space-y-2 text-sm'>
 							<p>
 								<strong>Адреса:</strong> вул. С. Бандери, 12, м. Рівне, Україна, 33028
 							</p>
@@ -102,8 +102,8 @@ export const ContactMethods = () => (
 					</div>
 				</ContactCardContentHeader>
 				<ContactCardContentFooter>
-					<h3 className='mb-2 font-medium text-gray-800'>Коли звертатися:</h3>
-					<ul className='space-y-1 text-sm text-gray-600'>
+					<h3 className='mb-2 font-medium'>Коли звертатися:</h3>
+					<ul className='text-primary/90 space-y-1 text-sm'>
 						<li>• Питання про вступ</li>
 						<li>• Консультації для абітурієнтів</li>
 						<li>• Подача документів</li>

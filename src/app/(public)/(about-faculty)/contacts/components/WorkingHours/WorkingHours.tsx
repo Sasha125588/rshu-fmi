@@ -1,16 +1,16 @@
 import { Clock } from 'lucide-react'
 
 export const WorkingHours = () => (
-	<div className='rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 p-8'>
+	<div className='rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 p-8 shadow-sm dark:from-blue-950/80 dark:to-indigo-950/80'>
 		<div className='mb-6 flex items-center gap-3'>
 			<Clock className='text-green-primary h-6 w-6' />
-			<h2 className='text-2xl font-semibold text-gray-900'>Графік роботи</h2>
+			<h2 className='text-2xl font-semibold'>Графік роботи</h2>
 		</div>
 
 		<div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
-			<div className='rounded-lg bg-white p-4'>
-				<h3 className='mb-3 font-semibold text-gray-800'>Деканат</h3>
-				<div className='space-y-2 text-sm text-gray-600'>
+			<div className='dark:bg-primary/10 rounded-lg bg-white p-4'>
+				<h3 className='mb-3 font-semibold'>Деканат</h3>
+				<div className='text-muted-foreground space-y-2 text-sm'>
 					<div className='flex justify-between'>
 						<span>Понеділок - П&apos;ятниця:</span>
 						<span className='font-medium'>8:00 - 17:00</span>
@@ -26,16 +26,16 @@ export const WorkingHours = () => (
 				</div>
 			</div>
 
-			<div className='rounded-lg bg-white p-4'>
-				<h3 className='mb-3 font-semibold text-gray-800'>Приймальна комісія</h3>
-				<div className='space-y-3 text-sm text-gray-600'>
+			<div className='dark:bg-primary/10 rounded-lg bg-white p-4'>
+				<h3 className='mb-3 font-semibold'>Приймальна комісія</h3>
+				<div className='text-muted-foreground space-y-3 text-sm'>
 					<div className='flex justify-between'>
 						<span>Понеділок-п&apos;ятниця:</span>
 						<span className='font-medium'>9:00-17:00 год.</span>
 					</div>
 
 					<div className='space-y-2'>
-						<div className='text-xs font-medium text-gray-500'>
+						<div className='text-muted-foreground text-xs font-medium'>
 							В окремі дні робота подовжується до 18:00 год:
 						</div>
 						<div className='space-y-1 pl-3 text-xs'>
@@ -69,16 +69,16 @@ export const WorkingHours = () => (
 						<span className='font-medium'>Неділя</span>
 					</div>
 
-					<div className='mt-3 rounded border border-yellow-200 bg-yellow-50 p-2 text-xs text-gray-600'>
+					<div className='text-primary/90 mt-3 rounded border border-yellow-200 bg-yellow-50 p-2 text-xs dark:border-yellow-600/50 dark:bg-yellow-700/50'>
 						<strong>Примітка:</strong> Порядок роботи Приймальної комісії може бути змінений
 						відповідно до прийнятого нею рішення.
 					</div>
 				</div>
 			</div>
 
-			<div className='rounded-lg bg-white p-4'>
-				<h3 className='mb-3 font-semibold text-gray-800'>Консультації</h3>
-				<div className='space-y-2 text-sm text-gray-600'>
+			<div className='dark:bg-primary/10 rounded-lg bg-white p-4'>
+				<h3 className='mb-3 font-semibold'>Консультації</h3>
+				<div className='text-muted-foreground space-y-2 text-sm'>
 					<div className='flex justify-between'>
 						<span>Вівторок, Четвер:</span>
 						<span className='font-medium'>14:00 - 16:00</span>
@@ -87,7 +87,7 @@ export const WorkingHours = () => (
 						<span>За домовленістю:</span>
 						<span className='font-medium'>Інший час</span>
 					</div>
-					<p className='mt-2 text-xs text-gray-500'>Попередньо телефонуйте або пишіть</p>
+					<p className='text-muted-foreground mt-2 text-xs'>Попередньо телефонуйте або пишіть</p>
 				</div>
 			</div>
 		</div>

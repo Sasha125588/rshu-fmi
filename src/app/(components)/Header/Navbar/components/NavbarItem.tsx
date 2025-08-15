@@ -45,7 +45,7 @@ export const NavbarItem = ({
 							className={cn(
 								'flex cursor-pointer items-center justify-center rounded-full text-sm font-medium transition-colors',
 								variant === 'outline' &&
-									'border-green-primary hover:bg-green-primary hover:text-white'
+									'border-green-primary hover:bg-green-primary dark:border-green-primary/40 dark:hover:bg-green-primary/20'
 							)}
 						>
 							{item.name}

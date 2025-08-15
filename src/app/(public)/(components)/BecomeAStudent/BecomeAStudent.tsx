@@ -35,9 +35,9 @@ export const BecomeAStudent = () => (
 							rel='noopener noreferrer'
 							aria-label='Перейти на сторінку приймальної комісії'
 						>
-							<Button className='group bg-button-primary hover:bg-green-secondary flex h-12 w-50 cursor-pointer items-center rounded-full dark:bg-gradient-to-r dark:from-green-950/70 dark:to-violet-950/70'>
+							<Button className='group bg-button-primary hover:bg-green-secondary dark:bg-green-primary/50 dark:hover:bg-green-primary/40 flex h-12 w-50 cursor-pointer items-center rounded-full'>
 								<p className='pl-3 text-base font-semibold text-white'>Стати студентом</p>
-								<div className='rounded-full bg-white p-2'>
+								<div className='ml-1 rounded-full bg-white p-2'>
 									<ArrowRightIcon className='size-5 text-black/80 transition-all duration-200 group-hover:translate-x-0.5' />
 								</div>
 							</Button>

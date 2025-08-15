@@ -84,7 +84,7 @@ export default function TuitionCostsPage() {
 															<tr
 																key={item.id}
 																className={`hover:bg-accent/5 transition-colors duration-200 ${
-																	index % 2 === 0 ? 'bg-background' : 'bg-violet-50/30'
+																	index % 2 === 0 ? 'bg-background' : 'bg-m'
 																}`}
 															>
 																<td className='px-6 py-4'>
@@ -126,12 +126,12 @@ export default function TuitionCostsPage() {
 				})}
 			</div>
 
-			<div className='mt-6 rounded-lg border border-orange-100 bg-orange-50 p-4 dark:border-yellow-900 dark:bg-yellow-950'>
+			<div className='mt-6 rounded-lg border border-orange-200 bg-orange-100 p-4 dark:border-amber-900 dark:bg-amber-950'>
 				<div className='flex items-start gap-3'>
 					<GraduationCap className='text-green-primary mt-0.5 h-5 w-5' />
-					<div className='text-muted-foreground text-sm'>
+					<div className='text-sm'>
 						<p className='text-foreground mb-1 font-medium'>Примітка:</p>
-						<p>
+						<p className='text-primary/90'>
 							Вартість навчання вказана в гривнях. Деякі програми можуть мати різну вартість залежно
 							від форми навчання та інших факторів. Для отримання детальної інформації звертайтеся
 							до приймальної комісії.
