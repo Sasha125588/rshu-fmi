@@ -19,10 +19,8 @@ export const SpecializationItem = ({ item }: Props) => {
 
 			<div className='space-y-4'>
 				<div className='flex items-start justify-between'>
-					<div className='flex items-center gap-3'>
-						<div className='from-green-primary to-green-secondary dark:to-green-secondary group-hover:bg-green-primary/20 flex size-12 items-center justify-center rounded-lg bg-gradient-to-br transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 dark:from-black/60'>
-							<IconComponent className='size-6 text-white transition-all duration-300 group-hover:scale-110' />
-						</div>
+					<div className='from-green-primary to-green-secondary dark:to-green-secondary group-hover:bg-green-primary/20 flex size-12 items-center justify-center rounded-lg bg-gradient-to-br transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 dark:from-black/60'>
+						<IconComponent className='size-6 text-white transition-all duration-300 group-hover:scale-110' />
 					</div>
 					<Badge
 						variant='outline'

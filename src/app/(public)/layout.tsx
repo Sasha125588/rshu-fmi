@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 
 const PublicLayout = ({ children }: Props) => (
 	<>
-		<div className='absolute -z-10 h-full border-l'></div>
-		<main className='pl-[15px]'>
+		<div className='absolute -z-10 hidden h-full border-l md:block'></div>
+		<main className='h-full w-full px-4'>
 			<Header />
 			{children}
 			<Footer />

@@ -1,4 +1,5 @@
 import { Calculator, GraduationCap } from 'lucide-react'
+import type { Metadata } from 'next'
 
 import {
 	Accordion,
@@ -11,7 +12,33 @@ import { Badge } from '@/components/ui/badge'
 import { STUDY_COSTS_DATA, STUDY_FORMS_DATA } from './constants/data'
 import { formatCurrency } from './helpers/formatCurrency'
 
-export default function TuitionCostsPage() {
+export const metadata: Metadata = {
+	title: 'Вартість навчання',
+	description: 'Вартість навчання на факультеті математики та інформатики на 2025 навчальний рік',
+	openGraph: {
+		title: 'Вартість навчання',
+		description: 'Вартість навчання на факультеті математики та інформатики на 2025 навчальний рік',
+		images: [
+			{
+				url: new URL(
+					'/images/logo.webp',
+					process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
+				).href,
+
+				width: 120,
+				height: 120,
+				type: 'image/webp',
+				alt: 'ФМІ логотип'
+			}
+		],
+		url: new URL('/vartist-navchannia', process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000')
+			.href,
+		type: 'website',
+		locale: 'uk_UA'
+	}
+}
+
+const TuitionCostsPage = () => {
 	return (
 		<div>
 			<div className='mb-6 flex items-center gap-3'>
@@ -142,3 +169,5 @@ export default function TuitionCostsPage() {
 		</div>
 	)
 }
+
+export default TuitionCostsPage

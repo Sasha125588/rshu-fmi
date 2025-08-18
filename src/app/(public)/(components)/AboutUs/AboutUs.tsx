@@ -10,10 +10,13 @@ import {
 import { Badge } from '@/components/ui/badge'
 
 export const AboutUs = () => (
-	<div className='pt-24'>
-		<div className='mb-6 flex items-center justify-between'>
+	<div className='pt-12 md:pt-24'>
+		<div className='mb-6 flex items-center justify-between gap-4'>
 			<div className='flex items-center gap-3'>
-				<UsersIcon className='text-green-primary h-5 w-5' />
+				<UsersIcon
+					className='text-green-primary'
+					size={20}
+				/>
 				<Badge
 					className='border-green-primary/20 text-green-primary border text-sm font-normal'
 					variant='outline'
@@ -23,7 +26,7 @@ export const AboutUs = () => (
 			</div>
 			<Link
 				href='/history'
-				className='group bg-green-primary/10 text-green-primary hover:bg-green-primary/20 flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 hover:scale-102'
+				className='group text-green-primary hover:bg-green-primary/15 border-green-primary/15 flex w-auto items-center justify-center gap-1 rounded-full border px-4 py-1 text-sm font-medium transition-all duration-200 hover:scale-102'
 			>
 				<p>Детальніше про історію</p>
 				<svg
@@ -43,25 +46,27 @@ export const AboutUs = () => (
 				</svg>
 			</Link>
 		</div>
-		<h2 className='mb-4 text-3xl font-semibold'>Факультет майбутнього для сучасного світу</h2>
-		<p className='text-muted-foreground max-w-2xl text-lg'>
+		<h2 className='mb-4 text-2xl font-semibold sm:text-3xl'>
+			Факультет майбутнього для сучасного світу
+		</h2>
+		<p className='text-muted-foreground mb-8 max-w-2xl text-base sm:text-lg'>
 			Більше 90 років досвіду в підготовці математиків, програмістів та вчителів. Ваш шлях до успіху
 			в цифровому світі починається тут.
 		</p>
-		<div className='flex w-full items-baseline justify-between pt-10'>
+		<div className='flex w-full flex-col gap-8 lg:flex-row lg:items-start lg:justify-between'>
 			<Accordion
 				type='single'
 				collapsible
-				className='h-0 w-full max-w-[500px]'
+				className='w-full lg:max-w-[500px]'
 			>
 				<AccordionItem value='item-1'>
 					<AccordionTrigger className='flex items-center gap-2'>
 						<div className='flex items-center gap-4'>
 							<GraduationCap className='text-green-primary h-5 w-5' />
-							Чому варто обрати наш факультет?
+							<span className='text-sm sm:text-base'>Чому варто обрати наш факультет?</span>
 						</div>
 					</AccordionTrigger>
-					<AccordionContent>
+					<AccordionContent className='text-sm sm:text-base'>
 						Ми поєднуємо класичну математичну освіту з сучасними IT-технологіями. Наші випускники
 						працюють в провідних компаніях світу та успішно викладають у навчальних закладах.
 					</AccordionContent>
@@ -71,10 +76,10 @@ export const AboutUs = () => (
 					<AccordionTrigger className='flex items-center gap-2'>
 						<div className='flex items-center gap-4'>
 							<Briefcase className='text-green-primary h-5 w-5' />
-							Які можливості для практики?
+							<span className='text-sm sm:text-base'>Які можливості для практики?</span>
 						</div>
 					</AccordionTrigger>
-					<AccordionContent>
+					<AccordionContent className='text-sm sm:text-base'>
 						Студенти проходять стажування в IT-компаніях, беруть участь у хакатонах, олімпіадах з
 						програмування та мають доступ до сучасних лабораторій з новітнім обладнанням.
 					</AccordionContent>
@@ -84,10 +89,10 @@ export const AboutUs = () => (
 					<AccordionTrigger className='flex items-center gap-2'>
 						<div className='flex items-center gap-4'>
 							<Users2 className='text-green-primary h-5 w-5' />
-							Яка підтримка після випуску?
+							<span className='text-sm sm:text-base'>Яка підтримка після випуску?</span>
 						</div>
 					</AccordionTrigger>
-					<AccordionContent>
+					<AccordionContent className='text-sm sm:text-base'>
 						Факультет підтримує зв&apos;язок з випускниками, надає допомогу в працевлаштуванні та
 						створює можливості для професійного розвитку через Alumni-спільноту.
 					</AccordionContent>
@@ -97,10 +102,10 @@ export const AboutUs = () => (
 					<AccordionTrigger className='flex items-center gap-2'>
 						<div className='flex items-center gap-4'>
 							<School className='text-green-primary h-5 w-5' />
-							Хто наші викладачі?
+							<span className='text-sm sm:text-base'>Хто наші викладачі?</span>
 						</div>
 					</AccordionTrigger>
-					<AccordionContent>
+					<AccordionContent className='text-sm sm:text-base'>
 						Наш професорсько-викладацький склад складається з досвідчених науковців, кандидатів та
 						докторів наук, а також практикуючих IT-спеціалістів з провідних компаній галузі.
 					</AccordionContent>
@@ -110,22 +115,22 @@ export const AboutUs = () => (
 					<AccordionTrigger className='flex items-center gap-2'>
 						<div className='flex items-center gap-4'>
 							<LayoutGrid className='text-green-primary h-5 w-5' />
-							Які умови навчання та обладнання?
+							<span className='text-sm sm:text-base'>Які умови навчання та обладнання?</span>
 						</div>
 					</AccordionTrigger>
-					<AccordionContent>
+					<AccordionContent className='text-sm sm:text-base'>
 						Факультет оснащений сучасними комп&apos;ютерними лабораторіями, має доступ до
 						ліцензійного програмного забезпечення та онлайн-платформ для дистанційного навчання.
 					</AccordionContent>
 				</AccordionItem>
 			</Accordion>
-			<div className='flex flex-col gap-4 text-[17px]/[26px] font-medium'>
-				<p className='w-[400px]'>
+			<div className='flex flex-col gap-6 text-base/[24px] font-medium sm:text-[17px]/[26px] lg:w-[420px]'>
+				<p className='w-full'>
 					Факультет математики та інформатики РДГУ поєднує багаторічні традиції математичної школи з
 					інноваційними підходами до викладання IT-дисциплін. Ми готуємо висококваліфікованих
 					фахівців, здатних вирішувати складні завдання сучасного цифрового світу.
 				</p>
-				<p className='w-[420px]'>
+				<p className='w-full'>
 					Наші програми охоплюють від фундаментальних математичних досліджень до практичного
 					програмування та штучного інтелекту. Ми віримо, що майбутнє належить тим, хто поєднує
 					аналітичне мислення з технологічними навичками.

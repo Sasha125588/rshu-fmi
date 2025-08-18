@@ -59,7 +59,7 @@ const RootLayout = ({
 }>) => (
 	<html
 		lang='uk'
-		className='px-[35px]'
+		className='md:px-8'
 		suppressHydrationWarning
 	>
 		<head>

@@ -68,6 +68,32 @@ const sitemap = (): MetadataRoute.Sitemap => {
 				}
 			},
 			images: ['/images/logo.webp']
+		},
+		{
+			url: `${baseUrl}/normatyvni-dokumenty`,
+			lastModified: new Date(),
+			changeFrequency: 'monthly',
+			priority: 0.9,
+			alternates: {
+				languages: {
+					uk: `${baseUrl}/normatyvni-dokumenty`,
+					en: `${baseUrl}/normatyvni-dokumenty`
+				}
+			},
+			images: ['/images/logo.webp']
+		},
+		{
+			url: `${baseUrl}/vartist-navchannia`,
+			lastModified: new Date(),
+			changeFrequency: 'monthly',
+			priority: 0.9,
+			alternates: {
+				languages: {
+					uk: `${baseUrl}/vartist-navchannia`,
+					en: `${baseUrl}/vartist-navchannia`
+				}
+			},
+			images: ['/images/logo.webp']
 		}
 	]
 }

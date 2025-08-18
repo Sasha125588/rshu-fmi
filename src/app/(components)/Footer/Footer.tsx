@@ -9,7 +9,7 @@ import { InstagramIcon } from '@/public/images/components/InstagramIcon'
 import { TiktokIcon } from '@/public/images/components/TiktokIcon'
 
 export const Footer = () => (
-	<footer className='mr-[-35px] ml-[-50px] pt-16 pb-8'>
+	<footer className='pt-16 pb-8'>
 		<div className='mx-auto max-w-7xl px-6'>
 			<div className='mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4'>
 				<div className='col-span-1 lg:col-span-2'>
@@ -149,7 +149,7 @@ export const Footer = () => (
 						© {new Date().getFullYear()} Рівненський державний гуманітарний університет. Всі права
 						захищені.
 					</p>
-					<div className='flex items-center gap-6'>
+					<div className='flex flex-col items-center gap-6 lg:flex-row'>
 						<Link
 							href='/privacy'
 							className='hover:text-green-primary text-sm transition-colors'

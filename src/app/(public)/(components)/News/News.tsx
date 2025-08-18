@@ -75,7 +75,7 @@ export const News = ({ initialNews, initialPage }: Props) => {
 					>
 						<Button
 							variant='green-ghost'
-							className='group text-green-primary hover:bg-green-primary/15 hover:text-green-primary flex cursor-pointer items-center gap-3 rounded-full px-6 py-3 transition-all duration-200'
+							className='group text-green-primary border-green-primary/15 hover:bg-green-primary/15 hover:text-green-primary flex cursor-pointer items-center gap-3 rounded-full border px-6 py-3 transition-all duration-200'
 						>
 							<span className='text-[15px] font-medium'>Всі новини університету</span>
 							<ArrowRightIcon

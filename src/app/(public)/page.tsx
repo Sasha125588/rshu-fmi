@@ -65,16 +65,16 @@ const HomePage = async () => {
 	return (
 		<div>
 			<BecomeAStudent />
-			<div className='ml-[-55px] border-b' />
+			<div className='hidden border-b md:mr-[-35px] md:ml-[-35px] md:block' />
 			<AboutUs />
-			<div className='mr-[-35px] ml-[-55px] border-b pt-6' />
+			<div className='hidden border-b pt-6 md:mr-[-35px] md:ml-[-35px] md:block' />
 			<Specializations />
-			<div className='mr-[-35px] ml-[-55px] border-b pt-6' />
+			<div className='hidden border-b pt-6 md:mr-[-35px] md:ml-[-35px] md:block' />
 			<News
 				initialNews={news}
 				initialPage={1}
 			/>
-			<div className='mr-[-35px] ml-[-55px] border-b pt-6' />
+			<div className='hidden border-b pt-6 md:mr-[-35px] md:ml-[-35px] md:block' />
 		</div>
 	)
 }

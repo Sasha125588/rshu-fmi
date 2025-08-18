@@ -11,7 +11,7 @@ import {
 } from '@/components/animate-ui/radix/tooltip'
 import { Badge } from '@/components/ui/badge'
 
-import type { NavbarDataItem } from '../constants/types'
+import type { NavbarDataItem } from '../../constants/types'
 
 import { cn } from '@/shared/helpers/common/cn'
 

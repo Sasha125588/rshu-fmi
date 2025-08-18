@@ -6,7 +6,7 @@ export const generateTags = (title: string) => {
 		return keywords.some(keyword => normalizedTitle.includes(keyword))
 	}
 
-	if (checkKeywords(['студент', 'освіт', 'навчан', 'диплом', 'урок', 'курс'])) {
+	if (checkKeywords(['студент', 'освіт', 'навчан', 'диплом', 'урок', 'курс', 'магістрату'])) {
 		tags.push('Освіта')
 	}
 	if (checkKeywords(['грант'])) {
@@ -30,6 +30,7 @@ export const generateTags = (title: string) => {
 	if (
 		checkKeywords([
 			'подія',
+			'зустріч',
 			'захід',
 			'семінар',
 			'лекція',

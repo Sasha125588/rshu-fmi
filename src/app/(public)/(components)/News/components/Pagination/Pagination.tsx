@@ -75,7 +75,7 @@ export const Pagination = ({
 
 	return (
 		<div className='space-y-2'>
-			<div className='text-muted-foreground text-center text-xs'>
+			<div className='text-muted-foreground hidden text-center text-xs md:block'>
 				Навігація: стрілки ← → та Home/End для першої/останньої сторінки
 			</div>
 
