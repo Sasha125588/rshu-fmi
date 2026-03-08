@@ -72,6 +72,10 @@ const RootLayout = ({
         name="google-site-verification"
         content="6mUir8KEMMAZUD-dJJzWtE3-0gY1K-OWxeRhjtJSSak"
       />
+      <meta
+        name="google-site-verification"
+        content="3AnyzksS_fgBv2wkw4IChSjJGze7u50qQcVDld2FSp8"
+      />
     </head>
     <body className={`${nunito.variable} relative overflow-x-hidden antialiased`}>
       <Providers>
