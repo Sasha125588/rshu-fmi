@@ -53,6 +53,7 @@ function PaginationLink({ className, isActive, size = 'icon', ...props }: Pagina
         aria-current={isActive ? 'page' : undefined}
         data-slot="pagination-link"
         data-active={isActive}
+        className={cn(className, 'aria-disabled:pointer-events-none aria-disabled:opacity-50')}
         {...props}
       />
     </Button>
@@ -68,7 +69,7 @@ function PaginationPrevious({
     <PaginationLink
       aria-label="Go to previous page"
       size="default"
-      className={cn('pl-1.5!', className)}
+      className={cn('pl-1.5! ', className)}
       {...props}
     >
       <ChevronLeftIcon

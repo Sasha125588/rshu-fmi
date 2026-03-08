@@ -48,24 +48,17 @@ export const News = ({ initialNews, initialPage }: Props) => {
       </div>
 
       <div className="space-y-0">
-        {state.isLoading
-          ? Array.from({ length: 10 }).map((_, index) => (
-              <NewsItemSkeleton
-                key={`skeleton-${index}`}
-                isLast={index === 9}
-              />
-            ))
-          : state.news.map((newsItem, index) => (
-              <NewsItem
-                key={`${state.currentPage}-${newsItem.link}`}
-                item={newsItem}
-                index={index}
-                isLast={index === state.news.length - 1}
-              />
-            ))}
+        {state.news.map((newsItem, index) => (
+          <NewsItem
+            key={`${state.currentPage}-${newsItem.link}`}
+            item={newsItem}
+            index={index}
+            isLast={index === state.news.length - 1}
+          />
+        ))}
       </div>
 
-      <div className="mt-12 flex justify-center">
+      <div className="mt-4 flex justify-center">
         <Link
           href="https://www.rshu.edu.ua/novyny-rdhu"
           target="_blank"

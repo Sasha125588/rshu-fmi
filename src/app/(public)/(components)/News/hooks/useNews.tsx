@@ -18,26 +18,42 @@ export const useNews = ({ initialNews, initialPage }: Props) => {
   )
   const [news, setNews] = useState<NewsItemProps[]>(initialNews)
 
-  const prevDisabled = currentPage <= 1
-  const nextDisabled = currentPage >= TOTAL_NEWS_PAGES
-
   useEffect(() => {
     if (currentPage === initialPage) {
       setNews(initialNews)
       return
     }
+
+    let cancelled = false
+
     ;(async () => {
-      const res = await fetch(`/api/news?page=${currentPage}`)
-      const data = await res.json()
-      setNews(data.news)
+      try {
+        const res = await fetch(`/api/news?page=${currentPage}`)
+        if (!res.ok) return
+        const data = await res.json()
+        if (!cancelled) {
+          setNews(data.news)
+        }
+      } catch {
+        // On error, keep previous news displayed
+      }
     })()
-  }, [currentPage])
+
+    return () => {
+      cancelled = true
+    }
+  }, [currentPage, initialPage, initialNews])
 
   const goToPage = (page: number) => {
     const safePage = Math.max(1, Math.min(page, TOTAL_NEWS_PAGES))
+    setCurrentPage(safePage)
 
-    startTransition(() => {
-      setCurrentPage(safePage)
+    requestAnimationFrame(() => {
+      document.getElementById('news')?.scrollIntoView({ behavior: 'smooth' })
+
+      const url = new URL(window.location.href)
+      url.hash = 'news'
+      window.history.replaceState(null, '', url.toString())
     })
   }
 
@@ -47,8 +63,6 @@ export const useNews = ({ initialNews, initialPage }: Props) => {
       isLoading: isPending,
       currentPage,
       totalPages: TOTAL_NEWS_PAGES,
-      prevDisabled,
-      nextDisabled,
     },
     functions: {
       goToPage,

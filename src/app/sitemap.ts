@@ -15,7 +15,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
           en: baseUrl,
         },
       },
-      images: ['/images/logo.webp'],
+      images: ['/public/images/logo.webp'],
     },
     {
       url: `${baseUrl}/history`,
@@ -28,7 +28,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
           en: `${baseUrl}/history`,
         },
       },
-      images: ['/images/logo.webp'],
+      images: ['/public/images/logo.webp'],
     },
     {
       url: `${baseUrl}/contacts`,
@@ -41,7 +41,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
           en: `${baseUrl}/contacts`,
         },
       },
-      images: ['/images/logo.webp'],
+      images: ['/public/images/logo.webp'],
     },
     {
       url: `${baseUrl}/mizhnarodna-spivpratsya`,
@@ -54,7 +54,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
           en: `${baseUrl}/mizhnarodna-spivpratsya`,
         },
       },
-      images: ['/images/logo.webp'],
+      images: ['/public/images/logo.webp'],
     },
     {
       url: `${baseUrl}/vchena-rada`,
@@ -67,7 +67,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
           en: `${baseUrl}/vchena-rada`,
         },
       },
-      images: ['/images/logo.webp'],
+      images: ['/public/images/logo.webp'],
     },
     {
       url: `${baseUrl}/normatyvni-dokumenty`,
@@ -80,7 +80,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
           en: `${baseUrl}/normatyvni-dokumenty`,
         },
       },
-      images: ['/images/logo.webp'],
+      images: ['/public/images/logo.webp'],
     },
     {
       url: `${baseUrl}/vartist-navchannia`,
@@ -93,7 +93,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
           en: `${baseUrl}/vartist-navchannia`,
         },
       },
-      images: ['/images/logo.webp'],
+      images: ['/public/images/logo.webp'],
     },
   ]
 }

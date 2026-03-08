@@ -1,4 +1,3 @@
-// import { createLoader, parseAsInteger } from 'nuqs/server'
 import { Suspense } from 'react'
 
 import { AboutUs } from './(components)/AboutUs/AboutUs'
@@ -9,11 +8,9 @@ import { Specializations } from './(components)/Specializations/Specializations'
 import { getNews } from '@/shared/api/requests/getNews'
 
 import type { Metadata } from 'next'
-// import type { SearchParams } from 'nuqs/server'
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const rawNews = await getNews(1)
-  const news = getNewsWithTags(rawNews)
+  const news = await getNews(1)
 
   const baseDescription =
     'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.'
@@ -63,24 +60,14 @@ export const generateMetadata = async (): Promise<Metadata> => {
   }
 }
 
-// export const newsSearchParams = {
-// 	currentPage: parseAsInteger.withDefault(1)
-// }
-
-// export const loadNewsSearchParams = createLoader(newsSearchParams)
-
-// type PageProps = {
-// 	searchParams: Promise<SearchParams>
-// }
-
 const FIRST_PAGE = 1
 
 export const dynamic = 'force-static'
 export const revalidate = 14400 // 4 hours
 
 const HomePage = async () => {
-  // const { currentPage } = await loadNewsSearchParams(searchParams)
-  const news = await getNews(FIRST_PAGE)
+  const rawNews = await getNews(FIRST_PAGE)
+  const news = getNewsWithTags(rawNews)
 
   return (
     <div>
