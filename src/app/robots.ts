@@ -1,12 +1,14 @@
 import type { MetadataRoute } from 'next'
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!
+
 const robots = (): MetadataRoute.Robots => {
   return {
     rules: {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: `${process.env.NEXT_PUBLIC_BASE_URL}/sitemap.xml`,
+    sitemap: `${baseUrl}/sitemap.xml`,
   }
 }
 

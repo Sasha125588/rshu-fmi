@@ -27,6 +27,9 @@ export const metadata: Metadata = {
       url: process.env.NEXT_PUBLIC_BASE_URL,
     },
   ],
+  alternates: {
+    canonical: '/',
+  },
   keywords: [
     'РДГУ',
     'Факультет',
@@ -41,6 +44,7 @@ export const metadata: Metadata = {
       'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
     siteName: 'РДГУ - ФМІ',
     type: 'website',
+    locale: 'uk_UA',
   },
   twitter: {
     title: 'РДГУ - Факультет математики та інформатики',

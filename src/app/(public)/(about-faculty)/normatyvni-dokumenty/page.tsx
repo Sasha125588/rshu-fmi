@@ -16,6 +16,9 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Нормативні документи',
   description: 'Нормативні документи факультету математики та інформатики',
+  alternates: {
+    canonical: '/normatyvni-dokumenty',
+  },
   openGraph: {
     title: 'Нормативні документи факультету математики та інформатики',
     description: 'Нормативні документи факультету математики та інформатики',

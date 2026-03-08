@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: 'Контакти факультету математики та інформатики',
   description:
     'Контактна інформація факультету математики та інформатики РДГУ: адреса, телефони, електронна пошта',
+  alternates: {
+    canonical: '/contacts',
+  },
   openGraph: {
     title: 'Контакти факультету математики та інформатики',
     description:

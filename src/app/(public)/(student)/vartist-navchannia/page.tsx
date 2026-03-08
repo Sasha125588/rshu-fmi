@@ -15,6 +15,9 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Вартість навчання',
   description: 'Вартість навчання на факультеті математики та інформатики на 2025 навчальний рік',
+  alternates: {
+    canonical: '/vartist-navchannia',
+  },
   openGraph: {
     title: 'Вартість навчання',
     description: 'Вартість навчання на факультеті математики та інформатики на 2025 навчальний рік',

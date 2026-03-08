@@ -8,6 +8,9 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Вчена рада факультету математики та інформатики',
   description: 'Склад та керівництво Вченої ради факультету математики та інформатики РДГУ',
+  alternates: {
+    canonical: '/vchena-rada',
+  },
   openGraph: {
     title: 'Вчена рада факультету математики та інформатики',
     description: 'Склад та керівництво Вченої ради факультету математики та інформатики РДГУ',

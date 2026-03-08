@@ -10,22 +10,22 @@ import { getNews } from '@/shared/api/requests/getNews'
 import type { Metadata } from 'next'
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const news = await getNews(1)
+  // const news = await getNews(1)
 
   const baseDescription =
-    'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.'
+    'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету. Новини, спеціальності, міжнародна співпраця, документи та контакти.'
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
 
-  const newsPreview = news.length
-    ? ` Останні новини: ${news
-        .slice(0, 3)
-        .map((item) => item.title)
-        .join(', ')}.`
-    : ''
+  // const newsPreview = news.length
+  //   ? ` Останні новини: ${news
+  //       .slice(0, 3)
+  //       .map((item) => item.title)
+  //       .join(', ')}.`
+  //   : ''
 
   return {
-    description: baseDescription + newsPreview,
+    description: baseDescription,
     openGraph: {
       siteName: 'Факультет математики та інформатики - РДГУ',
       title:
