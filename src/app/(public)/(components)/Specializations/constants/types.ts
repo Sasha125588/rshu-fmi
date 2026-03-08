@@ -2,9 +2,9 @@ import type { LucideProps } from 'lucide-react'
 import type { ForwardRefExoticComponent, RefAttributes } from 'react'
 
 export interface SpecializationItem {
-	title: string
-	description: string
-	tags: string[]
-	date: string
-	icon: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>
+  title: string
+  description: string
+  tags: string[]
+  date: string
+  icon: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>
 }

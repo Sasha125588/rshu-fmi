@@ -3,78 +3,80 @@ import Link from 'next/link'
 
 import { SocialData } from './constants/data'
 
+import type { Route } from 'next'
+
 export const Socials = () => (
-	<div className='bg-background border-border rounded-2xl border p-8 shadow-sm'>
-		<div className='mb-6 flex items-center gap-3'>
-			<Share2 className='text-green-primary h-6 w-6' />
-			<h2 className='text-2xl font-semibold'>Соціальні мережі</h2>
-		</div>
+  <div className="bg-background border-border rounded-2xl border p-8 shadow-sm">
+    <div className="mb-6 flex items-center gap-3">
+      <Share2 className="text-green-primary h-6 w-6" />
+      <h2 className="text-2xl font-semibold">Соціальні мережі</h2>
+    </div>
 
-		<div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
-			{SocialData.map(social => {
-				const IconComponent = social.image
-				return (
-					<div
-						key={social.title}
-						className={`rounded-lg ${social.bgColor} p-6`}
-					>
-						<div className='mb-4 flex items-center gap-3'>
-							<div
-								className={`flex h-10 w-10 items-center justify-center rounded-full ${social.iconColor}`}
-							>
-								<IconComponent className='h-5 w-5 text-white' />
-							</div>
-							<div>
-								<h3 className='font-semibold'>{social.title}</h3>
-								<p className='text-muted-foreground text-sm'>{social.username}</p>
-							</div>
-						</div>
-						<p className='text-muted-foreground mb-4 text-sm'>{social.description}</p>
-						<Link
-							href={social.link}
-							target='_blank'
-							rel='noopener noreferrer'
-							className={`inline-flex items-center gap-2 rounded-full ${social.iconColor} px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:scale-105`}
-						>
-							{social.actionTitle}
-						</Link>
-					</div>
-				)
-			})}
-		</div>
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      {SocialData.map((social) => {
+        const IconComponent = social.image
+        return (
+          <div
+            key={social.title}
+            className={`rounded-lg ${social.bgColor} p-6`}
+          >
+            <div className="mb-4 flex items-center gap-3">
+              <div
+                className={`flex h-10 w-10 items-center justify-center rounded-full ${social.iconColor}`}
+              >
+                <IconComponent className="h-5 w-5 text-white" />
+              </div>
+              <div>
+                <h3 className="font-semibold">{social.title}</h3>
+                <p className="text-muted-foreground text-sm">{social.username}</p>
+              </div>
+            </div>
+            <p className="text-muted-foreground mb-4 text-sm">{social.description}</p>
+            <Link
+              href={social.link as Route}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-2 rounded-full ${social.iconColor} px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:scale-105`}
+            >
+              {social.actionTitle}
+            </Link>
+          </div>
+        )
+      })}
+    </div>
 
-		<div className='mt-8 rounded-lg bg-violet-50 p-6 dark:bg-violet-500/20'>
-			<h3 className='mb-3 text-lg font-semibold'>Чому варто слідкувати за нами?</h3>
-			<div className='grid grid-cols-1 gap-3 md:grid-cols-2'>
-				<ul className='text-primary/90 space-y-2 text-sm'>
-					<li className='flex items-start gap-2'>
-						<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
-						<span>Перші дізнаватися про важливі події</span>
-					</li>
-					<li className='flex items-start gap-2'>
-						<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
-						<span>Бачити досягнення наших студентів</span>
-					</li>
-					<li className='flex items-start gap-2'>
-						<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
-						<span>Отримувати корисні поради про навчання</span>
-					</li>
-				</ul>
-				<ul className='text-primary/90 space-y-2 text-sm'>
-					<li className='flex items-start gap-2'>
-						<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
-						<span>Дивитися фото з університетського життя</span>
-					</li>
-					<li className='flex items-start gap-2'>
-						<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
-						<span>Дізнаватися про нові спеціальності</span>
-					</li>
-					<li className='flex items-start gap-2'>
-						<div className='bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full'></div>
-						<span>Бути в курсі всіх новин факультету</span>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+    <div className="mt-8 rounded-lg bg-violet-50 p-6 dark:bg-violet-500/20">
+      <h3 className="mb-3 text-lg font-semibold">Чому варто слідкувати за нами?</h3>
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <ul className="text-primary/90 space-y-2 text-sm">
+          <li className="flex items-start gap-2">
+            <div className="bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
+            <span>Перші дізнаватися про важливі події</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <div className="bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
+            <span>Бачити досягнення наших студентів</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <div className="bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
+            <span>Отримувати корисні поради про навчання</span>
+          </li>
+        </ul>
+        <ul className="text-primary/90 space-y-2 text-sm">
+          <li className="flex items-start gap-2">
+            <div className="bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
+            <span>Дивитися фото з університетського життя</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <div className="bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
+            <span>Дізнаватися про нові спеціальності</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <div className="bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
+            <span>Бути в курсі всіх новин факультету</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 )

@@ -4,63 +4,65 @@ import { ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 
 import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger
-} from '@/components/animate-ui/radix/tooltip'
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/animate-ui/radix/hover-card'
 import { Badge } from '@/components/ui/badge'
-
-import type { NavbarDataItem } from '../../constants/types'
-
 import { cn } from '@/shared/helpers/common/cn'
 
-export const NavbarItem = ({
-	item,
-	variant
-}: {
-	item: NavbarDataItem
-	variant: 'default' | 'secondary' | 'destructive' | 'outline' | 'link'
-}) => {
-	if (!item.hasDropdown) {
-		return (
-			<Link href={item.href}>
-				<Badge
-					className='text-sm font-medium'
-					variant={variant}
-				>
-					{item.name}
-				</Badge>
-			</Link>
-		)
-	}
+import type { NavbarDataItem } from '../../constants/types'
+import type { Route } from 'next'
 
-	return (
-		<TooltipProvider>
-			<Tooltip delayDuration={0}>
-				<TooltipTrigger asChild>
-					<Link href={item.href}>
-						<Badge
-							variant={variant}
-							className={cn(
-								'flex cursor-pointer items-center justify-center rounded-full text-sm font-medium transition-colors',
-								variant === 'outline' &&
-									'border-green-primary hover:bg-green-primary dark:border-green-primary/40 dark:hover:bg-green-primary/20'
-							)}
-						>
-							{item.name}
-							{item.hasDropdown && <ChevronDown size={16} />}
-						</Badge>
-					</Link>
-				</TooltipTrigger>
-				<TooltipContent
-					arrow={false}
-					side='bottom'
-					className='border-t-green-primary dark:border-t-green-primary/60 bg-background border-t-2 text-black'
-				>
-					{item.component}
-				</TooltipContent>
-			</Tooltip>
-		</TooltipProvider>
-	)
+export const NavbarItem = ({
+  item,
+  variant,
+}: {
+  item: NavbarDataItem
+  variant: 'default' | 'secondary' | 'destructive' | 'outline' | 'link'
+}) => {
+  if (!item.hasDropdown) {
+    return (
+      <Link href={item.href as Route}>
+        <Badge
+          className="text-sm font-medium"
+          variant={variant}
+        >
+          {item.name}
+        </Badge>
+      </Link>
+    )
+  }
+
+  return (
+    <HoverCard
+      openDelay={0}
+      closeDelay={0}
+    >
+      <HoverCardTrigger asChild>
+        <Link href={item.href as Route}>
+          <Badge
+            variant={variant}
+            className={cn(
+              'flex cursor-pointer items-center justify-center rounded-full text-sm font-medium transition-colors',
+              variant === 'outline' &&
+                'border-green-primary hover:bg-green-primary dark:border-green-primary/40 dark:hover:bg-green-primary/20'
+            )}
+          >
+            {item.name}
+            <ChevronDown size={16} />
+          </Badge>
+        </Link>
+      </HoverCardTrigger>
+      <HoverCardContent
+        side="bottom"
+        align="center"
+        className={cn(
+          'border-t-green-primary dark:border-t-green-primary/60 bg-background w-auto min-w-[200px] border-t-2'
+        )}
+      >
+        {item.component}
+      </HoverCardContent>
+    </HoverCard>
+  )
 }

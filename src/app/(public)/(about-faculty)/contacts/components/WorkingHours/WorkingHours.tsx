@@ -1,95 +1,95 @@
 import { Clock } from 'lucide-react'
 
 export const WorkingHours = () => (
-	<div className='rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 p-8 shadow-sm dark:from-blue-950/80 dark:to-indigo-950/80'>
-		<div className='mb-6 flex items-center gap-3'>
-			<Clock className='text-green-primary h-6 w-6' />
-			<h2 className='text-2xl font-semibold'>Графік роботи</h2>
-		</div>
+  <div className="rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 p-8 shadow-sm dark:from-blue-950/80 dark:to-indigo-950/80">
+    <div className="mb-6 flex items-center gap-3">
+      <Clock className="text-green-primary h-6 w-6" />
+      <h2 className="text-2xl font-semibold">Графік роботи</h2>
+    </div>
 
-		<div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
-			<div className='dark:bg-primary/10 rounded-lg bg-white p-4'>
-				<h3 className='mb-3 font-semibold'>Деканат</h3>
-				<div className='text-muted-foreground space-y-2 text-sm'>
-					<div className='flex justify-between'>
-						<span>Понеділок - П&apos;ятниця:</span>
-						<span className='font-medium'>8:00 - 17:00</span>
-					</div>
-					<div className='flex justify-between'>
-						<span>Обідня перерва:</span>
-						<span className='font-medium'>12:00 - 13:00</span>
-					</div>
-					<div className='flex justify-between'>
-						<span>Вихідні:</span>
-						<span className='font-medium'>Субота, Неділя</span>
-					</div>
-				</div>
-			</div>
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="dark:bg-primary/10 rounded-lg bg-white p-4">
+        <h3 className="mb-3 font-semibold">Деканат</h3>
+        <div className="text-muted-foreground space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span>Понеділок - П&apos;ятниця:</span>
+            <span className="font-medium">8:00 - 17:00</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Обідня перерва:</span>
+            <span className="font-medium">12:00 - 13:00</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Вихідні:</span>
+            <span className="font-medium">Субота, Неділя</span>
+          </div>
+        </div>
+      </div>
 
-			<div className='dark:bg-primary/10 rounded-lg bg-white p-4'>
-				<h3 className='mb-3 font-semibold'>Приймальна комісія</h3>
-				<div className='text-muted-foreground space-y-3 text-sm'>
-					<div className='flex justify-between'>
-						<span>Понеділок-п&apos;ятниця:</span>
-						<span className='font-medium'>9:00-17:00 год.</span>
-					</div>
+      <div className="dark:bg-primary/10 rounded-lg bg-white p-4">
+        <h3 className="mb-3 font-semibold">Приймальна комісія</h3>
+        <div className="text-muted-foreground space-y-3 text-sm">
+          <div className="flex justify-between">
+            <span>Понеділок-п&apos;ятниця:</span>
+            <span className="font-medium">9:00-17:00 год.</span>
+          </div>
 
-					<div className='space-y-2'>
-						<div className='text-muted-foreground text-xs font-medium'>
-							В окремі дні робота подовжується до 18:00 год:
-						</div>
-						<div className='space-y-1 pl-3 text-xs'>
-							<div>
-								<span className='font-medium'>10.07, 25.07, 01.08, 09.08</span> – для працівників
-								відбіркової комісії № 1;
-							</div>
-							<div>
-								<span className='font-medium'>06.08, 25.08, 28.08, 01.09</span> – для працівників
-								відбіркової комісії № 2;
-							</div>
-							<div>
-								<span className='font-medium'>15.09, 19.09, 29.09, 06.10</span> – для працівників
-								відбіркової комісії № 4.
-							</div>
-						</div>
-					</div>
+          <div className="space-y-2">
+            <div className="text-muted-foreground text-xs font-medium">
+              В окремі дні робота подовжується до 18:00 год:
+            </div>
+            <div className="space-y-1 pl-3 text-xs">
+              <div>
+                <span className="font-medium">10.07, 25.07, 01.08, 09.08</span> – для працівників
+                відбіркової комісії № 1;
+              </div>
+              <div>
+                <span className="font-medium">06.08, 25.08, 28.08, 01.09</span> – для працівників
+                відбіркової комісії № 2;
+              </div>
+              <div>
+                <span className="font-medium">15.09, 19.09, 29.09, 06.10</span> – для працівників
+                відбіркової комісії № 4.
+              </div>
+            </div>
+          </div>
 
-					<div className='flex justify-between'>
-						<span>Субота:</span>
-						<span className='font-medium'>01.07-31.08.2025 з 9:00 до 13:00 год.</span>
-					</div>
+          <div className="flex justify-between">
+            <span>Субота:</span>
+            <span className="font-medium">01.07-31.08.2025 з 9:00 до 13:00 год.</span>
+          </div>
 
-					<div className='flex justify-between'>
-						<span>Обідня перерва:</span>
-						<span className='font-medium'>13:00-14:00 год.</span>
-					</div>
+          <div className="flex justify-between">
+            <span>Обідня перерва:</span>
+            <span className="font-medium">13:00-14:00 год.</span>
+          </div>
 
-					<div className='flex justify-between'>
-						<span>Вихідні:</span>
-						<span className='font-medium'>Неділя</span>
-					</div>
+          <div className="flex justify-between">
+            <span>Вихідні:</span>
+            <span className="font-medium">Неділя</span>
+          </div>
 
-					<div className='text-primary/90 mt-3 rounded border border-yellow-200 bg-yellow-50 p-2 text-xs dark:border-yellow-600/50 dark:bg-yellow-700/50'>
-						<strong>Примітка:</strong> Порядок роботи Приймальної комісії може бути змінений
-						відповідно до прийнятого нею рішення.
-					</div>
-				</div>
-			</div>
+          <div className="text-primary/90 mt-3 rounded border border-yellow-200 bg-yellow-50 p-2 text-xs dark:border-yellow-600/50 dark:bg-yellow-700/50">
+            <strong>Примітка:</strong> Порядок роботи Приймальної комісії може бути змінений
+            відповідно до прийнятого нею рішення.
+          </div>
+        </div>
+      </div>
 
-			<div className='dark:bg-primary/10 rounded-lg bg-white p-4'>
-				<h3 className='mb-3 font-semibold'>Консультації</h3>
-				<div className='text-muted-foreground space-y-2 text-sm'>
-					<div className='flex justify-between'>
-						<span>Вівторок, Четвер:</span>
-						<span className='font-medium'>14:00 - 16:00</span>
-					</div>
-					<div className='flex justify-between'>
-						<span>За домовленістю:</span>
-						<span className='font-medium'>Інший час</span>
-					</div>
-					<p className='text-muted-foreground mt-2 text-xs'>Попередньо телефонуйте або пишіть</p>
-				</div>
-			</div>
-		</div>
-	</div>
+      <div className="dark:bg-primary/10 rounded-lg bg-white p-4">
+        <h3 className="mb-3 font-semibold">Консультації</h3>
+        <div className="text-muted-foreground space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span>Вівторок, Четвер:</span>
+            <span className="font-medium">14:00 - 16:00</span>
+          </div>
+          <div className="flex justify-between">
+            <span>За домовленістю:</span>
+            <span className="font-medium">Інший час</span>
+          </div>
+          <p className="text-muted-foreground mt-2 text-xs">Попередньо телефонуйте або пишіть</p>
+        </div>
+      </div>
+    </div>
+  </div>
 )
