@@ -77,6 +77,14 @@ const RootLayout = ({
         name="google-site-verification"
         content="3AnyzksS_fgBv2wkw4IChSjJGze7u50qQcVDld2FSp8"
       />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+              const theme = document.cookie.match(/theme=(.*?)(;|$)/)?.[1] || 'dark';
+              document.documentElement.classList.add(theme);
+            `,
+        }}
+      />
     </head>
     <body className={`${nunito.variable} relative overflow-x-hidden antialiased`}>
       <Analytics />

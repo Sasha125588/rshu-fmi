@@ -1,6 +1,7 @@
-import { Briefcase, GraduationCap, LayoutGrid, School, Users2, UsersIcon } from 'lucide-react'
+import { UsersIcon } from 'lucide-react'
 import Link from 'next/link'
 
+import { ABOUT_ACCORDION_ITEMS } from './constants/data'
 import {
   Accordion,
   AccordionContent,
@@ -55,74 +56,28 @@ export const AboutUs = () => (
     </p>
     <div className="flex w-full flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
       <Accordion
+        defaultValue="item-1"
         type="single"
         collapsible
-        className="w-full lg:max-w-[500px]"
+        className="min-h-96 w-full lg:max-w-[500px]"
       >
-        <AccordionItem value="item-1">
-          <AccordionTrigger className="flex items-center gap-2">
-            <div className="flex items-center gap-4">
-              <GraduationCap className="text-green-primary h-5 w-5" />
-              <span className="text-sm sm:text-base">Чому варто обрати наш факультет?</span>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className="text-sm sm:text-base">
-            Ми поєднуємо класичну математичну освіту з сучасними IT-технологіями. Наші випускники
-            працюють в провідних компаніях світу та успішно викладають у навчальних закладах.
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-2">
-          <AccordionTrigger className="flex items-center gap-2">
-            <div className="flex items-center gap-4">
-              <Briefcase className="text-green-primary h-5 w-5" />
-              <span className="text-sm sm:text-base">Які можливості для практики?</span>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className="text-sm sm:text-base">
-            Студенти проходять стажування в IT-компаніях, беруть участь у хакатонах, олімпіадах з
-            програмування та мають доступ до сучасних лабораторій з новітнім обладнанням.
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-3">
-          <AccordionTrigger className="flex items-center gap-2">
-            <div className="flex items-center gap-4">
-              <Users2 className="text-green-primary h-5 w-5" />
-              <span className="text-sm sm:text-base">Яка підтримка після випуску?</span>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className="text-sm sm:text-base">
-            Факультет підтримує зв&apos;язок з випускниками, надає допомогу в працевлаштуванні та
-            створює можливості для професійного розвитку через Alumni-спільноту.
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-4">
-          <AccordionTrigger className="flex items-center gap-2">
-            <div className="flex items-center gap-4">
-              <School className="text-green-primary h-5 w-5" />
-              <span className="text-sm sm:text-base">Хто наші викладачі?</span>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className="text-sm sm:text-base">
-            Наш професорсько-викладацький склад складається з досвідчених науковців, кандидатів та
-            докторів наук, а також практикуючих IT-спеціалістів з провідних компаній галузі.
-          </AccordionContent>
-        </AccordionItem>
-
-        <AccordionItem value="item-6">
-          <AccordionTrigger className="flex items-center gap-2">
-            <div className="flex items-center gap-4">
-              <LayoutGrid className="text-green-primary h-5 w-5" />
-              <span className="text-sm sm:text-base">Які умови навчання та обладнання?</span>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className="text-sm sm:text-base">
-            Факультет оснащений сучасними комп&apos;ютерними лабораторіями, має доступ до
-            ліцензійного програмного забезпечення та онлайн-платформ для дистанційного навчання.
-          </AccordionContent>
-        </AccordionItem>
+        {ABOUT_ACCORDION_ITEMS.map(({ value, title, content, Icon }) => (
+          <AccordionItem
+            key={value}
+            value={value}
+          >
+            <AccordionTrigger className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
+                <Icon
+                  className="text-green-primary"
+                  size={20}
+                />
+                <span className="text-sm sm:text-base">{title}</span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="text-sm sm:text-base">{content}</AccordionContent>
+          </AccordionItem>
+        ))}
       </Accordion>
       <div className="flex flex-col gap-6 text-base/[24px] font-medium sm:text-[17px]/[26px] lg:w-[420px]">
         <p className="w-full">

@@ -9,14 +9,5 @@ interface Props {
 }
 
 export const Providers = ({ children }: Props) => {
-  return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="light"
-      enableSystem
-      disableTransitionOnChange
-    >
-      {children}
-    </ThemeProvider>
-  )
+  return <ThemeProvider>{children}</ThemeProvider>
 }

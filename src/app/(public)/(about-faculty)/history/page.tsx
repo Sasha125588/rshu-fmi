@@ -108,25 +108,25 @@ const HistoryPage = () => (
             <h3 className="text-lg font-semibold">Конференції та заходи:</h3>
             <ul className="text-muted-foreground space-y-2">
               <li className="flex items-start gap-2">
-                <div className="bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
+                <div className="bg-green-primary mt-2 h-2 w-2 shrink-0 rounded-full"></div>
                 <span>
                   Міжнародна конференція «Наука, освіта, суспільство очима молодих» (щорічно)
                 </span>
               </li>
               <li className="flex items-start gap-2">
-                <div className="bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
+                <div className="bg-green-primary mt-2 h-2 w-2 shrink-0 rounded-full"></div>
                 <span>
                   Всеукраїнська конференція «Інформаційні технології в професійній діяльності»
                 </span>
               </li>
               <li className="flex items-start gap-2">
-                <div className="bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
+                <div className="bg-green-primary mt-2 h-2 w-2 shrink-0 rounded-full"></div>
                 <span>
                   «Сучасні проблеми математичного моделювання і обчислювальних методів» (2013, 2015)
                 </span>
               </li>
               <li className="flex items-start gap-2">
-                <div className="bg-green-primary mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
+                <div className="bg-green-primary mt-2 h-2 w-2 shrink-0 rounded-full"></div>
                 <span>«Third Conference Mathematics for Life Sciences» (2015)</span>
               </li>
             </ul>

@@ -65,6 +65,7 @@ export const News = ({ initialNews, initialPage }: Props) => {
           <NewsItem
             key={`${state.currentPage}-${newsItem.link}`}
             item={newsItem}
+            currentPage={state.currentPage}
             index={index}
             isLast={index === state.news.length - 1}
           />

@@ -160,3 +160,35 @@ html {
 .animate-fade-in {
   animation: fadeIn 0.4s ease-out forwards;
 }
+
+/* VitePress Theme Switch Variables */
+:root {
+  --vt-c-divider: rgba(60, 60, 67, 0.12);
+  --vt-c-bg-mute: #f6f6f7;
+  --vt-c-text-2: rgba(60, 60, 67, 0.78);
+}
+
+.dark {
+  --vt-c-divider: rgba(84, 84, 84, 0.48);
+  --vt-c-bg-mute: #2f2f2f;
+  --vt-c-text-2: rgba(235, 235, 245, 0.6);
+}
+
+/* VitePress Theme Switch - only styles that require CSS variables */
+.vt-switch {
+  border-color: var(--vt-c-divider);
+  background-color: var(--vt-c-bg-mute);
+}
+
+.vt-switch:hover {
+  border-color: var(--vt-c-text-2);
+}
+
+.vt-switch-icon svg {
+  fill: var(--vt-c-text-2);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}

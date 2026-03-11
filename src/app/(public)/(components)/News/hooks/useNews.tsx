@@ -32,10 +32,10 @@ export const useNews = ({ initialNews, initialPage }: Props) => {
 
     const controller = new AbortController()
 
+    setIsLoading(true)
+
     ;(async () => {
       try {
-        setIsLoading(true)
-
         const res = await fetch(`/api/news?page=${currentPage}`, {
           signal: controller.signal,
         })
@@ -62,7 +62,7 @@ export const useNews = ({ initialNews, initialPage }: Props) => {
     return () => {
       controller.abort()
     }
-  }, [currentPage, initialPage, initialNews, startTransition])
+  }, [currentPage])
 
   // const goToPage = (page: number) => {
   //   const safePage = Math.max(1, Math.min(page, TOTAL_NEWS_PAGES))

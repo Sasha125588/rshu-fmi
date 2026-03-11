@@ -26,13 +26,13 @@ export const Specializations = () => (
       </p>
     </div>
 
-    <div className="grid gap-6 pt-10 md:grid-cols-2 lg:gap-8">
+    <ul className="grid gap-6 pt-10 md:grid-cols-2 lg:gap-8">
       {SPECIALIZATIONS_DATA.map((item) => (
         <SpecializationItem
           key={item.title}
           item={item}
         />
       ))}
-    </div>
+    </ul>
   </div>
 )

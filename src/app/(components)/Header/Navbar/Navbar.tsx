@@ -1,14 +1,13 @@
 import { SearchIcon } from 'lucide-react'
 
 import { NavbarItem } from './components/NavbarItem/NavbarItem'
-import { NAVBAR_DOWN_DATA } from './constants/data'
-import { NAVBAR_UP_DATA } from './constants/data'
+import { NAVBAR_DOWN_DATA, NAVBAR_UP_DATA } from './constants/data'
 import { Input } from '@/components/ui/input'
 
 export const Navbar = () => (
   <div className="w-full">
     <div className="flex w-full items-center justify-between gap-6 border-b-1 pt-6 pb-4 text-sm font-medium">
-      <div className="flex gap-6">
+      <ul className="flex gap-6">
         {NAVBAR_UP_DATA.items.map((item) => (
           <NavbarItem
             variant="link"
@@ -16,7 +15,7 @@ export const Navbar = () => (
             item={item}
           />
         ))}
-      </div>
+      </ul>
       <div className="relative">
         <Input
           className="peer h-8 rounded-full ps-8 pe-10"
@@ -34,7 +33,7 @@ export const Navbar = () => (
         </div>
       </div>
     </div>
-    <div className="flex gap-4 pt-4 text-sm font-medium">
+    <ul className="flex gap-4 pt-4 text-sm font-medium">
       {NAVBAR_DOWN_DATA.items.map((item) => (
         <NavbarItem
           variant="outline"
@@ -42,6 +41,6 @@ export const Navbar = () => (
           item={item}
         />
       ))}
-    </div>
+    </ul>
   </div>
 )

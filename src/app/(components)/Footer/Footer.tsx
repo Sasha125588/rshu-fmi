@@ -23,7 +23,7 @@ export const Footer = async () => {
               <Image
                 loading="lazy"
                 src="/images/logo.webp"
-                alt="FMI Logo"
+                alt="Логотип факультету математики та інформатики РДГУ"
                 width={156}
                 height={156}
               />
@@ -47,24 +47,39 @@ export const Footer = async () => {
               <div className="flex gap-3">
                 <Link
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram факультету"
                   href="https://www.instagram.com/fmi_rshu/"
-                  className="bg-green-primary/10 hover:bg-green-primary/20 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
+                  className="bg-green-primary/10 hover:bg-green-primary/20 flex size-10 items-center justify-center rounded-full transition-colors"
                 >
-                  <InstagramIcon className="text-green-primary h-4 w-4" />
+                  <InstagramIcon
+                    aria-hidden="true"
+                    className="text-green-primary size-5"
+                  />
                 </Link>
                 <Link
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok факультету"
                   href="https://www.tiktok.com/@fmi_rshu"
-                  className="bg-green-primary/10 hover:bg-green-primary/20 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
+                  className="bg-green-primary/10 hover:bg-green-primary/20 flex size-10 items-center justify-center rounded-full transition-colors"
                 >
-                  <TiktokIcon className="text-green-primary h-4 w-4" />
+                  <TiktokIcon
+                    aria-hidden="true"
+                    className="text-green-primary size-5"
+                  />
                 </Link>
                 <Link
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook факультету"
                   href="https://www.facebook.com/groups/1748613002125956/"
-                  className="bg-green-primary/10 hover:bg-green-primary/20 flex h-8 w-8 items-center justify-center rounded-full transition-colors"
+                  className="bg-green-primary/10 hover:bg-green-primary/20 flex size-10 items-center justify-center rounded-full transition-colors"
                 >
-                  <FacebookIcon className="text-green-primary h-4 w-4" />
+                  <FacebookIcon
+                    aria-hidden="true"
+                    className="text-green-primary size-5"
+                  />
                 </Link>
               </div>
             </div>
@@ -99,7 +114,7 @@ export const Footer = async () => {
               </li>
               <li>
                 <Link
-                  href={'/staff' as Route}
+                  href={'#' as Route}
                   className="hover:text-green-primary text-sm transition-colors"
                 >
                   Викладачі
@@ -107,7 +122,7 @@ export const Footer = async () => {
               </li>
               <li>
                 <Link
-                  href={'/gallery' as Route}
+                  href={'#' as Route}
                   className="hover:text-green-primary text-sm transition-colors"
                 >
                   Галерея
@@ -118,15 +133,21 @@ export const Footer = async () => {
 
           <div>
             <h4 className="mb-4 font-semibold">Контакти</h4>
-            <div className="space-y-3">
+            <address className="space-y-3 not-italic">
               <div className="flex items-center gap-3">
-                <MapPinIcon className="text-green-primary mt-0.5 h-4 w-4 shrink-0" />
+                <MapPinIcon
+                  aria-hidden="true"
+                  className="text-green-primary mt-0.5 h-4 w-4 shrink-0"
+                />
                 <div className="text-sm">
                   <p>м. Рівне, вул. Пластова, 31, 33028</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <PhoneIcon className="text-green-primary h-4 w-4" />
+                <PhoneIcon
+                  aria-hidden="true"
+                  className="text-green-primary h-4 w-4"
+                />
                 <div className="flex flex-col">
                   <a
                     href="tel:+0362266594"
@@ -137,7 +158,10 @@ export const Footer = async () => {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <MailIcon className="text-green-primary h-4 w-4" />
+                <MailIcon
+                  aria-hidden="true"
+                  className="text-green-primary h-4 w-4"
+                />
                 <a
                   href="mailto:info@rshu.edu.ua"
                   className="hover:text-green-primary text-sm transition-colors"
@@ -145,7 +169,7 @@ export const Footer = async () => {
                   dekanat.fmi@rshu.edu.ua
                 </a>
               </div>
-            </div>
+            </address>
           </div>
         </div>
 
@@ -157,13 +181,13 @@ export const Footer = async () => {
             </p>
             <div className="flex flex-col items-center gap-6 lg:flex-row">
               <Link
-                href={'/privacy' as Route}
+                href={'/#' as Route}
                 className="hover:text-green-primary text-sm transition-colors"
               >
                 Політика конфіденційності
               </Link>
               <Link
-                href={'/terms' as Route}
+                href={'/#' as Route}
                 className="hover:text-green-primary text-sm transition-colors"
               >
                 Умови використання
@@ -171,15 +195,16 @@ export const Footer = async () => {
               <Link
                 href="https://github.com/Sasha125588"
                 target="_blank"
-                className="flex items-center text-sm transition-colors hover:text-violet-400"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-md text-sm transition-colors hover:text-violet-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
               >
-                Created by{' '}
+                <span>Created by</span>
                 <Image
                   src="https://avatars.githubusercontent.com/u/155098366?v=4"
                   alt="Sasha"
-                  width={40}
-                  height={40}
-                  className="rounded-full bg-cover bg-center p-1.5 font-semibold"
+                  width={28}
+                  height={28}
+                  className="rounded-full"
                 />
               </Link>
             </div>

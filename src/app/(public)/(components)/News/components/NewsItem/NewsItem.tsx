@@ -8,11 +8,12 @@ import type { Route } from 'next'
 
 interface Props {
   item: NewsItemProps
+  currentPage: number
   index: number
   isLast: boolean
 }
 
-export const NewsItem = ({ item, index, isLast }: Props) => (
+export const NewsItem = ({ item, currentPage, index, isLast }: Props) => (
   <li className="relative">
     <Link
       href={item.link as Route}
@@ -21,11 +22,11 @@ export const NewsItem = ({ item, index, isLast }: Props) => (
       className="group hover:bg-accent-foreground/5 focus-visible:ring-ring flex min-h-32 items-start gap-6 rounded-md px-4 py-4 transition-colors duration-200 outline-none focus-visible:ring-2"
     >
       <div className="text-muted-foreground shrink-0 text-lg font-medium">
-        {String(index + 1).padStart(2, '0')}
+        {String((currentPage - 1) * 10 + index + 1).padStart(2, '0')}
       </div>
 
       <div className="min-w-0 flex-1 transition-transform duration-200 group-hover:translate-x-1">
-        {item.tags?.length ? (
+        {item.tags.length ? (
           <div className="text-muted-foreground mb-2 text-sm">{item.tags.join(' • ')}</div>
         ) : null}
 
