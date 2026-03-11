@@ -1,4 +1,5 @@
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Nunito } from 'next/font/google'
 
 import { Providers } from './providers'
@@ -79,6 +80,7 @@ const RootLayout = ({
     </head>
     <body className={`${nunito.variable} relative overflow-x-hidden antialiased`}>
       <Analytics />
+      <SpeedInsights />
       <Providers>
         {children}
         <ThemeSwitcher />
