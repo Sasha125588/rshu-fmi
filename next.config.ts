@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     viewTransition: true,
   },
   typedRoutes: true,
+  cacheComponents: true,
   reactCompiler: true,
   images: {
     remotePatterns: [

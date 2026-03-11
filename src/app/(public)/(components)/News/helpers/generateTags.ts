@@ -1,67 +1,20 @@
-export const generateTags = (title: string) => {
-  const normalizedTitle = title.toLowerCase()
-  const tags: string[] = []
+import { TAG_RULES } from '../constants/data'
 
-  const checkKeywords = (keywords: string[]) => {
-    return keywords.some((keyword) => normalizedTitle.includes(keyword))
-  }
+import type { NewsTag } from '../constants/types'
 
-  if (checkKeywords(['студент', 'освіт', 'навчан', 'диплом', 'урок', 'курс', 'магістрату'])) {
-    tags.push('Освіта')
-  }
-  if (checkKeywords(['грант'])) {
-    tags.push('Грант')
-  }
-  if (checkKeywords(['день', 'днем', 'свято', 'ювілей'])) {
-    tags.push('Свята')
-  }
-  if (checkKeywords(['досліджен', 'наук', 'конференц'])) {
-    tags.push('Наука')
-  }
-  if (checkKeywords(['факультет', 'кафедр', 'університет'])) {
-    tags.push('Факультет')
-  }
-  if (checkKeywords(['програму', 'інформат', "комп'ютер"])) {
-    tags.push('IT')
-  }
-  if (checkKeywords(['математик', 'алгебр', 'геометр'])) {
-    tags.push('Математика')
-  }
-  if (
-    checkKeywords([
-      'подія',
-      'зустріч',
-      'захід',
-      'семінар',
-      'лекція',
-      'форум',
-      'участ',
-      'конкурс',
-      'концерт',
-      'вікенд',
-      'профорієнтаці',
-      'засіданн',
-      'відкритих дверей',
-    ])
-  ) {
-    tags.push('Події')
-  }
-  if (checkKeywords(['нагород', 'перемог', 'досягнен', 'призер', 'срібл', 'золот', 'відзнак'])) {
-    tags.push('Досягнення')
-  }
-  if (checkKeywords(['міжнародн', 'обмін', 'партнер', 'стажування', 'україно-'])) {
-    tags.push('Міжнародне')
-  }
-  if (checkKeywords(["кар'єр", 'робот', 'працевлаштуван'])) {
-    tags.push("Кар'єра")
-  }
-  if (checkKeywords(['меморандум', 'співпрац'])) {
-    tags.push('Університет')
-  }
+const normalizeText = (text: string) =>
+  text
+    .toLowerCase()
+    .trim()
+    .replace(/[’`ʼ]/g, "'")
+    .replace(/\s+/g, ' ')
 
-  if (!tags.length) {
-    tags.push('Новини')
-  }
+export const generateTags = (title: string): NewsTag[] => {
+  const normalizedTitle = normalizeText(title)
 
-  return tags
+  const tags = TAG_RULES.filter((rule) =>
+    rule.keywords.some((keyword) => normalizedTitle.includes(keyword))
+  ).map((rule) => rule.tag)
+
+  return tags.length ? tags : ['Новини']
 }

@@ -1,6 +1,5 @@
 import { Analytics } from '@vercel/analytics/next'
 import { Nunito } from 'next/font/google'
-import { NuqsAdapter } from 'nuqs/adapters/next'
 
 import { Providers } from './providers'
 import './globals.css'
@@ -81,7 +80,7 @@ const RootLayout = ({
     <body className={`${nunito.variable} relative overflow-x-hidden antialiased`}>
       <Analytics />
       <Providers>
-        <NuqsAdapter>{children}</NuqsAdapter>
+        {children}
         <ThemeSwitcher />
       </Providers>
     </body>

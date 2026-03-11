@@ -4,17 +4,10 @@ import type { Route } from 'next'
 
 interface usePaginationProps {
   currentPage: number
-  totalPages: number
   itemsToDisplay: number
-  goToPage: (page: number) => void
 }
 
-export const usePagination = ({
-  currentPage,
-  totalPages,
-  itemsToDisplay = 5,
-  goToPage,
-}: usePaginationProps) => {
+export const usePagination = ({ currentPage, itemsToDisplay = 5 }: usePaginationProps) => {
   const half = Math.floor(itemsToDisplay / 2)
 
   let start = currentPage - half
@@ -25,9 +18,9 @@ export const usePagination = ({
     end = itemsToDisplay
   }
 
-  if (end > totalPages) {
-    end = totalPages
-    start = totalPages - itemsToDisplay + 1
+  if (end > TOTAL_NEWS_PAGES) {
+    end = TOTAL_NEWS_PAGES
+    start = Math.max(1, TOTAL_NEWS_PAGES - itemsToDisplay + 1)
   }
 
   const pages = Array.from({ length: end - start + 1 }, (_, i) => start + i)
@@ -36,41 +29,20 @@ export const usePagination = ({
   const nextDisabled = currentPage >= TOTAL_NEWS_PAGES
 
   function makeHref(page: number) {
-    return (page === 1 ? '/#news' : `/?news-page=${page}#news`) as Route
-  }
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    switch (e.key) {
-      case 'ArrowLeft':
-        e.preventDefault()
-        if (!prevDisabled) goToPage(currentPage - 1)
-        break
-      case 'ArrowRight':
-        e.preventDefault()
-        if (!nextDisabled) goToPage(currentPage + 1)
-        break
-      case 'Home':
-        e.preventDefault()
-        goToPage(1)
-        break
-      case 'End':
-        e.preventDefault()
-        goToPage(TOTAL_NEWS_PAGES)
-        break
-    }
+    const safePage = Math.min(Math.max(page, 1), TOTAL_NEWS_PAGES)
+    return (safePage === 1 ? '/#news' : `/?news-page=${safePage}#news`) as Route
   }
 
   return {
     state: {
       pages,
       showLeftEllipsis: start > 1,
-      showRightEllipsis: end < totalPages,
+      showRightEllipsis: end < TOTAL_NEWS_PAGES,
       prevDisabled,
       nextDisabled,
     },
     functions: {
       makeHref,
-      handleKeyDown,
     },
   }
 }

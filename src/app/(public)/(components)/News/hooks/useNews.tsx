@@ -1,5 +1,5 @@
-import { parseAsInteger, useQueryState } from 'nuqs'
-import { useEffect, useState, useTransition } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { startTransition, useEffect, useRef, useState } from 'react'
 
 import { TOTAL_NEWS_PAGES } from '../constants/data'
 
@@ -10,62 +10,82 @@ interface Props {
   initialPage: number
 }
 
+const clampPage = (page: number) => Math.max(1, Math.min(page, TOTAL_NEWS_PAGES))
+
 export const useNews = ({ initialNews, initialPage }: Props) => {
-  const [isPending, startTransition] = useTransition()
-  const [currentPage, setCurrentPage] = useQueryState(
-    'news-page',
-    parseAsInteger.withDefault(initialPage).withOptions({ shallow: true, startTransition })
-  )
+  const searchParams = useSearchParams()
+  const parsed = Number(searchParams.get('news-page'))
+  const currentPage = Number.isInteger(parsed) ? clampPage(parsed) : initialPage
+
   const [news, setNews] = useState<NewsItemProps[]>(initialNews)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const cacheRef = useRef(new Map<number, NewsItemProps[]>([[initialPage, initialNews]]))
 
   useEffect(() => {
-    if (currentPage === initialPage) {
-      setNews(initialNews)
+    const cached = cacheRef.current.get(currentPage)
+
+    if (cached) {
+      setNews(cached)
       return
     }
 
-    let cancelled = false
+    const controller = new AbortController()
 
     ;(async () => {
       try {
-        const res = await fetch(`/api/news?page=${currentPage}`)
+        setIsLoading(true)
+
+        const res = await fetch(`/api/news?page=${currentPage}`, {
+          signal: controller.signal,
+        })
+
         if (!res.ok) return
-        const data = await res.json()
-        if (!cancelled) {
+
+        const data: { news: NewsItemProps[] } = await res.json()
+
+        cacheRef.current.set(currentPage, data.news)
+        startTransition(() => {
           setNews(data.news)
+        })
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') {
+          return
         }
-      } catch {
-        // On error, keep previous news displayed
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false)
+        }
       }
     })()
 
     return () => {
-      cancelled = true
+      controller.abort()
     }
-  }, [currentPage, initialPage, initialNews])
+  }, [currentPage, initialPage, initialNews, startTransition])
 
-  const goToPage = (page: number) => {
-    const safePage = Math.max(1, Math.min(page, TOTAL_NEWS_PAGES))
-    setCurrentPage(safePage)
+  // const goToPage = (page: number) => {
+  //   const safePage = Math.max(1, Math.min(page, TOTAL_NEWS_PAGES))
+  //   setCurrentPage(safePage)
 
-    requestAnimationFrame(() => {
-      document.getElementById('news')?.scrollIntoView({ behavior: 'smooth' })
+  //   requestAnimationFrame(() => {
+  //     document.getElementById('news')?.scrollIntoView({ behavior: 'smooth' })
 
-      const url = new URL(window.location.href)
-      url.hash = 'news'
-      window.history.replaceState(null, '', url.toString())
-    })
-  }
+  //     const url = new URL(window.location.href)
+  //     url.hash = 'news'
+  //     window.history.replaceState(null, '', url.toString())
+  //   })
+  // }
 
   return {
     state: {
-      news: news ?? initialNews,
-      isLoading: isPending,
+      news,
+      isLoading,
       currentPage,
       totalPages: TOTAL_NEWS_PAGES,
     },
     functions: {
-      goToPage,
+      // goToPage,
     },
   }
 }

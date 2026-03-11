@@ -1,4 +1,7 @@
 import * as cheerio from 'cheerio'
+import { cacheLife } from 'next/cache'
+
+import { getNewsWithTags } from '@/app/(public)/(components)/News/helpers/getNewsWithTags'
 
 export interface ParsedNewsItem {
   title: string
@@ -6,10 +9,11 @@ export interface ParsedNewsItem {
   views: number
 }
 
-export const getNews = async (currentPage = 1): Promise<ParsedNewsItem[]> => {
+export const getNews = async (currentPage = 1) => {
+  'use cache'
+  cacheLife('hours')
   const response = await fetch(
-    `https://www.rshu.edu.ua/novyny-rdhu?start=${(currentPage - 1) * 10}`,
-    { next: { revalidate: 14400 }, cache: 'force-cache' } // 4 години
+    `https://www.rshu.edu.ua/novyny-rdhu?start=${(currentPage - 1) * 10}`
   )
 
   const html = await response.text()
@@ -35,5 +39,5 @@ export const getNews = async (currentPage = 1): Promise<ParsedNewsItem[]> => {
     })
   })
 
-  return newsItems
+  return getNewsWithTags(newsItems)
 }
