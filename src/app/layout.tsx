@@ -6,7 +6,7 @@ import { Providers } from './providers'
 import './globals.css'
 import { ThemeSwitcher } from '@/components/common/ThemeSwitcher'
 
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
 const nunito = Nunito({
   variable: '--font-nunito',
@@ -20,6 +20,23 @@ export const metadata: Metadata = {
   title: 'РДГУ - Факультет математики та інформатики',
   description:
     'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету. Поєднуємо багаторічні традиції математичної школи з інноваційними підходами до викладання ІТ-дисциплін.',
+  manifest: '/manifest.webmanifest',
+  formatDetection: {
+    telephone: false,
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'РДГУ - ФМІ',
+  },
+  icons: {
+    apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    icon: [
+      { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+      { url: '/favicon.ico', sizes: '64x64', type: 'image/x-icon' },
+    ],
+  },
   authors: [
     {
       name: 'Факультет математики та інформатики - РДГУ',
@@ -54,6 +71,10 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#10b981',
 }
 
 const RootLayout = ({

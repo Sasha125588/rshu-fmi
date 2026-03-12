@@ -1,12 +1,12 @@
 'use client'
 
 import { ArrowRightIcon, UsersIcon } from 'lucide-react'
-import Link from 'next/link'
 import { motion } from 'motion/react'
+import Link from 'next/link'
 
-import { ABOUT_ACCORDION_ITEMS } from './constants/data'
 import { fadeUpVariant, staggerContainer } from '../shared/animations'
 import { ScrollReveal } from '../shared/ScrollReveal'
+import { ABOUT_ACCORDION_ITEMS } from './constants/data'
 import { Badge } from '@/components/ui/badge'
 
 const STATS = [
