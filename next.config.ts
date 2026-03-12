@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
   cacheComponents: true,
   reactCompiler: true,
+  allowedDevOrigins: ['192.168.31.44'],
   images: {
     remotePatterns: [
       new URL('https://avatars.githubusercontent.com/**'),
