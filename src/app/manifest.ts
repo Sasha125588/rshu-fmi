@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+
 const manifest = (): MetadataRoute.Manifest => ({
   id: '/',
   name: 'Факультет математики та інформатики - РДГУ',
@@ -8,22 +9,33 @@ const manifest = (): MetadataRoute.Manifest => ({
   start_url: '/',
   scope: '/',
   display: 'standalone',
+  orientation: 'portrait',
   lang: 'uk-UA',
   background_color: '#0a0a0f',
   theme_color: '#10b981',
   categories: ['education', 'university'],
   icons: [
     {
-      src: '/images/logo.webp',
-      sizes: '501x501',
-      type: 'image/webp',
-      purpose: 'any',
+      src: '/icons/icon-192.png',
+      sizes: '192x192',
+      type: 'image/png',
+      purpose: 'maskable',
+    },
+    {
+      src: '/icons/icon-512.png',
+      sizes: '512x512',
+      type: 'image/png',
+      purpose: 'maskable',
+    },
+    {
+      src: '/icons/apple-touch-icon.png',
+      sizes: '180x180',
+      type: 'image/png',
     },
     {
       src: '/favicon.ico',
       sizes: '64x64',
       type: 'image/x-icon',
-      purpose: 'any',
     },
   ],
 })
