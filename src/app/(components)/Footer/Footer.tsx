@@ -15,24 +15,24 @@ export const Footer = async () => {
   cacheLife('max')
 
   return (
-    <footer className="pt-16 pb-8">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="-mx-4 mt-16 border-t border-white/5 bg-black/3 px-4 py-16 md:-mx-8 md:px-8 dark:bg-white/2">
+      <div className="mx-auto">
+        <div className="mb-12 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="col-span-1 lg:col-span-2">
             <div className="mb-6 flex items-center gap-3">
               <Image
                 loading="lazy"
                 src="/images/logo.webp"
                 alt="Логотип факультету математики та інформатики РДГУ"
-                width={156}
-                height={156}
+                width={140}
+                height={140}
               />
               <div>
-                <h3 className="text-xl font-semibold">Факультет математики та інформатики</h3>
-                <p className="text-sm">РДГУ</p>
+                <h3 className="text-lg font-semibold">Факультет математики та інформатики</h3>
+                <p className="text-muted-foreground text-sm">РДГУ</p>
               </div>
             </div>
-            <p className="text-muted-foreground mb-6 max-w-md text-sm leading-relaxed">
+            <p className="text-muted-foreground mb-8 max-w-sm text-sm leading-relaxed">
               Більше 90 років досвіду в підготовці математиків, програмістів та вчителів. Ваш шлях
               до успіху в цифровому світі починається тут.
             </p>
@@ -44,17 +44,17 @@ export const Footer = async () => {
               >
                 Слідкуйте за нами
               </Badge>
-              <div className="flex gap-3">
+              <div className="flex gap-2">
                 <Link
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram факультету"
                   href="https://www.instagram.com/fmi_rshu/"
-                  className="bg-green-primary/10 hover:bg-green-primary/20 flex size-10 items-center justify-center rounded-full transition-colors"
+                  className="hover:bg-green-primary/15 flex size-9 items-center justify-center rounded-lg border transition-colors dark:border-white/10"
                 >
                   <InstagramIcon
                     aria-hidden="true"
-                    className="text-green-primary size-5"
+                    className="size-5 dark:text-white/85"
                   />
                 </Link>
                 <Link
@@ -62,11 +62,11 @@ export const Footer = async () => {
                   rel="noopener noreferrer"
                   aria-label="TikTok факультету"
                   href="https://www.tiktok.com/@fmi_rshu"
-                  className="bg-green-primary/10 hover:bg-green-primary/20 flex size-10 items-center justify-center rounded-full transition-colors"
+                  className="hover:bg-green-primary/15 flex size-9 items-center justify-center rounded-lg border transition-colors dark:border-white/10"
                 >
                   <TiktokIcon
                     aria-hidden="true"
-                    className="text-green-primary size-5"
+                    className="size-5 dark:text-white/85"
                   />
                 </Link>
                 <Link
@@ -74,11 +74,11 @@ export const Footer = async () => {
                   rel="noopener noreferrer"
                   aria-label="Facebook факультету"
                   href="https://www.facebook.com/groups/1748613002125956/"
-                  className="bg-green-primary/10 hover:bg-green-primary/20 flex size-10 items-center justify-center rounded-full transition-colors"
+                  className="hover:bg-green-primary/15 flex size-9 items-center justify-center rounded-lg border transition-colors dark:border-white/10"
                 >
                   <FacebookIcon
                     aria-hidden="true"
-                    className="text-green-primary size-5"
+                    className="size-5 dark:text-white/85"
                   />
                 </Link>
               </div>
@@ -86,7 +86,9 @@ export const Footer = async () => {
           </div>
 
           <div>
-            <h4 className="mb-4 font-semibold">Швидкі посилання</h4>
+            <h4 className="text-muted-foreground mb-4 text-xs font-medium tracking-widest uppercase">
+              Швидкі посилання
+            </h4>
             <ul className="space-y-3">
               <li>
                 <Link
@@ -132,30 +134,28 @@ export const Footer = async () => {
           </div>
 
           <div>
-            <h4 className="mb-4 font-semibold">Контакти</h4>
+            <h4 className="text-muted-foreground mb-4 text-xs font-medium tracking-widest uppercase">
+              Контакти
+            </h4>
             <address className="space-y-3 not-italic">
               <div className="flex items-center gap-3">
                 <MapPinIcon
                   aria-hidden="true"
                   className="text-green-primary mt-0.5 h-4 w-4 shrink-0"
                 />
-                <div className="text-sm">
-                  <p>м. Рівне, вул. Пластова, 31, 33028</p>
-                </div>
+                <p className="text-sm">м. Рівне, вул. Пластова, 31, 33028</p>
               </div>
               <div className="flex items-center gap-3">
                 <PhoneIcon
                   aria-hidden="true"
                   className="text-green-primary h-4 w-4"
                 />
-                <div className="flex flex-col">
-                  <a
-                    href="tel:+0362266594"
-                    className="hover:text-green-primary text-sm transition-colors"
-                  >
-                    (0362) 26-65-94
-                  </a>
-                </div>
+                <a
+                  href="tel:+0362266594"
+                  className="hover:text-green-primary text-sm transition-colors"
+                >
+                  (0362) 26-65-94
+                </a>
               </div>
               <div className="flex items-center gap-3">
                 <MailIcon
@@ -173,7 +173,7 @@ export const Footer = async () => {
           </div>
         </div>
 
-        <div className="border-border border-t pt-6">
+        <div className="border-t border-white/5 pt-6">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-muted-foreground text-sm">
               © {new Date().getFullYear()} Рівненський державний гуманітарний університет. Всі права
@@ -182,13 +182,13 @@ export const Footer = async () => {
             <div className="flex flex-col items-center gap-6 lg:flex-row">
               <Link
                 href={'/#' as Route}
-                className="hover:text-green-primary text-sm transition-colors"
+                className="text-muted-foreground hover:text-green-primary text-sm transition-colors"
               >
                 Політика конфіденційності
               </Link>
               <Link
                 href={'/#' as Route}
-                className="hover:text-green-primary text-sm transition-colors"
+                className="text-muted-foreground hover:text-green-primary text-sm transition-colors"
               >
                 Умови використання
               </Link>
@@ -196,7 +196,7 @@ export const Footer = async () => {
                 href="https://github.com/Sasha125588"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-md text-sm transition-colors hover:text-violet-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+                className="text-muted-foreground flex items-center gap-2 rounded-md text-sm transition-colors hover:text-violet-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
               >
                 <span>Created by</span>
                 <Image

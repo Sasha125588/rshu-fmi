@@ -14,12 +14,13 @@ interface Props {
 }
 
 export const NewsItem = ({ item, currentPage, index, isLast }: Props) => (
-  <li className="relative">
+  <li className="group relative">
+    <div className="bg-green-primary absolute top-4 bottom-4 left-0 z-10 w-0.5 rounded-full opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
     <Link
       href={item.link as Route}
       target="_blank"
       rel="noopener noreferrer"
-      className="group hover:bg-accent-foreground/5 focus-visible:ring-ring flex min-h-32 items-start gap-6 rounded-md px-4 py-4 transition-colors duration-200 outline-none focus-visible:ring-2"
+      className="hover:bg-card/50 focus-visible:ring-ring flex min-h-32 items-start gap-6 rounded-xl px-4 py-4 transition-colors duration-200 outline-none focus-visible:ring-2"
     >
       <div className="text-muted-foreground shrink-0 text-lg font-medium">
         {String((currentPage - 1) * 10 + index + 1).padStart(2, '0')}

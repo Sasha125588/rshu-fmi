@@ -14,8 +14,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   })
 
   React.useLayoutEffect(() => {
-    setCookie(COOKIES.THEME, theme, { path: '/' })
     const root = document.documentElement
+    setCookie(COOKIES.THEME, theme, { path: '/' })
 
     root.classList.remove('dark', 'light')
     root.classList.add(theme)

@@ -15,14 +15,11 @@ export const metadata: Metadata = {
 }
 
 const PublicLayout = ({ children }: Props) => (
-  <>
-    <div className="absolute -z-10 hidden h-full border-l md:block"></div>
-    <main className="h-full w-full px-4">
-      <Header />
-      {children}
-      <Footer />
-    </main>
-  </>
+  <main className="mx-auto h-full w-full px-4 md:px-8">
+    <Header />
+    {children}
+    <Footer />
+  </main>
 )
 
 export default PublicLayout

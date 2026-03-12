@@ -52,17 +52,13 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 const HomePage = async () => {
   return (
-    <div>
+    <div className="space-y-24 md:space-y-32">
       <BecomeAStudent />
-      <div className="hidden border-b md:mr-[-35px] md:ml-[-35px] md:block" />
       <AboutUs />
-      <div className="hidden border-b pt-6 md:mr-[-35px] md:ml-[-35px] md:block" />
       <Specializations />
-      <div className="hidden border-b pt-6 md:mr-[-35px] md:ml-[-35px] md:block" />
       <Suspense fallback={<NewsSkeleton />}>
         <NewsSection />
       </Suspense>
-      <div className="hidden border-b pt-6 md:mr-[-35px] md:ml-[-35px] md:block" />
     </div>
   )
 }

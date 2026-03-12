@@ -15,9 +15,7 @@ const nunito = Nunito({
 })
 
 export const metadata: Metadata = {
-  metadataBase: process.env.NEXT_PUBLIC_BASE_URL
-    ? new URL(process.env.NEXT_PUBLIC_BASE_URL)
-    : new URL('http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'),
   applicationName: 'Факультет математики та інформатики - РДГУ',
   title: 'РДГУ - Факультет математики та інформатики',
   description:
@@ -65,7 +63,6 @@ const RootLayout = ({
 }>) => (
   <html
     lang="uk"
-    className="md:px-8"
     suppressHydrationWarning
   >
     <head>
@@ -87,8 +84,13 @@ const RootLayout = ({
       />
     </head>
     <body className={`${nunito.variable} relative overflow-x-hidden antialiased`}>
-      <Analytics />
-      <SpeedInsights />
+      {process.env.NODE_ENV === 'production' && (
+        <>
+          <Analytics />
+          <SpeedInsights />
+        </>
+      )}
+
       <Providers>
         {children}
         <ThemeSwitcher />

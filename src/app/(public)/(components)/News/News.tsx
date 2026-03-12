@@ -23,11 +23,10 @@ export const News = ({ initialNews, initialPage }: Props) => {
   return (
     <section
       id="news"
-      className="pt-28"
       aria-labelledby="news-heading"
     >
-      <div>
-        <div className="flex items-center gap-3">
+      <div className="text-center">
+        <div className="flex items-center justify-center gap-3">
           <NewspaperIcon
             aria-hidden="true"
             className="text-green-primary h-5 w-5"
@@ -45,7 +44,7 @@ export const News = ({ initialNews, initialPage }: Props) => {
         >
           Що відбувається в університеті
         </h2>
-        <p className="text-muted-foreground mt-2 text-lg">
+        <p className="text-muted-foreground mx-auto mt-2 max-w-2xl text-lg">
           Слідкуйте за останніми подіями та досягненнями нашого університету
         </p>
       </div>

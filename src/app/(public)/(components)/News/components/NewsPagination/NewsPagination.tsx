@@ -25,10 +25,6 @@ export const NewsPagination = ({ currentPage, paginationItemsToDisplay = 5 }: Pr
 
   return (
     <div className="space-y-2">
-      <div className="text-muted-foreground hidden text-center text-xs md:block">
-        Навігація: стрілки ← → та Home/End для першої/останньої сторінки
-      </div>
-
       <Pagination>
         <PaginationContent>
           {/* First page */}
