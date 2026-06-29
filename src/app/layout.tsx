@@ -1,18 +1,23 @@
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { Nunito } from 'next/font/google'
+import { JetBrains_Mono, Nunito } from 'next/font/google'
 
-import { Providers } from './providers'
+import { ThemeScript } from './_scripts/ThemeScript'
 import './globals.css'
+import { Provider } from './provider'
 import { ThemeSwitcher } from '@/components/common/ThemeSwitcher'
+import { cn } from '@/lib/utils'
 
 import type { Metadata, Viewport } from 'next'
+import type { ReactNode } from 'react'
 
 const nunito = Nunito({
   variable: '--font-nunito',
   subsets: ['latin'],
   weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
 })
+
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains' })
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'),
@@ -77,16 +82,18 @@ export const viewport: Viewport = {
   themeColor: '#10b981',
 }
 
-const RootLayout = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) => (
+interface RootLayoutProps {
+  children: ReactNode
+}
+
+const RootLayout = ({ children }: RootLayoutProps) => (
   <html
     lang="uk"
     suppressHydrationWarning
+    className={cn('font-nunito', nunito.variable, jetbrainsMono.variable)}
   >
     <head>
+      <ThemeScript />
       <meta
         name="google-site-verification"
         content="6mUir8KEMMAZUD-dJJzWtE3-0gY1K-OWxeRhjtJSSak"
@@ -95,16 +102,8 @@ const RootLayout = ({
         name="google-site-verification"
         content="3AnyzksS_fgBv2wkw4IChSjJGze7u50qQcVDld2FSp8"
       />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-              const theme = document.cookie.match(/theme=(.*?)(;|$)/)?.[1] || 'dark';
-              document.documentElement.classList.add(theme);
-            `,
-        }}
-      />
     </head>
-    <body className={`${nunito.variable} relative overflow-x-hidden antialiased`}>
+    <body className={'relative overflow-x-hidden antialiased'}>
       {process.env.NODE_ENV === 'production' && (
         <>
           <Analytics />
@@ -112,10 +111,10 @@ const RootLayout = ({
         </>
       )}
 
-      <Providers>
+      <Provider>
         {children}
         <ThemeSwitcher />
-      </Providers>
+      </Provider>
     </body>
   </html>
 )

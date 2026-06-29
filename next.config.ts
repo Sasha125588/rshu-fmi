@@ -1,4 +1,5 @@
 import { withSerwist } from '@serwist/turbopack'
+
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
@@ -8,7 +9,6 @@ const nextConfig: NextConfig = {
   },
   typedRoutes: true,
   cacheComponents: true,
-  reactCompiler: true,
   allowedDevOrigins: ['192.168.31.44'],
   images: {
     remotePatterns: [

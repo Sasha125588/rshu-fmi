@@ -1,5 +1,5 @@
 import { SPECIALIZATIONS_VISUALS } from '../constants/data'
-import { cn } from '@/shared/helpers'
+import { cn } from '@/lib/utils'
 
 interface Props {
   id: string

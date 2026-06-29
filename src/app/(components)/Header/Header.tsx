@@ -4,33 +4,36 @@ import Link from 'next/link'
 
 import { MobileNav } from './Navbar/components/MobileNav/MobileNav'
 import { Navbar } from './Navbar/Navbar'
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/animate-ui/radix/sheet'
+import { Separator } from '@/components/ui'
 import { Button } from '@/components/ui/button'
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 
 export const Header = () => {
   return (
-    <header className="bg-background/80 sticky top-0 z-50 -mx-4 mb-8 border-b border-white/5 px-4 backdrop-blur-xl md:-mx-8 md:px-8">
-      <div className="mx-auto flex max-w-6xl items-center justify-between py-3">
+    <header className="border-border sticky top-0 z-50 border-b px-6 backdrop-blur-xl md:px-8">
+      <div className="flex h-16 items-center justify-between">
         <div className="flex w-full items-center gap-6">
           <Link
             href="/"
-            className="shrink-0"
+            className="flex shrink-0 items-center gap-3 rounded-lg pr-1 opacity-90 transition hover:opacity-100"
           >
             <Image
               src="/images/logo.webp"
               priority
               loading="eager"
               alt="FMI Logo"
-              width={56}
-              height={56}
+              width={36}
+              height={36}
+              className="size-9"
             />
+            <span className="font-jetbrains hidden text-sm font-semibold tracking-wide sm:inline">
+              ФМІ РДГУ
+            </span>
           </Link>
+          <Separator
+            orientation="vertical"
+            className="hidden h-7 self-center! md:block"
+          />
           <div className="hidden w-full md:block">
             <Navbar />
           </div>
@@ -38,14 +41,16 @@ export const Header = () => {
 
         <div className="md:hidden">
           <Sheet>
-            <SheetTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-              >
-                <Menu className="size-6" />
-                <span className="sr-only">Toggle menu</span>
-              </Button>
+            <SheetTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                />
+              }
+            >
+              <Menu data-icon="inline-start" />
+              <span className="sr-only">Toggle menu</span>
             </SheetTrigger>
             <SheetContent
               side="left"

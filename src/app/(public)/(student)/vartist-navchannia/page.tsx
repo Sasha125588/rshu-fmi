@@ -2,12 +2,7 @@ import { Calculator, GraduationCap } from 'lucide-react'
 
 import { STUDY_COSTS_DATA, STUDY_FORMS_DATA } from './constants/data'
 import { formatCurrency } from './helpers/formatCurrency'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/animate-ui/radix/accordion'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui'
 import { Badge } from '@/components/ui/badge'
 
 import type { Metadata } from 'next'
@@ -66,8 +61,6 @@ const TuitionCostsPage = () => {
           return (
             <Accordion
               key={item.title}
-              type="single"
-              collapsible
               className="w-full"
             >
               <AccordionItem

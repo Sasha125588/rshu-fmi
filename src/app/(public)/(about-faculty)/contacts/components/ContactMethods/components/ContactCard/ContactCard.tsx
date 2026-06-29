@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { cn } from '@/shared/helpers/common/cn'
+import { cn } from '@/lib/utils'
 
 const ContactCard = ({ className, ...props }: React.ComponentProps<'div'>) => (
   <div

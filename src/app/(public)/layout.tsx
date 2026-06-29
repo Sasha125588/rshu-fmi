@@ -3,10 +3,6 @@ import { Header } from '../(components)/Header/Header'
 
 import type { Metadata } from 'next'
 
-interface Props {
-  children: React.ReactNode
-}
-
 export const metadata: Metadata = {
   title: {
     default: 'РДГУ - Факультет математики та інформатики',
@@ -14,8 +10,12 @@ export const metadata: Metadata = {
   },
 }
 
-const PublicLayout = ({ children }: Props) => (
-  <main className="mx-auto h-full w-full px-4 md:px-8">
+interface PublicLayoutProps {
+  children: React.ReactNode
+}
+
+const PublicLayout = ({ children }: PublicLayoutProps) => (
+  <main className="h-full w-full">
     <Header />
     {children}
     <Footer />

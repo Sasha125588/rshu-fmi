@@ -2,13 +2,7 @@ import { Users } from 'lucide-react'
 import Link from 'next/link'
 
 import { departmentsData } from './constants/data'
-import {
-  Tabs,
-  TabsContent,
-  TabsContents,
-  TabsList,
-  TabsTrigger,
-} from '@/components/animate-ui/radix/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui'
 
 import type { Route } from 'next'
 
@@ -36,7 +30,7 @@ export const FacultyStructure = () => (
             </TabsTrigger>
           ))}
         </TabsList>
-        <TabsContents className="mt-6">
+        <div className="mt-6">
           {departmentsData.map((department) => (
             <TabsContent
               key={department.name}
@@ -119,7 +113,7 @@ export const FacultyStructure = () => (
               </div>
             </TabsContent>
           ))}
-        </TabsContents>
+        </div>
       </Tabs>
     </div>
 

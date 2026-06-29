@@ -1,9 +1,4 @@
-import { Suspense } from 'react'
-
-import { AboutUs } from './(components)/AboutUs/AboutUs'
-import { BecomeAStudent } from './(components)/BecomeAStudent/BecomeAStudent'
-import { News, NewsSkeleton } from './(components)/News/News'
-import { Specializations } from './(components)/Specializations/Specializations'
+import { HomePage } from './(components)/Home/HomePage'
 import { getNews } from '@/shared/api/requests/getNews'
 
 import type { Metadata } from 'next'
@@ -50,27 +45,10 @@ export const generateMetadata = async (): Promise<Metadata> => {
   }
 }
 
-const HomePage = async () => {
-  return (
-    <div className="space-y-24 md:space-y-32">
-      <BecomeAStudent />
-      <AboutUs />
-      <Specializations />
-      <Suspense fallback={<NewsSkeleton />}>
-        <NewsSection />
-      </Suspense>
-    </div>
-  )
-}
-
-export default HomePage
-
-const NewsSection = async () => {
+const PublicHomePage = async () => {
   const news = await getNews(1)
-  return (
-    <News
-      initialNews={news}
-      initialPage={1}
-    />
-  )
+
+  return <HomePage news={news} />
 }
+
+export default PublicHomePage

@@ -28,8 +28,8 @@ export const BecomeAStudent = () => (
       transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
       className="text-muted-foreground relative mt-6 max-w-xl text-center text-lg md:text-xl"
     >
-      Більше 90 років досвіду в підготовці математиків, програмістів та вчителів. Ваш шлях до успіху
-      в цифровому світі починається тут.
+      Факультет для тих, хто хоче розуміти математику, створювати програмні продукти й навчати інших
+      працювати з технологіями. Почни з вибору освітньої програми.
     </motion.p>
 
     <motion.div
@@ -59,7 +59,7 @@ export const BecomeAStudent = () => (
           containerClassName="rounded-full w-full sm:w-auto"
           className="text-accent-foreground bg-background flex h-12 w-full cursor-pointer items-center justify-center space-x-2 sm:w-auto"
         >
-          <p className="text-base font-normal">Спеціальності</p>
+          <p className="text-base font-normal">Обрати спеціальність</p>
         </HoverBorderGradient>
       </Link>
     </motion.div>

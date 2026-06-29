@@ -10,7 +10,7 @@ import { ScrollReveal } from '../shared/ScrollReveal'
 import { SpecializationVisual } from './components/SpecializationVisual'
 import { SPECIALIZATIONS_DATA } from './constants/data'
 import { Badge } from '@/components/ui/badge'
-import { cn } from '@/shared/helpers'
+import { cn } from '@/lib/utils'
 
 import type { Route } from 'next'
 
@@ -140,16 +140,22 @@ export const Specializations = () => {
                       ))}
                     </div>
 
-                    <Link
-                      href={`/#specializations/${item.title}` as Route}
-                      className="text-green-primary group/link inline-flex items-center gap-1 text-sm font-medium transition-colors"
-                    >
-                      Дізнатися більше
-                      <ArrowUpRight
-                        size={16}
-                        className="transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
-                      />
-                    </Link>
+                    {item.href ? (
+                      <Link
+                        href={item.href as Route}
+                        className="text-green-primary group/link inline-flex items-center gap-1 text-sm font-medium transition-colors"
+                      >
+                        Дізнатися більше
+                        <ArrowUpRight
+                          size={16}
+                          className="transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
+                        />
+                      </Link>
+                    ) : (
+                      <span className="text-muted-foreground inline-flex text-sm font-medium">
+                        Сторінка готується
+                      </span>
+                    )}
                   </div>
 
                   {/* Visual — desktop only */}

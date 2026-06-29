@@ -2,13 +2,7 @@ import { Shield } from 'lucide-react'
 
 import { DocumentList } from './components/DocumentList/DocumentList'
 import { FACULTY_DOCUMENTS, UNIVERSITY_DOCUMENTS } from './constants/data'
-import {
-  Tabs,
-  TabsContent,
-  TabsContents,
-  TabsList,
-  TabsTrigger,
-} from '@/components/animate-ui/radix/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui'
 import { Badge } from '@/components/ui/badge'
 
 import type { Metadata } from 'next'
@@ -75,10 +69,8 @@ const NormatyvniDokumentyPage = () => {
           <TabsTrigger value="faculty">Документи факультету</TabsTrigger>
           <TabsTrigger value="university">Документи університету</TabsTrigger>
         </TabsList>
-        <TabsContents>
-          <TabsContent value="faculty">{DocumentList(FACULTY_DOCUMENTS)}</TabsContent>
-          <TabsContent value="university">{DocumentList(UNIVERSITY_DOCUMENTS)}</TabsContent>
-        </TabsContents>
+        <TabsContent value="faculty">{DocumentList(FACULTY_DOCUMENTS)}</TabsContent>
+        <TabsContent value="university">{DocumentList(UNIVERSITY_DOCUMENTS)}</TabsContent>
       </Tabs>
     </div>
   )

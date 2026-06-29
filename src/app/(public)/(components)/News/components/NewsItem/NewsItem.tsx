@@ -1,8 +1,6 @@
 import { ArrowUpRightIcon, EyeIcon } from 'lucide-react'
 import Link from 'next/link'
 
-import { truncateText } from '@/shared/helpers/text/truncateText'
-
 import type { NewsItem as NewsItemProps } from '../../constants/types'
 import type { Route } from 'next'
 
@@ -31,8 +29,8 @@ export const NewsItem = ({ item, currentPage, index, isLast }: Props) => (
           <div className="text-muted-foreground mb-2 text-sm">{item.tags.join(' • ')}</div>
         ) : null}
 
-        <h3 className="group-hover:text-green-primary mb-3 text-lg leading-tight font-semibold transition-colors duration-200">
-          {truncateText(item.title, 100)}
+        <h3 className="group-hover:text-green-primary mb-3 truncate text-lg leading-tight font-semibold transition-colors duration-200">
+          {item.title}
           <span className="sr-only">, відкривається в новій вкладці</span>
         </h3>
 

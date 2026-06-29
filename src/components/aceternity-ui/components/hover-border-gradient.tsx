@@ -3,7 +3,7 @@
 import { motion } from 'motion/react'
 import React from 'react'
 
-import { cn } from '@/shared/helpers/common/cn'
+import { cn } from '@/lib/utils'
 
 export const HoverBorderGradient = ({
   children,

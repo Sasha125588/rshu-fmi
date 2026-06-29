@@ -27,6 +27,12 @@ export const NAVBAR_UP_DATA: NavbarData = {
     },
 
     {
+      name: 'СПЕЦІАЛЬНОСТІ',
+      href: '/#specializations',
+      hasDropdown: false,
+      component: <div>СПЕЦІАЛЬНОСТІ</div>,
+    },
+    {
       name: 'НОВИНИ',
       href: '/#news',
       hasDropdown: false,
@@ -70,10 +76,16 @@ export const NAVBAR_UP_DATA: NavbarData = {
             </p>
             <div className="text-green-primary flex flex-col gap-2 text-sm font-medium md:text-base">
               <Link
-                href="/vartist-navchannia"
+                href="/#specializations"
                 className="hover:text-green-secondary cursor-pointer transition-colors duration-200 md:w-fit"
               >
-                Вартість навчання
+                Освітні програми
+              </Link>
+              <Link
+                href="/normatyvni-dokumenty"
+                className="hover:text-green-secondary cursor-pointer transition-colors duration-200 md:w-fit"
+              >
+                Документи
               </Link>
             </div>
           </div>

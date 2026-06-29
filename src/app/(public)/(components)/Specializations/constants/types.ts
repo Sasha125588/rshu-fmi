@@ -2,6 +2,7 @@ import type { LucideIcon } from 'lucide-react'
 
 export interface SpecializationItem {
   id: string
+  href?: string
   title: string
   shortTitle: string
   description: string

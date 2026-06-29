@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 import { NAVBAR_DOWN_DATA, NAVBAR_UP_DATA } from '../../constants/data'
-import { cn } from '@/shared/helpers/common'
+import { cn } from '@/lib/utils'
 
 import type { Route } from 'next'
 

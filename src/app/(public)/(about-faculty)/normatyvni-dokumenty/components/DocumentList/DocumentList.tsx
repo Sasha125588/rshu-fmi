@@ -1,7 +1,7 @@
 import { ArrowUpRightIcon } from 'lucide-react'
 import Link from 'next/link'
 
-import { cn } from '@/shared/helpers/common'
+import { cn } from '@/lib/utils'
 
 import type { DocumentItem } from '../../constants/data'
 import type { Route } from 'next'

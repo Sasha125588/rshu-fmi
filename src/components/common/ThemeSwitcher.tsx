@@ -1,29 +1,18 @@
 'use client'
 
-import { useTheme } from '@/shared/providers/theme/useTheme'
+import { useTheme } from '@/app/_contexts/theme/useTheme'
 
-export function ThemeSwitcher() {
+import type { ComponentProps, MouseEvent } from 'react'
+
+type ThemeButtonProps = ComponentProps<'button'>
+
+export function ThemeSwitcher(props: ThemeButtonProps) {
   const theme = useTheme()
 
-  const onThemeClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onThemeClick = async (event: MouseEvent<HTMLButtonElement>) => {
     const x = event.clientX
     const y = event.clientY
-    const radius = Math.hypot(window.innerWidth, window.innerHeight)
-
-    await document.startViewTransition(() => {
-      theme.set(theme.value === 'dark' ? 'light' : 'dark')
-    }).ready
-
-    document.documentElement.animate(
-      {
-        clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`],
-      },
-      {
-        duration: 700,
-        easing: 'ease-in-out',
-        pseudoElement: '::view-transition-new(root)',
-      }
-    )
+    theme.animate(x, y, theme.value === 'dark' ? 'light' : 'dark')
   }
 
   return (
@@ -33,6 +22,7 @@ export function ThemeSwitcher() {
       aria-checked={theme.value === 'dark'}
       onClick={onThemeClick}
       aria-label="Перемикання режиму теми"
+      {...props}
     >
       <span className="absolute top-[2px] left-[2px] size-[26px] rounded-full bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.06)] transition-all duration-300 ease-in-out dark:translate-x-[28px] dark:bg-[#1a1a1a]">
         <span className="vt-switch-icon relative block size-[26px] overflow-hidden rounded-full">

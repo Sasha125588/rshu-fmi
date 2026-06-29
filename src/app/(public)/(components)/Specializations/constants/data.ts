@@ -1,18 +1,20 @@
-import { BookOpen, Calculator, Code, Cpu, GraduationCap, Layers } from 'lucide-react'
+import { BookOpen, Calculator, Cpu, GraduationCap, Layers } from 'lucide-react'
+
+import { SPECIALIZATIONS } from '../../../(data)/specializations'
 
 import type { SpecializationItem, SpecializationVisual } from './types'
 
 export const SPECIALIZATIONS_DATA: SpecializationItem[] = [
-  {
-    id: 'software-engineering',
-    title: 'Інженерія програмного забезпечення',
-    shortTitle: 'ІПЗ',
-    description:
-      'Підготовка фахівців з розробки, проектування та тестування програмного забезпечення для сучасних IT-компаній.',
-    tags: ['Програмування', 'Веб-розробка', 'Тестування'],
-    date: 'Бакалавр',
-    icon: Code,
-  },
+  ...SPECIALIZATIONS.map((specialization) => ({
+    id: specialization.slug,
+    href: `/specializations/${specialization.slug}`,
+    title: specialization.title,
+    shortTitle: specialization.shortTitle,
+    description: specialization.description,
+    tags: specialization.tags.slice(0, 3),
+    date: specialization.level,
+    icon: specialization.icon,
+  })),
   {
     id: 'computer-science',
     title: "Комп'ютерні науки",

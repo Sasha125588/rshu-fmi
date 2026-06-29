@@ -8,7 +8,7 @@ import { NewsPagination } from './components/NewsPagination/NewsPagination'
 import { useNews } from './hooks/useNews'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/shared/helpers'
+import { cn } from '@/lib/utils'
 
 import type { NewsItem as NewsItemProps } from './constants/types'
 
@@ -73,22 +73,22 @@ export const News = ({ initialNews, initialPage }: Props) => {
 
       <div className="mt-4 flex justify-center">
         <Button
-          asChild
-          variant="green-ghost"
-          className="group text-green-primary border-green-primary/15 hover:bg-green-primary/15 hover:text-green-primary flex cursor-pointer items-center gap-3 rounded-full border px-6 py-3 transition-all duration-200"
-        >
-          <Link
-            href="https://www.rshu.edu.ua/novyny-rdhu"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span className="text-[15px] font-medium">Усі новини університету</span>
-            <ArrowRightIcon
-              aria-hidden="true"
-              size={16}
-              className="transition-transform duration-200 group-hover:translate-x-1"
+          render={
+            <Link
+              href="https://www.rshu.edu.ua/novyny-rdhu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group text-green-primary border-green-primary/15 hover:bg-green-primary/15 hover:text-green-primary flex cursor-pointer items-center gap-3 rounded-full border px-6 py-3 transition-all duration-200"
             />
-          </Link>
+          }
+          variant="ghost"
+        >
+          <span className="text-[15px] font-medium">Усі новини університету</span>
+          <ArrowRightIcon
+            aria-hidden="true"
+            size={16}
+            className="transition-transform duration-200 group-hover:translate-x-1"
+          />
         </Button>
       </div>
     </section>
