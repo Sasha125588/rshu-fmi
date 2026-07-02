@@ -20,7 +20,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
       url: `${baseUrl}/contacts`,
       lastModified: new Date('2026-03-09'),
       changeFrequency: 'monthly',
-      priority: 0.9,
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/mizhnarodna-spivpratsya`,
@@ -52,6 +52,18 @@ const sitemap = (): MetadataRoute.Sitemap => {
       changeFrequency: 'monthly',
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/news`,
+      lastModified: new Date('2026-07-03'),
+      changeFrequency: 'hourly',
+      priority: 0.9,
+    },
+    ...['university', 'kitm', 'iktmvi'].map((source) => ({
+      url: `${baseUrl}/news/${source}`,
+      lastModified: new Date('2026-07-03'),
+      changeFrequency: 'hourly' as const,
+      priority: 0.8,
+    })),
   ]
 }
 

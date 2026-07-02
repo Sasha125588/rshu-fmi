@@ -19,12 +19,14 @@ const nunito = Nunito({
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains' })
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://fmi-rshu.dev'
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'),
+  metadataBase: new URL(baseUrl),
   applicationName: 'Факультет математики та інформатики - РДГУ',
   title: 'РДГУ - Факультет математики та інформатики',
   description:
-    'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету. Поєднуємо багаторічні традиції математичної школи з інноваційними підходами до викладання ІТ-дисциплін.',
+    'Не Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету. Поєднуємо багаторічні традиції математичної школи з інноваційними підходами до викладання ІТ-дисциплін.',
   manifest: '/manifest.webmanifest',
   formatDetection: {
     telephone: false,
@@ -45,7 +47,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: 'Факультет математики та інформатики - РДГУ',
-      url: process.env.NEXT_PUBLIC_BASE_URL,
+      url: baseUrl,
     },
   ],
   alternates: {
@@ -62,7 +64,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'РДГУ - Факультет математики та інформатики',
     description:
-      'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
+      'Не Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
     siteName: 'РДГУ - ФМІ',
     type: 'website',
     locale: 'uk_UA',
@@ -70,7 +72,7 @@ export const metadata: Metadata = {
   twitter: {
     title: 'РДГУ - Факультет математики та інформатики',
     description:
-      'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
+      'Не Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
   },
   robots: {
     index: true,
@@ -79,7 +81,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#10b981',
+  themeColor: '#a99dff',
 }
 
 interface RootLayoutProps {
@@ -89,8 +91,9 @@ interface RootLayoutProps {
 const RootLayout = ({ children }: RootLayoutProps) => (
   <html
     lang="uk"
-    suppressHydrationWarning
+    data-scroll-behavior="smooth"
     className={cn('font-nunito', nunito.variable, jetbrainsMono.variable)}
+    suppressHydrationWarning
   >
     <head>
       <ThemeScript />

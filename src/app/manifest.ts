@@ -12,7 +12,7 @@ const manifest = (): MetadataRoute.Manifest => ({
   orientation: 'portrait',
   lang: 'uk-UA',
   background_color: '#0a0a0f',
-  theme_color: '#10b981',
+  theme_color: '#a99dff',
   categories: ['education', 'university'],
   icons: [
     {

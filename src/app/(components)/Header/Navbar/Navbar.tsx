@@ -13,7 +13,6 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 
-import { Button } from '@/components/ui/button'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -21,8 +20,9 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  buttonVariants,
   navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu'
+} from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 import type { LucideIcon } from 'lucide-react'
@@ -160,7 +160,7 @@ const navItems: NavItem[] = [
   },
   {
     label: 'Новини',
-    href: '/#news',
+    href: '/news',
   },
 ]
 
@@ -184,7 +184,7 @@ const NavPanelCard = ({ card, featured = false }: { card: NavCard; featured?: bo
       )}
     >
       {featured && (
-        <span className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[radial-gradient(color-mix(in_oklab,var(--foreground)_20%,transparent)_1px,transparent_1px)] [background-size:10px_10px] opacity-60" />
+        <span className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[radial-gradient(color-mix(in_oklab,var(--foreground)_20%,transparent)_1px,transparent_1px)] bg-size-[10px_10px] opacity-60" />
       )}
 
       <span className={cn('flex flex-col', featured && 'relative mt-auto w-full')}>
@@ -260,20 +260,20 @@ export const Navbar = () => (
       </NavigationMenuList>
     </NavigationMenu>
 
-    <Button
-      render={
-        <Link
-          href="https://www.rshu.edu.ua/pryimalna-komisiia"
-          target="_blank"
-          rel="noopener noreferrer"
-        />
-      }
-      variant="secondary"
-      size="sm"
-      className="shrink-0 rounded-full"
+    <Link
+      href="https://www.rshu.edu.ua/pryimalna-komisiia"
+      prefetch={false}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cn(
+        buttonVariants({
+          variant: 'secondary',
+          size: 'sm',
+        })
+      )}
     >
       Вступнику
       <ArrowRight data-icon="inline-end" />
-    </Button>
+    </Link>
   </div>
 )

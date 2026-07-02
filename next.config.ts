@@ -8,13 +8,15 @@ const nextConfig: NextConfig = {
     viewTransition: true,
   },
   typedRoutes: true,
-  cacheComponents: true,
   allowedDevOrigins: ['192.168.31.44'],
   images: {
     remotePatterns: [
       new URL('https://avatars.githubusercontent.com/**'),
       { protocol: 'https', hostname: 'www.rshu.edu.ua' },
+      { protocol: 'https', hostname: 'kitm.rshu.edu.ua' },
+      { protocol: 'https', hostname: 'iktmvi.rshu.edu.ua' },
       { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
+      { protocol: 'https', hostname: 'static.xx.fbcdn.net' },
     ],
   },
 }

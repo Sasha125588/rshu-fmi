@@ -2,6 +2,7 @@ import { Footer } from '../(components)/Footer/Footer'
 import { Header } from '../(components)/Header/Header'
 
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 
 export const metadata: Metadata = {
   title: {
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 }
 
 interface PublicLayoutProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 const PublicLayout = ({ children }: PublicLayoutProps) => (

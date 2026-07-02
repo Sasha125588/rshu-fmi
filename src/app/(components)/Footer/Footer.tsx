@@ -1,5 +1,4 @@
 import { MailIcon, MapPinIcon, PhoneIcon, SquareArrowOutUpRightIcon } from 'lucide-react'
-import { cacheLife } from 'next/cache'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -44,7 +43,7 @@ const footerGroups: Array<{ title: string; links: FooterLink[] }> = [
         external: true,
       },
       { label: 'Освітні програми', href: '/#specializations' },
-      { label: 'Новини', href: '/#news' },
+      { label: 'Новини', href: '/news' },
       { label: 'Міжнародна співпраця', href: '/mizhnarodna-spivpratsya' },
     ],
   },
@@ -79,9 +78,6 @@ const FooterLinkGroup = ({ title, links }: { title: string; links: FooterLink[] 
 )
 
 export const Footer = async () => {
-  'use cache'
-  cacheLife('max')
-
   return (
     <footer className="bg-background text-foreground border-t">
       <div className="px-6 pt-10 pb-6 md:px-8 lg:pt-12 lg:pb-8">

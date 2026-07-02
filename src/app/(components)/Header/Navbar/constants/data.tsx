@@ -34,7 +34,7 @@ export const NAVBAR_UP_DATA: NavbarData = {
     },
     {
       name: 'НОВИНИ',
-      href: '/#news',
+      href: '/news',
       hasDropdown: false,
       component: <div>НОВИНИ</div>,
     },
