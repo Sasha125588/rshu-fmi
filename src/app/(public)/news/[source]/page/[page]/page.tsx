@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 
 import { NewsArchive } from '../../../_components/NewsArchive'
 import { NewsHeader } from '../../../_components/NewsHeader'
+import { NewsUnavailable } from '../../../_components/NewsUnavailable'
 import {
   NEWS_SOURCES,
   NEWS_SOURCE_CONFIG,
@@ -20,23 +21,13 @@ interface NewsSourcePagePageProps {
 export const revalidate = 3600
 export const dynamicParams = true
 
-export const generateStaticParams = async () => {
-  const params = NEWS_SOURCES.flatMap((source) =>
+export const generateStaticParams = () =>
+  NEWS_SOURCES.flatMap((source) =>
     Array.from({ length: PRERENDERED_PAGE_COUNT }, (_, index) => ({
       source,
       page: String(index + 1),
     })).filter(({ page }) => +page > 1)
   )
-
-  const results = await Promise.allSettled(
-    params.map(async ({ source, page }) => {
-      await getNewsPage(source, +page)
-      return { source, page }
-    })
-  )
-
-  return results.flatMap((result) => (result.status === 'fulfilled' ? [result.value] : []))
-}
 
 export const generateMetadata = async ({ params }: NewsSourcePagePageProps): Promise<Metadata> => {
   const { source, page } = await params
@@ -59,18 +50,30 @@ const PaginatedSourceNewsPage = async ({ params }: NewsSourcePagePageProps) => {
 
   if (!route || route.page === 1) notFound()
 
-  const news = await getNewsPage(route.source, route.page, { includeImages: true })
+  try {
+    const news = await getNewsPage(route.source, route.page, { includeImages: true })
 
-  return (
-    <div>
-      <NewsHeader activeSource={route.source} />
-      <NewsArchive
-        source={route.source}
-        page={route.page}
-        news={news}
-      />
-    </div>
-  )
+    return (
+      <div>
+        <NewsHeader activeSource={route.source} />
+        <NewsArchive
+          source={route.source}
+          page={route.page}
+          news={news}
+        />
+      </div>
+    )
+  } catch (error) {
+    return (
+      <div>
+        <NewsHeader activeSource={route.source} />
+        <NewsUnavailable
+          source={route.source}
+          error={error as Error}
+        />
+      </div>
+    )
+  }
 }
 
 export default PaginatedSourceNewsPage

@@ -33,7 +33,7 @@ export const fetchNewsDocument = async (url: string, errorMsg: string) => {
   })
 
   if (!response.ok) {
-    throw new Error(`${errorMsg} (${response.status})`)
+    throw new Error(`${errorMsg} (status ${response.status})`)
   }
 
   return response.text()

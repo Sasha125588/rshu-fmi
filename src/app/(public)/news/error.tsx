@@ -8,10 +8,10 @@ import { Button, buttonVariants } from '@/components/ui/button'
 
 interface NewsErrorProps {
   error: Error & { digest?: string }
-  reset: () => void
+  unstable_retry: () => void
 }
 
-const NewsError = ({ error, reset }: NewsErrorProps) => (
+const NewsError = ({ error, unstable_retry }: NewsErrorProps) => (
   <section className="flex min-h-[60vh] items-center justify-center px-4 py-20 md:px-12">
     <div className="w-full max-w-2xl">
       <p className="font-jetbrains text-muted-foreground text-xs">Помилка завантаження</p>
@@ -45,7 +45,7 @@ const NewsError = ({ error, reset }: NewsErrorProps) => (
         <Button
           type="button"
           variant="outline"
-          onClick={reset}
+          onClick={unstable_retry}
         >
           <RefreshCwIcon data-icon="inline-start" />
           Спробувати знову

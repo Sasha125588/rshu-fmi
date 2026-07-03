@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 
 import { NewsArchive } from '../_components/NewsArchive'
 import { NewsHeader } from '../_components/NewsHeader'
+import { NewsUnavailable } from '../_components/NewsUnavailable'
 import {
   NEWS_SOURCES,
   NEWS_SOURCE_CONFIG,
@@ -19,16 +20,7 @@ interface NewsSourcePageProps {
 export const revalidate = 3600
 export const dynamicParams = true
 
-export const generateStaticParams = async () => {
-  const results = await Promise.allSettled(
-    NEWS_SOURCES.map(async (source) => {
-      await getNewsPage(source, 1)
-      return { source }
-    })
-  )
-
-  return results.flatMap((result) => (result.status === 'fulfilled' ? [result.value] : []))
-}
+export const generateStaticParams = () => NEWS_SOURCES.map((source) => ({ source }))
 
 export const generateMetadata = async ({ params }: NewsSourcePageProps): Promise<Metadata> => {
   const { source } = await params
@@ -51,18 +43,30 @@ const SourceNewsPage = async ({ params }: NewsSourcePageProps) => {
 
   if (!route) notFound()
 
-  const news = await getNewsPage(route.source, route.page, { includeImages: true })
+  try {
+    const news = await getNewsPage(route.source, route.page, { includeImages: true })
 
-  return (
-    <div>
-      <NewsHeader activeSource={route.source} />
-      <NewsArchive
-        source={route.source}
-        page={route.page}
-        news={news}
-      />
-    </div>
-  )
+    return (
+      <div>
+        <NewsHeader activeSource={route.source} />
+        <NewsArchive
+          source={route.source}
+          page={route.page}
+          news={news}
+        />
+      </div>
+    )
+  } catch (error) {
+    return (
+      <div>
+        <NewsHeader activeSource={route.source} />
+        <NewsUnavailable
+          source={route.source}
+          error={error as Error}
+        />
+      </div>
+    )
+  }
 }
 
 export default SourceNewsPage
