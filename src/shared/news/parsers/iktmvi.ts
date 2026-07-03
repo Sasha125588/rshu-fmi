@@ -45,9 +45,5 @@ export const parseIktmviNews = (html: string) => {
     })
   })
 
-  if (html.trim() && news.length === 0) {
-    throw new Error('IKTMVI news parser returned no items')
-  }
-
   return news
 }

@@ -20,13 +20,23 @@ interface NewsSourcePagePageProps {
 export const revalidate = 3600
 export const dynamicParams = true
 
-export const generateStaticParams = () =>
-  NEWS_SOURCES.flatMap((source) =>
+export const generateStaticParams = async () => {
+  const params = NEWS_SOURCES.flatMap((source) =>
     Array.from({ length: PRERENDERED_PAGE_COUNT }, (_, index) => ({
       source,
       page: String(index + 1),
     })).filter(({ page }) => +page > 1)
   )
+
+  const results = await Promise.allSettled(
+    params.map(async ({ source, page }) => {
+      await getNewsPage(source, +page)
+      return { source, page }
+    })
+  )
+
+  return results.flatMap((result) => (result.status === 'fulfilled' ? [result.value] : []))
+}
 
 export const generateMetadata = async ({ params }: NewsSourcePagePageProps): Promise<Metadata> => {
   const { source, page } = await params

@@ -24,10 +24,6 @@ export const parseUniversityNews = (html: string) => {
     news.push({ source: 'university', title, link, views })
   })
 
-  if (html.trim() && news.length === 0) {
-    throw new Error('University news parser returned no items')
-  }
-
   return news
 }
 

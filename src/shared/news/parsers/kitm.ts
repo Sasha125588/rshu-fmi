@@ -36,10 +36,6 @@ export const parseKitmNews = (html: string) => {
     })
   })
 
-  if (html.trim() && news.length === 0) {
-    throw new Error('KITM news parser returned no items')
-  }
-
   return news
 }
 

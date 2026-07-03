@@ -19,7 +19,16 @@ interface NewsSourcePageProps {
 export const revalidate = 3600
 export const dynamicParams = true
 
-export const generateStaticParams = () => NEWS_SOURCES.map((source) => ({ source }))
+export const generateStaticParams = async () => {
+  const results = await Promise.allSettled(
+    NEWS_SOURCES.map(async (source) => {
+      await getNewsPage(source, 1)
+      return { source }
+    })
+  )
+
+  return results.flatMap((result) => (result.status === 'fulfilled' ? [result.value] : []))
+}
 
 export const generateMetadata = async ({ params }: NewsSourcePageProps): Promise<Metadata> => {
   const { source } = await params
