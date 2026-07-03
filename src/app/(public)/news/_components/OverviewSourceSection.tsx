@@ -51,7 +51,7 @@ export const OverviewSourceSection = ({ result, index }: OverviewSourceSectionPr
             <NewsRow
               key={`${item.source}-${item.link}`}
               item={item}
-              // compact
+              compact
               isLast={index === result.news.length - 1}
             />
           ))}
