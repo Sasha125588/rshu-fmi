@@ -32,7 +32,7 @@
     "@types/react-dom": "19.2.3",
     "esbuild": "^0.28.1",
     "lefthook": "^2.1.9",
-    "oxfmt": "^0.56.0",
+    "oxfmt": "^0.57.0",
     "oxlint": "^1.71.0",
     "serwist": "^9.5.11",
     "shadcn": "^4.12.0",
