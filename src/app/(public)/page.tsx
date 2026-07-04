@@ -47,10 +47,10 @@ export const generateMetadata = async (): Promise<Metadata> => {
       description: 'Не Офіційна сторінка ФМІ Рівненського державного гуманітарного університету.',
       images: [
         {
-          url: new URL('/images/logo.webp', baseUrl).href,
+          url: new URL('/images/logo.avif', baseUrl).href,
           width: 120,
           height: 120,
-          type: 'image/webp',
+          type: 'image/avif',
           alt: 'ФМІ логотип',
         },
       ],
@@ -63,10 +63,10 @@ export const generateMetadata = async (): Promise<Metadata> => {
       description: baseDescription,
       images: [
         {
-          url: new URL('/images/logo.webp', baseUrl).href,
+          url: new URL('/images/logo.avif', baseUrl).href,
           width: 120,
           height: 120,
-          type: 'image/webp',
+          type: 'image/avif',
           alt: 'ФМІ логотип',
         },
       ],

@@ -88,7 +88,7 @@ export const Footer = async () => {
               className="inline-flex opacity-90 transition-opacity hover:opacity-100"
             >
               <Image
-                src="/images/logo.webp"
+                src="/images/logo.avif"
                 alt="Логотип факультету математики та інформатики РДГУ"
                 width={120}
                 height={120}

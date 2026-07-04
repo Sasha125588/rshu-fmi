@@ -21,13 +21,13 @@ export const metadata: Metadata = {
     images: [
       {
         url: new URL(
-          '/images/logo.webp',
+          '/images/logo.avif',
           process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
         ).href,
 
         width: 120,
         height: 120,
-        type: 'image/webp',
+        type: 'image/avif',
         alt: 'ФМІ логотип',
       },
     ],

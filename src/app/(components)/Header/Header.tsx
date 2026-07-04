@@ -23,8 +23,7 @@ export const Header = () => (
           className="flex shrink-0 items-center gap-3 rounded-lg pr-1 opacity-90 transition hover:opacity-100"
         >
           <Image
-            src="/images/logo.webp"
-            priority
+            src="/images/logo.avif"
             loading="eager"
             alt="FMI Logo"
             width={36}
@@ -64,7 +63,7 @@ export const Header = () => (
             <SheetHeader>
               <SheetTitle>
                 <Image
-                  src="/images/logo.webp"
+                  src="/images/logo.avif"
                   alt="FMI Logo"
                   width={80}
                   height={80}
