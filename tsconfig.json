@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -24,21 +20,12 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/frontend*": [
-        "./src/app/(frontend)/*"
-      ],
-      "@/public/*": [
-        "./public/*"
-      ],
-      "@/shared/*": [
-        "./src/shared/*"
-      ],
-      "@payload-config": [
-        "./payload.config.ts"
-      ]
+      "@/*": ["./src/*"],
+      "@/frontend*": ["./src/app/(frontend)/*"],
+      "@/public/*": ["./public/*"],
+      "@/shared/*": ["./src/shared/*"],
+      "@payload-config": ["./payload.config.ts"],
+      "@/payload-types": ["./payload-types.ts"]
     }
   },
   "include": [
@@ -49,7 +36,5 @@
     ".next/dev/types/**/*.ts",
     "next.config.mjs"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

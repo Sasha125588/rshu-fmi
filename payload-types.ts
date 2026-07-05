@@ -67,16 +67,18 @@ export interface Config {
   }
   blocks: {}
   collections: {
-    'payload-kv': PayloadKv
     users: User
+    departments: Department
+    'payload-kv': PayloadKv
     'payload-locked-documents': PayloadLockedDocument
     'payload-preferences': PayloadPreference
     'payload-migrations': PayloadMigration
   }
   collectionsJoins: {}
   collectionsSelect: {
-    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
     users: UsersSelect<false> | UsersSelect<true>
+    departments: DepartmentsSelect<false> | DepartmentsSelect<true>
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
     'payload-locked-documents':
       | PayloadLockedDocumentsSelect<false>
       | PayloadLockedDocumentsSelect<true>
@@ -119,27 +121,12 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-kv".
- */
-export interface PayloadKv {
-  id: number
-  key: string
-  data:
-    | {
-        [k: string]: unknown
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
   id: number
+  name: string
+  roles: ('admin' | 'editor')[]
   updatedAt: string
   createdAt: string
   email: string
@@ -161,14 +148,54 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "departments".
+ */
+export interface Department {
+  id: number
+  name: string
+  shortName: string
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null
+  slug: string
+  description: string
+  websiteUrl: string
+  updatedAt: string
+  createdAt: string
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv".
+ */
+export interface PayloadKv {
+  id: number
+  key: string
+  data:
+    | {
+        [k: string]: unknown
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
   id: number
-  document?: {
-    relationTo: 'users'
-    value: number | User
-  } | null
+  document?:
+    | ({
+        relationTo: 'users'
+        value: number | User
+      } | null)
+    | ({
+        relationTo: 'departments'
+        value: number | Department
+      } | null)
   globalSlug?: string | null
   user: {
     relationTo: 'users'
@@ -213,17 +240,11 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "payload-kv_select".
- */
-export interface PayloadKvSelect<T extends boolean = true> {
-  key?: T
-  data?: T
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  name?: T
+  roles?: T
   updatedAt?: T
   createdAt?: T
   email?: T
@@ -240,6 +261,28 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T
         expiresAt?: T
       }
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "departments_select".
+ */
+export interface DepartmentsSelect<T extends boolean = true> {
+  name?: T
+  shortName?: T
+  generateSlug?: T
+  slug?: T
+  description?: T
+  websiteUrl?: T
+  updatedAt?: T
+  createdAt?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv_select".
+ */
+export interface PayloadKvSelect<T extends boolean = true> {
+  key?: T
+  data?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

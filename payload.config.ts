@@ -3,12 +3,18 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
+import { Departments } from '@/collections/Departments'
+import { Users } from '@/collections/Users'
+
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
   //   editor: lexicalEditor(),
 
-  // Define and configure your collections in this array
-  collections: [],
+  collections: [Users, Departments],
+
+  admin: {
+    user: Users.slug,
+  },
 
   // Your Payload secret - should be a complex and secure string, unguessable
   secret: process.env.PAYLOAD_SECRET ?? '',
@@ -18,6 +24,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL,
     },
+    migrationDir: './drizzle/migrations',
   }),
   // If you want to resize images, crop, set focal point, etc.
   // make sure to install it and pass it to the config.
