@@ -5,14 +5,14 @@ const manifest = (): MetadataRoute.Manifest => ({
   name: 'Факультет математики та інформатики - РДГУ',
   short_name: 'ФМІ РДГУ',
   description:
-    'Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
+    'Не Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
   start_url: '/',
   scope: '/',
   display: 'standalone',
   orientation: 'portrait',
   lang: 'uk-UA',
   background_color: '#0a0a0f',
-  theme_color: '#10b981',
+  theme_color: '#a99dff',
   categories: ['education', 'university'],
   icons: [
     {

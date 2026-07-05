@@ -1,58 +1,59 @@
 import type { MetadataRoute } from 'next'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://fmi-rshu.dev'
 
 const sitemap = (): MetadataRoute.Sitemap => {
   return [
     {
       url: baseUrl,
-      lastModified: new Date('2026-03-09'),
       changeFrequency: 'daily',
       priority: 1,
-      images: [`${baseUrl}/images/logo.webp`],
     },
     {
       url: `${baseUrl}/history`,
-      lastModified: new Date('2026-03-09'),
       changeFrequency: 'monthly',
-      priority: 0.9,
-      images: [`${baseUrl}/images/logo.webp`],
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/contacts`,
-      lastModified: new Date('2026-03-09'),
       changeFrequency: 'monthly',
-      priority: 0.9,
-      images: [`${baseUrl}/images/logo.webp`],
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/mizhnarodna-spivpratsya`,
-      lastModified: new Date('2026-03-09'),
       changeFrequency: 'monthly',
-      priority: 0.9,
-      images: [`${baseUrl}/images/logo.webp`],
+      priority: 0.6,
     },
     {
       url: `${baseUrl}/vchena-rada`,
-      lastModified: new Date('2026-03-09'),
       changeFrequency: 'monthly',
-      priority: 0.9,
-      images: [`${baseUrl}/images/logo.webp`],
+      priority: 0.6,
     },
     {
       url: `${baseUrl}/normatyvni-dokumenty`,
-      lastModified: new Date('2026-03-09'),
       changeFrequency: 'monthly',
-      priority: 0.9,
-      images: [`${baseUrl}/images/logo.webp`],
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/vartist-navchannia`,
-      lastModified: new Date('2026-03-09'),
       changeFrequency: 'monthly',
       priority: 0.9,
-      images: [`${baseUrl}/images/logo.webp`],
     },
+    {
+      url: `${baseUrl}/specializations/software-engineering`,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/news`,
+      changeFrequency: 'hourly',
+      priority: 0.9,
+    },
+    ...['university', 'kitm', 'iktmvi'].map((source) => ({
+      url: `${baseUrl}/news/${source}`,
+      changeFrequency: 'hourly' as const,
+      priority: 0.8,
+    })),
   ]
 }
 

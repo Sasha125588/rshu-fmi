@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://fmi-rshu.dev'
 
 const robots = (): MetadataRoute.Robots => {
   return {
