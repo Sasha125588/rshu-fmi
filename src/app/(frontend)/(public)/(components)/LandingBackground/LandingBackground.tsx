@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useRef } from 'react'
 
-import { useTheme } from '@/app/_contexts/theme/useTheme'
+import { useTheme } from '@/frontend_contexts/theme'
 
 const VERT = `
 attribute vec2 position;

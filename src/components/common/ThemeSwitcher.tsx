@@ -1,6 +1,6 @@
 'use client'
 
-import { useTheme } from '@/app/_contexts/theme/useTheme'
+import { useTheme } from '@/frontend_contexts/theme'
 
 import type { ComponentProps, MouseEvent } from 'react'
 

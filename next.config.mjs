@@ -1,8 +1,11 @@
+import { withPayload } from '@payloadcms/next/withPayload'
 import { withSerwist } from '@serwist/turbopack'
 
-import type { NextConfig } from 'next'
+/**
+ * @type {import('next').NextConfig}
+ */
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   /* config options here */
   experimental: {
     viewTransition: true,
@@ -22,4 +25,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withSerwist(nextConfig)
+export default withSerwist(withPayload(nextConfig))

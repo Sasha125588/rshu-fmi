@@ -27,11 +27,17 @@
       "@/*": [
         "./src/*"
       ],
+      "@/frontend*": [
+        "./src/app/(frontend)/*"
+      ],
       "@/public/*": [
         "./public/*"
       ],
       "@/shared/*": [
         "./src/shared/*"
+      ],
+      "@payload-config": [
+        "./payload.config.ts"
       ]
     }
   },
@@ -40,7 +46,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    "next.config.mjs"
   ],
   "exclude": [
     "node_modules"

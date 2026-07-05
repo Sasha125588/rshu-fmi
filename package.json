@@ -9,10 +9,13 @@
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",
-    "fmt:check": "oxfmt --check"
+    "fmt:check": "oxfmt --check",
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
+    "@payloadcms/db-postgres": "^3.85.2",
+    "@payloadcms/next": "^3.85.2",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "cheerio": "^1.2.0",
@@ -21,6 +24,7 @@
     "lucide-react": "^1.21.0",
     "motion": "^12.42.0",
     "next": "^16.2.9",
+    "payload": "^3.85.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
@@ -30,6 +34,7 @@
     "@types/node": "^26.0.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "19.2.3",
+    "drizzle-kit": "^0.31.10",
     "esbuild": "^0.28.1",
     "lefthook": "^2.1.9",
     "oxfmt": "^0.57.0",
