@@ -3,7 +3,7 @@
 import { ArrowLeftIcon, RefreshCwIcon, TriangleAlertIcon } from 'lucide-react'
 import Link from 'next/link'
 
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Alert, AlertDescription, AlertTitle, Typography } from '@/components/ui'
 import { Button, buttonVariants } from '@/components/ui/button'
 
 interface NewsErrorProps {
@@ -14,10 +14,20 @@ interface NewsErrorProps {
 const NewsError = ({ error, unstable_retry }: NewsErrorProps) => (
   <section className="flex min-h-[60vh] items-center justify-center px-4 py-20 md:px-12">
     <div className="w-full max-w-2xl">
-      <p className="font-jetbrains text-muted-foreground text-xs">Помилка завантаження</p>
-      <h1 className="font-jetbrains mt-4 text-3xl font-bold tracking-tight md:text-4xl">
+      <Typography
+        as="p"
+        variant="caption"
+        className="font-jetbrains text-muted-foreground"
+      >
+        Помилка завантаження
+      </Typography>
+      <Typography
+        as="h1"
+        variant="heading-lg"
+        className="font-jetbrains mt-4 font-bold"
+      >
         Джерело {error.message.split(' ')[3]} не відповідає
-      </h1>
+      </Typography>
       <Alert className="mt-8">
         <TriangleAlertIcon />
         <AlertTitle>Новини тимчасово недоступні</AlertTitle>
@@ -32,11 +42,21 @@ const NewsError = ({ error, unstable_retry }: NewsErrorProps) => (
         >
           <AlertTitle>Деталі помилки</AlertTitle>
           <AlertDescription>
-            <p className="font-jetbrains text-sm wrap-break-word whitespace-pre-wrap">
+            <Typography
+              as="p"
+              variant="body-sm"
+              className="font-jetbrains wrap-break-word whitespace-pre-wrap"
+            >
               {error.message}
-            </p>
+            </Typography>
             {!!error.digest && (
-              <p className="font-jetbrains mt-2 text-xs opacity-80">Код: {error.digest}</p>
+              <Typography
+                as="p"
+                variant="caption"
+                className="font-jetbrains mt-2 opacity-80"
+              >
+                Код: {error.digest}
+              </Typography>
             )}
           </AlertDescription>
         </Alert>

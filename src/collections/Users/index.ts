@@ -13,7 +13,7 @@ export const Users: CollectionConfig = {
     plural: 'Користувачі',
   },
   access: {
-    admin: adminsOrEditors,
+    admin: (args) => !!adminsOrEditors(args),
     create: adminOnly,
     delete: adminOnly,
     read: adminOrSelf,

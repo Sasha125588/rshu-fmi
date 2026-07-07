@@ -2,6 +2,7 @@ import { ArrowUpRightIcon } from 'lucide-react'
 
 import { NewsPagination } from './NewsPagination'
 import { NewsRow } from './NewsRow'
+import { Typography } from '@/components/ui'
 import { buttonVariants } from '@/components/ui/button'
 import { NEWS_SOURCE_CONFIG } from '@/shared/news'
 
@@ -23,15 +24,21 @@ export const NewsArchive = <S extends NewsSource>({ source, page, news }: NewsAr
     >
       <div className="flex flex-col gap-6 border-b pb-8 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="font-jetbrains text-muted-foreground text-xs">
+          <Typography
+            as="p"
+            variant="caption"
+            className="font-jetbrains text-muted-foreground"
+          >
             Сторінка {page} із {config.pageCount}
-          </p>
-          <h2
+          </Typography>
+          <Typography
+            as="h2"
             id="archive-heading"
-            className="mt-3 text-3xl font-semibold tracking-tight text-balance md:text-4xl"
+            variant="heading-lg"
+            className="mt-3"
           >
             {config.fullLabel}
-          </h2>
+          </Typography>
         </div>
 
         <a
@@ -46,12 +53,11 @@ export const NewsArchive = <S extends NewsSource>({ source, page, news }: NewsAr
       </div>
 
       <div className="mt-2">
-        <ul>
-          {news.map((item, index) => (
+        <ul className="divide-y">
+          {news.map((item) => (
             <NewsRow
               key={`${item.source}-${item.link}`}
               item={item}
-              isLast={index === news.length - 1}
             />
           ))}
         </ul>

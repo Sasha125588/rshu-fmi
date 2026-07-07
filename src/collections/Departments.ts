@@ -12,7 +12,7 @@ export const Departments: CollectionConfig = {
     plural: 'Кафедри',
   },
   access: {
-    admin: adminsOrEditors,
+    admin: (args) => !!adminsOrEditors(args),
     create: adminsOrEditors,
     delete: adminsOrEditors,
     read: publicAccess,

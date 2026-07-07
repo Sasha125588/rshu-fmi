@@ -1,11 +1,12 @@
 'use client'
 
 import { AnimatePresence, motion } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDownIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
 import { NAVBAR_DOWN_DATA, NAVBAR_UP_DATA } from '../../constants/data'
+import { Typography } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 import type { Route } from 'next'
@@ -35,11 +36,16 @@ export const MobileNav = () => {
         {item.hasDropdown ? (
           <div>
             <button
-              className="hover:text-green-primary flex w-full items-center justify-between py-2 text-sm font-medium transition-colors"
+              className="hover:text-green-primary flex w-full items-center justify-between py-2 transition-colors"
               onClick={() => toggleItem(item.name)}
             >
-              {item.name}
-              <ChevronDown
+              <Typography
+                as="span"
+                variant="link"
+              >
+                {item.name}
+              </Typography>
+              <ChevronDownIcon
                 className={cn(
                   'h-4 w-4 transition-transform duration-200',
                   openItems[item.name] ? 'rotate-180' : ''
@@ -64,9 +70,14 @@ export const MobileNav = () => {
         ) : (
           <Link
             href={item.href as Route}
-            className="hover:text-green-primary block py-2 text-sm font-medium transition-colors"
+            className="hover:text-green-primary block py-2 transition-colors"
           >
-            {item.name}
+            <Typography
+              as="span"
+              variant="link"
+            >
+              {item.name}
+            </Typography>
           </Link>
         )}
       </div>

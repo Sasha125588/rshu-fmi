@@ -1,7 +1,7 @@
 import { ArrowUpRightIcon, CalendarDaysIcon, EyeIcon } from 'lucide-react'
 import Image from 'next/image'
 
-import { Separator } from '@/components/ui/separator'
+import { Typography } from '@/components/ui'
 import { cn } from '@/lib/utils'
 // import { NEWS_SOURCE_CONFIG } from '@/shared/news'
 
@@ -10,7 +10,6 @@ import type { NewsItem } from '@/shared/news'
 interface NewsRowProps {
   item: NewsItem
   compact?: boolean
-  isLast?: boolean
 }
 
 const dateFormatter = new Intl.DateTimeFormat('uk-UA', {
@@ -22,7 +21,7 @@ const dateFormatter = new Intl.DateTimeFormat('uk-UA', {
 
 const formatPublishedAt = (value: string) => dateFormatter.format(new Date(`${value}T12:00:00Z`))
 
-export const NewsRow = ({ item, compact = false, isLast = false }: NewsRowProps) => {
+export const NewsRow = ({ item, compact = false }: NewsRowProps) => {
   // const source = NEWS_SOURCE_CONFIG[item.source]
 
   return (
@@ -67,22 +66,32 @@ export const NewsRow = ({ item, compact = false, isLast = false }: NewsRowProps)
               </Badge> */}
 
               {item.source === 'university' ? (
-                <span className="text-muted-foreground flex items-center gap-1.5 text-sm">
+                <Typography
+                  as="span"
+                  variant="body-sm"
+                  className="text-muted-foreground flex items-center gap-1.5"
+                >
                   <EyeIcon className="size-4" />
                   {item.views.toLocaleString('uk-UA')} переглядів
-                </span>
+                </Typography>
               ) : (
-                <time
+                <Typography
+                  as="time"
+                  variant="body-sm"
                   dateTime={item.publishedAt}
-                  className="text-muted-foreground flex items-center gap-1.5 text-sm"
+                  className="text-muted-foreground flex items-center gap-1.5"
                 >
                   <CalendarDaysIcon className="size-4" />
                   {formatPublishedAt(item.publishedAt)}
-                </time>
+                </Typography>
               )}
 
               {!!item.tags.length && (
-                <span className="text-muted-foreground/65 flex items-center gap-2 text-xs leading-5">
+                <Typography
+                  as="span"
+                  variant="caption"
+                  className="text-muted-foreground/65 flex items-center gap-2 leading-5"
+                >
                   <span
                     aria-hidden="true"
                     className="text-muted-foreground/35"
@@ -90,30 +99,26 @@ export const NewsRow = ({ item, compact = false, isLast = false }: NewsRowProps)
                     ·
                   </span>
                   <span className="font-jetbrains">{item.tags.join(' · ')}</span>
-                </span>
+                </Typography>
               )}
             </span>
 
-            <span
-              className={cn(
-                'block font-semibold tracking-tight text-balance',
-                compact
-                  ? 'line-clamp-3 text-lg leading-snug'
-                  : 'line-clamp-3 text-xl leading-snug md:text-2xl'
-              )}
+            <Typography
+              as="span"
+              variant={compact ? 'title-sm' : 'title-lg'}
+              className="line-clamp-3 block transition-colors duration-200"
             >
               {item.title}
-            </span>
+            </Typography>
 
             {item.description && (
-              <span
-                className={cn(
-                  'text-muted-foreground/85 mt-3 leading-6',
-                  compact ? 'line-clamp-2 text-sm' : 'line-clamp-3'
-                )}
+              <Typography
+                as="span"
+                variant={compact ? 'body-sm' : 'body-md'}
+                className="text-muted-foreground/85 mt-3 line-clamp-2"
               >
                 {item.description}
-              </span>
+              </Typography>
             )}
           </span>
 
@@ -123,7 +128,6 @@ export const NewsRow = ({ item, compact = false, isLast = false }: NewsRowProps)
           </span>
         </a>
       </article>
-      {!isLast ? <Separator /> : null}
     </li>
   )
 }

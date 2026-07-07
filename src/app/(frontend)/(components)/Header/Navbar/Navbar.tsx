@@ -1,15 +1,15 @@
 import {
-  ArrowRight,
-  BookOpen,
-  Building2,
-  CalendarDays,
-  ClipboardList,
-  FileText,
-  GraduationCap,
-  Landmark,
-  MapPin,
-  Network,
-  Users,
+  ArrowRightIcon,
+  BookOpenIcon,
+  Building2Icon,
+  CalendarDaysIcon,
+  ClipboardListIcon,
+  FileTextIcon,
+  GraduationCapIcon,
+  LandmarkIcon,
+  MapPinIcon,
+  NetworkIcon,
+  UsersIcon,
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -20,6 +20,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  Typography,
   buttonVariants,
   navigationMenuTriggerStyle,
 } from '@/components/ui'
@@ -52,32 +53,32 @@ const navItems: NavItem[] = [
       description:
         'Огляд напрямів факультету, сторінки спеціальностей, вступ і документи освітніх програм.',
       href: '/#specializations',
-      icon: GraduationCap,
+      icon: GraduationCapIcon,
     },
     cards: [
       {
         title: 'Інженерія програмного забезпечення',
         description: 'Сторінка програми, вступ, документи та матеріали ОП.',
         href: '/specializations/software-engineering',
-        icon: GraduationCap,
+        icon: GraduationCapIcon,
       },
       {
         title: "Комп'ютерні науки",
         description: 'Напрям алгоритмів, даних, AI та програмних систем.',
         href: '/#specializations',
-        icon: BookOpen,
+        icon: BookOpenIcon,
       },
       {
         title: 'Середня освіта',
         description: 'Математика, інформатика та підготовка педагогів.',
         href: '/#specializations',
-        icon: Landmark,
+        icon: LandmarkIcon,
       },
       {
         title: 'Усі програми',
         description: 'Повний список бакалаврських і магістерських ОП.',
         href: '/#specializations',
-        icon: FileText,
+        icon: FileTextIcon,
       },
     ],
   },
@@ -89,32 +90,32 @@ const navItems: NavItem[] = [
       description:
         'Розклади, вибіркові дисципліни, рейтинги, документи й основні матеріали в одному місці.',
       href: '/#student',
-      icon: ClipboardList,
+      icon: ClipboardListIcon,
     },
     cards: [
       {
         title: 'Розклад',
         description: 'Посилання на актуальні розклади за курсами.',
         href: '/#student',
-        icon: CalendarDays,
+        icon: CalendarDaysIcon,
       },
       {
         title: 'Освітні програми',
         description: 'Силабуси, редакції ОП та навчальні матеріали.',
         href: '/#specializations',
-        icon: GraduationCap,
+        icon: GraduationCapIcon,
       },
       {
         title: 'Документи',
         description: 'Нормативні матеріали та офіційна інформація.',
         href: '/normatyvni-dokumenty',
-        icon: FileText,
+        icon: FileTextIcon,
       },
       {
         title: 'Рейтинг студентів',
         description: 'Академічні результати та конкурсні позиції.',
         href: '/#student',
-        icon: Users,
+        icon: UsersIcon,
       },
     ],
   },
@@ -125,32 +126,32 @@ const navItems: NavItem[] = [
       title: 'Факультет математики та інформатики',
       description: 'Історія, кафедри, деканат, вчена рада та контакти факультету.',
       href: '/history',
-      icon: Building2,
+      icon: Building2Icon,
     },
     cards: [
       {
         title: 'Про факультет',
         description: 'Історія, структура та ключова інформація.',
         href: '/history',
-        icon: Building2,
+        icon: Building2Icon,
       },
       {
         title: 'Вчена рада',
         description: 'Склад і робота вченої ради факультету.',
         href: '/vchena-rada',
-        icon: Users,
+        icon: UsersIcon,
       },
       {
         title: 'Контакти',
         description: 'Деканат, адреса та канали звʼязку.',
         href: '/contacts',
-        icon: MapPin,
+        icon: MapPinIcon,
       },
       {
         title: 'Кафедри',
         description: 'Структура факультету та освітні напрями кафедр.',
         href: '/history',
-        icon: Network,
+        icon: NetworkIcon,
       },
     ],
   },
@@ -193,25 +194,29 @@ const NavPanelCard = ({ card, featured = false }: { card: NavCard; featured?: bo
         </span>
 
         <span className="flex items-start justify-between gap-4">
-          <span
+          <Typography
+            as="span"
+            variant={featured ? 'title-sm' : 'label'}
             className={cn(
-              'text-foreground font-semibold',
-              featured ? 'text-lg leading-6' : 'text-[15px] leading-5'
+              'text-foreground',
+              featured ? 'leading-6 tracking-normal text-wrap' : 'text-[15px]'
             )}
           >
             {card.title}
-          </span>
-          <ArrowRight className="text-muted-foreground group-hover:text-foreground mt-0.5 shrink-0 transition-transform group-hover:translate-x-0.5" />
+          </Typography>
+          <ArrowRightIcon className="text-muted-foreground group-hover:text-foreground mt-0.5 shrink-0 transition-transform group-hover:translate-x-0.5" />
         </span>
 
-        <span
+        <Typography
+          as="span"
+          variant="body-sm"
           className={cn(
-            'text-muted-foreground mt-2 text-sm',
+            'text-muted-foreground mt-2',
             featured ? 'max-w-sm leading-6' : 'leading-5'
           )}
         >
           {card.description}
-        </span>
+        </Typography>
       </span>
     </NavigationMenuLink>
   )
@@ -229,7 +234,12 @@ export const Navbar = () => (
             {item.featured && item.cards ? (
               <>
                 <NavigationMenuTrigger className="text-muted-foreground hover:text-foreground focus:text-foreground data-popup-open:text-foreground bg-transparent px-3 shadow-none">
-                  {item.label}
+                  <Typography
+                    as="span"
+                    variant="link"
+                  >
+                    {item.label}
+                  </Typography>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="grid min-h-84 w-dvw grid-cols-[1.08fr_1fr_1fr] grid-rows-2 gap-1.5">
                   <NavPanelCard
@@ -252,7 +262,12 @@ export const Navbar = () => (
                   'text-muted-foreground hover:bg-accent/60 hover:text-foreground focus:bg-accent/60 focus:text-foreground data-popup-open:bg-accent/60 data-popup-open:text-foreground bg-transparent px-3 shadow-none'
                 )}
               >
-                {item.label}
+                <Typography
+                  as="span"
+                  variant="link"
+                >
+                  {item.label}
+                </Typography>
               </NavigationMenuLink>
             )}
           </NavigationMenuItem>
@@ -260,9 +275,8 @@ export const Navbar = () => (
       </NavigationMenuList>
     </NavigationMenu>
 
-    <Link
+    <a
       href="https://www.rshu.edu.ua/pryimalna-komisiia"
-      prefetch={false}
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
@@ -273,7 +287,7 @@ export const Navbar = () => (
       )}
     >
       Вступнику
-      <ArrowRight data-icon="inline-end" />
-    </Link>
+      <ArrowRightIcon data-icon="inline-end" />
+    </a>
   </div>
 )

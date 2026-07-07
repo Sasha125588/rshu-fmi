@@ -2,7 +2,7 @@ import { MailIcon, MapPinIcon, PhoneIcon, SquareArrowOutUpRightIcon } from 'luci
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Separator } from '@/components/ui/separator'
+import { Separator, Typography } from '@/components/ui'
 import { FacebookIcon } from '@/public/images/components/FacebookIcon'
 import { InstagramIcon } from '@/public/images/components/InstagramIcon'
 import { TiktokIcon } from '@/public/images/components/TiktokIcon'
@@ -51,9 +51,13 @@ const footerGroups: Array<{ title: string; links: FooterLink[] }> = [
 
 const FooterLinkGroup = ({ title, links }: { title: string; links: FooterLink[] }) => (
   <div>
-    <h3 className="text-accent-foreground font-mono text-xs tracking-[0.12em] uppercase">
+    <Typography
+      as="h3"
+      variant="overline"
+      className="text-accent-foreground font-mono font-normal tracking-[0.12em]"
+    >
       {title}
-    </h3>
+    </Typography>
     <ul className="mt-5 flex flex-col gap-3">
       {links.map((link) => (
         <li key={`${title}-${link.label}`}>
@@ -61,9 +65,14 @@ const FooterLinkGroup = ({ title, links }: { title: string; links: FooterLink[] 
             href={link.href as Route}
             target={link.external ? '_blank' : undefined}
             rel={link.external ? 'noopener noreferrer' : undefined}
-            className="group text-foreground/68 hover:text-accent-violet inline-flex items-center gap-1 text-sm transition-colors"
+            className="group text-foreground/68 hover:text-accent-violet inline-flex items-center gap-1 transition-colors"
           >
-            {link.label}
+            <Typography
+              as="span"
+              variant="body-sm"
+            >
+              {link.label}
+            </Typography>
             {link.external && (
               <SquareArrowOutUpRightIcon
                 size={14}
@@ -85,24 +94,30 @@ export const Footer = async () => {
           <div>
             <Link
               href="/"
-              className="inline-flex opacity-90 transition-opacity hover:opacity-100"
+              className="mb-2 inline-flex opacity-90 transition-opacity hover:opacity-100"
             >
               <Image
                 src="/images/logo.avif"
                 alt="Логотип факультету математики та інформатики РДГУ"
-                width={120}
-                height={120}
-                className="size-28 md:size-44"
+                width={168}
+                height={168}
               />
             </Link>
 
-            <h2 className="mt-3 max-w-md text-xl leading-snug font-semibold tracking-tight text-balance md:text-2xl">
+            <Typography
+              as="h2"
+              variant="title-lg"
+            >
               Факультет математики та інформатики
-            </h2>
-            <p className="text-muted-foreground mt-5 max-w-lg text-sm leading-7 md:text-base">
+            </Typography>
+            <Typography
+              as="p"
+              variant="body-sm"
+              className="text-muted-foreground mt-5 max-w-lg leading-7 md:text-base"
+            >
               Освітні програми, студентські сервіси та офіційна інформація факультету в одному
               зрозумілому просторі.
-            </p>
+            </Typography>
 
             <div
               className="mt-7 flex items-center gap-5"
@@ -166,7 +181,7 @@ export const Footer = async () => {
                 />
               ))}
             </nav>
-            <address className="text-muted-foreground flex flex-wrap gap-18 text-sm not-italic">
+            <address className="text-muted-foreground flex flex-wrap gap-18 not-italic">
               <a
                 href="https://maps.google.com/?q=Рівне,+вул.+Пластова,+31"
                 target="_blank"
@@ -177,7 +192,12 @@ export const Footer = async () => {
                   className="text-accent-violet"
                   size={20}
                 />
-                33028, м. Рівне, вул. Пластова, 31
+                <Typography
+                  as="span"
+                  variant="body-sm"
+                >
+                  33028, м. Рівне, вул. Пластова, 31
+                </Typography>
               </a>
               <a
                 href="tel:+380362266594"
@@ -187,7 +207,12 @@ export const Footer = async () => {
                   className="text-accent-violet"
                   size={20}
                 />
-                (0362) 26-65-94
+                <Typography
+                  as="span"
+                  variant="body-sm"
+                >
+                  (0362) 26-65-94
+                </Typography>
               </a>
               <a
                 href="mailto:dekanat.fmi@rshu.edu.ua"
@@ -197,7 +222,12 @@ export const Footer = async () => {
                   className="text-accent-violet"
                   size={20}
                 />
-                dekanat.fmi@rshu.edu.ua
+                <Typography
+                  as="span"
+                  variant="body-sm"
+                >
+                  dekanat.fmi@rshu.edu.ua
+                </Typography>
               </a>
             </address>
           </div>
@@ -205,33 +235,43 @@ export const Footer = async () => {
 
         <Separator className="-mx-8 my-6 min-w-screen" />
 
-        <div className="text-muted-foreground flex flex-col gap-4 text-xs md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} ФМІ РДГУ. Усі права захищені.</p>
+        <div className="text-muted-foreground flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <Typography
+            as="p"
+            variant="caption"
+          >
+            © {new Date().getFullYear()} ФМІ РДГУ. Усі права захищені.
+          </Typography>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <Link
+            <Typography
+              as="a"
+              variant="caption"
               href="https://www.rshu.edu.ua/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-foreground transition-colors"
             >
               Рівненський державний гуманітарний університет
-            </Link>
-            <Link
+            </Typography>
+
+            <Typography
+              as="a"
               href="https://github.com/Sasha125588"
               target="_blank"
               rel="noopener noreferrer"
+              variant="caption"
               className="hover:text-accent-violet flex items-center gap-2 transition-colors"
             >
-              <span>Created by</span>
+              Created by
               <Image
                 src="https://avatars.githubusercontent.com/u/155098366?v=4"
                 alt="Sasha"
                 width={32}
                 height={32}
-                className="size-8 rounded-full"
+                className="rounded-full"
               />
-            </Link>
+            </Typography>
           </div>
         </div>
       </div>

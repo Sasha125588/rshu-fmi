@@ -1,6 +1,5 @@
 import { checkRole } from './checkRole'
 
-import type { User } from '@/payload-types'
+import type { Access } from 'payload'
 
-export const adminsOrEditors = ({ req: { user } }: { req: { user: User | null } }) =>
-  checkRole(['admin', 'editor'], user)
+export const adminsOrEditors: Access = ({ req: { user } }) => checkRole(['admin', 'editor'], user)

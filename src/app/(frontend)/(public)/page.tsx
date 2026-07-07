@@ -24,6 +24,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
+  Typography,
   buttonVariants,
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
@@ -86,21 +87,33 @@ const HomePage = async () => {
 
         <div className="relative w-full px-12">
           <div className="flex max-w-4xl flex-col items-start">
-            <h1 className="max-w-5xl text-5xl leading-[0.95] font-bold tracking-tight text-balance sm:text-6xl md:text-7xl xl:text-8xl">
+            <Typography
+              as="h1"
+              variant="display"
+            >
               Факультет математики та інформатики
-            </h1>
-            <p className="mt-6 max-w-3xl text-sm font-medium tracking-[0.18em] uppercase md:text-sm">
-              <span className="bg-background font-jetbrains text-accent-violet rounded-full box-decoration-clone px-3">
+            </Typography>
+
+            <Typography
+              as="p"
+              variant="overline"
+              className="mt-6 max-w-3xl text-sm"
+            >
+              <span className="bg-background text-accent-violet rounded-full box-decoration-clone px-3">
                 IT, математика та цифрова освіта
               </span>
-            </p>
-            <p className=" mt-5 max-w-2xl text-lg leading-relaxed font-medium md:text-xl">
+            </Typography>
+
+            <Typography
+              as="p"
+              variant="body-lg"
+              className="mt-5 max-w-2xl leading-relaxed"
+            >
               <span className="bg-background text-muted-foreground rounded-full box-decoration-clone px-3">
                 Освітні програми, документи, новини та студентські сервіси факультету в одному
                 місці. Швидкий старт для абітурієнтів і зручна навігація для студентів.
               </span>
-            </p>
-
+            </Typography>
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
               <Link
                 href="#specializations"
@@ -135,13 +148,16 @@ const HomePage = async () => {
                 Вступнику
               </Link>
             </div>
-
             <div className="mt-13">
-              <p className="text-xs leading-[2.2] tracking-widest uppercase">
-                <span className="bg-muted/80 text-muted-foreground font-jetbrains rounded-full box-decoration-clone px-3 py-1.5 ">
+              <Typography
+                as="p"
+                variant="overline"
+                className="leading-[2.2] font-normal tracking-widest"
+              >
+                <span className="bg-muted/80 text-muted-foreground rounded-full box-decoration-clone px-3 py-1.5 ">
                   Швидкий доступ
                 </span>
-              </p>
+              </Typography>
               <div className="mt-3 flex w-fit max-w-full flex-wrap items-center gap-x-6 gap-y-3 rounded-full px-3 py-2.5">
                 {quickTags.map((tag) => (
                   <Link
@@ -152,7 +168,12 @@ const HomePage = async () => {
                     className="group text-muted-foreground/80 hover:text-muted-foreground flex items-center gap-2 transition"
                   >
                     <span className="bg-accent-violet size-1.5 rounded-full" />
-                    <span className="text-sm font-medium">{tag.label}</span>
+                    <Typography
+                      as="span"
+                      variant="link"
+                    >
+                      {tag.label}
+                    </Typography>
                     {tag.external ? (
                       <ArrowUpRight
                         size={14}
@@ -174,8 +195,20 @@ const HomePage = async () => {
               key={stat.label}
               className="flex min-w-[145px] items-baseline gap-2.5"
             >
-              <span className="font-jetbrains text-2xl font-bold md:text-3xl">{stat.value}</span>
-              <span className="text-muted-foreground font-semibold uppercase">{stat.label}</span>
+              <Typography
+                as="span"
+                variant="heading-md"
+                className="font-jetbrains font-bold tracking-normal"
+              >
+                {stat.value}
+              </Typography>
+              <Typography
+                as="span"
+                variant="body-md"
+                className="text-muted-foreground font-semibold uppercase"
+              >
+                {stat.label}
+              </Typography>
             </div>
           ))}
         </div>
@@ -234,9 +267,14 @@ const HomePage = async () => {
                     <TabsTrigger
                       key={route.id}
                       value={route.id}
-                      className="border-border data-active:border-accent-violet data-active:bg-card-new/50 data-active:text-foreground mr-2 h-10 flex-none rounded-lg border bg-transparent px-4 text-sm font-semibold"
+                      className="border-border data-active:border-accent-violet data-active:bg-card-new/50 data-active:text-foreground mr-2 h-10 flex-none rounded-lg border bg-transparent px-4"
                     >
-                      {route.label}
+                      <Typography
+                        as="span"
+                        variant="label"
+                      >
+                        {route.label}
+                      </Typography>
                     </TabsTrigger>
                   ))}
                 </TabsList>
@@ -304,11 +342,21 @@ const HomePage = async () => {
                   className="group border-border bg-card-new/30 hover:bg-foreground/4 rounded-lg border p-5 transition"
                 >
                   <Icon className="text-accent-violet mb-8 size-5" />
-                  <h3 className="flex items-center justify-between gap-3 text-xl font-semibold">
+                  <Typography
+                    as="h3"
+                    variant="title-md"
+                    className="flex items-center justify-between gap-3"
+                  >
                     {item.title}
                     <ArrowUpRight className="text-muted-foreground/60 group-hover:text-foreground size-4 transition-colors duration-200" />
-                  </h3>
-                  <p className="text-muted-foreground/80 mt-2 leading-6">{item.description}</p>
+                  </Typography>
+                  <Typography
+                    as="p"
+                    variant="body-md"
+                    className="text-muted-foreground/80 mt-2"
+                  >
+                    {item.description}
+                  </Typography>
                 </Link>
               )
             })}
@@ -329,15 +377,27 @@ const HomePage = async () => {
                 key={reason.title}
                 className="border-border grid gap-5 border-t py-8 md:grid-cols-[120px_0.8fr_1.2fr] md:items-start"
               >
-                <span className="font-jetbrains text-muted-foreground/40 text-5xl font-black">
+                <Typography
+                  as="span"
+                  variant="heading-md"
+                  className="font-jetbrains text-muted-foreground/40 text-5xl font-black tracking-normal md:text-5xl"
+                >
                   {String(index + 1).padStart(2, '0')}
-                </span>
-                <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
+                </Typography>
+                <Typography
+                  as="h3"
+                  variant="heading-md"
+                  className="text-pretty"
+                >
                   {reason.title}
-                </h3>
-                <p className="text-muted-foreground/85 max-w-3xl text-lg leading-8">
+                </Typography>
+                <Typography
+                  as="p"
+                  variant="body-md"
+                  className="text-muted-foreground/85 max-w-3xl text-lg leading-8"
+                >
                   {reason.description}
-                </p>
+                </Typography>
               </article>
             ))}
           </div>
@@ -386,29 +446,45 @@ const HomePage = async () => {
                   rel="noopener noreferrer"
                   className="hover:bg-foreground/[0.035] flex min-h-32 items-start gap-6 px-4 py-5 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-offset-4"
                 >
-                  <span className="font-jetbrains text-muted-foreground/40 shrink-0 text-lg font-medium">
+                  <Typography
+                    as="span"
+                    variant="body-md"
+                    className="font-jetbrains text-muted-foreground/40 shrink-0 text-lg font-medium"
+                  >
                     {String(index + 1).padStart(2, '0')}
-                  </span>
+                  </Typography>
 
                   <span className="min-w-0 flex-1 transition-transform duration-200 group-hover:translate-x-1">
                     {item.tags.length ? (
-                      <span className="text-muted-foreground/70 group-hover:text-muted-foreground mb-2 block text-sm transition-colors duration-200">
+                      <Typography
+                        as="span"
+                        variant="body-sm"
+                        className="text-muted-foreground/70 group-hover:text-muted-foreground mb-2 block transition-colors duration-200"
+                      >
                         {item.tags.slice(0, 3).join(' • ')}
-                      </span>
+                      </Typography>
                     ) : null}
 
-                    <span className="mb-3 block text-lg leading-tight font-semibold transition-colors duration-200 md:text-xl">
+                    <Typography
+                      as="span"
+                      variant="title-sm"
+                      className="mb-3 block leading-tight transition-colors duration-200 md:text-xl"
+                    >
                       {truncateText(item.title, 104)}
                       <span className="sr-only">, відкривається в новій вкладці</span>
-                    </span>
+                    </Typography>
 
-                    <span className="text-muted-foreground/70 group-hover:text-muted-foreground mt-4 flex items-center gap-1.5 text-sm transition-colors duration-200">
+                    <Typography
+                      as="span"
+                      variant="body-sm"
+                      className="text-muted-foreground/70 group-hover:text-muted-foreground mt-4 flex items-center gap-1.5 transition-colors duration-200"
+                    >
                       <EyeIcon
                         aria-hidden="true"
                         className="size-4"
                       />
                       <span>{item.views.toLocaleString('uk-UA')} переглядів</span>
-                    </span>
+                    </Typography>
                   </span>
 
                   <span className="text-muted-foreground/80 shrink-0">
@@ -439,11 +515,22 @@ const HomePage = async () => {
                 value={item.question}
                 className="bg-transparent data-open:bg-transparent"
               >
-                <AccordionTrigger className=" py-5 text-xl font-semibold hover:no-underline">
-                  {item.question}
+                <AccordionTrigger className="py-5 hover:no-underline">
+                  <Typography
+                    as="span"
+                    variant="title-md"
+                  >
+                    {item.question}
+                  </Typography>
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground max-w-3xl pb-5 text-base leading-7">
-                  {item.answer}
+                <AccordionContent className="max-w-3xl pb-5">
+                  <Typography
+                    as="p"
+                    variant="body-md"
+                    className="text-muted-foreground leading-7"
+                  >
+                    {item.answer}
+                  </Typography>
                 </AccordionContent>
               </AccordionItem>
             ))}
@@ -454,14 +541,28 @@ const HomePage = async () => {
       <section className="px-4 pt-6 pb-20 md:px-6">
         <div className="border-border bg-card-new/50 mx-auto grid max-w-7xl gap-8 rounded-lg border p-6 md:grid-cols-[1fr_auto] md:items-center">
           <div>
-            <p className="text-accent-violet font-jetbrains mb-3 text-xs tracking-[0.28em] uppercase">
+            <Typography
+              as="p"
+              variant="overline"
+              className="text-accent-violet mb-3 tracking-[0.28em]"
+            >
               admission
-            </p>
-            <h2 className="text-3xl font-semibold tracking-tight">Хочеш вступити на ФМІ?</h2>
-            <p className="text-muted-foreground mt-3 max-w-2xl leading-7">
+            </Typography>
+            <Typography
+              as="h2"
+              variant="heading-lg"
+              className="md:text-3xl"
+            >
+              Хочеш вступити на ФМІ?
+            </Typography>
+            <Typography
+              as="p"
+              variant="body-md"
+              className="text-muted-foreground mt-3 max-w-2xl leading-7"
+            >
               Почни зі спеціальності. Якщо потрібна жива відповідь, звертайся до деканату або
               приймальної комісії РДГУ.
-            </p>
+            </Typography>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
@@ -502,14 +603,29 @@ const ProgramCard = ({ item, compact = false }: { item: ProgramItem; compact?: b
         </span>
 
         <div className="flex min-w-0 flex-col justify-between">
-          <div className="text-muted-foreground mb-2 flex flex-wrap items-center gap-2 text-xs">
+          <Typography
+            as="div"
+            variant="caption"
+            className="text-muted-foreground mb-2 flex flex-wrap items-center gap-2"
+          >
             <span className="font-jetbrains text-accent-violet">{item.shortTitle}</span>
             <span>{item.date}</span>
-          </div>
+          </Typography>
 
-          <h3 className="text-xl leading-tight font-semibold tracking-tight">{item.title}</h3>
+          <Typography
+            as="h3"
+            variant="title-md"
+          >
+            {item.title}
+          </Typography>
 
-          <p className="text-muted-foreground/80 mt-2 line-clamp-2 leading-6">{item.description}</p>
+          <Typography
+            as="p"
+            variant="body-md"
+            className="text-muted-foreground/80 mt-2 line-clamp-2"
+          >
+            {item.description}
+          </Typography>
 
           <div className="mt-4 flex gap-2">
             {item.tags.slice(0, compact ? 2 : item.tags.length).map((tag) => (
@@ -538,11 +654,19 @@ const ProgramCard = ({ item, compact = false }: { item: ProgramItem; compact?: b
 
 const SectionHeader = ({ title, description }: { title: string; description: string }) => (
   <div>
-    <h2 className="font-jetbrains text-5xl leading-tight font-black tracking-tighter text-balance md:text-7xl">
+    <Typography
+      as="h2"
+      variant="heading-2xl"
+      className="leading-tight font-black"
+    >
       {title}
-    </h2>
-    <p className="text-muted-foreground mt-4 max-w-xl text-lg leading-6 font-medium">
+    </Typography>
+    <Typography
+      as="p"
+      variant="body-lg"
+      className="text-muted-foreground mt-4 max-w-xl leading-6 md:text-lg"
+    >
       {description}
-    </p>
+    </Typography>
   </div>
 )
