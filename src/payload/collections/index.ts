@@ -1,5 +1,6 @@
 export * from './Departments'
 export * from './EducationalPrograms'
+export * from './Media'
 export * from './ProgramDocuments'
 export * from './TuitionRates'
 export * from './Users'

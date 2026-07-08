@@ -65,14 +65,25 @@ export const ProgramDocuments: CollectionConfig = {
       },
     },
     {
-      name: 'url',
-      type: 'text',
-      label: 'Посилання на документ',
+      name: 'file',
+      type: 'upload',
+      label: 'Файл документа',
+      relationTo: 'media',
       admin: {
-        description: 'Поки без Media/R2. Пізніше можна додати file relationship.',
+        description: 'Основний варіант: завантаж PDF.',
+      },
+      filterOptions: {
+        mimeType: { equals: 'application/pdf' },
+      },
+    },
+    {
+      name: 'externalUrl',
+      type: 'text',
+      label: 'Зовнішнє посилання',
+      admin: {
+        description: 'Використовуй тільки якщо документ реально зберігається на зовнішньому сайті.',
         placeholder: 'https://example.edu.ua/document.pdf',
       },
-      required: true,
     },
     {
       name: 'description',

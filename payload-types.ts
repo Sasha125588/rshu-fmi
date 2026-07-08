@@ -72,6 +72,7 @@ export interface Config {
     'educational-programs': EducationalProgram
     'tuition-rates': TuitionRate
     'program-documents': ProgramDocument
+    media: Media
     'payload-kv': PayloadKv
     'payload-locked-documents': PayloadLockedDocument
     'payload-preferences': PayloadPreference
@@ -84,6 +85,7 @@ export interface Config {
     'educational-programs': EducationalProgramsSelect<false> | EducationalProgramsSelect<true>
     'tuition-rates': TuitionRatesSelect<false> | TuitionRatesSelect<true>
     'program-documents': ProgramDocumentsSelect<false> | ProgramDocumentsSelect<true>
+    media: MediaSelect<false> | MediaSelect<true>
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
     'payload-locked-documents':
       | PayloadLockedDocumentsSelect<false>
@@ -287,14 +289,69 @@ export interface ProgramDocument {
     | 'other'
   periodLabel?: string | null
   /**
-   * Поки без Media/R2. Пізніше можна додати file relationship.
+   * Основний варіант: завантаж PDF.
    */
-  url: string
+  file?: (number | null) | Media
+  /**
+   * Використовуй тільки якщо документ реально зберігається на зовнішньому сайті.
+   */
+  externalUrl?: string | null
   description?: string | null
   sortOrder?: number | null
   updatedAt: string
   createdAt: string
   _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number
+  /**
+   * Обов’язково заповнюй для зображень. Для PDF можна залишити порожнім.
+   */
+  alt?: string | null
+  caption?: string | null
+  category: 'document' | 'page-image' | 'news' | 'gallery' | 'other'
+  prefix?: string | null
+  updatedAt: string
+  createdAt: string
+  url?: string | null
+  thumbnailURL?: string | null
+  filename?: string | null
+  mimeType?: string | null
+  filesize?: number | null
+  width?: number | null
+  height?: number | null
+  focalX?: number | null
+  focalY?: number | null
+  sizes?: {
+    thumbnail?: {
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
+    card?: {
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
+    hero?: {
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
+  }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -339,6 +396,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'program-documents'
         value: number | ProgramDocument
+      } | null)
+    | ({
+        relationTo: 'media'
+        value: number | Media
       } | null)
   globalSlug?: string | null
   user: {
@@ -507,12 +568,68 @@ export interface ProgramDocumentsSelect<T extends boolean = true> {
   educationalProgram?: T
   type?: T
   periodLabel?: T
-  url?: T
+  file?: T
+  externalUrl?: T
   description?: T
   sortOrder?: T
   updatedAt?: T
   createdAt?: T
   _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T
+  caption?: T
+  category?: T
+  prefix?: T
+  updatedAt?: T
+  createdAt?: T
+  url?: T
+  thumbnailURL?: T
+  filename?: T
+  mimeType?: T
+  filesize?: T
+  width?: T
+  height?: T
+  focalX?: T
+  focalY?: T
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T
+              width?: T
+              height?: T
+              mimeType?: T
+              filesize?: T
+              filename?: T
+            }
+        card?:
+          | T
+          | {
+              url?: T
+              width?: T
+              height?: T
+              mimeType?: T
+              filesize?: T
+              filename?: T
+            }
+        hero?:
+          | T
+          | {
+              url?: T
+              width?: T
+              height?: T
+              mimeType?: T
+              filesize?: T
+              filename?: T
+            }
+      }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
