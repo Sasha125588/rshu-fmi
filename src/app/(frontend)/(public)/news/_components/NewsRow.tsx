@@ -6,10 +6,17 @@ import { cn } from '@/lib/utils'
 // import { NEWS_SOURCE_CONFIG } from '@/shared/news'
 
 import type { NewsItem } from '@/shared/news'
+import type { ReactNode } from 'react'
 
 interface NewsRowProps {
   item: NewsItem
   compact?: boolean
+}
+
+interface NewsRowContentProps {
+  item: NewsItem
+  compact: boolean
+  children: ReactNode
 }
 
 const dateFormatter = new Intl.DateTimeFormat('uk-UA', {
@@ -21,7 +28,7 @@ const dateFormatter = new Intl.DateTimeFormat('uk-UA', {
 
 const formatPublishedAt = (value: string) => dateFormatter.format(new Date(`${value}T12:00:00Z`))
 
-export const NewsRow = ({ item, compact = false }: NewsRowProps) => {
+const NewsRowContent = ({ item, compact, children }: NewsRowContentProps) => {
   // const source = NEWS_SOURCE_CONFIG[item.source]
 
   return (
@@ -65,26 +72,7 @@ export const NewsRow = ({ item, compact = false }: NewsRowProps) => {
                 {source.badgeLabel}
               </Badge> */}
 
-              {item.source === 'university' ? (
-                <Typography
-                  as="span"
-                  variant="body-sm"
-                  className="text-muted-foreground flex items-center gap-1.5"
-                >
-                  <EyeIcon className="size-4" />
-                  {item.views.toLocaleString('uk-UA')} переглядів
-                </Typography>
-              ) : (
-                <Typography
-                  as="time"
-                  variant="body-sm"
-                  dateTime={item.publishedAt}
-                  className="text-muted-foreground flex items-center gap-1.5"
-                >
-                  <CalendarDaysIcon className="size-4" />
-                  {formatPublishedAt(item.publishedAt)}
-                </Typography>
-              )}
+              {children}
 
               {!!item.tags.length && (
                 <Typography
@@ -131,3 +119,35 @@ export const NewsRow = ({ item, compact = false }: NewsRowProps) => {
     </li>
   )
 }
+
+export const NewsRow = ({ item, compact = false }: NewsRowProps) =>
+  item.source === 'university' ? (
+    <NewsRowContent
+      item={item}
+      compact={compact}
+    >
+      <Typography
+        as="span"
+        variant="body-sm"
+        className="text-muted-foreground flex items-center gap-1.5"
+      >
+        <EyeIcon className="size-4" />
+        {item.views.toLocaleString('uk-UA')} переглядів
+      </Typography>
+    </NewsRowContent>
+  ) : (
+    <NewsRowContent
+      item={item}
+      compact={compact}
+    >
+      <Typography
+        as="time"
+        variant="body-sm"
+        dateTime={item.publishedAt}
+        className="text-muted-foreground flex items-center gap-1.5"
+      >
+        <CalendarDaysIcon className="size-4" />
+        {formatPublishedAt(item.publishedAt)}
+      </Typography>
+    </NewsRowContent>
+  )

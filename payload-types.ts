@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User
     departments: Department
+    'educational-programs': EducationalProgram
+    'tuition-rates': TuitionRate
+    'program-documents': ProgramDocument
     'payload-kv': PayloadKv
     'payload-locked-documents': PayloadLockedDocument
     'payload-preferences': PayloadPreference
@@ -78,6 +81,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>
     departments: DepartmentsSelect<false> | DepartmentsSelect<true>
+    'educational-programs': EducationalProgramsSelect<false> | EducationalProgramsSelect<true>
+    'tuition-rates': TuitionRatesSelect<false> | TuitionRatesSelect<true>
+    'program-documents': ProgramDocumentsSelect<false> | ProgramDocumentsSelect<true>
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
     'payload-locked-documents':
       | PayloadLockedDocumentsSelect<false>
@@ -166,6 +172,132 @@ export interface Department {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "educational-programs".
+ */
+export interface EducationalProgram {
+  id: number
+  title: string
+  shortTitle: string
+  /**
+   * Формується автоматично з назви програми, рівня освіти та кодів спеціальності.
+   */
+  adminTitle?: string | null
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null
+  slug: string
+  /**
+   * Новий код, наприклад F2.
+   */
+  specialtyCode: string
+  /**
+   * Старий код, наприклад 121.
+   */
+  legacySpecialtyCode: string
+  specialtyName: string
+  educationLevel: 'bachelor' | 'master'
+  department: number | Department
+  studyForms?:
+    | {
+        form: 'full-time' | 'part-time' | 'dual'
+        durationLabel: string
+        note?: string | null
+        id?: string | null
+      }[]
+    | null
+  isFeatured?: boolean | null
+  sortOrder?: number | null
+  description: string
+  heroText: string
+  tags?:
+    | {
+        label: string
+        id?: string | null
+      }[]
+    | null
+  careers?:
+    | {
+        title: string
+        description: string
+        id?: string | null
+      }[]
+    | null
+  studyFocus?:
+    | {
+        title: string
+        description: string
+        id?: string | null
+      }[]
+    | null
+  faq?:
+    | {
+        question: string
+        answer: string
+        id?: string | null
+      }[]
+    | null
+  seoTitle?: string | null
+  seoDescription?: string | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tuition-rates".
+ */
+export interface TuitionRate {
+  id: number
+  /**
+   * Рівень освіти (бакалавр/магістр) береться з обраної освітньої програми.
+   */
+  educationalProgram: number | EducationalProgram
+  academicYear: string
+  studyForm: 'full-time' | 'part-time' | 'dual'
+  availability: 'available' | 'unavailable' | 'to-be-announced'
+  amountPerYear?: number | null
+  totalAmount?: number | null
+  currency: 'UAH'
+  note?: string | null
+  sortOrder?: number | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "program-documents".
+ */
+export interface ProgramDocument {
+  id: number
+  title: string
+  /**
+   * Обирай програму з потрібним рівнем освіти: бакалавр або магістр.
+   */
+  educationalProgram: number | EducationalProgram
+  type:
+    | 'educational-program'
+    | 'previous-educational-program'
+    | 'syllabus'
+    | 'work-program'
+    | 'curriculum'
+    | 'accreditation'
+    | 'review'
+    | 'other'
+  periodLabel?: string | null
+  /**
+   * Поки без Media/R2. Пізніше можна додати file relationship.
+   */
+  url: string
+  description?: string | null
+  sortOrder?: number | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -195,6 +327,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'departments'
         value: number | Department
+      } | null)
+    | ({
+        relationTo: 'educational-programs'
+        value: number | EducationalProgram
+      } | null)
+    | ({
+        relationTo: 'tuition-rates'
+        value: number | TuitionRate
+      } | null)
+    | ({
+        relationTo: 'program-documents'
+        value: number | ProgramDocument
       } | null)
   globalSlug?: string | null
   user: {
@@ -275,6 +419,100 @@ export interface DepartmentsSelect<T extends boolean = true> {
   websiteUrl?: T
   updatedAt?: T
   createdAt?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "educational-programs_select".
+ */
+export interface EducationalProgramsSelect<T extends boolean = true> {
+  title?: T
+  shortTitle?: T
+  adminTitle?: T
+  generateSlug?: T
+  slug?: T
+  specialtyCode?: T
+  legacySpecialtyCode?: T
+  specialtyName?: T
+  educationLevel?: T
+  department?: T
+  studyForms?:
+    | T
+    | {
+        form?: T
+        durationLabel?: T
+        note?: T
+        id?: T
+      }
+  isFeatured?: T
+  sortOrder?: T
+  description?: T
+  heroText?: T
+  tags?:
+    | T
+    | {
+        label?: T
+        id?: T
+      }
+  careers?:
+    | T
+    | {
+        title?: T
+        description?: T
+        id?: T
+      }
+  studyFocus?:
+    | T
+    | {
+        title?: T
+        description?: T
+        id?: T
+      }
+  faq?:
+    | T
+    | {
+        question?: T
+        answer?: T
+        id?: T
+      }
+  seoTitle?: T
+  seoDescription?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tuition-rates_select".
+ */
+export interface TuitionRatesSelect<T extends boolean = true> {
+  educationalProgram?: T
+  academicYear?: T
+  studyForm?: T
+  availability?: T
+  amountPerYear?: T
+  totalAmount?: T
+  currency?: T
+  note?: T
+  sortOrder?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "program-documents_select".
+ */
+export interface ProgramDocumentsSelect<T extends boolean = true> {
+  title?: T
+  educationalProgram?: T
+  type?: T
+  periodLabel?: T
+  url?: T
+  description?: T
+  sortOrder?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

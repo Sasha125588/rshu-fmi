@@ -1,8 +1,5 @@
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
-import { adminOnly } from '@/access/adminOnly'
-import { adminOnlyFieldAccess } from '@/access/adminOnlyFieldAccess'
-import { adminOrSelf } from '@/access/adminOrSelf'
-import { adminsOrEditors } from '@/access/adminsOrEditors'
+import { adminOnly, adminOnlyFieldAccess, adminOrSelf, adminsOrEditors } from '@/payload/access'
 
 import type { CollectionConfig } from 'payload'
 

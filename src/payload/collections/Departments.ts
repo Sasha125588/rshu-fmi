@@ -1,7 +1,6 @@
 import { slugField } from 'payload'
 
-import { adminsOrEditors } from '@/access/adminsOrEditors'
-import { publicAccess } from '@/access/publicAccess'
+import { adminsOrEditors, publicAccess } from '@/payload/access'
 
 import type { CollectionConfig } from 'payload'
 
