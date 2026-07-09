@@ -10,8 +10,8 @@ export const quickTags = [
 ]
 
 export const heroStats = [
-  { value: '6', label: 'освітніх програм' },
-  { value: '4', label: 'кафедри' },
+  { value: '5', label: 'освітніх програм' },
+  { value: '3', label: 'кафедри' },
   { value: '90+', label: 'років традиції' },
   { value: '2', label: 'рівні освіти' },
   { value: '10+', label: 'партнерів' },
@@ -71,17 +71,17 @@ export const programRoutes = [
   {
     id: 'it',
     label: 'Я хочу в ІТ',
-    programIds: ['software-engineering', 'computer-science'],
+    programCodes: ['F2', 'F3'],
   },
   {
     id: 'education',
     label: 'Я хочу викладати',
-    programIds: ['professional-education', 'secondary-education-cs'],
+    programCodes: ['А5.39', 'А4.09'],
   },
   {
     id: 'math',
     label: 'Я хочу математику',
-    programIds: ['secondary-education-math', 'secondary-education-math-cs'],
+    programCodes: ['А4.04'],
   },
 ] as const
 

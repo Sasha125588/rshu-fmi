@@ -2,7 +2,6 @@ import { MenuIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { MobileNav } from './Navbar/components/MobileNav/MobileNav'
 import { Navbar } from './Navbar/Navbar'
 import {
   Button,
@@ -69,7 +68,7 @@ export const Header = () => (
                 />
               </SheetTitle>
             </SheetHeader>
-            <MobileNav />
+            {/* <MobileNav /> */}
           </SheetContent>
         </Sheet>
       </div>

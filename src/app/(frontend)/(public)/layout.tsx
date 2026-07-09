@@ -1,5 +1,4 @@
-import { Footer } from '../(components)/Footer/Footer'
-import { Header } from '../(components)/Header/Header'
+import { Footer, Header } from '../_components/layout'
 
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'

@@ -5,8 +5,9 @@ import { JetBrains_Mono, Nunito } from 'next/font/google'
 import { ThemeScript } from './_scripts/ThemeScript'
 import './globals.css'
 import { Provider } from './provider'
-import { ThemeSwitcher } from '@/components/common/ThemeSwitcher'
+import { ThemeSwitcher } from '@/app/(frontend)/_components/ThemeSwitcher/ThemeSwitcher'
 import { cn } from '@/lib/utils'
+import { SITE_URL } from '@/shared/constants'
 
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
@@ -19,10 +20,8 @@ const nunito = Nunito({
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains' })
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://fmi-rshu.dev'
-
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(SITE_URL),
   applicationName: 'Факультет математики та інформатики - РДГУ',
   title: 'РДГУ - Факультет математики та інформатики',
   description:
@@ -47,7 +46,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: 'Факультет математики та інформатики - РДГУ',
-      url: baseUrl,
+      url: SITE_URL,
     },
   ],
   alternates: {

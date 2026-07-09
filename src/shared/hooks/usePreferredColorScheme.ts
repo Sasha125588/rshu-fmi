@@ -1,6 +1,5 @@
 import { useMediaQuery } from './useMediaQuery'
 
-/** The use preferred color scheme return type */
 export type UsePreferredColorSchemeReturn = 'dark' | 'light' | 'no-preference'
 
 export const usePreferredColorScheme = (): UsePreferredColorSchemeReturn => {

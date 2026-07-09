@@ -1,6 +1,6 @@
-import type { MetadataRoute } from 'next'
+import { SITE_URL } from '@/shared/constants'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://fmi-rshu.dev'
+import type { MetadataRoute } from 'next'
 
 const robots = (): MetadataRoute.Robots => {
   return {
@@ -8,7 +8,7 @@ const robots = (): MetadataRoute.Robots => {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${SITE_URL}/sitemap.xml`,
   }
 }
 

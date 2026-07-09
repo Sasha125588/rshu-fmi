@@ -10,7 +10,10 @@ import type { Slugify } from 'payload/shared'
 
 type EducationLevel = EducationalProgram['educationLevel']
 
-type ProgramSlugData = Pick<EducationalProgram, 'educationLevel' | 'specialtyCode' | 'title' | 'id'>
+type ProgramSlugData = Pick<
+  EducationalProgram,
+  'educationLevel' | 'specialtyCode' | 'title' | 'id' | 'slug'
+>
 
 const educationLevelSlugParts = {
   bachelor: 'bakalavr',
@@ -28,11 +31,12 @@ const titledDescriptionFields = [
     name: 'description',
     type: 'textarea',
     label: 'Опис',
-    required: true,
   },
 ] satisfies CollectionConfig['fields']
 
 const slugifyProgram: Slugify<ProgramSlugData> = ({ data }) => {
+  if (data.slug) return slugifyProgramValue(data.slug)
+
   const educationLevel = educationLevelSlugParts[data.educationLevel]
 
   return slugifyProgramValue(

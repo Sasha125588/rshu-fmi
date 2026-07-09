@@ -221,14 +221,14 @@ export interface EducationalProgram {
   careers?:
     | {
         title: string
-        description: string
+        description?: string | null
         id?: string | null
       }[]
     | null
   studyFocus?:
     | {
         title: string
-        description: string
+        description?: string | null
         id?: string | null
       }[]
     | null

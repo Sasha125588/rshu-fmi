@@ -1,17 +1,25 @@
+import config from '@payload-config'
 import {
   ArrowRightIcon,
   ArrowUpRight,
   BookOpenIcon,
+  BrainCircuitIcon,
+  CodeXmlIcon,
   EyeIcon,
   GraduationCapIcon,
+  HelpCircleIcon,
   Layers2Icon,
   LayoutGridIcon,
+  ListXIcon,
   MapPinIcon,
+  MonitorDot,
+  NetworkIcon,
+  PiIcon,
 } from 'lucide-react'
 import Link from 'next/link'
+import { getPayload } from 'payload'
 
-import { LandingBackdrop } from './(components)/LandingBackground/LandingBackground'
-import { SPECIALIZATIONS_DATA } from './(components)/Specializations/constants/data'
+import { LandingBackdrop } from './_components/LandingBackground/LandingBackground'
 import { faqItems, heroStats, programRoutes, quickTags, reasons, studentLinks } from './_constants'
 import {
   Accordion,
@@ -19,7 +27,11 @@ import {
   AccordionItem,
   AccordionTrigger,
   Badge,
-  Separator,
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
   Tabs,
   TabsContent,
   TabsList,
@@ -28,12 +40,12 @@ import {
   buttonVariants,
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
-import { truncateText } from '@/shared/helpers/text'
+import { SITE_URL } from '@/shared/constants'
 import { getNewsPage } from '@/shared/news'
 
+import type { EducationalProgram } from '@/payload-types'
+import type { LucideIcon } from 'lucide-react'
 import type { Metadata, Route } from 'next'
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const baseDescription =
@@ -48,14 +60,14 @@ export const generateMetadata = async (): Promise<Metadata> => {
       description: 'Не Офіційна сторінка ФМІ Рівненського державного гуманітарного університету.',
       images: [
         {
-          url: new URL('/images/logo.avif', baseUrl).href,
+          url: new URL('/images/logo.avif', SITE_URL).href,
           width: 120,
           height: 120,
           type: 'image/avif',
           alt: 'ФМІ логотип',
         },
       ],
-      url: baseUrl,
+      url: SITE_URL,
       type: 'website',
       locale: 'uk_UA',
     },
@@ -64,7 +76,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       description: baseDescription,
       images: [
         {
-          url: new URL('/images/logo.avif', baseUrl).href,
+          url: new URL('/images/logo.avif', SITE_URL).href,
           width: 120,
           height: 120,
           type: 'image/avif',
@@ -75,7 +87,21 @@ export const generateMetadata = async (): Promise<Metadata> => {
   }
 }
 
+type EducationLevel = EducationalProgram['educationLevel']
+
+const educationLevelLabels = {
+  bachelor: 'Бакалавр',
+  master: 'Магістр',
+} satisfies Record<EducationLevel, string>
+
 const HomePage = async () => {
+  const payload = await getPayload({ config })
+  const specializations = await payload.find({
+    collection: 'educational-programs',
+    depth: 2,
+    where: { isFeatured: { equals: true }, educationLevel: { equals: 'bachelor' } },
+  })
+
   const news = await getNewsPage('university', 1)
 
   return (
@@ -229,31 +255,47 @@ const HomePage = async () => {
                 description="Можна підібрати програму за наміром або одразу переглянути всі варіанти."
               />
 
-              <TabsList
-                variant="default"
-                className="bg-card-new/45 border-border h-auto! shrink-0 rounded-full border p-1"
-                aria-label="Перемкнути вигляд освітніх програм"
-              >
-                <TabsTrigger
-                  value="guided"
-                  className="data-active:bg-background data-active:text-foreground size-10 flex-none rounded-full px-0"
+              <div className="flex flex-wrap items-center gap-2 md:justify-end">
+                {/* <Link
+                  href="#"
+                  className={cn(
+                    buttonVariants({ variant: 'outline' }),
+                    'h-10 gap-2 rounded-full px-4 text-sm font-semibold'
+                  )}
                 >
-                  <Layers2Icon aria-hidden="true" />
-                  <span className="sr-only">Підібрати програму за наміром</span>
-                </TabsTrigger>
-                <TabsTrigger
-                  value="all"
-                  className="data-active:bg-background data-active:text-foreground size-10 flex-none rounded-full px-0"
+                  Усі спеціальності
+                  <ArrowUpRight
+                    aria-hidden
+                    data-icon="inline-end"
+                  />
+                </Link> */}
+
+                <TabsList
+                  variant="default"
+                  className="bg-card-new/45 border-border h-auto! shrink-0 rounded-full border p-1"
+                  aria-label="Перемкнути вигляд освітніх програм"
                 >
-                  <LayoutGridIcon aria-hidden="true" />
-                  <span className="sr-only">Показати всі програми сіткою</span>
-                </TabsTrigger>
-              </TabsList>
+                  <TabsTrigger
+                    value="guided"
+                    className="data-active:bg-background data-active:text-foreground size-10 flex-none rounded-full px-0"
+                  >
+                    <Layers2Icon aria-hidden="true" />
+                    <span className="sr-only">Підібрати програму за наміром</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="all"
+                    className="data-active:bg-background data-active:text-foreground size-10 flex-none rounded-full px-0"
+                  >
+                    <LayoutGridIcon aria-hidden="true" />
+                    <span className="sr-only">Показати всі програми сіткою</span>
+                  </TabsTrigger>
+                </TabsList>
+              </div>
             </div>
 
             <TabsContent
               value="guided"
-              className="m-0"
+              className="m-0 min-h-[243px]"
             >
               <Tabs
                 defaultValue={programRoutes[0].id}
@@ -279,28 +321,42 @@ const HomePage = async () => {
                   ))}
                 </TabsList>
 
-                {programRoutes.map((route) => (
-                  <TabsContent
-                    key={route.id}
-                    value={route.id}
-                    className="m-0"
-                  >
-                    <div className="grid gap-3 md:grid-cols-2">
-                      {route.programIds.map((programId) => {
-                        const item = SPECIALIZATIONS_DATA.find(
-                          (specialization) => specialization.id === programId
-                        )
+                {programRoutes.map((route) => {
+                  const routePrograms = route.programCodes.flatMap((programCode) =>
+                    specializations.docs.filter((item) => item.specialtyCode === programCode)
+                  )
 
-                        return item ? (
-                          <ProgramCard
-                            key={item.id}
-                            item={item}
-                          />
-                        ) : null
-                      })}
-                    </div>
-                  </TabsContent>
-                ))}
+                  return (
+                    <TabsContent
+                      key={route.id}
+                      value={route.id}
+                      className="m-0"
+                    >
+                      {routePrograms.length ? (
+                        <div className="grid gap-3 md:grid-cols-2">
+                          {routePrograms.map((item) => (
+                            <ProgramCard
+                              key={`${item.specialtyCode}-${item.educationLevel}`}
+                              item={item}
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <Empty className="border-border bg-card-new/20 min-h-[183px] border px-6 py-2 md:py-5">
+                          <EmptyHeader>
+                            <EmptyMedia variant="icon">
+                              <ListXIcon className="ml-1" />
+                            </EmptyMedia>
+                            <EmptyTitle>Список освітніх програм порожній</EmptyTitle>
+                            <EmptyDescription>
+                              Для напряму «{route.label}» ще не додано жодної програми.
+                            </EmptyDescription>
+                          </EmptyHeader>
+                        </Empty>
+                      )}
+                    </TabsContent>
+                  )
+                })}
               </Tabs>
             </TabsContent>
 
@@ -308,12 +364,11 @@ const HomePage = async () => {
               value="all"
               className="m-0"
             >
-              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                {SPECIALIZATIONS_DATA.map((item) => (
+              <div className="grid gap-3 md:grid-cols-2">
+                {specializations.docs.map((item) => (
                   <ProgramCard
                     key={item.id}
                     item={item}
-                    compact
                   />
                 ))}
               </div>
@@ -429,8 +484,8 @@ const HomePage = async () => {
             </Link>
           </div>
 
-          <ul className="mt-10 ">
-            {news.slice(0, 6).map((item, index, latestNews) => (
+          <ul className="mt-10 divide-y">
+            {news.slice(0, 6).map((item, index) => (
               <li
                 key={`${item.link}-${index}`}
                 className="group relative"
@@ -455,7 +510,7 @@ const HomePage = async () => {
                   </Typography>
 
                   <span className="min-w-0 flex-1 transition-transform duration-200 group-hover:translate-x-1">
-                    {item.tags.length ? (
+                    {!!item.tags.length && (
                       <Typography
                         as="span"
                         variant="body-sm"
@@ -463,14 +518,14 @@ const HomePage = async () => {
                       >
                         {item.tags.slice(0, 3).join(' • ')}
                       </Typography>
-                    ) : null}
+                    )}
 
                     <Typography
                       as="span"
                       variant="title-sm"
-                      className="mb-3 block leading-tight transition-colors duration-200 md:text-xl"
+                      className="mb-3 line-clamp-1 leading-tight transition-colors duration-200 md:text-xl"
                     >
-                      {truncateText(item.title, 104)}
+                      {item.title}
                       <span className="sr-only">, відкривається в новій вкладці</span>
                     </Typography>
 
@@ -491,8 +546,6 @@ const HomePage = async () => {
                     <ArrowUpRight className="group-hover:text-foreground transition-[colors, transform] size-5 duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </span>
                 </Link>
-
-                {index < latestNews.length - 1 ? <Separator className="bg-muted" /> : null}
               </li>
             ))}
           </ul>
@@ -590,16 +643,25 @@ const HomePage = async () => {
 
 export default HomePage
 
-type ProgramItem = (typeof SPECIALIZATIONS_DATA)[number]
+export const SPECIALIZATION_ICONS: Record<string, LucideIcon> = {
+  F2: CodeXmlIcon,
+  F3: BrainCircuitIcon,
+  'А4.04': PiIcon,
+  'А4.09': MonitorDot,
+  'А5.39': NetworkIcon,
+}
 
-const ProgramCard = ({ item, compact = false }: { item: ProgramItem; compact?: boolean }) => {
-  const Icon = item.icon
+const ProgramCard = ({ item }: { item: EducationalProgram }) => {
+  const Icon = SPECIALIZATION_ICONS[item.specialtyCode] ?? HelpCircleIcon
 
   return (
     <article className="group border-border bg-card-new/30 hover:bg-foreground/4 rounded-lg border p-5 transition">
       <div className="flex h-full gap-4">
         <span className="border-border bg-background/40 flex size-11 shrink-0 items-center justify-center rounded-lg border">
-          <Icon className="text-accent-violet size-4" />
+          <Icon
+            className="text-accent-violet"
+            size={18}
+          />
         </span>
 
         <div className="flex min-w-0 flex-col justify-between">
@@ -608,8 +670,14 @@ const ProgramCard = ({ item, compact = false }: { item: ProgramItem; compact?: b
             variant="caption"
             className="text-muted-foreground mb-2 flex flex-wrap items-center gap-2"
           >
+            <Badge
+              variant="outline"
+              className="font-jetbrains text-accent-violet"
+            >
+              {item.specialtyCode}
+            </Badge>
             <span className="font-jetbrains text-accent-violet">{item.shortTitle}</span>
-            <span>{item.date}</span>
+            <span>{educationLevelLabels[item.educationLevel]}</span>
           </Typography>
 
           <Typography
@@ -628,20 +696,20 @@ const ProgramCard = ({ item, compact = false }: { item: ProgramItem; compact?: b
           </Typography>
 
           <div className="mt-4 flex gap-2">
-            {item.tags.slice(0, compact ? 2 : item.tags.length).map((tag) => (
+            {item.tags?.map((tag) => (
               <Badge
-                key={tag}
+                key={tag.id}
                 variant="secondary"
                 className="font-jetbrains text-foreground/80 text-xs"
               >
-                {tag}
+                {tag.label}
               </Badge>
             ))}
           </div>
         </div>
 
         <Link
-          href={(item.href ?? '/') as Route}
+          href={`/specializations/${item.slug}` as Route}
           className="text-muted-foreground hover:text-accent-violet shrink-0 transition"
           aria-label={`Детальніше про ${item.title}`}
         >
