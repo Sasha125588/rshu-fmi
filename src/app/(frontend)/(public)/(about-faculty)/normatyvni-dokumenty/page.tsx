@@ -1,5 +1,6 @@
 import config from '@payload-config'
 import { getPayload } from 'payload'
+import { Suspense } from 'react'
 
 import { DocumentExplorer } from './_components/DocumentExplorer/DocumentExplorer'
 import { NormatyvniDokumentyBackground } from './_components/NormatyvniDokumentyBackground/NormatyvniDokumentyBackground'
@@ -72,7 +73,9 @@ const NormatyvniDokumentyPage = async () => {
         </div>
       </header>
 
-      <DocumentExplorer documents={documents} />
+      <Suspense>
+        <DocumentExplorer documents={documents} />
+      </Suspense>
     </div>
   )
 }
