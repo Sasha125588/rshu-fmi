@@ -22,10 +22,10 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jet
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  applicationName: 'Факультет математики та інформатики - РДГУ',
-  title: 'РДГУ - Факультет математики та інформатики',
+  applicationName: 'Факультет математики та інформатики РДГУ',
+  title: 'Факультет математики та інформатики РДГУ',
   description:
-    'Не Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету. Поєднуємо багаторічні традиції математичної школи з інноваційними підходами до викладання ІТ-дисциплін.',
+    'Неофіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету. Поєднуємо багаторічні традиції математичної школи з інноваційними підходами до викладання ІТ-дисциплін.',
   manifest: '/manifest.webmanifest',
   formatDetection: {
     telephone: false,
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'РДГУ - ФМІ',
+    title: 'Факультет математики та інформатики РДГУ',
   },
   icons: {
     apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   authors: [
     {
-      name: 'Факультет математики та інформатики - РДГУ',
+      name: 'Факультет математики та інформатики РДГУ',
       url: SITE_URL,
     },
   ],
@@ -61,17 +61,17 @@ export const metadata: Metadata = {
     'РДГУ ФМІ',
   ],
   openGraph: {
-    title: 'РДГУ - Факультет математики та інформатики',
+    title: 'Факультет математики та інформатики РДГУ',
     description:
-      'Не Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
-    siteName: 'РДГУ - ФМІ',
+      'Неофіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
+    siteName: 'Факультет математики та інформатики РДГУ',
     type: 'website',
     locale: 'uk_UA',
   },
   twitter: {
-    title: 'РДГУ - Факультет математики та інформатики',
+    title: 'Факультет математики та інформатики РДГУ',
     description:
-      'Не Офіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
+      'Неофіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
   },
   robots: {
     index: true,
@@ -81,6 +81,35 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: '#a99dff',
+}
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: 'Факультет математики та інформатики РДГУ',
+      description:
+        'Неофіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
+      inLanguage: 'uk-UA',
+      publisher: { '@id': `${SITE_URL}/#organization` },
+    },
+    {
+      '@type': 'EducationalOrganization',
+      '@id': `${SITE_URL}/#organization`,
+      name: 'Факультет математики та інформатики РДГУ',
+      alternateName: 'ФМІ РДГУ',
+      url: SITE_URL,
+      logo: new URL('/images/logo.avif', SITE_URL).href,
+      parentOrganization: {
+        '@type': 'CollegeOrUniversity',
+        name: 'Рівненський державний гуманітарний університет',
+        url: 'https://www.rshu.edu.ua',
+      },
+    },
+  ],
 }
 
 interface RootLayoutProps {
@@ -103,6 +132,10 @@ const RootLayout = ({ children }: RootLayoutProps) => (
       <meta
         name="google-site-verification"
         content="3AnyzksS_fgBv2wkw4IChSjJGze7u50qQcVDld2FSp8"
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
     </head>
     <body className={'relative overflow-x-hidden antialiased'}>

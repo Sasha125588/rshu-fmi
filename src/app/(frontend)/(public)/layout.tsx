@@ -5,7 +5,7 @@ import type { ReactNode } from 'react'
 
 export const metadata: Metadata = {
   title: {
-    default: 'РДГУ - Факультет математики та інформатики',
+    default: 'Факультет математики та інформатики РДГУ',
     template: 'ФМІ - %s',
   },
 }
