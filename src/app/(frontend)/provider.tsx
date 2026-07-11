@@ -1,6 +1,7 @@
 'use client'
 
 import { SerwistProvider } from '@serwist/turbopack/react'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { type ReactNode } from 'react'
 
 import { ThemeProvider } from './_contexts/theme'
@@ -15,7 +16,9 @@ export const Provider = ({ children }: Props) => {
       swUrl="/serwist/sw.js"
       disable={process.env.NODE_ENV !== 'production'}
     >
-      <ThemeProvider>{children}</ThemeProvider>
+      <NuqsAdapter>
+        <ThemeProvider>{children}</ThemeProvider>
+      </NuqsAdapter>
     </SerwistProvider>
   )
 }

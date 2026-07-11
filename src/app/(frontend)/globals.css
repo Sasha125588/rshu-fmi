@@ -53,7 +53,6 @@
 
   --color-button-primary: var(--button-primary);
 
-  --color-glow-green: var(--glow-green);
   --color-card-border: var(--card-border);
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
@@ -103,10 +102,14 @@
   --green-secondary: oklch(0.4495 0.0788 185.24);
 
   --button-primary: oklch(0.4994 0.0881 184.37);
-  --glow-green: oklch(0.596 0.145 163.225 / 15%);
   --card-border: oklch(0.141 0.005 285.823 / 8%);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+
+  /* #5b4bd6 */
+  --highlight-color: oklch(47.38% 0.231 278.47);
+  /* #f0effb */
+  --highlight-bg: oklch(95.34% 0.016 273.74);
 }
 
 .dark {
@@ -152,8 +155,12 @@
   --green-secondary: oklch(0.536 0.135 163.225);
 
   --button-primary: oklch(0.596 0.145 163.225);
-  --glow-green: oklch(0.596 0.145 163.225 / 15%);
   --card-border: oklch(1 0 0 / 8%);
+
+  /* #7c6df2 */
+  --highlight-color: oklch(59.43% 0.218 277.62);
+  /* #0b091c */
+  --highlight-bg: oklch(14.07% 0.026 281.3);
 }
 
 @layer base {

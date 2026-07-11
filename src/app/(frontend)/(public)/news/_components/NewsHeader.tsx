@@ -18,6 +18,7 @@ export const NewsHeader = ({ activeSource }: NewsHeaderProps) => (
       <Typography
         as="h1"
         variant="heading-xl"
+        className="font-black"
       >
         Новини
       </Typography>

@@ -71,7 +71,8 @@ export interface Config {
     departments: Department
     'educational-programs': EducationalProgram
     'tuition-rates': TuitionRate
-    'program-documents': ProgramDocument
+    'document-categories': DocumentCategory
+    documents: Document
     media: Media
     'payload-kv': PayloadKv
     'payload-locked-documents': PayloadLockedDocument
@@ -84,7 +85,8 @@ export interface Config {
     departments: DepartmentsSelect<false> | DepartmentsSelect<true>
     'educational-programs': EducationalProgramsSelect<false> | EducationalProgramsSelect<true>
     'tuition-rates': TuitionRatesSelect<false> | TuitionRatesSelect<true>
-    'program-documents': ProgramDocumentsSelect<false> | ProgramDocumentsSelect<true>
+    'document-categories': DocumentCategoriesSelect<false> | DocumentCategoriesSelect<true>
+    documents: DocumentsSelect<false> | DocumentsSelect<true>
     media: MediaSelect<false> | MediaSelect<true>
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
     'payload-locked-documents':
@@ -269,16 +271,34 @@ export interface TuitionRate {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "program-documents".
+ * via the `definition` "document-categories".
  */
-export interface ProgramDocument {
+export interface DocumentCategory {
   id: number
   title: string
   /**
-   * Обирай програму з потрібним рівнем освіти: бакалавр або магістр.
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
-  educationalProgram: number | EducationalProgram
-  type:
+  generateSlug?: boolean | null
+  slug: string
+  sortOrder?: number | null
+  updatedAt: string
+  createdAt: string
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface Document {
+  id: number
+  /**
+   * Формується автоматично. Відредагуйте назву вручну за потреби; очистіть поле, щоб повернути автоматичний режим.
+   */
+  title: string
+  generatedTitleSnapshot?: string | null
+  documentType:
+    | 'regulation'
+    | 'order'
     | 'educational-program'
     | 'previous-educational-program'
     | 'syllabus'
@@ -287,16 +307,24 @@ export interface ProgramDocument {
     | 'accreditation'
     | 'review'
     | 'other'
+  documentDate?: string | null
   periodLabel?: string | null
   /**
-   * Основний варіант: завантаж PDF.
+   * Завантажте PDF. Можна одночасно вказати зовнішнє посилання.
    */
   file?: (number | null) | Media
   /**
-   * Використовуй тільки якщо документ реально зберігається на зовнішньому сайті.
+   * Якщо також вибрано файл, на сайті пріоритет матиме завантажений файл.
    */
   externalUrl?: string | null
   description?: string | null
+  /**
+   * Документ відображатиметься на сторінках усіх вибраних програм.
+   */
+  educationalPrograms?: (number | EducationalProgram)[] | null
+  showInRegulatoryCatalog?: boolean | null
+  category?: (number | null) | DocumentCategory
+  source?: ('faculty' | 'university') | null
   sortOrder?: number | null
   updatedAt: string
   createdAt: string
@@ -394,8 +422,12 @@ export interface PayloadLockedDocument {
         value: number | TuitionRate
       } | null)
     | ({
-        relationTo: 'program-documents'
-        value: number | ProgramDocument
+        relationTo: 'document-categories'
+        value: number | DocumentCategory
+      } | null)
+    | ({
+        relationTo: 'documents'
+        value: number | Document
       } | null)
     | ({
         relationTo: 'media'
@@ -561,16 +593,33 @@ export interface TuitionRatesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "program-documents_select".
+ * via the `definition` "document-categories_select".
  */
-export interface ProgramDocumentsSelect<T extends boolean = true> {
+export interface DocumentCategoriesSelect<T extends boolean = true> {
   title?: T
-  educationalProgram?: T
-  type?: T
+  generateSlug?: T
+  slug?: T
+  sortOrder?: T
+  updatedAt?: T
+  createdAt?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents_select".
+ */
+export interface DocumentsSelect<T extends boolean = true> {
+  title?: T
+  generatedTitleSnapshot?: T
+  documentType?: T
+  documentDate?: T
   periodLabel?: T
   file?: T
   externalUrl?: T
   description?: T
+  educationalPrograms?: T
+  showInRegulatoryCatalog?: T
+  category?: T
+  source?: T
   sortOrder?: T
   updatedAt?: T
   createdAt?: T

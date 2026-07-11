@@ -6,9 +6,10 @@ import sharp from 'sharp'
 
 import {
   Departments,
+  DocumentCategories,
+  Documents,
   EducationalPrograms,
   Media,
-  ProgramDocuments,
   TuitionRates,
   Users,
 } from '@/payload/collections'
@@ -16,7 +17,15 @@ import {
 export default buildConfig({
   //   editor: lexicalEditor(),
 
-  collections: [Users, Departments, EducationalPrograms, TuitionRates, ProgramDocuments, Media],
+  collections: [
+    Users,
+    Departments,
+    EducationalPrograms,
+    TuitionRates,
+    DocumentCategories,
+    Documents,
+    Media,
+  ],
 
   admin: {
     user: Users.slug,
