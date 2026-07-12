@@ -15,6 +15,11 @@ const sitemap = (): MetadataRoute.Sitemap => {
       priority: 0.7,
     },
     {
+      url: `${SITE_URL}/departments`,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${SITE_URL}/contacts`,
       changeFrequency: 'monthly',
       priority: 0.7,

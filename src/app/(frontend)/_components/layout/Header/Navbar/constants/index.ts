@@ -119,7 +119,7 @@ export const NAVIGATION: NavItem[] = [
       {
         title: 'Кафедри',
         description: 'Структура факультету та освітні напрями кафедр.',
-        href: '/history',
+        href: '/departments',
         icon: NetworkIcon,
       },
     ],

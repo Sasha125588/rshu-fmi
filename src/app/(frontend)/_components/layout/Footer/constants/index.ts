@@ -12,7 +12,7 @@ export const footerGroups = [
     title: 'Факультет',
     links: [
       { label: 'Історія', href: '/history' },
-      { label: 'Кафедри', href: '/history' },
+      { label: 'Кафедри', href: '/departments' },
       { label: 'Вчена рада', href: '/vchena-rada' },
       { label: 'Контакти', href: '/contacts' },
     ],
