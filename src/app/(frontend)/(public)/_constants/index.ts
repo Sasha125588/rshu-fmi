@@ -1,8 +1,8 @@
 import { CalendarDaysIcon, FileTextIcon, GraduationCapIcon, MailIcon } from 'lucide-react'
 
 export const quickTags = [
-  { label: 'ІПЗ', href: '/specializations/software-engineering' },
-  { label: "Комп'ютерні науки", href: '#specializations' },
+  { label: 'ІПЗ', href: '/specializations/f2-inzheneriia-prohramnoho-zabezpechennia-bakalavr' },
+  { label: "Комп'ютерні науки", href: '/specializations/f3-kompiuterni-nauky-bakalavr' },
   { label: 'Розклад', href: '#student' },
   { label: 'Документи', href: '/normatyvni-dokumenty' },
   { label: 'Контакти', href: '/contacts' },
