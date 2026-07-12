@@ -126,7 +126,12 @@ export const historyPillars = [
     description:
       'Математична школа залишається мовою, якою факультет описує складні системи, навчає точності мислення та будує фундамент для технологічних спеціальностей.',
     department: 'Кафедра математики та методики її навчання',
-    programs: [{ label: 'Середня освіта. Математика', href: '/#specializations' }],
+    programs: [
+      {
+        label: 'Середня освіта. Математика',
+        href: '/specializations/a4-04-serednia-osvita-matematyka-bakalavr' as Route,
+      },
+    ],
   },
   {
     id: 'digital-education',
@@ -135,8 +140,14 @@ export const historyPillars = [
       'Педагогічна традиція факультету розвивається через сучасні цифрові інструменти, методики навчання інформатики та підготовку фахівців, які працюють на перетині технологій і освіти.',
     department: 'Кафедра цифрових технологій та методики навчання інформатики',
     programs: [
-      { label: 'Середня освіта. Інформатика', href: '/#specializations' },
-      { label: 'Професійна освіта. Цифрові технології', href: '/#specializations' },
+      {
+        label: 'Середня освіта. Інформатика',
+        href: '/specializations/a4-09-serednia-osvita-informatyka-bakalavr' as Route,
+      },
+      {
+        label: 'Професійна освіта. Цифрові технології',
+        href: '/specializations/a5-39-profesiina-osvita-tsyfrovi-tekhnolohii-bakalavr' as Route,
+      },
     ],
   },
   {
@@ -148,9 +159,12 @@ export const historyPillars = [
     programs: [
       {
         label: 'Інженерія програмного забезпечення',
-        href: '/specializations/software-engineering' as Route,
+        href: '/specializations/f2-inzheneriia-prohramnoho-zabezpechennia-bakalavr' as Route,
       },
-      { label: 'Комп’ютерні науки', href: '/#specializations' },
+      {
+        label: 'Комп’ютерні науки',
+        href: '/specializations/f3-kompiuterni-nauky-bakalavr' as Route,
+      },
     ],
   },
 ] as const satisfies HistoryPillar[]

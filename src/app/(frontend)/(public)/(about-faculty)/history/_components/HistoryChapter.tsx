@@ -4,7 +4,7 @@ import { useScroll } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 
 import { getHistoryEraAnchor } from '../_constants'
-import { useActiveHistoryEra } from './HistoryAnimationCoordinator'
+import { useActiveHistoryEraId } from '../_contexts/activeHistoryEraId'
 import { HistoryEvolutionCanvas } from './HistoryEvolutionCanvas'
 import { HistoryTimeline } from './HistoryTimeline'
 import { HistoryTodayPillars } from './HistoryTodayPillars'
@@ -24,13 +24,15 @@ interface ActiveHistoryItem {
 }
 
 export const HistoryChapter = ({ era, events, pillars = [] }: HistoryChapterProps) => {
-  const sectionRef = useRef<HTMLElement>(null)
-  const activeEra = useActiveHistoryEra()
-  const initialItem = events[0]
   const [activeItem, setActiveItem] = useState<ActiveHistoryItem>({
-    id: initialItem?.id ?? `pillar-${pillars[0]?.id ?? 'mathematics'}`,
-    visualNode: era.id === 'today' ? -1 : 0,
+    id: events[0].id,
+    visualNode: 0,
   })
+
+  const activeEraId = useActiveHistoryEraId()
+
+  const sectionRef = useRef<HTMLElement>(null)
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
@@ -40,8 +42,7 @@ export const HistoryChapter = ({ era, events, pillars = [] }: HistoryChapterProp
     const section = sectionRef.current
     if (!section) return
 
-    const items = Array.from(section.querySelectorAll<HTMLElement>('[data-history-item]'))
-    if (items.length === 0) return
+    const items = section.querySelectorAll<HTMLElement>('[data-history-item]')
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -50,8 +51,8 @@ export const HistoryChapter = ({ era, events, pillars = [] }: HistoryChapterProp
 
         const element = visibleEntry.target as HTMLElement
         setActiveItem({
-          id: element.dataset.historyItem ?? '',
-          visualNode: Number(element.dataset.visualNode ?? -1),
+          id: element.dataset.historyItem!,
+          visualNode: +element.dataset.visualNode!,
         })
       },
       { rootMargin: '-40% 0px -48%', threshold: 0 }
@@ -97,7 +98,7 @@ export const HistoryChapter = ({ era, events, pillars = [] }: HistoryChapterProp
             <div className="mt-8 min-h-80 flex-1 lg:mt-6 lg:min-h-0">
               <HistoryEvolutionCanvas
                 phase={era.id}
-                isActive={activeEra === era.id}
+                isActive={activeEraId.value === era.id}
                 activeNode={activeItem.visualNode}
                 scrollProgress={scrollYProgress}
               />
@@ -108,14 +109,15 @@ export const HistoryChapter = ({ era, events, pillars = [] }: HistoryChapterProp
         <div className="lg:pl-10 xl:pl-14">
           <HistoryTimeline
             events={events}
-            phase={era.id}
             activeItemId={activeItem.id}
+            isActiveEra={activeEraId.value === era.id}
           />
 
-          {era.id === 'today' && pillars.length > 0 && (
+          {era.id === 'today' && (
             <HistoryTodayPillars
               pillars={pillars}
               activeItemId={activeItem.id}
+              isActiveEra={activeEraId.value === era.id}
             />
           )}
         </div>

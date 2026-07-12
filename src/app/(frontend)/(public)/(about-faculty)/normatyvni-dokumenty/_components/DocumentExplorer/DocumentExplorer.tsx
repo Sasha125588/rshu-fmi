@@ -29,13 +29,11 @@ const normalize = (value: string) =>
     .normalize('NFD')
     .replace(/[\u0300-\u036F]/g, '')
 
-const DEFAULT_CATEGORIES: DocumentCategory[] = [
-  {
-    slug: 'all',
-    sortOrder: 0,
-    title: 'Усі категорії',
-  },
-]
+const DEFAULT_CATEGORY: DocumentCategory = {
+  slug: 'all',
+  sortOrder: 0,
+  title: 'Усі категорії',
+}
 
 interface DocumentExplorerProps {
   documents: CatalogDocument[]
@@ -52,8 +50,10 @@ export const DocumentExplorer = ({ documents }: DocumentExplorerProps) => {
   const [category, setCategory] = useQueryState('category', { defaultValue: 'all' })
 
   const categories = [
-    ...DEFAULT_CATEGORIES,
-    ...Array.from(new Map(documents.map((doc) => [doc.category.slug, doc.category])).values()),
+    DEFAULT_CATEGORY,
+    ...Array.from(new Map(documents.map((doc) => [doc.category.slug, doc.category])).values()).sort(
+      (a, b) => a.sortOrder - b.sortOrder
+    ),
   ]
 
   const filteredDocuments = useMemo(

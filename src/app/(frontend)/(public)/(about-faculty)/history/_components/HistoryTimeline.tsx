@@ -1,21 +1,19 @@
 'use client'
 
-import { motion, useReducedMotion } from 'motion/react'
+import { motion } from 'motion/react'
 
 import { Typography } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-import type { HistoryEraId, HistoryEvent } from '../_constants'
+import type { HistoryEvent } from '../_constants'
 
 interface HistoryTimelineProps {
-  events: readonly HistoryEvent[]
-  phase: HistoryEraId
+  events: HistoryEvent[]
   activeItemId: string
+  isActiveEra: boolean
 }
 
-export const HistoryTimeline = ({ events, phase, activeItemId }: HistoryTimelineProps) => {
-  const shouldReduceMotion = useReducedMotion()
-
+export const HistoryTimeline = ({ events, activeItemId, isActiveEra }: HistoryTimelineProps) => {
   return (
     <div className="relative">
       <div
@@ -25,17 +23,17 @@ export const HistoryTimeline = ({ events, phase, activeItemId }: HistoryTimeline
 
       <ol
         aria-label="Хронологія факультету"
-        className="relative"
+        className="relative "
       >
         {events.map((event, index) => {
-          const isActive = activeItemId === event.id
+          const isActive = isActiveEra && activeItemId === event.id
 
           return (
             <li
               key={event.id}
               data-history-item={event.id}
-              data-visual-node={phase === 'today' ? -1 : index}
-              className="grid grid-cols-[4.5rem_1.5rem_minmax(0,1fr)] gap-x-3 md:grid-cols-[7rem_2rem_minmax(0,1fr)] md:gap-x-5 lg:min-h-[48vh]"
+              data-visual-node={index}
+              className="grid grid-cols-[4.5rem_1.5rem_minmax(0,1fr)] gap-x-3 md:grid-cols-[7rem_2rem_minmax(0,1fr)] md:gap-x-5 lg:min-h-[40vh]"
             >
               <time className="font-jetbrains text-muted-foreground col-start-1 row-start-1 pt-14 text-right text-xs leading-4 font-medium tracking-tight md:text-sm">
                 {event.year}
@@ -52,11 +50,14 @@ export const HistoryTimeline = ({ events, phase, activeItemId }: HistoryTimeline
               </div>
 
               <motion.article
-                initial={shouldReduceMotion ? false : { opacity: 0 }}
-                whileInView={shouldReduceMotion ? undefined : { opacity: 1 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ amount: 0.35, once: true }}
                 transition={{ duration: 0.35, ease: 'easeOut' }}
-                className="border-border col-start-3 row-start-1 flex max-w-3xl flex-col gap-4 border-t py-12 md:py-14"
+                className={cn(
+                  'border-border col-start-3 row-start-1 flex max-w-3xl flex-col gap-4 py-12 md:py-14',
+                  index > 0 && 'border-t'
+                )}
               >
                 <Typography
                   as="h3"

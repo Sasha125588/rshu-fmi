@@ -1,4 +1,7 @@
-import { notFound } from 'next/navigation'
+// import { notFound } from 'next/navigation'
+
+import config from '@payload-config'
+import { getPayload } from 'payload'
 
 // import {
 //   SPECIALIZATIONS,
@@ -160,8 +163,29 @@ import { notFound } from 'next/navigation'
 //   )
 // }
 
-const SpecializationPage = async () => {
-  notFound()
+interface SpecializationPageProps {
+  params: Promise<{ slug: string }>
+}
+
+const SpecializationPage = async ({ params }: SpecializationPageProps) => {
+  const { slug } = await params
+
+  const payload = await getPayload({ config })
+  const specialization = await payload.find({
+    collection: 'educational-programs',
+    where: {
+      slug: { equals: slug },
+      isFeatured: { equals: true },
+      educationLevel: { equals: 'bachelor' },
+    },
+    limit: 1,
+  })
+
+  return (
+    <>
+      {specialization.docs[0].title} – {specialization.docs[0].slug}
+    </>
+  )
 }
 
 export default SpecializationPage

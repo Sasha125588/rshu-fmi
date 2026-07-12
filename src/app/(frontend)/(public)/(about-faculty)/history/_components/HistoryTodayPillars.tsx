@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useReducedMotion } from 'motion/react'
+import { motion } from 'motion/react'
 import Link from 'next/link'
 
 import { Typography } from '@/components/ui'
@@ -11,11 +11,14 @@ import type { HistoryPillar } from '../_constants'
 interface HistoryTodayPillarsProps {
   pillars: readonly HistoryPillar[]
   activeItemId: string
+  isActiveEra: boolean
 }
 
-export const HistoryTodayPillars = ({ pillars, activeItemId }: HistoryTodayPillarsProps) => {
-  const shouldReduceMotion = useReducedMotion()
-
+export const HistoryTodayPillars = ({
+  pillars,
+  activeItemId,
+  isActiveEra,
+}: HistoryTodayPillarsProps) => {
   return (
     <div className="relative">
       <div
@@ -25,20 +28,20 @@ export const HistoryTodayPillars = ({ pillars, activeItemId }: HistoryTodayPilla
 
       {pillars.map((pillar, index) => {
         const itemId = `pillar-${pillar.id}`
-        const isActive = activeItemId === itemId
+        const isActive = isActiveEra && activeItemId === itemId
 
         return (
           <div
             key={pillar.id}
             data-history-item={itemId}
             data-visual-node={index}
-            className="grid grid-cols-[4.5rem_1.5rem_minmax(0,1fr)] gap-x-3 md:grid-cols-[7rem_2rem_minmax(0,1fr)] md:gap-x-5 lg:min-h-[52vh]"
+            className="grid grid-cols-[4.5rem_1.5rem_minmax(0,1fr)] gap-x-3 md:grid-cols-[7rem_2rem_minmax(0,1fr)] md:gap-x-5 lg:min-h-[40vh]"
           >
             <div className="font-jetbrains text-muted-foreground col-start-1 row-start-1 pt-14 text-right text-xs leading-4 font-medium tracking-tight md:text-sm">
               {index === 0 ? 'Сьогодні' : null}
             </div>
 
-            <div className="relative z-10 col-start-2 row-start-1 flex justify-center pt-14">
+            <div className="relative z-10 col-start-2 row-start-1 flex justify-center pt-16">
               <span
                 aria-hidden="true"
                 className={cn(
@@ -49,11 +52,11 @@ export const HistoryTodayPillars = ({ pillars, activeItemId }: HistoryTodayPilla
             </div>
 
             <motion.article
-              initial={shouldReduceMotion ? false : { opacity: 0 }}
-              whileInView={shouldReduceMotion ? undefined : { opacity: 1 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ amount: 0.35, once: true }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="border-border col-start-3 row-start-1 flex max-w-3xl flex-col justify-center gap-5 border-t py-12 md:py-14"
+              className="border-border col-start-3 row-start-1 flex max-w-3xl flex-col justify-around gap-5 border-t py-12 md:py-14"
             >
               <Typography
                 as="h3"
