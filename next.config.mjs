@@ -13,6 +13,7 @@ const nextConfig = {
   typedRoutes: true,
   allowedDevOrigins: ['192.168.31.44'],
   images: {
+    unoptimized: true,
     remotePatterns: [
       new URL('https://avatars.githubusercontent.com/**'),
       { protocol: 'https', hostname: 'www.rshu.edu.ua' },
