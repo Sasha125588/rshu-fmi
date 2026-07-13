@@ -1,3 +1,4 @@
+import { generateBlurDataURL } from './hooks'
 import { adminsOrEditors, publicAccess } from '@/payload/access'
 
 import type { CollectionConfig } from 'payload'
@@ -42,18 +43,39 @@ export const Media: CollectionConfig = {
         width: 400,
         height: 300,
         position: 'centre',
+        formatOptions: {
+          format: 'webp',
+          options: {
+            quality: 75,
+            effort: 4,
+          },
+        },
       },
       {
         name: 'card',
         width: 768,
-        height: 512,
+        height: 768,
         position: 'centre',
+        formatOptions: {
+          format: 'avif',
+          options: {
+            quality: 55,
+            effort: 4,
+          },
+        },
       },
       {
         name: 'hero',
         width: 1600,
         height: 900,
         position: 'centre',
+        formatOptions: {
+          format: 'avif',
+          options: {
+            quality: 55,
+            effort: 4,
+          },
+        },
       },
     ],
     mimeTypes: ['image/avif', 'image/jpeg', 'image/png', 'image/webp', 'application/pdf'],
@@ -73,6 +95,14 @@ export const Media: CollectionConfig = {
       label: 'Підпис / опис',
     },
     {
+      name: 'blurDataURL',
+      type: 'textarea',
+      label: 'Blur placeholder',
+      admin: {
+        hidden: true,
+      },
+    },
+    {
       name: 'category',
       type: 'select',
       label: 'Категорія',
@@ -87,5 +117,8 @@ export const Media: CollectionConfig = {
       required: true,
     },
   ],
+  hooks: {
+    beforeChange: [generateBlurDataURL],
+  },
   timestamps: true,
 }

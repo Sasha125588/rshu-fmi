@@ -1,3 +1,4 @@
+export * from './AcademicCouncilMembers'
 export * from './Departments'
 export * from './DocumentCategories'
 export * from './Documents'

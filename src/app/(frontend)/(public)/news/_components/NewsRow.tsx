@@ -58,6 +58,7 @@ const NewsRowContent = ({ item, compact, children }: NewsRowContentProps) => {
                 fill
                 loading="lazy"
                 sizes="(max-width: 767px) calc(100vw - 4rem), 220px"
+                unoptimized
                 className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               />
             </span>

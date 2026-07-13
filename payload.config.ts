@@ -5,6 +5,7 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
 import {
+  AcademicCouncilMembers,
   Departments,
   DocumentCategories,
   Documents,
@@ -20,6 +21,7 @@ export default buildConfig({
   collections: [
     Users,
     Departments,
+    AcademicCouncilMembers,
     EducationalPrograms,
     TuitionRates,
     DocumentCategories,

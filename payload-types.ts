@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User
     departments: Department
+    'academic-council-members': AcademicCouncilMember
     'educational-programs': EducationalProgram
     'tuition-rates': TuitionRate
     'document-categories': DocumentCategory
@@ -83,6 +84,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>
     departments: DepartmentsSelect<false> | DepartmentsSelect<true>
+    'academic-council-members':
+      | AcademicCouncilMembersSelect<false>
+      | AcademicCouncilMembersSelect<true>
     'educational-programs': EducationalProgramsSelect<false> | EducationalProgramsSelect<true>
     'tuition-rates': TuitionRatesSelect<false> | TuitionRatesSelect<true>
     'document-categories': DocumentCategoriesSelect<false> | DocumentCategoriesSelect<true>
@@ -173,6 +177,82 @@ export interface Department {
   websiteUrl: string
   updatedAt: string
   createdAt: string
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "academic-council-members".
+ */
+export interface AcademicCouncilMember {
+  id: number
+  name: string
+  councilRole: 'chair' | 'deputy-chair' | 'secretary' | 'member'
+  sortOrder: number
+  position: string
+  description: string
+  departments?: (number | Department)[] | null
+  /**
+   * Завантажте файл або вкажіть HTTPS-посилання нижче.
+   */
+  photo?: (number | null) | Media
+  /**
+   * Зовнішнє HTTPS-посилання. Залиште порожнім, якщо фото завантажене як файл.
+   */
+  photoUrl?: string | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number
+  /**
+   * Обов’язково заповнюй для зображень. Для PDF можна залишити порожнім.
+   */
+  alt?: string | null
+  caption?: string | null
+  blurDataURL?: string | null
+  category: 'document' | 'page-image' | 'news' | 'gallery' | 'other'
+  prefix?: string | null
+  updatedAt: string
+  createdAt: string
+  url?: string | null
+  thumbnailURL?: string | null
+  filename?: string | null
+  mimeType?: string | null
+  filesize?: number | null
+  width?: number | null
+  height?: number | null
+  focalX?: number | null
+  focalY?: number | null
+  sizes?: {
+    thumbnail?: {
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
+    card?: {
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
+    hero?: {
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
+  }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -332,57 +412,6 @@ export interface Document {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number
-  /**
-   * Обов’язково заповнюй для зображень. Для PDF можна залишити порожнім.
-   */
-  alt?: string | null
-  caption?: string | null
-  category: 'document' | 'page-image' | 'news' | 'gallery' | 'other'
-  prefix?: string | null
-  updatedAt: string
-  createdAt: string
-  url?: string | null
-  thumbnailURL?: string | null
-  filename?: string | null
-  mimeType?: string | null
-  filesize?: number | null
-  width?: number | null
-  height?: number | null
-  focalX?: number | null
-  focalY?: number | null
-  sizes?: {
-    thumbnail?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
-    card?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
-    hero?: {
-      url?: string | null
-      width?: number | null
-      height?: number | null
-      mimeType?: string | null
-      filesize?: number | null
-      filename?: string | null
-    }
-  }
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -412,6 +441,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'departments'
         value: number | Department
+      } | null)
+    | ({
+        relationTo: 'academic-council-members'
+        value: number | AcademicCouncilMember
       } | null)
     | ({
         relationTo: 'educational-programs'
@@ -512,6 +545,23 @@ export interface DepartmentsSelect<T extends boolean = true> {
   websiteUrl?: T
   updatedAt?: T
   createdAt?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "academic-council-members_select".
+ */
+export interface AcademicCouncilMembersSelect<T extends boolean = true> {
+  name?: T
+  councilRole?: T
+  sortOrder?: T
+  position?: T
+  description?: T
+  departments?: T
+  photo?: T
+  photoUrl?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -632,6 +682,7 @@ export interface DocumentsSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T
   caption?: T
+  blurDataURL?: T
   category?: T
   prefix?: T
   updatedAt?: T
