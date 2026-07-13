@@ -69,12 +69,8 @@
           "name": "users_roles_parent_fk",
           "tableFrom": "users_roles",
           "tableTo": "users",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -157,12 +153,8 @@
           "name": "users_sessions_parent_id_fk",
           "tableFrom": "users_sessions",
           "tableTo": "users",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -654,12 +646,8 @@
           "name": "_departments_v_parent_id_departments_id_fk",
           "tableFrom": "_departments_v",
           "tableTo": "departments",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -750,12 +738,8 @@
           "name": "educational_programs_study_forms_parent_id_fk",
           "tableFrom": "educational_programs_study_forms",
           "tableTo": "educational_programs",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -832,12 +816,8 @@
           "name": "educational_programs_tags_parent_id_fk",
           "tableFrom": "educational_programs_tags",
           "tableTo": "educational_programs",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -920,12 +900,8 @@
           "name": "educational_programs_careers_parent_id_fk",
           "tableFrom": "educational_programs_careers",
           "tableTo": "educational_programs",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1008,12 +984,8 @@
           "name": "educational_programs_study_focus_parent_id_fk",
           "tableFrom": "educational_programs_study_focus",
           "tableTo": "educational_programs",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1096,12 +1068,8 @@
           "name": "educational_programs_faq_parent_id_fk",
           "tableFrom": "educational_programs_faq",
           "tableTo": "educational_programs",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1372,12 +1340,8 @@
           "name": "educational_programs_department_id_departments_id_fk",
           "tableFrom": "educational_programs",
           "tableTo": "departments",
-          "columnsFrom": [
-            "department_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["department_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -1474,12 +1438,8 @@
           "name": "_educational_programs_v_version_study_forms_parent_id_fk",
           "tableFrom": "_educational_programs_v_version_study_forms",
           "tableTo": "_educational_programs_v",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1562,12 +1522,8 @@
           "name": "_educational_programs_v_version_tags_parent_id_fk",
           "tableFrom": "_educational_programs_v_version_tags",
           "tableTo": "_educational_programs_v",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1656,12 +1612,8 @@
           "name": "_educational_programs_v_version_careers_parent_id_fk",
           "tableFrom": "_educational_programs_v_version_careers",
           "tableTo": "_educational_programs_v",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1750,12 +1702,8 @@
           "name": "_educational_programs_v_version_study_focus_parent_id_fk",
           "tableFrom": "_educational_programs_v_version_study_focus",
           "tableTo": "_educational_programs_v",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -1844,12 +1792,8 @@
           "name": "_educational_programs_v_version_faq_parent_id_fk",
           "tableFrom": "_educational_programs_v_version_faq",
           "tableTo": "_educational_programs_v",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["_parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -2204,12 +2148,8 @@
           "name": "_educational_programs_v_parent_id_educational_programs_id_fk",
           "tableFrom": "_educational_programs_v",
           "tableTo": "educational_programs",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2217,12 +2157,8 @@
           "name": "_educational_programs_v_version_department_id_departments_id_fk",
           "tableFrom": "_educational_programs_v",
           "tableTo": "departments",
-          "columnsFrom": [
-            "version_department_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["version_department_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -2408,12 +2344,8 @@
           "name": "tuition_rates_educational_program_id_educational_programs_id_fk",
           "tableFrom": "tuition_rates",
           "tableTo": "educational_programs",
-          "columnsFrom": [
-            "educational_program_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["educational_program_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -2683,12 +2615,8 @@
           "name": "_tuition_rates_v_parent_id_tuition_rates_id_fk",
           "tableFrom": "_tuition_rates_v",
           "tableTo": "tuition_rates",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2696,12 +2624,8 @@
           "name": "_tuition_rates_v_version_educational_program_id_educational_programs_id_fk",
           "tableFrom": "_tuition_rates_v",
           "tableTo": "educational_programs",
-          "columnsFrom": [
-            "version_educational_program_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["version_educational_program_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -2877,12 +2801,8 @@
           "name": "program_documents_educational_program_id_educational_programs_id_fk",
           "tableFrom": "program_documents",
           "tableTo": "educational_programs",
-          "columnsFrom": [
-            "educational_program_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["educational_program_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -2890,12 +2810,8 @@
           "name": "program_documents_file_id_media_id_fk",
           "tableFrom": "program_documents",
           "tableTo": "media",
-          "columnsFrom": [
-            "file_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["file_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -3155,12 +3071,8 @@
           "name": "_program_documents_v_parent_id_program_documents_id_fk",
           "tableFrom": "_program_documents_v",
           "tableTo": "program_documents",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3168,12 +3080,8 @@
           "name": "_program_documents_v_version_educational_program_id_educational_programs_id_fk",
           "tableFrom": "_program_documents_v",
           "tableTo": "educational_programs",
-          "columnsFrom": [
-            "version_educational_program_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["version_educational_program_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         },
@@ -3181,12 +3089,8 @@
           "name": "_program_documents_v_version_file_id_media_id_fk",
           "tableFrom": "_program_documents_v",
           "tableTo": "media",
-          "columnsFrom": [
-            "version_file_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["version_file_id"],
+          "columnsTo": ["id"],
           "onDelete": "set null",
           "onUpdate": "no action"
         }
@@ -3849,12 +3753,8 @@
           "name": "payload_locked_documents_rels_parent_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "payload_locked_documents",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3862,12 +3762,8 @@
           "name": "payload_locked_documents_rels_users_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "users",
-          "columnsFrom": [
-            "users_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["users_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3875,12 +3771,8 @@
           "name": "payload_locked_documents_rels_departments_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "departments",
-          "columnsFrom": [
-            "departments_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["departments_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3888,12 +3780,8 @@
           "name": "payload_locked_documents_rels_educational_programs_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "educational_programs",
-          "columnsFrom": [
-            "educational_programs_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["educational_programs_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3901,12 +3789,8 @@
           "name": "payload_locked_documents_rels_tuition_rates_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "tuition_rates",
-          "columnsFrom": [
-            "tuition_rates_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["tuition_rates_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3914,12 +3798,8 @@
           "name": "payload_locked_documents_rels_program_documents_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "program_documents",
-          "columnsFrom": [
-            "program_documents_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["program_documents_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -3927,12 +3807,8 @@
           "name": "payload_locked_documents_rels_media_fk",
           "tableFrom": "payload_locked_documents_rels",
           "tableTo": "media",
-          "columnsFrom": [
-            "media_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["media_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -4136,12 +4012,8 @@
           "name": "payload_preferences_rels_parent_fk",
           "tableFrom": "payload_preferences_rels",
           "tableTo": "payload_preferences",
-          "columnsFrom": [
-            "parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["parent_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -4149,12 +4021,8 @@
           "name": "payload_preferences_rels_users_fk",
           "tableFrom": "payload_preferences_rels",
           "tableTo": "users",
-          "columnsFrom": [
-            "users_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["users_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -4246,126 +4114,77 @@
     "public.enum_users_roles": {
       "name": "enum_users_roles",
       "schema": "public",
-      "values": [
-        "admin",
-        "editor"
-      ]
+      "values": ["admin", "editor"]
     },
     "public.enum_educational_programs_study_forms_form": {
       "name": "enum_educational_programs_study_forms_form",
       "schema": "public",
-      "values": [
-        "full-time",
-        "part-time",
-        "dual"
-      ]
+      "values": ["full-time", "part-time", "dual"]
     },
     "public.enum_educational_programs_education_level": {
       "name": "enum_educational_programs_education_level",
       "schema": "public",
-      "values": [
-        "bachelor",
-        "master"
-      ]
+      "values": ["bachelor", "master"]
     },
     "public.enum_educational_programs_status": {
       "name": "enum_educational_programs_status",
       "schema": "public",
-      "values": [
-        "draft",
-        "published"
-      ]
+      "values": ["draft", "published"]
     },
     "public.enum__educational_programs_v_version_study_forms_form": {
       "name": "enum__educational_programs_v_version_study_forms_form",
       "schema": "public",
-      "values": [
-        "full-time",
-        "part-time",
-        "dual"
-      ]
+      "values": ["full-time", "part-time", "dual"]
     },
     "public.enum__educational_programs_v_version_education_level": {
       "name": "enum__educational_programs_v_version_education_level",
       "schema": "public",
-      "values": [
-        "bachelor",
-        "master"
-      ]
+      "values": ["bachelor", "master"]
     },
     "public.enum__educational_programs_v_version_status": {
       "name": "enum__educational_programs_v_version_status",
       "schema": "public",
-      "values": [
-        "draft",
-        "published"
-      ]
+      "values": ["draft", "published"]
     },
     "public.enum_tuition_rates_study_form": {
       "name": "enum_tuition_rates_study_form",
       "schema": "public",
-      "values": [
-        "full-time",
-        "part-time",
-        "dual"
-      ]
+      "values": ["full-time", "part-time", "dual"]
     },
     "public.enum_tuition_rates_availability": {
       "name": "enum_tuition_rates_availability",
       "schema": "public",
-      "values": [
-        "available",
-        "unavailable",
-        "to-be-announced"
-      ]
+      "values": ["available", "unavailable", "to-be-announced"]
     },
     "public.enum_tuition_rates_currency": {
       "name": "enum_tuition_rates_currency",
       "schema": "public",
-      "values": [
-        "UAH"
-      ]
+      "values": ["UAH"]
     },
     "public.enum_tuition_rates_status": {
       "name": "enum_tuition_rates_status",
       "schema": "public",
-      "values": [
-        "draft",
-        "published"
-      ]
+      "values": ["draft", "published"]
     },
     "public.enum__tuition_rates_v_version_study_form": {
       "name": "enum__tuition_rates_v_version_study_form",
       "schema": "public",
-      "values": [
-        "full-time",
-        "part-time",
-        "dual"
-      ]
+      "values": ["full-time", "part-time", "dual"]
     },
     "public.enum__tuition_rates_v_version_availability": {
       "name": "enum__tuition_rates_v_version_availability",
       "schema": "public",
-      "values": [
-        "available",
-        "unavailable",
-        "to-be-announced"
-      ]
+      "values": ["available", "unavailable", "to-be-announced"]
     },
     "public.enum__tuition_rates_v_version_currency": {
       "name": "enum__tuition_rates_v_version_currency",
       "schema": "public",
-      "values": [
-        "UAH"
-      ]
+      "values": ["UAH"]
     },
     "public.enum__tuition_rates_v_version_status": {
       "name": "enum__tuition_rates_v_version_status",
       "schema": "public",
-      "values": [
-        "draft",
-        "published"
-      ]
+      "values": ["draft", "published"]
     },
     "public.enum_program_documents_type": {
       "name": "enum_program_documents_type",
@@ -4384,10 +4203,7 @@
     "public.enum_program_documents_status": {
       "name": "enum_program_documents_status",
       "schema": "public",
-      "values": [
-        "draft",
-        "published"
-      ]
+      "values": ["draft", "published"]
     },
     "public.enum__program_documents_v_version_type": {
       "name": "enum__program_documents_v_version_type",
@@ -4406,21 +4222,12 @@
     "public.enum__program_documents_v_version_status": {
       "name": "enum__program_documents_v_version_status",
       "schema": "public",
-      "values": [
-        "draft",
-        "published"
-      ]
+      "values": ["draft", "published"]
     },
     "public.enum_media_category": {
       "name": "enum_media_category",
       "schema": "public",
-      "values": [
-        "document",
-        "page-image",
-        "news",
-        "gallery",
-        "other"
-      ]
+      "values": ["document", "page-image", "news", "gallery", "other"]
     }
   },
   "schemas": {},

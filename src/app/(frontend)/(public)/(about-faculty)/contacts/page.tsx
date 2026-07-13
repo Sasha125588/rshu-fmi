@@ -1,150 +1,160 @@
-import { Building, MapPin, Phone } from 'lucide-react'
+import { ArrowUpRightIcon, MapPinIcon } from 'lucide-react'
 
-import { ContactMethods } from './components/ContactMethods/ContactMethods'
-import { Socials } from './components/Socials/Socials'
-import { WorkingHours } from './components/WorkingHours/WorkingHours'
-import { Badge } from '@/components/ui/badge'
+import { ContactHero } from './_components/ContactHero/ContactHero'
+import { ContactMethods } from './_components/ContactMethods/ContactMethods'
+import { Socials } from './_components/Socials/Socials'
+import { WorkingHours } from './_components/WorkingHours/WorkingHours'
+import { Typography } from '@/components/ui'
+import { SITE_URL } from '@/shared/constants'
 
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Контакти факультету математики та інформатики',
   description:
-    'Контактна інформація факультету математики та інформатики РДГУ: адреса, телефони, електронна пошта',
+    'Контактна інформація факультету математики та інформатики РДГУ: адреса, телефони, електронна пошта та графік роботи.',
   alternates: {
     canonical: '/contacts',
   },
   openGraph: {
     title: 'Контакти факультету математики та інформатики',
     description:
-      'Контактна інформація факультету математики та інформатики РДГУ: адреса, телефони, електронна пошта',
+      'Контактна інформація факультету математики та інформатики РДГУ: адреса, телефони, електронна пошта та графік роботи.',
     images: [
       {
-        url: new URL(
-          '/images/logo.avif',
-          process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
-        ).href,
-
+        url: new URL('/images/logo.avif', SITE_URL).href,
         width: 120,
         height: 120,
         type: 'image/avif',
         alt: 'ФМІ логотип',
       },
     ],
-    url: new URL('/contacts', process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000').href,
+    url: new URL('/contacts', SITE_URL).href,
     type: 'website',
     locale: 'uk_UA',
   },
 }
 
 const ContactsPage = () => (
-  <div className="bg-background min-h-screen">
-    {/* Hero Section */}
-    <div className="pb-12">
-      <div className="mb-6 flex items-center gap-3">
-        <Phone className="text-green-primary h-5 w-5" />
-        <Badge
-          className="border-green-primary/20 text-green-primary text-sm font-normal"
-          variant="outline"
-        >
-          Зв&apos;язок з нами
-        </Badge>
-      </div>
-      <h1 className="mb-6 text-5xl leading-tight font-semibold">
-        Контакти
-        <br />
-        <span className="text-green-primary">факультету</span>
-      </h1>
-      <p className="text-muted-foreground max-w-3xl text-xl leading-relaxed">
-        Ми завжди готові відповісти на ваші питання та надати необхідну інформацію про навчання,
-        вступ та діяльність факультету математики та інформатики.
-      </p>
-    </div>
+  <div className="overflow-x-clip">
+    <ContactHero />
 
-    {/* Contact Information */}
-    <div className="space-y-8">
-      {/* Address Section */}
-      <div className="from-green-primary/5 to-green-primary/2 rounded-2xl bg-gradient-to-r p-8 shadow-sm">
-        <div className="mb-6 flex items-center gap-3">
-          <MapPin className="text-green-primary h-6 w-6" />
-          <h2 className="text-2xl font-semibold">Адреса</h2>
+    <main>
+      <section
+        aria-labelledby="contact-methods-heading"
+        className="border-b px-4 py-14 md:px-12 md:py-20"
+      >
+        <div className="mb-10 grid gap-5 md:mb-14 lg:grid-cols-[0.72fr_1fr] lg:gap-16">
+          <div>
+            <Typography
+              as="p"
+              variant="overline"
+              className="text-accent-violet"
+            >
+              На зв’язку
+            </Typography>
+            <Typography
+              as="h2"
+              id="contact-methods-heading"
+              variant="heading-lg"
+              className="mt-4"
+            >
+              Оберіть зручний спосіб
+            </Typography>
+          </div>
+          <Typography
+            as="p"
+            variant="body-md"
+            className="text-muted-foreground max-w-xl self-end leading-7"
+          >
+            Для загальних питань звертайтеся до деканату. Вступникам найшвидше допоможе приймальна
+            комісія університету.
+          </Typography>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="flex h-full flex-col space-y-4">
-            <div className="border-green-primary/20 bg-background flex-1 rounded-lg border p-6">
-              <div className="mb-4 flex items-center gap-3">
-                <Building className="text-green-primary h-5 w-5" />
-                <h3 className="text-lg font-semibold">Факультет математики та інформатики</h3>
-              </div>
-              <div className="text-muted-foreground space-y-2">
-                <p className="text-primary/80">
-                  <strong>Рівненський державний гуманітарний університет</strong>
-                </p>
-                <p>33028, Україна</p>
-                <p>м. Рівне, вул. Пластова, 31</p>
-                <p>каб. 108</p>
-              </div>
+        <ContactMethods />
+      </section>
+
+      <section
+        aria-labelledby="visit-heading"
+        className="border-b px-4 py-14 md:px-12 md:py-20"
+      >
+        <div className="mb-10 max-w-3xl md:mb-14">
+          <Typography
+            as="p"
+            variant="overline"
+            className="text-accent-violet"
+          >
+            Візит
+          </Typography>
+          <Typography
+            as="h2"
+            id="visit-heading"
+            variant="heading-lg"
+            className="mt-4"
+          >
+            Адреса та графік роботи
+          </Typography>
+        </div>
+
+        <WorkingHours />
+
+        <div className="mt-12 md:mt-16">
+          <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <Typography
+                as="p"
+                variant="overline"
+                className="text-muted-foreground"
+              >
+                Маршрут
+              </Typography>
+              <Typography
+                as="h3"
+                variant="title-lg"
+                className="mt-2 flex items-center gap-2"
+              >
+                <MapPinIcon
+                  aria-hidden="true"
+                  className="text-accent-violet"
+                  size={20}
+                />
+                вул. Пластова, 31
+              </Typography>
             </div>
+
+            <a
+              href="https://maps.app.goo.gl/wPUabsdreTq1Sxzw8"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent-violet inline-flex items-center gap-1 text-sm font-semibold underline-offset-4 hover:underline"
+            >
+              Прокласти маршрут
+              <ArrowUpRightIcon
+                aria-hidden="true"
+                size={16}
+              />
+            </a>
           </div>
 
-          <div className="flex h-full flex-col space-y-4">
-            <div className="bg-primary/3 border-primary/10 flex-1 rounded-lg border p-6">
-              <h3 className="mb-3 text-lg font-semibold">Як нас знайти</h3>
-              <ul className="text-primary/80 space-y-2">
-                <li className="flex items-start gap-2">
-                  <div className="bg-green-primary/80 mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
-                  <span>Центральний корпус університету</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="bg-green-primary/80 mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
-                  <span>1-й поверх, кабінет 108</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="bg-green-primary/80 mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
-                  <span>Зручне транспортне сполучення</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="bg-green-primary/80 mt-2 h-2 w-2 flex-shrink-0 rounded-full"></div>
-                  <span>Паркування поблизу університету</span>
-                </li>
-              </ul>
-            </div>
+          <div className="bg-card-new/25 overflow-hidden rounded-2xl border">
+            <iframe
+              title="Факультет математики та інформатики РДГУ на Google Maps"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2966.242452682816!2d26.260061!3d50.623521!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472f1356eedb91df%3A0x259ecbd84d8a6803!2sPlastova%20St%2C%2031%2C%20Rivne%2C%20Rivnens&#39;ka%20oblast%2C%20Ukraine%2C%2033000!5e1!3m2!1sen!2sus!4v1783932670472!5m2!1sen!2sus"
+              width="100%"
+              height="520"
+              className="block h-[24rem] w-full saturate-[0.8] md:h-[32rem] dark:brightness-[0.85] dark:contrast-[1.12]"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
           </div>
         </div>
-      </div>
-
-      <ContactMethods />
-
-      <WorkingHours />
+      </section>
 
       <Socials />
-
-      {/* Call to action */}
-      <div className="from-green-primary to-green-secondary dark:from-green-primary/30 dark:to-green-secondary/30 rounded-2xl bg-gradient-to-r p-8 text-white">
-        <div className="text-center">
-          <h2 className="mb-4 text-3xl font-semibold">Маєте питання?</h2>
-          <p className="mx-auto mb-6 max-w-2xl text-xl leading-relaxed text-white/90 opacity-90">
-            Наша команда завжди готова допомогти. Зв&apos;яжіться з нами зручним для вас способом, і
-            ми надамо всю необхідну інформацію про навчання на факультеті.
-          </p>
-          <div className="flex flex-col gap-4 md:flex-row md:justify-center">
-            <a
-              href="tel:+380362266594"
-              className="rounded-full bg-white/20 px-6 py-3 font-medium transition-all duration-200 hover:bg-white/30"
-            >
-              📞 Зателефонувати
-            </a>
-            <a
-              href="mailto:dekanat.fmi@rshu.edu.ua"
-              className="rounded-full bg-white/20 px-6 py-3 font-medium transition-all duration-200 hover:bg-white/30"
-            >
-              ✉️ Написати email
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+    </main>
   </div>
 )
 
