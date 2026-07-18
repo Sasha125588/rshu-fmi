@@ -1,24 +1,39 @@
 import { slugField } from 'payload'
 
-import { getProgramAdminTitle, setProgramAdminTitle } from './hooks'
+import {
+  getProgramAdminTitle,
+  revalidateProgramConsumers,
+  revalidateProgramConsumersAfterDelete,
+  setProgramAdminTitle,
+} from './hooks'
+import { validateStudyForms } from './validators'
 import { adminsOrEditors, publishedOrAuthenticated } from '@/payload/access'
 import { slugifyProgramValue } from '@/payload/helpers'
 
+import type { EducationLevel } from './constants'
 import type { EducationalProgram } from '@/payload-types'
 import type { CollectionConfig } from 'payload'
 import type { Slugify } from 'payload/shared'
 
-type EducationLevel = EducationalProgram['educationLevel']
+const educationLevelSlugParts = {
+  bachelor: 'bakalavr',
+  master: 'magistr',
+} satisfies Record<EducationLevel, string>
 
 type ProgramSlugData = Pick<
   EducationalProgram,
   'educationLevel' | 'specialtyCode' | 'title' | 'id' | 'slug'
 >
 
-const educationLevelSlugParts = {
-  bachelor: 'bakalavr',
-  master: 'magistr',
-} satisfies Record<EducationLevel, string>
+const slugifyProgram: Slugify<ProgramSlugData> = ({ data }) => {
+  if (data.slug) return slugifyProgramValue(data.slug)
+
+  const educationLevel = educationLevelSlugParts[data.educationLevel]
+
+  return slugifyProgramValue(
+    [data.specialtyCode, data.title, educationLevel].filter(Boolean).join(' ')
+  )
+}
 
 const titledDescriptionFields = [
   {
@@ -33,16 +48,6 @@ const titledDescriptionFields = [
     label: 'Опис',
   },
 ] satisfies CollectionConfig['fields']
-
-const slugifyProgram: Slugify<ProgramSlugData> = ({ data }) => {
-  if (data.slug) return slugifyProgramValue(data.slug)
-
-  const educationLevel = educationLevelSlugParts[data.educationLevel]
-
-  return slugifyProgramValue(
-    [data.specialtyCode, data.title, educationLevel].filter(Boolean).join(' ')
-  )
-}
 
 export const EducationalPrograms: CollectionConfig = {
   slug: 'educational-programs',
@@ -79,6 +84,12 @@ export const EducationalPrograms: CollectionConfig = {
     useAsTitle: 'adminTitle',
   },
   defaultSort: 'adminTitle',
+  indexes: [
+    {
+      fields: ['specialtyCode', 'educationLevel'],
+      unique: true,
+    },
+  ],
   fields: [
     {
       type: 'tabs',
@@ -169,6 +180,8 @@ export const EducationalPrograms: CollectionConfig = {
                 plural: 'Форми навчання',
               },
               minRows: 1,
+              required: true,
+              validate: validateStudyForms,
               fields: [
                 {
                   name: 'form',
@@ -177,7 +190,6 @@ export const EducationalPrograms: CollectionConfig = {
                   options: [
                     { label: 'Денна', value: 'full-time' },
                     { label: 'Заочна', value: 'part-time' },
-                    { label: 'Дуальна', value: 'dual' },
                   ],
                   required: true,
                 },
@@ -308,6 +320,8 @@ export const EducationalPrograms: CollectionConfig = {
     },
   ],
   hooks: {
+    afterChange: [revalidateProgramConsumers],
+    afterDelete: [revalidateProgramConsumersAfterDelete],
     beforeValidate: [setProgramAdminTitle],
   },
   timestamps: true,

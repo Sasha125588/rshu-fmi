@@ -2,8 +2,8 @@ export const footerGroups = [
   {
     title: 'Навчання',
     links: [
-      { label: 'Спеціальності', href: '/#specializations' },
-      { label: 'Освітні програми', href: '/#specializations' },
+      { label: 'Спеціальності', href: '/specializations' },
+      { label: 'Вартість навчання', href: '/vartist-navchannia' },
       { label: 'Розклад', href: '/#student' },
       { label: 'Документи', href: '/normatyvni-dokumenty' },
     ],
@@ -25,7 +25,7 @@ export const footerGroups = [
         href: 'https://www.rshu.edu.ua/pryimalna-komisiia',
         external: true,
       },
-      { label: 'Освітні програми', href: '/#specializations' },
+      { label: 'Вартість навчання', href: '/vartist-navchannia' },
       { label: 'Новини', href: '/news' },
       { label: 'Міжнародна співпраця', href: '/mizhnarodna-spivpratsya' },
     ],

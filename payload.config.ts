@@ -6,6 +6,7 @@ import sharp from 'sharp'
 
 import {
   AcademicCouncilMembers,
+  AdmissionCampaigns,
   Departments,
   DocumentCategories,
   Documents,
@@ -14,6 +15,7 @@ import {
   TuitionRates,
   Users,
 } from '@/payload/collections'
+import { SpecializationsPageSettings, TuitionPageSettings } from '@/payload/globals'
 
 export default buildConfig({
   //   editor: lexicalEditor(),
@@ -23,11 +25,14 @@ export default buildConfig({
     Departments,
     AcademicCouncilMembers,
     EducationalPrograms,
+    AdmissionCampaigns,
     TuitionRates,
     DocumentCategories,
     Documents,
     Media,
   ],
+
+  globals: [SpecializationsPageSettings, TuitionPageSettings],
 
   admin: {
     user: Users.slug,

@@ -40,6 +40,7 @@ import {
   buttonVariants,
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
+import { educationLevelLabels } from '@/payload/collections/EducationalPrograms/constants'
 import { SITE_URL } from '@/shared/constants'
 import { getNewsPage } from '@/shared/news'
 
@@ -86,13 +87,6 @@ export const generateMetadata = async (): Promise<Metadata> => {
     },
   }
 }
-
-type EducationLevel = EducationalProgram['educationLevel']
-
-const educationLevelLabels = {
-  bachelor: 'Бакалавр',
-  master: 'Магістр',
-} satisfies Record<EducationLevel, string>
 
 const HomePage = async () => {
   const payload = await getPayload({ config })
@@ -142,7 +136,7 @@ const HomePage = async () => {
             </Typography>
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
               <Link
-                href="#specializations"
+                href={'/specializations' as Route}
                 className={cn(
                   buttonVariants(),
                   'group bg-foreground! text-background! hover:bg-foreground/80! h-11 justify-center gap-1 px-5 text-sm font-bold! tracking-tight'
@@ -256,8 +250,8 @@ const HomePage = async () => {
               />
 
               <div className="flex flex-wrap items-center gap-2 md:justify-end">
-                {/* <Link
-                  href="#"
+                <Link
+                  href={'/specializations' as Route}
                   className={cn(
                     buttonVariants({ variant: 'outline' }),
                     'h-10 gap-2 rounded-full px-4 text-sm font-semibold'
@@ -268,7 +262,7 @@ const HomePage = async () => {
                     aria-hidden
                     data-icon="inline-end"
                   />
-                </Link> */}
+                </Link>
 
                 <TabsList
                   variant="default"

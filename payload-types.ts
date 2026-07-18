@@ -71,6 +71,7 @@ export interface Config {
     departments: Department
     'academic-council-members': AcademicCouncilMember
     'educational-programs': EducationalProgram
+    'admission-campaigns': AdmissionCampaign
     'tuition-rates': TuitionRate
     'document-categories': DocumentCategory
     documents: Document
@@ -88,6 +89,7 @@ export interface Config {
       | AcademicCouncilMembersSelect<false>
       | AcademicCouncilMembersSelect<true>
     'educational-programs': EducationalProgramsSelect<false> | EducationalProgramsSelect<true>
+    'admission-campaigns': AdmissionCampaignsSelect<false> | AdmissionCampaignsSelect<true>
     'tuition-rates': TuitionRatesSelect<false> | TuitionRatesSelect<true>
     'document-categories': DocumentCategoriesSelect<false> | DocumentCategoriesSelect<true>
     documents: DocumentsSelect<false> | DocumentsSelect<true>
@@ -103,8 +105,16 @@ export interface Config {
     defaultIDType: number
   }
   fallbackLocale: null
-  globals: {}
-  globalsSelect: {}
+  globals: {
+    'specializations-page-settings': SpecializationsPageSetting
+    'tuition-page-settings': TuitionPageSetting
+  }
+  globalsSelect: {
+    'specializations-page-settings':
+      | SpecializationsPageSettingsSelect<false>
+      | SpecializationsPageSettingsSelect<true>
+    'tuition-page-settings': TuitionPageSettingsSelect<false> | TuitionPageSettingsSelect<true>
+  }
   locale: null
   widgets: {
     collections: CollectionsWidget
@@ -282,14 +292,12 @@ export interface EducationalProgram {
   specialtyName: string
   educationLevel: 'bachelor' | 'master'
   department: number | Department
-  studyForms?:
-    | {
-        form: 'full-time' | 'part-time' | 'dual'
-        durationLabel: string
-        note?: string | null
-        id?: string | null
-      }[]
-    | null
+  studyForms: {
+    form: 'full-time' | 'part-time'
+    durationLabel: string
+    note?: string | null
+    id?: string | null
+  }[]
   isFeatured?: boolean | null
   sortOrder?: number | null
   description: string
@@ -329,16 +337,45 @@ export interface EducationalProgram {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "admission-campaigns".
+ */
+export interface AdmissionCampaign {
+  id: number
+  /**
+   * Формується автоматично з року, форми та освітньої програми.
+   */
+  adminTitle?: string | null
+  educationalProgram: number | EducationalProgram
+  campaignYear: number
+  studyForm: 'full-time' | 'part-time'
+  licensedCapacity?: number | null
+  maxStateOrder?: number | null
+  statisticsYear?: number | null
+  averageBudgetScore?: number | null
+  averageContractScore?: number | null
+  statisticsUrl?: string | null
+  dataUpdatedAt: string
+  sortOrder?: number | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tuition-rates".
  */
 export interface TuitionRate {
   id: number
   /**
+   * Формується автоматично з року, форми та освітньої програми.
+   */
+  adminTitle?: string | null
+  /**
    * Рівень освіти (бакалавр/магістр) береться з обраної освітньої програми.
    */
   educationalProgram: number | EducationalProgram
   academicYear: string
-  studyForm: 'full-time' | 'part-time' | 'dual'
+  studyForm: 'full-time' | 'part-time'
   availability: 'available' | 'unavailable' | 'to-be-announced'
   amountPerYear?: number | null
   totalAmount?: number | null
@@ -449,6 +486,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'educational-programs'
         value: number | EducationalProgram
+      } | null)
+    | ({
+        relationTo: 'admission-campaigns'
+        value: number | AdmissionCampaign
       } | null)
     | ({
         relationTo: 'tuition-rates'
@@ -625,9 +666,31 @@ export interface EducationalProgramsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "admission-campaigns_select".
+ */
+export interface AdmissionCampaignsSelect<T extends boolean = true> {
+  adminTitle?: T
+  educationalProgram?: T
+  campaignYear?: T
+  studyForm?: T
+  licensedCapacity?: T
+  maxStateOrder?: T
+  statisticsYear?: T
+  averageBudgetScore?: T
+  averageContractScore?: T
+  statisticsUrl?: T
+  dataUpdatedAt?: T
+  sortOrder?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tuition-rates_select".
  */
 export interface TuitionRatesSelect<T extends boolean = true> {
+  adminTitle?: T
   educationalProgram?: T
   academicYear?: T
   studyForm?: T
@@ -770,6 +833,144 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T
   updatedAt?: T
   createdAt?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "specializations-page-settings".
+ */
+export interface SpecializationsPageSetting {
+  id: number
+  /**
+   * Цей рік використовується для вибору даних вступної кампанії.
+   */
+  activeAdmissionCampaignYear: number
+  groups: {
+    /**
+     * Значення для навігаційного посилання без символу #.
+     */
+    anchor: string
+    interestLabel: string
+    title: string
+    description: string
+    specialtyCodes: {
+      code: string
+      id?: string | null
+    }[]
+    id?: string | null
+  }[]
+  /**
+   * Порядок елементів визначає порядок карток на сторінці. У заголовку можна використати {year}.
+   */
+  applicantResources: {
+    /**
+     * Placeholder {year} буде замінено активним роком вступної кампанії.
+     */
+    title: string
+    description: string
+    destinationType: 'link' | 'file'
+    /**
+     * Внутрішній шлях з / або повне посилання з http:// чи https://.
+     */
+    href?: string | null
+    /**
+     * Завантажте новий PDF або виберіть наявний у Media.
+     */
+    file?: (number | null) | Media
+    id?: string | null
+  }[]
+  _status?: ('draft' | 'published') | null
+  updatedAt?: string | null
+  createdAt?: string | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tuition-page-settings".
+ */
+export interface TuitionPageSetting {
+  id: number
+  /**
+   * Цей рік використовується для вибору тарифів на публічній сторінці.
+   */
+  activeAcademicYear: string
+  officialDocumentTitle: string
+  /**
+   * Завантажте файл або вкажіть HTTPS-посилання нижче ("Посилання на документ" пріоритетніше).
+   */
+  officialDocumentFile?: (number | null) | Media
+  /**
+   * Зовнішнє HTTPS-посилання. Залиште порожнім, якщо документ завантажено як файл.
+   */
+  officialDocumentUrl?: string | null
+  officialDocumentDate?: string | null
+  recipientName: string
+  recipientCode: string
+  recipientBank: string
+  iban: string
+  /**
+   * Залиште зрозумілі місця для ПІБ студента, курсу та факультету.
+   */
+  paymentPurposeTemplate: string
+  paymentNote?: string | null
+  _status?: ('draft' | 'published') | null
+  updatedAt?: string | null
+  createdAt?: string | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "specializations-page-settings_select".
+ */
+export interface SpecializationsPageSettingsSelect<T extends boolean = true> {
+  activeAdmissionCampaignYear?: T
+  groups?:
+    | T
+    | {
+        anchor?: T
+        interestLabel?: T
+        title?: T
+        description?: T
+        specialtyCodes?:
+          | T
+          | {
+              code?: T
+              id?: T
+            }
+        id?: T
+      }
+  applicantResources?:
+    | T
+    | {
+        title?: T
+        description?: T
+        destinationType?: T
+        href?: T
+        file?: T
+        id?: T
+      }
+  _status?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tuition-page-settings_select".
+ */
+export interface TuitionPageSettingsSelect<T extends boolean = true> {
+  activeAcademicYear?: T
+  officialDocumentTitle?: T
+  officialDocumentFile?: T
+  officialDocumentUrl?: T
+  officialDocumentDate?: T
+  recipientName?: T
+  recipientCode?: T
+  recipientBank?: T
+  iban?: T
+  paymentPurposeTemplate?: T
+  paymentNote?: T
+  _status?: T
+  updatedAt?: T
+  createdAt?: T
+  globalType?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

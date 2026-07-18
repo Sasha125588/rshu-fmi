@@ -1,4 +1,5 @@
 export * from './AcademicCouncilMembers'
+export * from './AdmissionCampaigns'
 export * from './Departments'
 export * from './DocumentCategories'
 export * from './Documents'

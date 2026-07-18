@@ -1,3 +1,9 @@
+import {
+  prepareTuitionRate,
+  revalidateTuitionRateConsumers,
+  revalidateTuitionRateConsumersAfterDelete,
+} from './hooks'
+import { validateAnnualAmount } from './validators'
 import { adminsOrEditors, publishedOrAuthenticated } from '@/payload/access'
 
 import type { CollectionConfig } from 'payload'
@@ -19,6 +25,7 @@ export const TuitionRates: CollectionConfig = {
   admin: {
     group: 'Контент',
     defaultColumns: [
+      'adminTitle',
       'educationalProgram',
       'academicYear',
       'studyForm',
@@ -26,11 +33,27 @@ export const TuitionRates: CollectionConfig = {
       'amountPerYear',
       'totalAmount',
     ],
-    listSearchableFields: ['academicYear', 'note'],
-    useAsTitle: 'academicYear',
+    listSearchableFields: ['adminTitle', 'academicYear', 'note'],
+    useAsTitle: 'adminTitle',
   },
-  defaultSort: '-academicYear',
+  defaultSort: ['-academicYear', 'educationalProgram', 'studyForm'],
+  indexes: [
+    {
+      fields: ['academicYear', 'educationalProgram', 'studyForm'],
+      unique: true,
+    },
+  ],
   fields: [
+    {
+      name: 'adminTitle',
+      type: 'text',
+      label: 'Назва в адмінці',
+      admin: {
+        description: 'Формується автоматично з року, форми та освітньої програми.',
+        readOnly: true,
+      },
+      index: true,
+    },
     {
       name: 'educationalProgram',
       type: 'relationship',
@@ -48,6 +71,10 @@ export const TuitionRates: CollectionConfig = {
       admin: {
         placeholder: '2025/2026',
       },
+      defaultValue: '2026/2027',
+      hooks: {
+        beforeDuplicate: [() => null],
+      },
       index: true,
       required: true,
     },
@@ -58,9 +85,14 @@ export const TuitionRates: CollectionConfig = {
       options: [
         { label: 'Денна', value: 'full-time' },
         { label: 'Заочна', value: 'part-time' },
-        { label: 'Дуальна', value: 'dual' },
       ],
+      index: true,
       required: true,
+      admin: {
+        components: {
+          Field: '@/payload/components/StudyFormSelect/StudyFormSelect#StudyFormSelect',
+        },
+      },
     },
     {
       name: 'availability',
@@ -79,6 +111,7 @@ export const TuitionRates: CollectionConfig = {
       type: 'number',
       label: 'Вартість за рік',
       min: 0,
+      validate: validateAnnualAmount,
     },
     {
       name: 'totalAmount',
@@ -106,9 +139,16 @@ export const TuitionRates: CollectionConfig = {
       defaultValue: 0,
     },
   ],
+  hooks: {
+    afterChange: [revalidateTuitionRateConsumers],
+    afterDelete: [revalidateTuitionRateConsumersAfterDelete],
+    beforeValidate: [prepareTuitionRate],
+  },
   timestamps: true,
   versions: {
-    drafts: true,
+    drafts: {
+      validate: false,
+    },
     maxPerDoc: 20,
   },
 }

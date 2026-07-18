@@ -1,6 +1,5 @@
-// import { notFound } from 'next/navigation'
-
 import config from '@payload-config'
+import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 
 // import {
@@ -167,23 +166,51 @@ interface SpecializationPageProps {
   params: Promise<{ slug: string }>
 }
 
+export const dynamicParams = true
+
+export const generateStaticParams = async () => {
+  const payload = await getPayload({ config })
+  const result = await payload.find({
+    collection: 'educational-programs',
+    depth: 0,
+    overrideAccess: false,
+    pagination: false,
+    select: {
+      slug: true,
+      updatedAt: true,
+    },
+    sort: 'slug',
+  })
+
+  return result.docs.map(({ slug }) => ({ slug }))
+}
+
 const SpecializationPage = async ({ params }: SpecializationPageProps) => {
   const { slug } = await params
 
   const payload = await getPayload({ config })
-  const specialization = await payload.find({
+  const result = await payload.find({
     collection: 'educational-programs',
+    depth: 0,
+    limit: 1,
+    overrideAccess: false,
+    pagination: false,
+    select: {
+      slug: true,
+      title: true,
+    },
     where: {
       slug: { equals: slug },
-      isFeatured: { equals: true },
-      educationLevel: { equals: 'bachelor' },
     },
-    limit: 1,
   })
+
+  const specialization = result.docs[0]
+
+  if (!specialization) notFound()
 
   return (
     <>
-      {specialization.docs[0].title} – {specialization.docs[0].slug}
+      {specialization.title} – {specialization.slug}
     </>
   )
 }

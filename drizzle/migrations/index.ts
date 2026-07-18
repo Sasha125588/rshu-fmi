@@ -5,6 +5,7 @@ import * as migration_20260710_141248_document_title_generation from './20260710
 import * as migration_20260713_162359_academic_council_members from './20260713_162359_academic_council_members'
 import * as migration_20260713_165142_academic_council_photo_url from './20260713_165142_academic_council_photo_url'
 import * as migration_20260713_193323_media_blur_data_url from './20260713_193323_media_blur_data_url'
+import * as migration_20260718_103921_catalog_specializations_schema from './20260718_103921_catalog_specializations_schema'
 
 export const migrations = [
   {
@@ -41,5 +42,10 @@ export const migrations = [
     up: migration_20260713_193323_media_blur_data_url.up,
     down: migration_20260713_193323_media_blur_data_url.down,
     name: '20260713_193323_media_blur_data_url',
+  },
+  {
+    up: migration_20260718_103921_catalog_specializations_schema.up,
+    down: migration_20260718_103921_catalog_specializations_schema.down,
+    name: '20260718_103921_catalog_specializations_schema',
   },
 ]

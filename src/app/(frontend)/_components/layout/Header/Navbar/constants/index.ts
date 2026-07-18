@@ -3,6 +3,7 @@ import {
   Building2Icon,
   CalendarDaysIcon,
   ClipboardListIcon,
+  DollarSignIcon,
   FileTextIcon,
   GraduationCapIcon,
   LandmarkIcon,
@@ -16,37 +17,37 @@ import type { NavItem } from '../types'
 export const NAVIGATION: NavItem[] = [
   {
     label: 'Спеціальності',
-    href: '/#specializations',
+    href: '/specializations',
     featured: {
       title: 'Освітні програми ФМІ',
       description:
         'Огляд напрямів факультету, сторінки спеціальностей, вступ і документи освітніх програм.',
-      href: '/#specializations',
+      href: '/specializations',
       icon: GraduationCapIcon,
     },
     cards: [
       {
         title: 'Інженерія програмного забезпечення',
         description: 'Сторінка програми, вступ, документи та матеріали ОП.',
-        href: '/specializations/software-engineering',
+        href: '/specializations',
         icon: GraduationCapIcon,
       },
       {
         title: "Комп'ютерні науки",
         description: 'Напрям алгоритмів, даних, AI та програмних систем.',
-        href: '/#specializations',
+        href: '/specializations',
         icon: BookOpenIcon,
       },
       {
         title: 'Середня освіта',
         description: 'Математика, інформатика та підготовка педагогів.',
-        href: '/#specializations',
+        href: '/specializations',
         icon: LandmarkIcon,
       },
       {
         title: 'Усі програми',
         description: 'Повний список бакалаврських і магістерських ОП.',
-        href: '/#specializations',
+        href: '/specializations',
         icon: FileTextIcon,
       },
     ],
@@ -69,9 +70,9 @@ export const NAVIGATION: NavItem[] = [
         icon: CalendarDaysIcon,
       },
       {
-        title: 'Освітні програми',
+        title: 'Усі спеціальності',
         description: 'Силабуси, редакції ОП та навчальні матеріали.',
-        href: '/#specializations',
+        href: '/specializations',
         icon: GraduationCapIcon,
       },
       {
@@ -81,10 +82,10 @@ export const NAVIGATION: NavItem[] = [
         icon: FileTextIcon,
       },
       {
-        title: 'Рейтинг студентів',
-        description: 'Академічні результати та конкурсні позиції.',
-        href: '/#student',
-        icon: UsersIcon,
+        title: 'Вартість навчання',
+        description: 'Вартість навчання та банківські реквізити для оплати.',
+        href: '/vartist-navchannia',
+        icon: DollarSignIcon,
       },
     ],
   },

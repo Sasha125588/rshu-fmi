@@ -51,6 +51,7 @@ export type TypographyTag =
   | 'time'
   | 'code'
   | 'blockquote'
+  | 'strong'
 
 type TypographyProps<Tag extends TypographyTag> = useRender.ComponentProps<Tag> &
   VariantProps<typeof typographyVariants> & {

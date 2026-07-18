@@ -1,8 +1,24 @@
+import config from '@payload-config'
+import { getPayload } from 'payload'
+
 import { SITE_URL } from '@/shared/constants'
 
 import type { MetadataRoute } from 'next'
 
-const sitemap = (): MetadataRoute.Sitemap => {
+const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
+  const payload = await getPayload({ config })
+  const result = await payload.find({
+    collection: 'educational-programs',
+    depth: 0,
+    overrideAccess: false,
+    pagination: false,
+    select: {
+      slug: true,
+      updatedAt: true,
+    },
+    sort: 'slug',
+  })
+
   return [
     {
       url: SITE_URL,
@@ -45,9 +61,9 @@ const sitemap = (): MetadataRoute.Sitemap => {
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/specializations/software-engineering`,
+      url: `${SITE_URL}/specializations`,
       changeFrequency: 'monthly',
-      priority: 0.9,
+      priority: 1,
     },
     {
       url: `${SITE_URL}/news`,
@@ -58,6 +74,12 @@ const sitemap = (): MetadataRoute.Sitemap => {
       url: `${SITE_URL}/news/${source}`,
       changeFrequency: 'hourly' as const,
       priority: 0.8,
+    })),
+    ...result.docs.map(({ slug, updatedAt }) => ({
+      url: `${SITE_URL}/specializations/${slug}`,
+      lastModified: updatedAt,
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
     })),
   ]
 }

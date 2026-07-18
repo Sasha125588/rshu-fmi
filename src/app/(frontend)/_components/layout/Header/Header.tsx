@@ -64,6 +64,7 @@ export const Header = () => (
                   src="/images/logo.avif"
                   alt="FMI Logo"
                   width={80}
+                  loading="eager"
                   height={80}
                 />
               </SheetTitle>

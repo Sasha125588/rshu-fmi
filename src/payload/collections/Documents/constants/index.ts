@@ -12,13 +12,7 @@ export const DOCUMENT_TYPE_OPTIONS = [
 ] as const
 
 export type DocumentType = (typeof DOCUMENT_TYPE_OPTIONS)[number]['value']
-export type EducationLevel = 'bachelor' | 'master'
 
 export const documentTypeLabels = Object.fromEntries(
   DOCUMENT_TYPE_OPTIONS.map((option) => [option.value, option.label])
 ) as Record<DocumentType, string>
-
-export const educationLevelLabels: Record<EducationLevel, string> = {
-  bachelor: 'Бакалавр',
-  master: 'Магістр',
-}

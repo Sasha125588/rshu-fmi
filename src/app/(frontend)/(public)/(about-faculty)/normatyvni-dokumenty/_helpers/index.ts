@@ -1,11 +1,6 @@
-import type { Document } from '@/payload-types'
+import { documentDateFormatter } from '@/lib'
 
-const documentDateFormatter = new Intl.DateTimeFormat('uk-UA', {
-  day: '2-digit',
-  month: '2-digit',
-  timeZone: 'UTC',
-  year: 'numeric',
-})
+import type { Document } from '@/payload-types'
 
 export const toCatalogDocument = (document: Document) => {
   const category =

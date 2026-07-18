@@ -2,7 +2,7 @@ import { ArrowUpRightIcon, CalendarDaysIcon, EyeIcon } from 'lucide-react'
 import Image from 'next/image'
 
 import { Typography } from '@/components/ui'
-import { cn } from '@/lib/utils'
+import { cn, newsDateFormatter } from '@/lib'
 // import { NEWS_SOURCE_CONFIG } from '@/shared/news'
 
 import type { NewsItem } from '@/shared/news'
@@ -18,15 +18,6 @@ interface NewsRowContentProps {
   compact: boolean
   children: ReactNode
 }
-
-const dateFormatter = new Intl.DateTimeFormat('uk-UA', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-  timeZone: 'Europe/Kyiv',
-})
-
-const formatPublishedAt = (value: string) => dateFormatter.format(new Date(`${value}T12:00:00Z`))
 
 const NewsRowContent = ({ item, compact, children }: NewsRowContentProps) => {
   // const source = NEWS_SOURCE_CONFIG[item.source]
@@ -148,7 +139,7 @@ export const NewsRow = ({ item, compact = false }: NewsRowProps) =>
         className="text-muted-foreground flex items-center gap-1.5"
       >
         <CalendarDaysIcon className="size-4" />
-        {formatPublishedAt(item.publishedAt)}
+        {newsDateFormatter.format(new Date(item.publishedAt))}
       </Typography>
     </NewsRowContent>
   )

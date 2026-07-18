@@ -10,7 +10,7 @@ import { ActiveHistoryEraIdProvider } from './_contexts/activeHistoryEraId'
 import { Typography } from '@/components/ui'
 import { SITE_URL } from '@/shared/constants'
 
-import type { Metadata } from 'next'
+import type { Metadata, Route } from 'next'
 
 export const metadata: Metadata = {
   title: 'Історія факультету',
@@ -105,7 +105,7 @@ const HistoryPage = async () => {
                 </div>
 
                 <Link
-                  href="/#specializations"
+                  href={'/specializations' as Route}
                   className="text-accent-violet inline-flex shrink-0 items-center gap-1 text-sm font-semibold underline-offset-4 hover:underline"
                 >
                   Освітні програми

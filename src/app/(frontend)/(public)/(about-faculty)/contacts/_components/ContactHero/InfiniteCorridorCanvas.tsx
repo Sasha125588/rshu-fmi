@@ -100,9 +100,9 @@ void main() {
   float idleYaw = sin(time * 0.13) * 0.018;
   float idlePitch = sin(time * 0.09 + 1.4) * 0.008;
   float yaw = idleYaw + pointerOffset.x * pointerActive * 0.15 + scrollProgress * 0.055;
-  float pitch = idlePitch + pointerOffset.y * pointerActive * 0.075;
+  float pitch = idlePitch + pointerOffset.y * -pointerActive * 0.075;
 
-  vec3 ray = normalize(vec3(point.x * 0.78, point.y * 0.7 - 0.025, 1.28));
+  vec3 ray = normalize(vec3(point.x * 0.58, point.y * 0.52 - 0.025, 1.45));
   ray = rotateView(ray, yaw, pitch);
 
   vec3 camera = vec3(-0.28 + scrollProgress * 0.48, 0.0, scrollProgress * 4.85);

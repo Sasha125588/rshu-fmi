@@ -58,7 +58,10 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     )
   }
 
-  const value = useMemo(() => ({ value: getTheme(theme), set: setTheme, animate }), [theme])
+  const value = useMemo(
+    () => ({ value: getTheme(theme), set: setTheme, animate }),
+    [theme, colorScheme]
+  )
 
   return <ThemeContext value={value}>{children}</ThemeContext>
 }

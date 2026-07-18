@@ -1,9 +1,15 @@
-import {
-  type DocumentType,
-  type EducationLevel,
-  documentTypeLabels,
-  educationLevelLabels,
-} from '../constants'
+import { type EducationLevel, educationLevelLabels } from '../../EducationalPrograms/constants'
+import { type DocumentType, documentTypeLabels } from '../constants'
+
+const unique = (values: string[]) => [...new Set(values)]
+
+const getDocumentYear = (value?: null | string) => {
+  if (!value) return undefined
+
+  const date = new Date(value)
+
+  return Number.isNaN(date.getTime()) ? undefined : String(date.getUTCFullYear())
+}
 
 export interface DocumentTitleProgram {
   educationLevel: EducationLevel
@@ -15,16 +21,6 @@ interface BuildDocumentTitleArgs {
   documentType?: DocumentType
   educationalPrograms: DocumentTitleProgram[]
   periodLabel?: string | null
-}
-
-const unique = (values: string[]) => [...new Set(values)]
-
-const getDocumentYear = (value?: null | string) => {
-  if (!value) return undefined
-
-  const date = new Date(value)
-
-  return Number.isNaN(date.getTime()) ? undefined : String(date.getUTCFullYear())
 }
 
 export const buildDocumentTitle = ({

@@ -65,7 +65,7 @@ const NormatyvniDokumentyPage = async () => {
           <Typography
             as="p"
             variant="body-md"
-            className="text-muted-foreground mt-4 max-w-2xl leading-7 md:text-lg"
+            className="text-muted-foreground mt-5 max-w-2xl leading-7 md:text-lg"
           >
             Положення, накази, програми та інші документи факультету й університету в одному
             каталозі.

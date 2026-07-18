@@ -1,9 +1,9 @@
 import { revalidatePath } from 'next/cache'
 import { ValidationError } from 'payload'
 
-import { buildDocumentTitle } from '../helpers/title'
+import { buildDocumentTitle } from '../helpers'
 
-import type { DocumentTitleProgram } from '../helpers/title'
+import type { DocumentTitleProgram } from '../helpers'
 import type { Document } from '@/payload-types'
 import type {
   CollectionAfterChangeHook,
@@ -23,6 +23,7 @@ export const setDocumentTitle: CollectionBeforeValidateHook<Document> = async ({
     ...originalDoc,
     ...data,
   }
+
   const educationalProgramIDs = document.educationalPrograms ?? []
   let educationalPrograms: DocumentTitleProgram[] = []
 

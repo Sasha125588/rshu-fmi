@@ -6,22 +6,9 @@ import {
   validatePublishedDocument,
 } from './hooks'
 import { adminsOrEditors, publishedOrAuthenticated } from '@/payload/access'
+import { validateUrl } from '@/payload/validators'
 
-import type { CollectionConfig, TextFieldSingleValidation } from 'payload'
-
-const validateExternalUrl: TextFieldSingleValidation = (value) => {
-  if (!value) return true
-
-  try {
-    const url = new URL(value)
-
-    return (
-      ['http:', 'https:'].includes(url.protocol) || 'Використовуйте URL з http:// або https://.'
-    )
-  } catch {
-    return 'Введіть коректне зовнішнє посилання.'
-  }
-}
+import type { CollectionConfig } from 'payload'
 
 export const Documents: CollectionConfig = {
   slug: 'documents',
@@ -118,7 +105,7 @@ export const Documents: CollectionConfig = {
         description: 'Якщо також вибрано файл, на сайті пріоритет матиме завантажений файл.',
         placeholder: 'https://example.edu.ua/document.pdf',
       },
-      validate: validateExternalUrl,
+      validate: validateUrl,
     },
     {
       name: 'description',

@@ -1,21 +1,8 @@
 import { revalidateAcademicCouncil, revalidateAcademicCouncilAfterDelete } from './hooks'
 import { adminsOrEditors, publishedOrAuthenticated } from '@/payload/access'
+import { validateUrl } from '@/payload/validators'
 
-import type { CollectionConfig, TextFieldSingleValidation } from 'payload'
-
-const validatePhotoUrl: TextFieldSingleValidation = (value) => {
-  if (!value) return true
-
-  try {
-    const url = new URL(value)
-
-    return (
-      ['http:', 'https:'].includes(url.protocol) || 'Використовуйте URL з http:// або https://.'
-    )
-  } catch {
-    return 'Вкажіть коректне посилання на фото.'
-  }
-}
+import type { CollectionConfig } from 'payload'
 
 export const AcademicCouncilMembers: CollectionConfig = {
   slug: 'academic-council-members',
@@ -128,7 +115,7 @@ export const AcademicCouncilMembers: CollectionConfig = {
         description: 'Зовнішнє HTTPS-посилання. Залиште порожнім, якщо фото завантажене як файл.',
         placeholder: 'https://example.com/photo.jpg',
       },
-      validate: validatePhotoUrl,
+      validate: validateUrl,
     },
   ],
   hooks: {

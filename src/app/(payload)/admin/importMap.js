@@ -3,10 +3,13 @@ import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } f
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 
 import { DocumentTitleField as DocumentTitleField_22215b0d03d1872fe78b7e9747827f3e } from '@/payload/collections/Documents/components/DocumentTitleField'
+import { StudyFormSelect as StudyFormSelect_94c3a901e3ba45520d44c306c8669a80 } from '@/payload/components/StudyFormSelect/StudyFormSelect'
 
 /** @type import('payload').ImportMap */
 export const importMap = {
   '@payloadcms/next/client#SlugField': SlugField_2b8867833a34864a02ddf429b0728a40,
+  '@/payload/components/StudyFormSelect/StudyFormSelect#StudyFormSelect':
+    StudyFormSelect_94c3a901e3ba45520d44c306c8669a80,
   '@/payload/collections/Documents/components/DocumentTitleField#DocumentTitleField':
     DocumentTitleField_22215b0d03d1872fe78b7e9747827f3e,
   '@payloadcms/storage-s3/client#S3ClientUploadHandler':

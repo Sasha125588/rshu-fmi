@@ -1,3 +1,4 @@
+export * from './useCopy'
 export * from './useDebounceCallback'
 export * from './useDebounceEffect'
 export * from './useMediaQuery'

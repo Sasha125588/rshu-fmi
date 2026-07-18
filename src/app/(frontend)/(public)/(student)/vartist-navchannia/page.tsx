@@ -1,167 +1,206 @@
-import { Calculator, GraduationCap } from 'lucide-react'
+import config from '@payload-config'
+import { ArrowUpRightIcon, FileTextIcon } from 'lucide-react'
+import { getPayload } from 'payload'
 
-import { STUDY_COSTS_DATA, STUDY_FORMS_DATA } from './constants/data'
-import { formatCurrency } from './helpers/formatCurrency'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui'
-import { Badge } from '@/components/ui/badge'
+import { PaymentDetails } from './_components/PaymentDetails/PaymentDetails'
+import { RefractiveFormCanvas } from './_components/RefractiveFormCanvas'
+import { TuitionTable } from './_components/TuitionTable/TuitionTable'
+import { buildTuitionCatalog } from './_helpers'
+import { Tabs, TabsContent, TabsList, TabsTrigger, Typography } from '@/components/ui'
+import { documentDateFormatter } from '@/lib'
+import { SITE_URL } from '@/shared/constants'
 
+import type { EducationLevel } from '@/payload/collections/EducationalPrograms/constants'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Вартість навчання',
-  description: 'Вартість навчання на факультеті математики та інформатики на 2025 навчальний рік',
+  description:
+    'Вартість контрактного навчання на освітніх програмах факультету математики та інформатики РДГУ та реквізити для оплати.',
   alternates: {
     canonical: '/vartist-navchannia',
   },
   openGraph: {
-    title: 'Вартість навчання',
-    description: 'Вартість навчання на факультеті математики та інформатики на 2025 навчальний рік',
+    title: 'Вартість навчання на факультеті математики та інформатики',
+    description:
+      'Порівняйте вартість контрактного навчання за освітніми програмами та формами навчання.',
     images: [
       {
-        url: new URL(
-          '/images/logo.avif',
-          process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
-        ).href,
-
+        url: new URL('/images/logo.avif', SITE_URL).href,
         width: 120,
         height: 120,
         type: 'image/avif',
         alt: 'ФМІ логотип',
       },
     ],
-    url: new URL('/vartist-navchannia', process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000')
-      .href,
+    url: new URL('/vartist-navchannia', SITE_URL).href,
     type: 'website',
     locale: 'uk_UA',
   },
 }
 
-const TuitionCostsPage = () => {
+const LEVELS = [
+  { label: 'Бакалаврат', value: 'bachelor' },
+  { label: 'Магістратура', value: 'master' },
+] as const satisfies { label: string; value: EducationLevel }[]
+
+const TuitionCostsPage = async () => {
+  const payload = await getPayload({ config })
+
+  const [educationalPrograms, settings] = await Promise.all([
+    payload.find({
+      collection: 'educational-programs',
+      depth: 0,
+      overrideAccess: false,
+      pagination: false,
+      sort: ['sortOrder', 'specialtyCode', 'title'],
+    }),
+    payload.findGlobal({
+      slug: 'tuition-page-settings',
+      overrideAccess: false,
+    }),
+  ])
+
+  const tuitionRates = await payload.find({
+    collection: 'tuition-rates',
+    depth: 0,
+    overrideAccess: false,
+    pagination: false,
+    sort: ['sortOrder', 'educationalProgram', 'studyForm'],
+    where: {
+      academicYear: {
+        equals: settings.activeAcademicYear,
+      },
+    },
+  })
+
+  const catalog = buildTuitionCatalog({
+    educationalPrograms: educationalPrograms.docs,
+    tuitionRates: tuitionRates.docs,
+  })
+
+  const paymentDetails = {
+    iban: settings.iban,
+    note: settings.paymentNote ?? null,
+    purpose: settings.paymentPurposeTemplate,
+    recipientBank: settings.recipientBank,
+    recipientCode: settings.recipientCode,
+    recipientName: settings.recipientName,
+  }
+
+  const file =
+    settings.officialDocumentFile && typeof settings.officialDocumentFile === 'object'
+      ? settings.officialDocumentFile
+      : null
+  const url = settings.officialDocumentUrl || file?.url || ''
+  const documentDate = settings.officialDocumentDate || file?.createdAt
+
   return (
-    <div>
-      <div className="mb-6 flex items-center gap-3">
-        <Calculator className="text-green-primary h-5 w-5" />
-        <Badge
-          className="border-green-primary/20 text-green-primary border text-sm font-normal"
-          variant="outline"
-        >
-          Вартість навчання
-        </Badge>
-      </div>
+    <div className="overflow-x-clip">
+      <header className="relative isolate overflow-hidden border-b px-4 py-16 md:px-12 md:py-22">
+        <RefractiveFormCanvas />
 
-      <h2 className="mb-4 text-3xl font-semibold">Вартість навчання на 2025 рік</h2>
-      <p className="text-muted-foreground mb-8 max-w-2xl text-lg">
-        Актуальна вартість навчання за освітніми програмами на 2025 навчальний рік
-      </p>
-
-      <div className="space-y-6">
-        {STUDY_FORMS_DATA.map((item) => {
-          const [firstCost, secondCost] = item.costIdx
-
-          return (
-            <Accordion
-              key={item.title}
-              className="w-full"
-            >
-              <AccordionItem
-                value={item.title}
-                className="border-none!"
-              >
-                <AccordionTrigger className="bg-green-primary/5 border-green-primary/20 hover:bg-green-primary/10 rounded-lg border p-4 transition-colors">
-                  <div className="flex w-full items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <GraduationCap className="text-green-primary h-5 w-5" />
-                      <h3 className="text-lg font-semibold">{item.title}</h3>
-                    </div>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="pt-4">
-                  <div className="overflow-x-auto">
-                    <div className="border-border bg-card min-w-full rounded-xl border shadow-sm">
-                      <div className="overflow-hidden">
-                        <table className="w-full">
-                          <thead className="bg-accent/5 border-border border-b">
-                            <tr>
-                              <th className="text-foreground px-6 py-4 text-left text-sm font-semibold">
-                                Код
-                              </th>
-                              <th className="text-foreground px-6 py-4 text-left text-sm font-semibold">
-                                Освітня програма
-                              </th>
-                              <th className="text-foreground px-6 py-4 text-center text-sm font-semibold">
-                                За навчальний рік
-                              </th>
-                              <th className="text-foreground px-6 py-4 text-center text-sm font-semibold">
-                                Повний термін навчання
-                                <br />
-                                <span className="text-muted-foreground text-xs font-normal">
-                                  {item.title.includes('Бакалавр')
-                                    ? '3 роки 10 міс.'
-                                    : '1 рік 4 міс.'}
-                                </span>
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-border divide-y">
-                            {STUDY_COSTS_DATA.map((item, index) => (
-                              <tr
-                                key={item.id}
-                                className={`hover:bg-accent/5 transition-colors duration-200 ${
-                                  index % 2 === 0 ? 'bg-background' : 'bg-m'
-                                }`}
-                              >
-                                <td className="px-6 py-4">
-                                  <Badge
-                                    variant="outline"
-                                    className="bg-green-primary/10 border-green-primary/30 text-green-primary font-mono text-xs"
-                                  >
-                                    {item.id}
-                                  </Badge>
-                                </td>
-                                <td className="px-6 py-4">
-                                  <div className="max-w-xs">
-                                    <p className="text-foreground font-medium">
-                                      {item.programName}
-                                    </p>
-                                  </div>
-                                </td>
-                                <td className="px-6 py-4 text-center">
-                                  <span className="text-foreground font-mono text-sm">
-                                    {formatCurrency(item.values[firstCost])}
-                                  </span>
-                                </td>
-                                <td className="px-6 py-4 text-center">
-                                  <span className="text-foreground font-mono text-sm">
-                                    {formatCurrency(item.values[secondCost])}
-                                  </span>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          )
-        })}
-      </div>
-
-      <div className="mt-6 rounded-lg border border-orange-200 bg-orange-100 p-4 dark:border-amber-900 dark:bg-amber-950">
-        <div className="flex items-start gap-3">
-          <GraduationCap className="text-green-primary mt-0.5 h-5 w-5" />
-          <div className="text-sm">
-            <p className="text-foreground mb-1 font-medium">Примітка:</p>
-            <p className="text-primary/90">
-              Вартість навчання вказана в гривнях. Деякі програми можуть мати різну вартість залежно
-              від форми навчання та інших факторів. Для отримання детальної інформації звертайтеся
-              до приймальної комісії.
-            </p>
-          </div>
+        <div className="relative z-10 max-w-3xl">
+          <Typography
+            as="h1"
+            variant="heading-xl"
+            className="font-black"
+          >
+            Вартість навчання
+          </Typography>
+          <Typography
+            as="p"
+            variant="body-md"
+            className="text-muted-foreground mt-5 max-w-2xl leading-7 md:text-lg"
+          >
+            Порівняйте вартість освітніх програм за денною та заочною формами й знайдіть реквізити
+            для оплати.
+          </Typography>
         </div>
-      </div>
+      </header>
+      <main>
+        <section className="border-b px-4 py-14 md:px-12 md:py-20">
+          <div className="flex items-end justify-between gap-10">
+            <div>
+              <Typography
+                as="p"
+                variant="overline"
+                className="text-accent-violet"
+              >
+                Тарифи · {settings.activeAcademicYear}
+              </Typography>
+              <Typography
+                as="h2"
+                variant="heading-md"
+                className="mt-3"
+              >
+                Порівняйте вартість
+              </Typography>
+              <Typography
+                as="p"
+                variant="body-md"
+                className="text-muted-foreground mt-3 max-w-2xl"
+              >
+                Річна та повна вартість контрактного навчання за програмами факультету.
+              </Typography>
+            </div>
+
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              className="group border-accent-violet/25 hover:border-accent-violet flex shrink-0 items-center gap-3 border-l pl-4 transition-colors"
+            >
+              <FileTextIcon
+                aria-hidden="true"
+                className="text-accent-violet size-5 stroke-[1.5px]"
+              />
+              <span>
+                <span className="group-hover:text-accent-violet flex items-center gap-1 text-sm font-semibold transition-colors">
+                  {settings.officialDocumentTitle}
+                  <ArrowUpRightIcon
+                    aria-hidden="true"
+                    className="size-3.5 stroke-[1.5px]"
+                  />
+                </span>
+                <span className="font-jetbrains text-muted-foreground mt-0.5 block text-xs">
+                  {documentDate
+                    ? documentDateFormatter.format(new Date(documentDate))
+                    : 'Дата не вказана'}{' '}
+                  · PDF
+                </span>
+              </span>
+            </a>
+          </div>
+
+          <Tabs
+            defaultValue="bachelor"
+            className="mt-9 gap-7"
+          >
+            <TabsList variant="line">
+              {LEVELS.map((level) => (
+                <TabsTrigger
+                  key={level.value}
+                  value={level.value}
+                  className="px-3"
+                >
+                  {level.label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+
+            {LEVELS.map((level) => (
+              <TabsContent
+                key={level.value}
+                value={level.value}
+              >
+                <TuitionTable rows={catalog[level.value]} />
+              </TabsContent>
+            ))}
+          </Tabs>
+        </section>
+        <PaymentDetails details={paymentDetails} />
+      </main>
     </div>
   )
 }

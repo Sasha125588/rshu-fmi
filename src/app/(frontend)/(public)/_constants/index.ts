@@ -27,7 +27,7 @@ export const studentLinks = [
   {
     title: 'Освітні програми',
     description: 'Спеціальності, документи ОП, силабуси й редакції програм.',
-    href: '#specializations',
+    href: '/specializations',
     icon: GraduationCapIcon,
   },
   {
