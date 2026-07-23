@@ -1,8 +1,11 @@
 import { CalendarDaysIcon, FileTextIcon, GraduationCapIcon, MailIcon } from 'lucide-react'
 
 export const quickTags = [
-  { label: 'ІПЗ', href: '/specializations/f2-inzheneriia-prohramnoho-zabezpechennia-bakalavr' },
-  { label: "Комп'ютерні науки", href: '/specializations/f3-kompiuterni-nauky-bakalavr' },
+  {
+    label: 'ІПЗ',
+    href: '/educational-programs/f2-inzheneriia-prohramnoho-zabezpechennia-bakalavr',
+  },
+  { label: "Комп'ютерні науки", href: '/educational-programs/f3-kompiuterni-nauky-bakalavr' },
   { label: 'Розклад', href: '#student' },
   { label: 'Документи', href: '/normatyvni-dokumenty' },
   { label: 'Контакти', href: '/contacts' },
@@ -27,7 +30,7 @@ export const studentLinks = [
   {
     title: 'Освітні програми',
     description: 'Спеціальності, документи ОП, силабуси й редакції програм.',
-    href: '/specializations',
+    href: '/educational-programs',
     icon: GraduationCapIcon,
   },
   {
@@ -71,17 +74,17 @@ export const programRoutes = [
   {
     id: 'it',
     label: 'Я хочу в ІТ',
-    programCodes: ['F2', 'F3'],
+    specialtyCodes: ['F2', 'F3'],
   },
   {
     id: 'education',
     label: 'Я хочу викладати',
-    programCodes: ['А5.39', 'А4.09'],
+    specialtyCodes: ['A5.39', 'A4.09'],
   },
   {
     id: 'math',
     label: 'Я хочу математику',
-    programCodes: ['А4.04'],
+    specialtyCodes: ['A4.04'],
   },
 ] as const
 

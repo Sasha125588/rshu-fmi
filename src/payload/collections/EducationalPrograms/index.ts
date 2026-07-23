@@ -20,19 +20,14 @@ const educationLevelSlugParts = {
   master: 'magistr',
 } satisfies Record<EducationLevel, string>
 
-type ProgramSlugData = Pick<
-  EducationalProgram,
-  'educationLevel' | 'specialtyCode' | 'title' | 'id' | 'slug'
->
+type ProgramSlugData = Pick<EducationalProgram, 'educationLevel' | 'title' | 'id' | 'slug'>
 
 const slugifyProgram: Slugify<ProgramSlugData> = ({ data }) => {
   if (data.slug) return slugifyProgramValue(data.slug)
 
   const educationLevel = educationLevelSlugParts[data.educationLevel]
 
-  return slugifyProgramValue(
-    [data.specialtyCode, data.title, educationLevel].filter(Boolean).join(' ')
-  )
+  return slugifyProgramValue([data.title, educationLevel].filter(Boolean).join(' '))
 }
 
 const titledDescriptionFields = [
@@ -65,31 +60,11 @@ export const EducationalPrograms: CollectionConfig = {
   },
   admin: {
     group: 'Контент',
-    defaultColumns: [
-      'adminTitle',
-      'specialtyCode',
-      'legacySpecialtyCode',
-      'educationLevel',
-      'department',
-      'updatedAt',
-    ],
-    listSearchableFields: [
-      'adminTitle',
-      'title',
-      'shortTitle',
-      'specialtyCode',
-      'legacySpecialtyCode',
-      'slug',
-    ],
+    defaultColumns: ['adminTitle', 'specialty', 'educationLevel', 'slug', 'updatedAt'],
+    listSearchableFields: ['adminTitle', 'title', 'slug'],
     useAsTitle: 'adminTitle',
   },
   defaultSort: 'adminTitle',
-  indexes: [
-    {
-      fields: ['specialtyCode', 'educationLevel'],
-      unique: true,
-    },
-  ],
   fields: [
     {
       type: 'tabs',
@@ -101,12 +76,6 @@ export const EducationalPrograms: CollectionConfig = {
               name: 'title',
               type: 'text',
               label: 'Назва програми',
-              required: true,
-            },
-            {
-              name: 'shortTitle',
-              type: 'text',
-              label: 'Коротка назва',
               required: true,
             },
             {
@@ -129,29 +98,15 @@ export const EducationalPrograms: CollectionConfig = {
               required: true,
             }),
             {
-              name: 'specialtyCode',
-              type: 'text',
-              label: 'Код спеціальності',
+              name: 'specialty',
+              type: 'relationship',
+              label: 'Спеціальність',
               admin: {
-                description: 'Новий код, наприклад F2.',
+                description: 'Спеціальність, у межах якої реалізується ця освітня програма.',
               },
               index: true,
-              required: true,
-            },
-            {
-              name: 'legacySpecialtyCode',
-              type: 'text',
-              label: 'Старий код спеціальності',
-              admin: {
-                description: 'Старий код, наприклад 121.',
-              },
-              index: true,
-              required: true,
-            },
-            {
-              name: 'specialtyName',
-              type: 'text',
-              label: 'Назва спеціальності',
+              maxDepth: 1,
+              relationTo: 'specialties',
               required: true,
             },
             {
@@ -162,13 +117,6 @@ export const EducationalPrograms: CollectionConfig = {
                 { label: 'Бакалавр', value: 'bachelor' },
                 { label: 'Магістр', value: 'master' },
               ],
-              required: true,
-            },
-            {
-              name: 'department',
-              type: 'relationship',
-              label: 'Відповідальна кафедра',
-              relationTo: 'departments',
               required: true,
             },
             {
@@ -211,12 +159,6 @@ export const EducationalPrograms: CollectionConfig = {
               ],
             },
             {
-              name: 'isFeatured',
-              type: 'checkbox',
-              label: 'Показувати на головній',
-              defaultValue: false,
-            },
-            {
               name: 'sortOrder',
               type: 'number',
               label: 'Порядок сортування',
@@ -228,33 +170,10 @@ export const EducationalPrograms: CollectionConfig = {
           label: 'Контент сторінки',
           fields: [
             {
-              name: 'description',
-              type: 'textarea',
-              label: 'Короткий опис',
-              required: true,
-            },
-            {
               name: 'heroText',
               type: 'textarea',
               label: 'Головний текст',
               required: true,
-            },
-            {
-              name: 'tags',
-              type: 'array',
-              label: 'Теги',
-              labels: {
-                singular: 'Тег',
-                plural: 'Теги',
-              },
-              fields: [
-                {
-                  name: 'label',
-                  type: 'text',
-                  label: 'Тег',
-                  required: true,
-                },
-              ],
             },
             {
               name: 'careers',
@@ -298,6 +217,43 @@ export const EducationalPrograms: CollectionConfig = {
                   required: true,
                 },
               ],
+            },
+          ],
+        },
+        {
+          label: 'Повʼязані дані',
+          fields: [
+            {
+              name: 'admissionCampaigns',
+              type: 'join',
+              label: 'Вступні кампанії',
+              collection: 'admission-campaigns',
+              defaultLimit: 0,
+              defaultSort: '-campaignYear',
+              on: 'educationalProgram',
+              admin: {
+                allowCreate: true,
+                defaultColumns: ['adminTitle', 'campaignYear', 'studyForm', '_status', 'updatedAt'],
+              },
+            },
+            {
+              name: 'tuitionRates',
+              type: 'join',
+              label: 'Вартість навчання',
+              collection: 'tuition-rates',
+              defaultLimit: 0,
+              defaultSort: '-academicYear',
+              on: 'educationalProgram',
+              admin: {
+                allowCreate: true,
+                defaultColumns: [
+                  'adminTitle',
+                  'academicYear',
+                  'studyForm',
+                  'availability',
+                  '_status',
+                ],
+              },
             },
           ],
         },

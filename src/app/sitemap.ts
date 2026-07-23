@@ -61,7 +61,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/specializations`,
+      url: `${SITE_URL}/educational-programs`,
       changeFrequency: 'monthly',
       priority: 1,
     },
@@ -76,7 +76,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       priority: 0.8,
     })),
     ...result.docs.map(({ slug, updatedAt }) => ({
-      url: `${SITE_URL}/specializations/${slug}`,
+      url: `${SITE_URL}/educational-programs/${slug}`,
       lastModified: updatedAt,
       changeFrequency: 'monthly' as const,
       priority: 0.9,

@@ -12,10 +12,11 @@ import {
   Documents,
   EducationalPrograms,
   Media,
+  Specialties,
   TuitionRates,
   Users,
 } from '@/payload/collections'
-import { SpecializationsPageSettings, TuitionPageSettings } from '@/payload/globals'
+import { EducationalProgramsPageSettings, TuitionPageSettings } from '@/payload/globals'
 
 export default buildConfig({
   //   editor: lexicalEditor(),
@@ -24,6 +25,7 @@ export default buildConfig({
     Users,
     Departments,
     AcademicCouncilMembers,
+    Specialties,
     EducationalPrograms,
     AdmissionCampaigns,
     TuitionRates,
@@ -32,7 +34,7 @@ export default buildConfig({
     Media,
   ],
 
-  globals: [SpecializationsPageSettings, TuitionPageSettings],
+  globals: [EducationalProgramsPageSettings, TuitionPageSettings],
 
   admin: {
     user: Users.slug,
@@ -45,6 +47,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL,
     },
     migrationDir: './drizzle/migrations',
+    push: false,
   }),
   sharp,
   plugins: [

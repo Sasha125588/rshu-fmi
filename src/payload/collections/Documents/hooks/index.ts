@@ -30,10 +30,19 @@ export const setDocumentTitle: CollectionBeforeValidateHook<Document> = async ({
   if (educationalProgramIDs.length) {
     const result = await req.payload.find({
       collection: 'educational-programs',
-      depth: 0,
+      depth: 1,
       overrideAccess: true,
       pagination: false,
+      populate: {
+        specialties: {
+          abbreviation: true,
+        },
+      },
       req,
+      select: {
+        educationLevel: true,
+        specialty: true,
+      },
       where: {
         id: {
           in: educationalProgramIDs,
@@ -44,12 +53,14 @@ export const setDocumentTitle: CollectionBeforeValidateHook<Document> = async ({
 
     educationalPrograms = educationalProgramIDs.flatMap((id) => {
       const program = programsByID.get(+id)
+      const specialty =
+        program && typeof program.specialty === 'object' ? program.specialty : undefined
 
-      return program
+      return program && specialty
         ? [
             {
-              shortTitle: program.shortTitle,
               educationLevel: program.educationLevel,
+              specialtyAbbreviation: specialty.abbreviation,
             },
           ]
         : []
@@ -140,12 +151,12 @@ const DOCUMENT_CATALOG_PATH = '/normatyvni-dokumenty'
 export const revalidateDocumentCatalog: CollectionAfterChangeHook<Document> = ({
   doc,
   previousDoc,
-  req: { context, payload },
+  req,
 }) => {
-  if (context.disableRevalidate) return doc
+  if (req.context.disableRevalidate) return doc
 
   if (doc._status === 'published' || previousDoc?._status === 'published') {
-    payload.logger.info(`Revalidating document catalog at ${DOCUMENT_CATALOG_PATH}`)
+    req.payload.logger.info(`Revalidating document catalog at ${DOCUMENT_CATALOG_PATH}`)
     revalidatePath(DOCUMENT_CATALOG_PATH)
   }
 
@@ -154,11 +165,11 @@ export const revalidateDocumentCatalog: CollectionAfterChangeHook<Document> = ({
 
 export const revalidateDocumentCatalogAfterDelete: CollectionAfterDeleteHook<Document> = ({
   doc,
-  req: { context, payload },
+  req,
 }) => {
-  if (context.disableRevalidate || doc?._status !== 'published') return doc
+  if (req.context.disableRevalidate || doc?._status !== 'published') return doc
 
-  payload.logger.info(`Revalidating document catalog at ${DOCUMENT_CATALOG_PATH}`)
+  req.payload.logger.info(`Revalidating document catalog at ${DOCUMENT_CATALOG_PATH}`)
   revalidatePath(DOCUMENT_CATALOG_PATH)
 
   return doc

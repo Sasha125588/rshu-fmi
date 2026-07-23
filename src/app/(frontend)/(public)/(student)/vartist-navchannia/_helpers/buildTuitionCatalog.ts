@@ -51,8 +51,16 @@ export const buildTuitionCatalog = ({
     bachelor: [],
     master: [],
   }
+  const programSortKeys = new Map<
+    number,
+    { programOrder: number; specialtyOrder: number; title: string }
+  >()
 
   educationalPrograms.forEach((program) => {
+    const specialty = typeof program.specialty === 'object' ? program.specialty : null
+
+    if (!specialty) return
+
     const cells = STUDY_FORMS.reduce(
       (acc, studyForm) => {
         const key = getRecordKey(program.id, studyForm)
@@ -65,11 +73,29 @@ export const buildTuitionCatalog = ({
 
     catalog[program.educationLevel].push({
       cells,
-      code: program.specialtyCode,
+      code: specialty.code,
       id: program.id,
       title: program.title,
     })
+    programSortKeys.set(program.id, {
+      programOrder: program.sortOrder ?? 0,
+      specialtyOrder: specialty.sortOrder ?? 0,
+      title: program.title,
+    })
   })
+
+  for (const level of ['bachelor', 'master'] as const) {
+    catalog[level].sort((first, second) => {
+      const firstKey = programSortKeys.get(first.id)!
+      const secondKey = programSortKeys.get(second.id)!
+
+      return (
+        firstKey.specialtyOrder - secondKey.specialtyOrder ||
+        firstKey.programOrder - secondKey.programOrder ||
+        firstKey.title.localeCompare(secondKey.title, 'uk')
+      )
+    })
+  }
 
   return catalog
 }

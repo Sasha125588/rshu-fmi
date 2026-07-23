@@ -9,6 +9,11 @@ import type { DocumentType } from '../constants'
 import type { DocumentTitleProgram } from '../helpers'
 import type { TextFieldClientComponent } from 'payload'
 
+interface EducationalProgramResponse {
+  educationLevel: DocumentTitleProgram['educationLevel']
+  specialty: number | { abbreviation: string }
+}
+
 export const DocumentTitleField: TextFieldClientComponent = (props) => {
   const { config } = useConfig()
 
@@ -26,7 +31,7 @@ export const DocumentTitleField: TextFieldClientComponent = (props) => {
   const [educationalPrograms, setEducationalPrograms] = useState<DocumentTitleProgram[]>([])
 
   useEffect(() => {
-    if (!educationalProgramIDs) {
+    if (!educationalProgramIDs.length) {
       setEducationalPrograms([])
       return
     }
@@ -35,8 +40,12 @@ export const DocumentTitleField: TextFieldClientComponent = (props) => {
       try {
         const programs = await Promise.all(
           educationalProgramIDs.map(async (id) => {
+            const query = new URLSearchParams({ depth: '1' })
+            query.set('populate[specialties][abbreviation]', 'true')
+            query.set('select[educationLevel]', 'true')
+            query.set('select[specialty]', 'true')
             const response = await fetch(
-              `${config.routes.api}/educational-programs/${encodeURIComponent(id)}?depth=0`,
+              `${config.routes.api}/educational-programs/${encodeURIComponent(id)}?${query}`,
               {
                 credentials: 'same-origin',
               }
@@ -46,11 +55,15 @@ export const DocumentTitleField: TextFieldClientComponent = (props) => {
               throw new Error(`Failed to load educational program ${id}`)
             }
 
-            const program = (await response.json()) as DocumentTitleProgram
+            const program = (await response.json()) as EducationalProgramResponse
+
+            if (typeof program.specialty !== 'object') {
+              throw new TypeError(`Educational program ${id} has no populated specialty`)
+            }
 
             return {
-              shortTitle: program.shortTitle,
               educationLevel: program.educationLevel,
+              specialtyAbbreviation: program.specialty.abbreviation,
             }
           })
         )

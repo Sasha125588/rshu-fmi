@@ -3,9 +3,9 @@ import { revalidatePath } from 'next/cache'
 import type { GlobalAfterChangeHook } from 'payload'
 
 const TUITION_PAGE_PATH = '/vartist-navchannia'
-const SPECIALIZATIONS_PAGE_PATH = '/specializations'
+const EDUCATIONAL_PROGRAMS_PAGE_PATH = '/educational-programs'
 
-const TUITION_SETTINGS_CONSUMER_PATHS = [TUITION_PAGE_PATH, SPECIALIZATIONS_PAGE_PATH]
+const TUITION_SETTINGS_CONSUMER_PATHS = [TUITION_PAGE_PATH, EDUCATIONAL_PROGRAMS_PAGE_PATH]
 
 export const revalidateTuitionPageSettings: GlobalAfterChangeHook = ({
   doc,

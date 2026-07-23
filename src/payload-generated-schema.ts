@@ -12,24 +12,185 @@ import {
   index,
   uniqueIndex,
   foreignKey,
+  integer,
   serial,
   varchar,
-  jsonb,
-  integer,
   timestamp,
   numeric,
+  boolean,
+  jsonb,
+  pgEnum,
 } from '@payloadcms/db-postgres/drizzle/pg-core'
 
 import type {} from '@payloadcms/db-postgres'
+export const enum_users_roles = pgEnum('enum_users_roles', ['admin', 'editor'])
+export const enum_academic_council_members_council_role = pgEnum(
+  'enum_academic_council_members_council_role',
+  ['chair', 'deputy-chair', 'secretary', 'member']
+)
+export const enum_academic_council_members_status = pgEnum('enum_academic_council_members_status', [
+  'draft',
+  'published',
+])
+export const enum__academic_council_members_v_version_council_role = pgEnum(
+  'enum__academic_council_members_v_version_council_role',
+  ['chair', 'deputy-chair', 'secretary', 'member']
+)
+export const enum__academic_council_members_v_version_status = pgEnum(
+  'enum__academic_council_members_v_version_status',
+  ['draft', 'published']
+)
+export const enum_specialties_status = pgEnum('enum_specialties_status', ['draft', 'published'])
+export const enum__specialties_v_version_status = pgEnum('enum__specialties_v_version_status', [
+  'draft',
+  'published',
+])
+export const enum_educational_programs_study_forms_form = pgEnum(
+  'enum_educational_programs_study_forms_form',
+  ['full-time', 'part-time']
+)
+export const enum_educational_programs_education_level = pgEnum(
+  'enum_educational_programs_education_level',
+  ['bachelor', 'master']
+)
+export const enum_educational_programs_status = pgEnum('enum_educational_programs_status', [
+  'draft',
+  'published',
+])
+export const enum__educational_programs_v_version_study_forms_form = pgEnum(
+  'enum__educational_programs_v_version_study_forms_form',
+  ['full-time', 'part-time']
+)
+export const enum__educational_programs_v_version_education_level = pgEnum(
+  'enum__educational_programs_v_version_education_level',
+  ['bachelor', 'master']
+)
+export const enum__educational_programs_v_version_status = pgEnum(
+  'enum__educational_programs_v_version_status',
+  ['draft', 'published']
+)
+export const enum_admission_campaigns_study_form = pgEnum('enum_admission_campaigns_study_form', [
+  'full-time',
+  'part-time',
+])
+export const enum_admission_campaigns_status = pgEnum('enum_admission_campaigns_status', [
+  'draft',
+  'published',
+])
+export const enum__admission_campaigns_v_version_study_form = pgEnum(
+  'enum__admission_campaigns_v_version_study_form',
+  ['full-time', 'part-time']
+)
+export const enum__admission_campaigns_v_version_status = pgEnum(
+  'enum__admission_campaigns_v_version_status',
+  ['draft', 'published']
+)
+export const enum_tuition_rates_study_form = pgEnum('enum_tuition_rates_study_form', [
+  'full-time',
+  'part-time',
+])
+export const enum_tuition_rates_availability = pgEnum('enum_tuition_rates_availability', [
+  'available',
+  'unavailable',
+  'to-be-announced',
+])
+export const enum_tuition_rates_currency = pgEnum('enum_tuition_rates_currency', ['UAH'])
+export const enum_tuition_rates_status = pgEnum('enum_tuition_rates_status', ['draft', 'published'])
+export const enum__tuition_rates_v_version_study_form = pgEnum(
+  'enum__tuition_rates_v_version_study_form',
+  ['full-time', 'part-time']
+)
+export const enum__tuition_rates_v_version_availability = pgEnum(
+  'enum__tuition_rates_v_version_availability',
+  ['available', 'unavailable', 'to-be-announced']
+)
+export const enum__tuition_rates_v_version_currency = pgEnum(
+  'enum__tuition_rates_v_version_currency',
+  ['UAH']
+)
+export const enum__tuition_rates_v_version_status = pgEnum('enum__tuition_rates_v_version_status', [
+  'draft',
+  'published',
+])
+export const enum_documents_document_type = pgEnum('enum_documents_document_type', [
+  'regulation',
+  'order',
+  'educational-program',
+  'previous-educational-program',
+  'syllabus',
+  'work-program',
+  'curriculum',
+  'accreditation',
+  'review',
+  'other',
+])
+export const enum_documents_source = pgEnum('enum_documents_source', ['faculty', 'university'])
+export const enum_documents_status = pgEnum('enum_documents_status', ['draft', 'published'])
+export const enum__documents_v_version_document_type = pgEnum(
+  'enum__documents_v_version_document_type',
+  [
+    'regulation',
+    'order',
+    'educational-program',
+    'previous-educational-program',
+    'syllabus',
+    'work-program',
+    'curriculum',
+    'accreditation',
+    'review',
+    'other',
+  ]
+)
+export const enum__documents_v_version_source = pgEnum('enum__documents_v_version_source', [
+  'faculty',
+  'university',
+])
+export const enum__documents_v_version_status = pgEnum('enum__documents_v_version_status', [
+  'draft',
+  'published',
+])
+export const enum_media_category = pgEnum('enum_media_category', [
+  'document',
+  'page-image',
+  'news',
+  'gallery',
+  'other',
+])
+export const enum_spec_resource_destination = pgEnum('enum_spec_resource_destination', [
+  'link',
+  'file',
+])
+export const enum_spec_settings_status = pgEnum('enum_spec_settings_status', ['draft', 'published'])
+export const enum__spec_settings_v_version_status = pgEnum('enum__spec_settings_v_version_status', [
+  'draft',
+  'published',
+])
+export const enum_tuition_page_settings_status = pgEnum('enum_tuition_page_settings_status', [
+  'draft',
+  'published',
+])
+export const enum__tuition_page_settings_v_version_status = pgEnum(
+  'enum__tuition_page_settings_v_version_status',
+  ['draft', 'published']
+)
 
-export const payload_kv = pgTable(
-  'payload_kv',
+export const users_roles = pgTable(
+  'users_roles',
   {
+    order: integer('order').notNull(),
+    parent: integer('parent_id').notNull(),
+    value: enum_users_roles('value'),
     id: serial('id').primaryKey(),
-    key: varchar('key').notNull(),
-    data: jsonb('data').notNull(),
   },
-  (columns) => [uniqueIndex('payload_kv_key_idx').on(columns.key)]
+  (columns) => [
+    index('users_roles_order_idx').on(columns.order),
+    index('users_roles_parent_idx').on(columns.parent),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [users.id],
+      name: 'users_roles_parent_fk',
+    }).onDelete('cascade'),
+  ]
 )
 
 export const users_sessions = pgTable(
@@ -64,6 +225,7 @@ export const users = pgTable(
   'users',
   {
     id: serial('id').primaryKey(),
+    name: varchar('name').notNull(),
     updatedAt: timestamp('updated_at', {
       mode: 'string',
       withTimezone: true,
@@ -101,6 +263,1224 @@ export const users = pgTable(
   ]
 )
 
+export const departments = pgTable(
+  'departments',
+  {
+    id: serial('id').primaryKey(),
+    name: varchar('name').notNull(),
+    shortName: varchar('short_name').notNull(),
+    generateSlug: boolean('generate_slug').default(true),
+    slug: varchar('slug').notNull(),
+    description: varchar('description').notNull(),
+    websiteUrl: varchar('website_url').notNull(),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+  },
+  (columns) => [
+    uniqueIndex('departments_name_idx').on(columns.name),
+    index('departments_short_name_idx').on(columns.shortName),
+    uniqueIndex('departments_slug_idx').on(columns.slug),
+    index('departments_updated_at_idx').on(columns.updatedAt),
+    index('departments_created_at_idx').on(columns.createdAt),
+  ]
+)
+
+export const _departments_v = pgTable(
+  '_departments_v',
+  {
+    id: serial('id').primaryKey(),
+    parent: integer('parent_id').references(() => departments.id, {
+      onDelete: 'set null',
+    }),
+    version_name: varchar('version_name').notNull(),
+    version_shortName: varchar('version_short_name').notNull(),
+    version_generateSlug: boolean('version_generate_slug').default(true),
+    version_slug: varchar('version_slug').notNull(),
+    version_description: varchar('version_description').notNull(),
+    version_websiteUrl: varchar('version_website_url').notNull(),
+    version_updatedAt: timestamp('version_updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp('version_created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+  },
+  (columns) => [
+    index('_departments_v_parent_idx').on(columns.parent),
+    index('_departments_v_version_version_name_idx').on(columns.version_name),
+    index('_departments_v_version_version_short_name_idx').on(columns.version_shortName),
+    index('_departments_v_version_version_slug_idx').on(columns.version_slug),
+    index('_departments_v_version_version_updated_at_idx').on(columns.version_updatedAt),
+    index('_departments_v_version_version_created_at_idx').on(columns.version_createdAt),
+    index('_departments_v_created_at_idx').on(columns.createdAt),
+    index('_departments_v_updated_at_idx').on(columns.updatedAt),
+  ]
+)
+
+export const academic_council_members = pgTable(
+  'academic_council_members',
+  {
+    id: serial('id').primaryKey(),
+    name: varchar('name'),
+    councilRole: enum_academic_council_members_council_role('council_role'),
+    sortOrder: numeric('sort_order', { mode: 'number' }).default(0),
+    position: varchar('position'),
+    description: varchar('description'),
+    photo: integer('photo_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    photoUrl: varchar('photo_url'),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    _status: enum_academic_council_members_status('_status').default('draft'),
+  },
+  (columns) => [
+    index('academic_council_members_name_idx').on(columns.name),
+    index('academic_council_members_council_role_idx').on(columns.councilRole),
+    index('academic_council_members_sort_order_idx').on(columns.sortOrder),
+    index('academic_council_members_photo_idx').on(columns.photo),
+    index('academic_council_members_updated_at_idx').on(columns.updatedAt),
+    index('academic_council_members_created_at_idx').on(columns.createdAt),
+    index('academic_council_members__status_idx').on(columns._status),
+  ]
+)
+
+export const academic_council_members_rels = pgTable(
+  'academic_council_members_rels',
+  {
+    id: serial('id').primaryKey(),
+    order: integer('order'),
+    parent: integer('parent_id').notNull(),
+    path: varchar('path').notNull(),
+    departmentsID: integer('departments_id'),
+  },
+  (columns) => [
+    index('academic_council_members_rels_order_idx').on(columns.order),
+    index('academic_council_members_rels_parent_idx').on(columns.parent),
+    index('academic_council_members_rels_path_idx').on(columns.path),
+    index('academic_council_members_rels_departments_id_idx').on(columns.departmentsID),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [academic_council_members.id],
+      name: 'academic_council_members_rels_parent_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['departmentsID']],
+      foreignColumns: [departments.id],
+      name: 'academic_council_members_rels_departments_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const _academic_council_members_v = pgTable(
+  '_academic_council_members_v',
+  {
+    id: serial('id').primaryKey(),
+    parent: integer('parent_id').references(() => academic_council_members.id, {
+      onDelete: 'set null',
+    }),
+    version_name: varchar('version_name'),
+    version_councilRole:
+      enum__academic_council_members_v_version_council_role('version_council_role'),
+    version_sortOrder: numeric('version_sort_order', {
+      mode: 'number',
+    }).default(0),
+    version_position: varchar('version_position'),
+    version_description: varchar('version_description'),
+    version_photo: integer('version_photo_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    version_photoUrl: varchar('version_photo_url'),
+    version_updatedAt: timestamp('version_updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp('version_created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status:
+      enum__academic_council_members_v_version_status('version__status').default('draft'),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean('latest'),
+  },
+  (columns) => [
+    index('_academic_council_members_v_parent_idx').on(columns.parent),
+    index('_academic_council_members_v_version_version_name_idx').on(columns.version_name),
+    index('_academic_council_members_v_version_version_council_role_idx').on(
+      columns.version_councilRole
+    ),
+    index('_academic_council_members_v_version_version_sort_order_idx').on(
+      columns.version_sortOrder
+    ),
+    index('_academic_council_members_v_version_version_photo_idx').on(columns.version_photo),
+    index('_academic_council_members_v_version_version_updated_at_idx').on(
+      columns.version_updatedAt
+    ),
+    index('_academic_council_members_v_version_version_created_at_idx').on(
+      columns.version_createdAt
+    ),
+    index('_academic_council_members_v_version_version__status_idx').on(columns.version__status),
+    index('_academic_council_members_v_created_at_idx').on(columns.createdAt),
+    index('_academic_council_members_v_updated_at_idx').on(columns.updatedAt),
+    index('_academic_council_members_v_latest_idx').on(columns.latest),
+  ]
+)
+
+export const _academic_council_members_v_rels = pgTable(
+  '_academic_council_members_v_rels',
+  {
+    id: serial('id').primaryKey(),
+    order: integer('order'),
+    parent: integer('parent_id').notNull(),
+    path: varchar('path').notNull(),
+    departmentsID: integer('departments_id'),
+  },
+  (columns) => [
+    index('_academic_council_members_v_rels_order_idx').on(columns.order),
+    index('_academic_council_members_v_rels_parent_idx').on(columns.parent),
+    index('_academic_council_members_v_rels_path_idx').on(columns.path),
+    index('_academic_council_members_v_rels_departments_id_idx').on(columns.departmentsID),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [_academic_council_members_v.id],
+      name: '_academic_council_members_v_rels_parent_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['departmentsID']],
+      foreignColumns: [departments.id],
+      name: '_academic_council_members_v_rels_departments_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const specialties_tags = pgTable(
+  'specialties_tags',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    label: varchar('label'),
+  },
+  (columns) => [
+    index('specialties_tags_order_idx').on(columns._order),
+    index('specialties_tags_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [specialties.id],
+      name: 'specialties_tags_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const specialties = pgTable(
+  'specialties',
+  {
+    id: serial('id').primaryKey(),
+    title: varchar('title'),
+    code: varchar('code'),
+    abbreviation: varchar('abbreviation'),
+    legacyCode: varchar('legacy_code'),
+    responsibleDepartment: integer('responsible_department_id').references(() => departments.id, {
+      onDelete: 'set null',
+    }),
+    description: varchar('description'),
+    isFeatured: boolean('is_featured').default(false),
+    sortOrder: numeric('sort_order', { mode: 'number' }).default(0),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    _status: enum_specialties_status('_status').default('draft'),
+  },
+  (columns) => [
+    uniqueIndex('specialties_code_idx').on(columns.code),
+    index('specialties_legacy_code_idx').on(columns.legacyCode),
+    index('specialties_responsible_department_idx').on(columns.responsibleDepartment),
+    index('specialties_updated_at_idx').on(columns.updatedAt),
+    index('specialties_created_at_idx').on(columns.createdAt),
+    index('specialties__status_idx').on(columns._status),
+  ]
+)
+
+export const _specialties_v_version_tags = pgTable(
+  '_specialties_v_version_tags',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    label: varchar('label'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_specialties_v_version_tags_order_idx').on(columns._order),
+    index('_specialties_v_version_tags_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_specialties_v.id],
+      name: '_specialties_v_version_tags_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const _specialties_v = pgTable(
+  '_specialties_v',
+  {
+    id: serial('id').primaryKey(),
+    parent: integer('parent_id').references(() => specialties.id, {
+      onDelete: 'set null',
+    }),
+    version_title: varchar('version_title'),
+    version_code: varchar('version_code'),
+    version_abbreviation: varchar('version_abbreviation'),
+    version_legacyCode: varchar('version_legacy_code'),
+    version_responsibleDepartment: integer('version_responsible_department_id').references(
+      () => departments.id,
+      {
+        onDelete: 'set null',
+      }
+    ),
+    version_description: varchar('version_description'),
+    version_isFeatured: boolean('version_is_featured').default(false),
+    version_sortOrder: numeric('version_sort_order', {
+      mode: 'number',
+    }).default(0),
+    version_updatedAt: timestamp('version_updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp('version_created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status: enum__specialties_v_version_status('version__status').default('draft'),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean('latest'),
+  },
+  (columns) => [
+    index('_specialties_v_parent_idx').on(columns.parent),
+    index('_specialties_v_version_version_code_idx').on(columns.version_code),
+    index('_specialties_v_version_version_legacy_code_idx').on(columns.version_legacyCode),
+    index('_specialties_v_version_version_responsible_department_idx').on(
+      columns.version_responsibleDepartment
+    ),
+    index('_specialties_v_version_version_updated_at_idx').on(columns.version_updatedAt),
+    index('_specialties_v_version_version_created_at_idx').on(columns.version_createdAt),
+    index('_specialties_v_version_version__status_idx').on(columns.version__status),
+    index('_specialties_v_created_at_idx').on(columns.createdAt),
+    index('_specialties_v_updated_at_idx').on(columns.updatedAt),
+    index('_specialties_v_latest_idx').on(columns.latest),
+  ]
+)
+
+export const educational_programs_study_forms = pgTable(
+  'educational_programs_study_forms',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    form: enum_educational_programs_study_forms_form('form'),
+    durationLabel: varchar('duration_label').default('3 роки 10 місяців'),
+    note: varchar('note'),
+  },
+  (columns) => [
+    index('educational_programs_study_forms_order_idx').on(columns._order),
+    index('educational_programs_study_forms_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [educational_programs.id],
+      name: 'educational_programs_study_forms_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const educational_programs_careers = pgTable(
+  'educational_programs_careers',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    title: varchar('title'),
+    description: varchar('description'),
+  },
+  (columns) => [
+    index('educational_programs_careers_order_idx').on(columns._order),
+    index('educational_programs_careers_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [educational_programs.id],
+      name: 'educational_programs_careers_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const educational_programs_study_focus = pgTable(
+  'educational_programs_study_focus',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    title: varchar('title'),
+    description: varchar('description'),
+  },
+  (columns) => [
+    index('educational_programs_study_focus_order_idx').on(columns._order),
+    index('educational_programs_study_focus_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [educational_programs.id],
+      name: 'educational_programs_study_focus_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const educational_programs_faq = pgTable(
+  'educational_programs_faq',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    question: varchar('question'),
+    answer: varchar('answer'),
+  },
+  (columns) => [
+    index('educational_programs_faq_order_idx').on(columns._order),
+    index('educational_programs_faq_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [educational_programs.id],
+      name: 'educational_programs_faq_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const educational_programs = pgTable(
+  'educational_programs',
+  {
+    id: serial('id').primaryKey(),
+    title: varchar('title'),
+    adminTitle: varchar('admin_title'),
+    generateSlug: boolean('generate_slug').default(true),
+    slug: varchar('slug'),
+    specialty: integer('specialty_id').references(() => specialties.id, {
+      onDelete: 'set null',
+    }),
+    educationLevel: enum_educational_programs_education_level('education_level'),
+    sortOrder: numeric('sort_order', { mode: 'number' }).default(0),
+    heroText: varchar('hero_text'),
+    seoTitle: varchar('seo_title'),
+    seoDescription: varchar('seo_description'),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    _status: enum_educational_programs_status('_status').default('draft'),
+  },
+  (columns) => [
+    index('educational_programs_admin_title_idx').on(columns.adminTitle),
+    uniqueIndex('educational_programs_slug_idx').on(columns.slug),
+    index('educational_programs_specialty_idx').on(columns.specialty),
+    index('educational_programs_updated_at_idx').on(columns.updatedAt),
+    index('educational_programs_created_at_idx').on(columns.createdAt),
+    index('educational_programs__status_idx').on(columns._status),
+  ]
+)
+
+export const _educational_programs_v_version_study_forms = pgTable(
+  '_educational_programs_v_version_study_forms',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    form: enum__educational_programs_v_version_study_forms_form('form'),
+    durationLabel: varchar('duration_label').default('3 роки 10 місяців'),
+    note: varchar('note'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_educational_programs_v_version_study_forms_order_idx').on(columns._order),
+    index('_educational_programs_v_version_study_forms_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_educational_programs_v.id],
+      name: '_educational_programs_v_version_study_forms_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const _educational_programs_v_version_careers = pgTable(
+  '_educational_programs_v_version_careers',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    title: varchar('title'),
+    description: varchar('description'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_educational_programs_v_version_careers_order_idx').on(columns._order),
+    index('_educational_programs_v_version_careers_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_educational_programs_v.id],
+      name: '_educational_programs_v_version_careers_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const _educational_programs_v_version_study_focus = pgTable(
+  '_educational_programs_v_version_study_focus',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    title: varchar('title'),
+    description: varchar('description'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_educational_programs_v_version_study_focus_order_idx').on(columns._order),
+    index('_educational_programs_v_version_study_focus_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_educational_programs_v.id],
+      name: '_educational_programs_v_version_study_focus_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const _educational_programs_v_version_faq = pgTable(
+  '_educational_programs_v_version_faq',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    question: varchar('question'),
+    answer: varchar('answer'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_educational_programs_v_version_faq_order_idx').on(columns._order),
+    index('_educational_programs_v_version_faq_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_educational_programs_v.id],
+      name: '_educational_programs_v_version_faq_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const _educational_programs_v = pgTable(
+  '_educational_programs_v',
+  {
+    id: serial('id').primaryKey(),
+    parent: integer('parent_id').references(() => educational_programs.id, {
+      onDelete: 'set null',
+    }),
+    version_title: varchar('version_title'),
+    version_adminTitle: varchar('version_admin_title'),
+    version_generateSlug: boolean('version_generate_slug').default(true),
+    version_slug: varchar('version_slug'),
+    version_specialty: integer('version_specialty_id').references(() => specialties.id, {
+      onDelete: 'set null',
+    }),
+    version_educationLevel:
+      enum__educational_programs_v_version_education_level('version_education_level'),
+    version_sortOrder: numeric('version_sort_order', {
+      mode: 'number',
+    }).default(0),
+    version_heroText: varchar('version_hero_text'),
+    version_seoTitle: varchar('version_seo_title'),
+    version_seoDescription: varchar('version_seo_description'),
+    version_updatedAt: timestamp('version_updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp('version_created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status:
+      enum__educational_programs_v_version_status('version__status').default('draft'),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean('latest'),
+  },
+  (columns) => [
+    index('_educational_programs_v_parent_idx').on(columns.parent),
+    index('_educational_programs_v_version_version_admin_title_idx').on(columns.version_adminTitle),
+    index('_educational_programs_v_version_version_slug_idx').on(columns.version_slug),
+    index('_educational_programs_v_version_version_specialty_idx').on(columns.version_specialty),
+    index('_educational_programs_v_version_version_updated_at_idx').on(columns.version_updatedAt),
+    index('_educational_programs_v_version_version_created_at_idx').on(columns.version_createdAt),
+    index('_educational_programs_v_version_version__status_idx').on(columns.version__status),
+    index('_educational_programs_v_created_at_idx').on(columns.createdAt),
+    index('_educational_programs_v_updated_at_idx').on(columns.updatedAt),
+    index('_educational_programs_v_latest_idx').on(columns.latest),
+  ]
+)
+
+export const admission_campaigns = pgTable(
+  'admission_campaigns',
+  {
+    id: serial('id').primaryKey(),
+    adminTitle: varchar('admin_title'),
+    educationalProgram: integer('educational_program_id').references(
+      () => educational_programs.id,
+      {
+        onDelete: 'set null',
+      }
+    ),
+    campaignYear: numeric('campaign_year', { mode: 'number' }),
+    studyForm: enum_admission_campaigns_study_form('study_form'),
+    licensedCapacity: numeric('licensed_capacity', { mode: 'number' }),
+    maxStateOrder: numeric('max_state_order', { mode: 'number' }),
+    statisticsYear: numeric('statistics_year', { mode: 'number' }),
+    averageBudgetScore: numeric('average_budget_score', { mode: 'number' }),
+    averageContractScore: numeric('average_contract_score', { mode: 'number' }),
+    statisticsUrl: varchar('statistics_url'),
+    dataUpdatedAt: timestamp('data_updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    sortOrder: numeric('sort_order', { mode: 'number' }).default(0),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    _status: enum_admission_campaigns_status('_status').default('draft'),
+  },
+  (columns) => [
+    index('admission_campaigns_admin_title_idx').on(columns.adminTitle),
+    index('admission_campaigns_educational_program_idx').on(columns.educationalProgram),
+    index('admission_campaigns_campaign_year_idx').on(columns.campaignYear),
+    index('admission_campaigns_study_form_idx').on(columns.studyForm),
+    index('admission_campaigns_updated_at_idx').on(columns.updatedAt),
+    index('admission_campaigns_created_at_idx').on(columns.createdAt),
+    index('admission_campaigns__status_idx').on(columns._status),
+    uniqueIndex('campaignYear_educationalProgram_studyForm_idx').on(
+      columns.campaignYear,
+      columns.educationalProgram,
+      columns.studyForm
+    ),
+  ]
+)
+
+export const _admission_campaigns_v = pgTable(
+  '_admission_campaigns_v',
+  {
+    id: serial('id').primaryKey(),
+    parent: integer('parent_id').references(() => admission_campaigns.id, {
+      onDelete: 'set null',
+    }),
+    version_adminTitle: varchar('version_admin_title'),
+    version_educationalProgram: integer('version_educational_program_id').references(
+      () => educational_programs.id,
+      {
+        onDelete: 'set null',
+      }
+    ),
+    version_campaignYear: numeric('version_campaign_year', { mode: 'number' }),
+    version_studyForm: enum__admission_campaigns_v_version_study_form('version_study_form'),
+    version_licensedCapacity: numeric('version_licensed_capacity', {
+      mode: 'number',
+    }),
+    version_maxStateOrder: numeric('version_max_state_order', {
+      mode: 'number',
+    }),
+    version_statisticsYear: numeric('version_statistics_year', {
+      mode: 'number',
+    }),
+    version_averageBudgetScore: numeric('version_average_budget_score', {
+      mode: 'number',
+    }),
+    version_averageContractScore: numeric('version_average_contract_score', {
+      mode: 'number',
+    }),
+    version_statisticsUrl: varchar('version_statistics_url'),
+    version_dataUpdatedAt: timestamp('version_data_updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_sortOrder: numeric('version_sort_order', {
+      mode: 'number',
+    }).default(0),
+    version_updatedAt: timestamp('version_updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp('version_created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status: enum__admission_campaigns_v_version_status('version__status').default('draft'),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean('latest'),
+  },
+  (columns) => [
+    index('_admission_campaigns_v_parent_idx').on(columns.parent),
+    index('_admission_campaigns_v_version_version_admin_title_idx').on(columns.version_adminTitle),
+    index('_admission_campaigns_v_version_version_educational_progr_idx').on(
+      columns.version_educationalProgram
+    ),
+    index('_admission_campaigns_v_version_version_campaign_year_idx').on(
+      columns.version_campaignYear
+    ),
+    index('_admission_campaigns_v_version_version_study_form_idx').on(columns.version_studyForm),
+    index('_admission_campaigns_v_version_version_updated_at_idx').on(columns.version_updatedAt),
+    index('_admission_campaigns_v_version_version_created_at_idx').on(columns.version_createdAt),
+    index('_admission_campaigns_v_version_version__status_idx').on(columns.version__status),
+    index('_admission_campaigns_v_created_at_idx').on(columns.createdAt),
+    index('_admission_campaigns_v_updated_at_idx').on(columns.updatedAt),
+    index('_admission_campaigns_v_latest_idx').on(columns.latest),
+    index('compound_index_idx').on(
+      columns.version_campaignYear,
+      columns.version_educationalProgram,
+      columns.version_studyForm
+    ),
+  ]
+)
+
+export const tuition_rates = pgTable(
+  'tuition_rates',
+  {
+    id: serial('id').primaryKey(),
+    adminTitle: varchar('admin_title'),
+    educationalProgram: integer('educational_program_id').references(
+      () => educational_programs.id,
+      {
+        onDelete: 'set null',
+      }
+    ),
+    academicYear: varchar('academic_year').default('2026/2027'),
+    studyForm: enum_tuition_rates_study_form('study_form'),
+    availability: enum_tuition_rates_availability('availability').default('available'),
+    amountPerYear: numeric('amount_per_year', { mode: 'number' }),
+    totalAmount: numeric('total_amount', { mode: 'number' }),
+    currency: enum_tuition_rates_currency('currency').default('UAH'),
+    note: varchar('note'),
+    sortOrder: numeric('sort_order', { mode: 'number' }).default(0),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    _status: enum_tuition_rates_status('_status').default('draft'),
+  },
+  (columns) => [
+    index('tuition_rates_admin_title_idx').on(columns.adminTitle),
+    index('tuition_rates_educational_program_idx').on(columns.educationalProgram),
+    index('tuition_rates_academic_year_idx').on(columns.academicYear),
+    index('tuition_rates_study_form_idx').on(columns.studyForm),
+    index('tuition_rates_updated_at_idx').on(columns.updatedAt),
+    index('tuition_rates_created_at_idx').on(columns.createdAt),
+    index('tuition_rates__status_idx').on(columns._status),
+    uniqueIndex('academicYear_educationalProgram_studyForm_idx').on(
+      columns.academicYear,
+      columns.educationalProgram,
+      columns.studyForm
+    ),
+  ]
+)
+
+export const _tuition_rates_v = pgTable(
+  '_tuition_rates_v',
+  {
+    id: serial('id').primaryKey(),
+    parent: integer('parent_id').references(() => tuition_rates.id, {
+      onDelete: 'set null',
+    }),
+    version_adminTitle: varchar('version_admin_title'),
+    version_educationalProgram: integer('version_educational_program_id').references(
+      () => educational_programs.id,
+      {
+        onDelete: 'set null',
+      }
+    ),
+    version_academicYear: varchar('version_academic_year').default('2026/2027'),
+    version_studyForm: enum__tuition_rates_v_version_study_form('version_study_form'),
+    version_availability:
+      enum__tuition_rates_v_version_availability('version_availability').default('available'),
+    version_amountPerYear: numeric('version_amount_per_year', {
+      mode: 'number',
+    }),
+    version_totalAmount: numeric('version_total_amount', { mode: 'number' }),
+    version_currency: enum__tuition_rates_v_version_currency('version_currency').default('UAH'),
+    version_note: varchar('version_note'),
+    version_sortOrder: numeric('version_sort_order', {
+      mode: 'number',
+    }).default(0),
+    version_updatedAt: timestamp('version_updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp('version_created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status: enum__tuition_rates_v_version_status('version__status').default('draft'),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean('latest'),
+  },
+  (columns) => [
+    index('_tuition_rates_v_parent_idx').on(columns.parent),
+    index('_tuition_rates_v_version_version_admin_title_idx').on(columns.version_adminTitle),
+    index('_tuition_rates_v_version_version_educational_program_idx').on(
+      columns.version_educationalProgram
+    ),
+    index('_tuition_rates_v_version_version_academic_year_idx').on(columns.version_academicYear),
+    index('_tuition_rates_v_version_version_study_form_idx').on(columns.version_studyForm),
+    index('_tuition_rates_v_version_version_updated_at_idx').on(columns.version_updatedAt),
+    index('_tuition_rates_v_version_version_created_at_idx').on(columns.version_createdAt),
+    index('_tuition_rates_v_version_version__status_idx').on(columns.version__status),
+    index('_tuition_rates_v_created_at_idx').on(columns.createdAt),
+    index('_tuition_rates_v_updated_at_idx').on(columns.updatedAt),
+    index('_tuition_rates_v_latest_idx').on(columns.latest),
+    index('compound_index_1_idx').on(
+      columns.version_academicYear,
+      columns.version_educationalProgram,
+      columns.version_studyForm
+    ),
+  ]
+)
+
+export const document_categories = pgTable(
+  'document_categories',
+  {
+    id: serial('id').primaryKey(),
+    title: varchar('title').notNull(),
+    generateSlug: boolean('generate_slug').default(true),
+    slug: varchar('slug').notNull(),
+    sortOrder: numeric('sort_order', { mode: 'number' }).default(0),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+  },
+  (columns) => [
+    uniqueIndex('document_categories_slug_idx').on(columns.slug),
+    index('document_categories_updated_at_idx').on(columns.updatedAt),
+    index('document_categories_created_at_idx').on(columns.createdAt),
+  ]
+)
+
+export const documents = pgTable(
+  'documents',
+  {
+    id: serial('id').primaryKey(),
+    title: varchar('title'),
+    generatedTitleSnapshot: varchar('generated_title_snapshot'),
+    documentType: enum_documents_document_type('document_type'),
+    documentDate: timestamp('document_date', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    periodLabel: varchar('period_label'),
+    file: integer('file_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    externalUrl: varchar('external_url'),
+    description: varchar('description'),
+    showInRegulatoryCatalog: boolean('show_in_regulatory_catalog').default(false),
+    category: integer('category_id').references(() => document_categories.id, {
+      onDelete: 'set null',
+    }),
+    source: enum_documents_source('source'),
+    sortOrder: numeric('sort_order', { mode: 'number' }).default(0),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    _status: enum_documents_status('_status').default('draft'),
+  },
+  (columns) => [
+    index('documents_file_idx').on(columns.file),
+    index('documents_category_idx').on(columns.category),
+    index('documents_updated_at_idx').on(columns.updatedAt),
+    index('documents_created_at_idx').on(columns.createdAt),
+    index('documents__status_idx').on(columns._status),
+  ]
+)
+
+export const documents_rels = pgTable(
+  'documents_rels',
+  {
+    id: serial('id').primaryKey(),
+    order: integer('order'),
+    parent: integer('parent_id').notNull(),
+    path: varchar('path').notNull(),
+    'educational-programsID': integer('educational_programs_id'),
+  },
+  (columns) => [
+    index('documents_rels_order_idx').on(columns.order),
+    index('documents_rels_parent_idx').on(columns.parent),
+    index('documents_rels_path_idx').on(columns.path),
+    index('documents_rels_educational_programs_id_idx').on(columns['educational-programsID']),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [documents.id],
+      name: 'documents_rels_parent_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['educational-programsID']],
+      foreignColumns: [educational_programs.id],
+      name: 'documents_rels_educational_programs_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const _documents_v = pgTable(
+  '_documents_v',
+  {
+    id: serial('id').primaryKey(),
+    parent: integer('parent_id').references(() => documents.id, {
+      onDelete: 'set null',
+    }),
+    version_title: varchar('version_title'),
+    version_generatedTitleSnapshot: varchar('version_generated_title_snapshot'),
+    version_documentType: enum__documents_v_version_document_type('version_document_type'),
+    version_documentDate: timestamp('version_document_date', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_periodLabel: varchar('version_period_label'),
+    version_file: integer('version_file_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    version_externalUrl: varchar('version_external_url'),
+    version_description: varchar('version_description'),
+    version_showInRegulatoryCatalog: boolean('version_show_in_regulatory_catalog').default(false),
+    version_category: integer('version_category_id').references(() => document_categories.id, {
+      onDelete: 'set null',
+    }),
+    version_source: enum__documents_v_version_source('version_source'),
+    version_sortOrder: numeric('version_sort_order', {
+      mode: 'number',
+    }).default(0),
+    version_updatedAt: timestamp('version_updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp('version_created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status: enum__documents_v_version_status('version__status').default('draft'),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean('latest'),
+  },
+  (columns) => [
+    index('_documents_v_parent_idx').on(columns.parent),
+    index('_documents_v_version_version_file_idx').on(columns.version_file),
+    index('_documents_v_version_version_category_idx').on(columns.version_category),
+    index('_documents_v_version_version_updated_at_idx').on(columns.version_updatedAt),
+    index('_documents_v_version_version_created_at_idx').on(columns.version_createdAt),
+    index('_documents_v_version_version__status_idx').on(columns.version__status),
+    index('_documents_v_created_at_idx').on(columns.createdAt),
+    index('_documents_v_updated_at_idx').on(columns.updatedAt),
+    index('_documents_v_latest_idx').on(columns.latest),
+  ]
+)
+
+export const _documents_v_rels = pgTable(
+  '_documents_v_rels',
+  {
+    id: serial('id').primaryKey(),
+    order: integer('order'),
+    parent: integer('parent_id').notNull(),
+    path: varchar('path').notNull(),
+    'educational-programsID': integer('educational_programs_id'),
+  },
+  (columns) => [
+    index('_documents_v_rels_order_idx').on(columns.order),
+    index('_documents_v_rels_parent_idx').on(columns.parent),
+    index('_documents_v_rels_path_idx').on(columns.path),
+    index('_documents_v_rels_educational_programs_id_idx').on(columns['educational-programsID']),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [_documents_v.id],
+      name: '_documents_v_rels_parent_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['educational-programsID']],
+      foreignColumns: [educational_programs.id],
+      name: '_documents_v_rels_educational_programs_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const media = pgTable(
+  'media',
+  {
+    id: serial('id').primaryKey(),
+    alt: varchar('alt'),
+    caption: varchar('caption'),
+    blurDataURL: varchar('blur_data_u_r_l'),
+    category: enum_media_category('category').notNull().default('document'),
+    prefix: varchar('prefix').default('media'),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    url: varchar('url'),
+    thumbnailURL: varchar('thumbnail_u_r_l'),
+    filename: varchar('filename'),
+    mimeType: varchar('mime_type'),
+    filesize: numeric('filesize', { mode: 'number' }),
+    width: numeric('width', { mode: 'number' }),
+    height: numeric('height', { mode: 'number' }),
+    focalX: numeric('focal_x', { mode: 'number' }),
+    focalY: numeric('focal_y', { mode: 'number' }),
+    sizes_thumbnail_url: varchar('sizes_thumbnail_url'),
+    sizes_thumbnail_width: numeric('sizes_thumbnail_width', { mode: 'number' }),
+    sizes_thumbnail_height: numeric('sizes_thumbnail_height', {
+      mode: 'number',
+    }),
+    sizes_thumbnail_mimeType: varchar('sizes_thumbnail_mime_type'),
+    sizes_thumbnail_filesize: numeric('sizes_thumbnail_filesize', {
+      mode: 'number',
+    }),
+    sizes_thumbnail_filename: varchar('sizes_thumbnail_filename'),
+    sizes_card_url: varchar('sizes_card_url'),
+    sizes_card_width: numeric('sizes_card_width', { mode: 'number' }),
+    sizes_card_height: numeric('sizes_card_height', { mode: 'number' }),
+    sizes_card_mimeType: varchar('sizes_card_mime_type'),
+    sizes_card_filesize: numeric('sizes_card_filesize', { mode: 'number' }),
+    sizes_card_filename: varchar('sizes_card_filename'),
+    sizes_hero_url: varchar('sizes_hero_url'),
+    sizes_hero_width: numeric('sizes_hero_width', { mode: 'number' }),
+    sizes_hero_height: numeric('sizes_hero_height', { mode: 'number' }),
+    sizes_hero_mimeType: varchar('sizes_hero_mime_type'),
+    sizes_hero_filesize: numeric('sizes_hero_filesize', { mode: 'number' }),
+    sizes_hero_filename: varchar('sizes_hero_filename'),
+  },
+  (columns) => [
+    index('media_updated_at_idx').on(columns.updatedAt),
+    index('media_created_at_idx').on(columns.createdAt),
+    uniqueIndex('media_filename_idx').on(columns.filename),
+    index('media_sizes_thumbnail_sizes_thumbnail_filename_idx').on(
+      columns.sizes_thumbnail_filename
+    ),
+    index('media_sizes_card_sizes_card_filename_idx').on(columns.sizes_card_filename),
+    index('media_sizes_hero_sizes_hero_filename_idx').on(columns.sizes_hero_filename),
+  ]
+)
+
+export const payload_kv = pgTable(
+  'payload_kv',
+  {
+    id: serial('id').primaryKey(),
+    key: varchar('key').notNull(),
+    data: jsonb('data').notNull(),
+  },
+  (columns) => [uniqueIndex('payload_kv_key_idx').on(columns.key)]
+)
+
 export const payload_locked_documents = pgTable(
   'payload_locked_documents',
   {
@@ -136,12 +1516,38 @@ export const payload_locked_documents_rels = pgTable(
     parent: integer('parent_id').notNull(),
     path: varchar('path').notNull(),
     usersID: integer('users_id'),
+    departmentsID: integer('departments_id'),
+    'academic-council-membersID': integer('academic_council_members_id'),
+    specialtiesID: integer('specialties_id'),
+    'educational-programsID': integer('educational_programs_id'),
+    'admission-campaignsID': integer('admission_campaigns_id'),
+    'tuition-ratesID': integer('tuition_rates_id'),
+    'document-categoriesID': integer('document_categories_id'),
+    documentsID: integer('documents_id'),
+    mediaID: integer('media_id'),
   },
   (columns) => [
     index('payload_locked_documents_rels_order_idx').on(columns.order),
     index('payload_locked_documents_rels_parent_idx').on(columns.parent),
     index('payload_locked_documents_rels_path_idx').on(columns.path),
     index('payload_locked_documents_rels_users_id_idx').on(columns.usersID),
+    index('payload_locked_documents_rels_departments_id_idx').on(columns.departmentsID),
+    index('payload_locked_documents_rels_academic_council_members_i_idx').on(
+      columns['academic-council-membersID']
+    ),
+    index('payload_locked_documents_rels_specialties_id_idx').on(columns.specialtiesID),
+    index('payload_locked_documents_rels_educational_programs_id_idx').on(
+      columns['educational-programsID']
+    ),
+    index('payload_locked_documents_rels_admission_campaigns_id_idx').on(
+      columns['admission-campaignsID']
+    ),
+    index('payload_locked_documents_rels_tuition_rates_id_idx').on(columns['tuition-ratesID']),
+    index('payload_locked_documents_rels_document_categories_id_idx').on(
+      columns['document-categoriesID']
+    ),
+    index('payload_locked_documents_rels_documents_id_idx').on(columns.documentsID),
+    index('payload_locked_documents_rels_media_id_idx').on(columns.mediaID),
     foreignKey({
       columns: [columns['parent']],
       foreignColumns: [payload_locked_documents.id],
@@ -151,6 +1557,51 @@ export const payload_locked_documents_rels = pgTable(
       columns: [columns['usersID']],
       foreignColumns: [users.id],
       name: 'payload_locked_documents_rels_users_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['departmentsID']],
+      foreignColumns: [departments.id],
+      name: 'payload_locked_documents_rels_departments_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['academic-council-membersID']],
+      foreignColumns: [academic_council_members.id],
+      name: 'payload_locked_documents_rels_academic_council_members_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['specialtiesID']],
+      foreignColumns: [specialties.id],
+      name: 'payload_locked_documents_rels_specialties_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['educational-programsID']],
+      foreignColumns: [educational_programs.id],
+      name: 'payload_locked_documents_rels_educational_programs_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['admission-campaignsID']],
+      foreignColumns: [admission_campaigns.id],
+      name: 'payload_locked_documents_rels_admission_campaigns_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['tuition-ratesID']],
+      foreignColumns: [tuition_rates.id],
+      name: 'payload_locked_documents_rels_tuition_rates_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['document-categoriesID']],
+      foreignColumns: [document_categories.id],
+      name: 'payload_locked_documents_rels_document_categories_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['documentsID']],
+      foreignColumns: [documents.id],
+      name: 'payload_locked_documents_rels_documents_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['mediaID']],
+      foreignColumns: [media.id],
+      name: 'payload_locked_documents_rels_media_fk',
     }).onDelete('cascade'),
   ]
 )
@@ -237,7 +1688,349 @@ export const payload_migrations = pgTable(
   ]
 )
 
-export const relations_payload_kv = relations(payload_kv, () => ({}))
+export const spec_settings_groups = pgTable(
+  'spec_settings_groups',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    anchor: varchar('anchor'),
+    interestLabel: varchar('interest_label'),
+    title: varchar('title'),
+    description: varchar('description'),
+  },
+  (columns) => [
+    index('spec_settings_groups_order_idx').on(columns._order),
+    index('spec_settings_groups_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [spec_settings.id],
+      name: 'spec_settings_groups_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const spec_settings_applicant_resources = pgTable(
+  'spec_settings_applicant_resources',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    title: varchar('title'),
+    description: varchar('description'),
+    destinationType: enum_spec_resource_destination('destination_type').default('link'),
+    href: varchar('href'),
+    file: integer('file_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+  },
+  (columns) => [
+    index('spec_settings_applicant_resources_order_idx').on(columns._order),
+    index('spec_settings_applicant_resources_parent_id_idx').on(columns._parentID),
+    index('spec_settings_applicant_resources_file_idx').on(columns.file),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [spec_settings.id],
+      name: 'spec_settings_applicant_resources_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const spec_settings = pgTable(
+  'spec_settings',
+  {
+    id: serial('id').primaryKey(),
+    activeAdmissionCampaignYear: numeric('active_admission_campaign_year', {
+      mode: 'number',
+    }).default(2026),
+    _status: enum_spec_settings_status('_status').default('draft'),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+  },
+  (columns) => [index('spec_settings__status_idx').on(columns._status)]
+)
+
+export const spec_settings_rels = pgTable(
+  'spec_settings_rels',
+  {
+    id: serial('id').primaryKey(),
+    order: integer('order'),
+    parent: integer('parent_id').notNull(),
+    path: varchar('path').notNull(),
+    specialtiesID: integer('specialties_id'),
+  },
+  (columns) => [
+    index('spec_settings_rels_order_idx').on(columns.order),
+    index('spec_settings_rels_parent_idx').on(columns.parent),
+    index('spec_settings_rels_path_idx').on(columns.path),
+    index('spec_settings_rels_specialties_id_idx').on(columns.specialtiesID),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [spec_settings.id],
+      name: 'spec_settings_rels_parent_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['specialtiesID']],
+      foreignColumns: [specialties.id],
+      name: 'spec_settings_rels_specialties_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const _spec_settings_v_version_groups = pgTable(
+  '_spec_settings_v_version_groups',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    anchor: varchar('anchor'),
+    interestLabel: varchar('interest_label'),
+    title: varchar('title'),
+    description: varchar('description'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_spec_settings_v_version_groups_order_idx').on(columns._order),
+    index('_spec_settings_v_version_groups_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_spec_settings_v.id],
+      name: '_spec_settings_v_version_groups_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const _spec_settings_v_version_applicant_resources = pgTable(
+  '_spec_settings_v_version_applicant_resources',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    title: varchar('title'),
+    description: varchar('description'),
+    destinationType: enum_spec_resource_destination('destination_type').default('link'),
+    href: varchar('href'),
+    file: integer('file_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_spec_settings_v_version_applicant_resources_order_idx').on(columns._order),
+    index('_spec_settings_v_version_applicant_resources_parent_id_idx').on(columns._parentID),
+    index('_spec_settings_v_version_applicant_resources_file_idx').on(columns.file),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_spec_settings_v.id],
+      name: '_spec_settings_v_version_applicant_resources_parent_id_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const _spec_settings_v = pgTable(
+  '_spec_settings_v',
+  {
+    id: serial('id').primaryKey(),
+    version_activeAdmissionCampaignYear: numeric('version_active_admission_campaign_year', {
+      mode: 'number',
+    }).default(2026),
+    version__status: enum__spec_settings_v_version_status('version__status').default('draft'),
+    version_updatedAt: timestamp('version_updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp('version_created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean('latest'),
+  },
+  (columns) => [
+    index('_spec_settings_v_version_version__status_idx').on(columns.version__status),
+    index('_spec_settings_v_created_at_idx').on(columns.createdAt),
+    index('_spec_settings_v_updated_at_idx').on(columns.updatedAt),
+    index('_spec_settings_v_latest_idx').on(columns.latest),
+  ]
+)
+
+export const _spec_settings_v_rels = pgTable(
+  '_spec_settings_v_rels',
+  {
+    id: serial('id').primaryKey(),
+    order: integer('order'),
+    parent: integer('parent_id').notNull(),
+    path: varchar('path').notNull(),
+    specialtiesID: integer('specialties_id'),
+  },
+  (columns) => [
+    index('_spec_settings_v_rels_order_idx').on(columns.order),
+    index('_spec_settings_v_rels_parent_idx').on(columns.parent),
+    index('_spec_settings_v_rels_path_idx').on(columns.path),
+    index('_spec_settings_v_rels_specialties_id_idx').on(columns.specialtiesID),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [_spec_settings_v.id],
+      name: '_spec_settings_v_rels_parent_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['specialtiesID']],
+      foreignColumns: [specialties.id],
+      name: '_spec_settings_v_rels_specialties_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const tuition_page_settings = pgTable(
+  'tuition_page_settings',
+  {
+    id: serial('id').primaryKey(),
+    activeAcademicYear: varchar('active_academic_year').default('2026/2027'),
+    officialDocumentTitle: varchar('official_document_title').default('Офіційна вартість навчання'),
+    officialDocumentFile: integer('official_document_file_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    officialDocumentUrl: varchar('official_document_url').default(
+      'https://www.rshu.edu.ua/images/buhgal/nak_129od_30062026.pdf'
+    ),
+    officialDocumentDate: timestamp('official_document_date', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }).default('2026-06-30T00:00:00.000Z'),
+    recipientName: varchar('recipient_name').default(
+      'Рівненський державний гуманітарний університет'
+    ),
+    recipientCode: varchar('recipient_code').default('25736989'),
+    recipientBank: varchar('recipient_bank').default('ДКСУ м. Київ'),
+    iban: varchar('iban').default('UA278201720313251002201015208'),
+    paymentPurposeTemplate: varchar('payment_purpose_template').default(
+      'за навчання ________ (ПІБ студента) ________, курс ___, факультет ________________'
+    ),
+    paymentNote: varchar('payment_note').default(
+      'Перед оплатою уважно перевірте призначення платежу.'
+    ),
+    _status: enum_tuition_page_settings_status('_status').default('draft'),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+  },
+  (columns) => [
+    index('tuition_page_settings_official_document_file_idx').on(columns.officialDocumentFile),
+    index('tuition_page_settings__status_idx').on(columns._status),
+  ]
+)
+
+export const _tuition_page_settings_v = pgTable(
+  '_tuition_page_settings_v',
+  {
+    id: serial('id').primaryKey(),
+    version_activeAcademicYear: varchar('version_active_academic_year').default('2026/2027'),
+    version_officialDocumentTitle: varchar('version_official_document_title').default(
+      'Офіційна вартість навчання'
+    ),
+    version_officialDocumentFile: integer('version_official_document_file_id').references(
+      () => media.id,
+      {
+        onDelete: 'set null',
+      }
+    ),
+    version_officialDocumentUrl: varchar('version_official_document_url').default(
+      'https://www.rshu.edu.ua/images/buhgal/nak_129od_30062026.pdf'
+    ),
+    version_officialDocumentDate: timestamp('version_official_document_date', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }).default('2026-06-30T00:00:00.000Z'),
+    version_recipientName: varchar('version_recipient_name').default(
+      'Рівненський державний гуманітарний університет'
+    ),
+    version_recipientCode: varchar('version_recipient_code').default('25736989'),
+    version_recipientBank: varchar('version_recipient_bank').default('ДКСУ м. Київ'),
+    version_iban: varchar('version_iban').default('UA278201720313251002201015208'),
+    version_paymentPurposeTemplate: varchar('version_payment_purpose_template').default(
+      'за навчання ________ (ПІБ студента) ________, курс ___, факультет ________________'
+    ),
+    version_paymentNote: varchar('version_payment_note').default(
+      'Перед оплатою уважно перевірте призначення платежу.'
+    ),
+    version__status:
+      enum__tuition_page_settings_v_version_status('version__status').default('draft'),
+    version_updatedAt: timestamp('version_updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp('version_created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean('latest'),
+  },
+  (columns) => [
+    index('_tuition_page_settings_v_version_version_official_docume_idx').on(
+      columns.version_officialDocumentFile
+    ),
+    index('_tuition_page_settings_v_version_version__status_idx').on(columns.version__status),
+    index('_tuition_page_settings_v_created_at_idx').on(columns.createdAt),
+    index('_tuition_page_settings_v_updated_at_idx').on(columns.updatedAt),
+    index('_tuition_page_settings_v_latest_idx').on(columns.latest),
+  ]
+)
+
+export const relations_users_roles = relations(users_roles, ({ one }) => ({
+  parent: one(users, {
+    fields: [users_roles.parent],
+    references: [users.id],
+    relationName: 'roles',
+  }),
+}))
 export const relations_users_sessions = relations(users_sessions, ({ one }) => ({
   _parentID: one(users, {
     fields: [users_sessions._parentID],
@@ -246,10 +2039,350 @@ export const relations_users_sessions = relations(users_sessions, ({ one }) => (
   }),
 }))
 export const relations_users = relations(users, ({ many }) => ({
+  roles: many(users_roles, {
+    relationName: 'roles',
+  }),
   sessions: many(users_sessions, {
     relationName: 'sessions',
   }),
 }))
+export const relations_departments = relations(departments, () => ({}))
+export const relations__departments_v = relations(_departments_v, ({ one }) => ({
+  parent: one(departments, {
+    fields: [_departments_v.parent],
+    references: [departments.id],
+    relationName: 'parent',
+  }),
+}))
+export const relations_academic_council_members_rels = relations(
+  academic_council_members_rels,
+  ({ one }) => ({
+    parent: one(academic_council_members, {
+      fields: [academic_council_members_rels.parent],
+      references: [academic_council_members.id],
+      relationName: '_rels',
+    }),
+    departmentsID: one(departments, {
+      fields: [academic_council_members_rels.departmentsID],
+      references: [departments.id],
+      relationName: 'departments',
+    }),
+  })
+)
+export const relations_academic_council_members = relations(
+  academic_council_members,
+  ({ one, many }) => ({
+    photo: one(media, {
+      fields: [academic_council_members.photo],
+      references: [media.id],
+      relationName: 'photo',
+    }),
+    _rels: many(academic_council_members_rels, {
+      relationName: '_rels',
+    }),
+  })
+)
+export const relations__academic_council_members_v_rels = relations(
+  _academic_council_members_v_rels,
+  ({ one }) => ({
+    parent: one(_academic_council_members_v, {
+      fields: [_academic_council_members_v_rels.parent],
+      references: [_academic_council_members_v.id],
+      relationName: '_rels',
+    }),
+    departmentsID: one(departments, {
+      fields: [_academic_council_members_v_rels.departmentsID],
+      references: [departments.id],
+      relationName: 'departments',
+    }),
+  })
+)
+export const relations__academic_council_members_v = relations(
+  _academic_council_members_v,
+  ({ one, many }) => ({
+    parent: one(academic_council_members, {
+      fields: [_academic_council_members_v.parent],
+      references: [academic_council_members.id],
+      relationName: 'parent',
+    }),
+    version_photo: one(media, {
+      fields: [_academic_council_members_v.version_photo],
+      references: [media.id],
+      relationName: 'version_photo',
+    }),
+    _rels: many(_academic_council_members_v_rels, {
+      relationName: '_rels',
+    }),
+  })
+)
+export const relations_specialties_tags = relations(specialties_tags, ({ one }) => ({
+  _parentID: one(specialties, {
+    fields: [specialties_tags._parentID],
+    references: [specialties.id],
+    relationName: 'tags',
+  }),
+}))
+export const relations_specialties = relations(specialties, ({ one, many }) => ({
+  responsibleDepartment: one(departments, {
+    fields: [specialties.responsibleDepartment],
+    references: [departments.id],
+    relationName: 'responsibleDepartment',
+  }),
+  tags: many(specialties_tags, {
+    relationName: 'tags',
+  }),
+}))
+export const relations__specialties_v_version_tags = relations(
+  _specialties_v_version_tags,
+  ({ one }) => ({
+    _parentID: one(_specialties_v, {
+      fields: [_specialties_v_version_tags._parentID],
+      references: [_specialties_v.id],
+      relationName: 'version_tags',
+    }),
+  })
+)
+export const relations__specialties_v = relations(_specialties_v, ({ one, many }) => ({
+  parent: one(specialties, {
+    fields: [_specialties_v.parent],
+    references: [specialties.id],
+    relationName: 'parent',
+  }),
+  version_responsibleDepartment: one(departments, {
+    fields: [_specialties_v.version_responsibleDepartment],
+    references: [departments.id],
+    relationName: 'version_responsibleDepartment',
+  }),
+  version_tags: many(_specialties_v_version_tags, {
+    relationName: 'version_tags',
+  }),
+}))
+export const relations_educational_programs_study_forms = relations(
+  educational_programs_study_forms,
+  ({ one }) => ({
+    _parentID: one(educational_programs, {
+      fields: [educational_programs_study_forms._parentID],
+      references: [educational_programs.id],
+      relationName: 'studyForms',
+    }),
+  })
+)
+export const relations_educational_programs_careers = relations(
+  educational_programs_careers,
+  ({ one }) => ({
+    _parentID: one(educational_programs, {
+      fields: [educational_programs_careers._parentID],
+      references: [educational_programs.id],
+      relationName: 'careers',
+    }),
+  })
+)
+export const relations_educational_programs_study_focus = relations(
+  educational_programs_study_focus,
+  ({ one }) => ({
+    _parentID: one(educational_programs, {
+      fields: [educational_programs_study_focus._parentID],
+      references: [educational_programs.id],
+      relationName: 'studyFocus',
+    }),
+  })
+)
+export const relations_educational_programs_faq = relations(
+  educational_programs_faq,
+  ({ one }) => ({
+    _parentID: one(educational_programs, {
+      fields: [educational_programs_faq._parentID],
+      references: [educational_programs.id],
+      relationName: 'faq',
+    }),
+  })
+)
+export const relations_educational_programs = relations(educational_programs, ({ one, many }) => ({
+  specialty: one(specialties, {
+    fields: [educational_programs.specialty],
+    references: [specialties.id],
+    relationName: 'specialty',
+  }),
+  studyForms: many(educational_programs_study_forms, {
+    relationName: 'studyForms',
+  }),
+  careers: many(educational_programs_careers, {
+    relationName: 'careers',
+  }),
+  studyFocus: many(educational_programs_study_focus, {
+    relationName: 'studyFocus',
+  }),
+  faq: many(educational_programs_faq, {
+    relationName: 'faq',
+  }),
+}))
+export const relations__educational_programs_v_version_study_forms = relations(
+  _educational_programs_v_version_study_forms,
+  ({ one }) => ({
+    _parentID: one(_educational_programs_v, {
+      fields: [_educational_programs_v_version_study_forms._parentID],
+      references: [_educational_programs_v.id],
+      relationName: 'version_studyForms',
+    }),
+  })
+)
+export const relations__educational_programs_v_version_careers = relations(
+  _educational_programs_v_version_careers,
+  ({ one }) => ({
+    _parentID: one(_educational_programs_v, {
+      fields: [_educational_programs_v_version_careers._parentID],
+      references: [_educational_programs_v.id],
+      relationName: 'version_careers',
+    }),
+  })
+)
+export const relations__educational_programs_v_version_study_focus = relations(
+  _educational_programs_v_version_study_focus,
+  ({ one }) => ({
+    _parentID: one(_educational_programs_v, {
+      fields: [_educational_programs_v_version_study_focus._parentID],
+      references: [_educational_programs_v.id],
+      relationName: 'version_studyFocus',
+    }),
+  })
+)
+export const relations__educational_programs_v_version_faq = relations(
+  _educational_programs_v_version_faq,
+  ({ one }) => ({
+    _parentID: one(_educational_programs_v, {
+      fields: [_educational_programs_v_version_faq._parentID],
+      references: [_educational_programs_v.id],
+      relationName: 'version_faq',
+    }),
+  })
+)
+export const relations__educational_programs_v = relations(
+  _educational_programs_v,
+  ({ one, many }) => ({
+    parent: one(educational_programs, {
+      fields: [_educational_programs_v.parent],
+      references: [educational_programs.id],
+      relationName: 'parent',
+    }),
+    version_specialty: one(specialties, {
+      fields: [_educational_programs_v.version_specialty],
+      references: [specialties.id],
+      relationName: 'version_specialty',
+    }),
+    version_studyForms: many(_educational_programs_v_version_study_forms, {
+      relationName: 'version_studyForms',
+    }),
+    version_careers: many(_educational_programs_v_version_careers, {
+      relationName: 'version_careers',
+    }),
+    version_studyFocus: many(_educational_programs_v_version_study_focus, {
+      relationName: 'version_studyFocus',
+    }),
+    version_faq: many(_educational_programs_v_version_faq, {
+      relationName: 'version_faq',
+    }),
+  })
+)
+export const relations_admission_campaigns = relations(admission_campaigns, ({ one }) => ({
+  educationalProgram: one(educational_programs, {
+    fields: [admission_campaigns.educationalProgram],
+    references: [educational_programs.id],
+    relationName: 'educationalProgram',
+  }),
+}))
+export const relations__admission_campaigns_v = relations(_admission_campaigns_v, ({ one }) => ({
+  parent: one(admission_campaigns, {
+    fields: [_admission_campaigns_v.parent],
+    references: [admission_campaigns.id],
+    relationName: 'parent',
+  }),
+  version_educationalProgram: one(educational_programs, {
+    fields: [_admission_campaigns_v.version_educationalProgram],
+    references: [educational_programs.id],
+    relationName: 'version_educationalProgram',
+  }),
+}))
+export const relations_tuition_rates = relations(tuition_rates, ({ one }) => ({
+  educationalProgram: one(educational_programs, {
+    fields: [tuition_rates.educationalProgram],
+    references: [educational_programs.id],
+    relationName: 'educationalProgram',
+  }),
+}))
+export const relations__tuition_rates_v = relations(_tuition_rates_v, ({ one }) => ({
+  parent: one(tuition_rates, {
+    fields: [_tuition_rates_v.parent],
+    references: [tuition_rates.id],
+    relationName: 'parent',
+  }),
+  version_educationalProgram: one(educational_programs, {
+    fields: [_tuition_rates_v.version_educationalProgram],
+    references: [educational_programs.id],
+    relationName: 'version_educationalProgram',
+  }),
+}))
+export const relations_document_categories = relations(document_categories, () => ({}))
+export const relations_documents_rels = relations(documents_rels, ({ one }) => ({
+  parent: one(documents, {
+    fields: [documents_rels.parent],
+    references: [documents.id],
+    relationName: '_rels',
+  }),
+  'educational-programsID': one(educational_programs, {
+    fields: [documents_rels['educational-programsID']],
+    references: [educational_programs.id],
+    relationName: 'educational-programs',
+  }),
+}))
+export const relations_documents = relations(documents, ({ one, many }) => ({
+  file: one(media, {
+    fields: [documents.file],
+    references: [media.id],
+    relationName: 'file',
+  }),
+  category: one(document_categories, {
+    fields: [documents.category],
+    references: [document_categories.id],
+    relationName: 'category',
+  }),
+  _rels: many(documents_rels, {
+    relationName: '_rels',
+  }),
+}))
+export const relations__documents_v_rels = relations(_documents_v_rels, ({ one }) => ({
+  parent: one(_documents_v, {
+    fields: [_documents_v_rels.parent],
+    references: [_documents_v.id],
+    relationName: '_rels',
+  }),
+  'educational-programsID': one(educational_programs, {
+    fields: [_documents_v_rels['educational-programsID']],
+    references: [educational_programs.id],
+    relationName: 'educational-programs',
+  }),
+}))
+export const relations__documents_v = relations(_documents_v, ({ one, many }) => ({
+  parent: one(documents, {
+    fields: [_documents_v.parent],
+    references: [documents.id],
+    relationName: 'parent',
+  }),
+  version_file: one(media, {
+    fields: [_documents_v.version_file],
+    references: [media.id],
+    relationName: 'version_file',
+  }),
+  version_category: one(document_categories, {
+    fields: [_documents_v.version_category],
+    references: [document_categories.id],
+    relationName: 'version_category',
+  }),
+  _rels: many(_documents_v_rels, {
+    relationName: '_rels',
+  }),
+}))
+export const relations_media = relations(media, () => ({}))
+export const relations_payload_kv = relations(payload_kv, () => ({}))
 export const relations_payload_locked_documents_rels = relations(
   payload_locked_documents_rels,
   ({ one }) => ({
@@ -262,6 +2395,51 @@ export const relations_payload_locked_documents_rels = relations(
       fields: [payload_locked_documents_rels.usersID],
       references: [users.id],
       relationName: 'users',
+    }),
+    departmentsID: one(departments, {
+      fields: [payload_locked_documents_rels.departmentsID],
+      references: [departments.id],
+      relationName: 'departments',
+    }),
+    'academic-council-membersID': one(academic_council_members, {
+      fields: [payload_locked_documents_rels['academic-council-membersID']],
+      references: [academic_council_members.id],
+      relationName: 'academic-council-members',
+    }),
+    specialtiesID: one(specialties, {
+      fields: [payload_locked_documents_rels.specialtiesID],
+      references: [specialties.id],
+      relationName: 'specialties',
+    }),
+    'educational-programsID': one(educational_programs, {
+      fields: [payload_locked_documents_rels['educational-programsID']],
+      references: [educational_programs.id],
+      relationName: 'educational-programs',
+    }),
+    'admission-campaignsID': one(admission_campaigns, {
+      fields: [payload_locked_documents_rels['admission-campaignsID']],
+      references: [admission_campaigns.id],
+      relationName: 'admission-campaigns',
+    }),
+    'tuition-ratesID': one(tuition_rates, {
+      fields: [payload_locked_documents_rels['tuition-ratesID']],
+      references: [tuition_rates.id],
+      relationName: 'tuition-rates',
+    }),
+    'document-categoriesID': one(document_categories, {
+      fields: [payload_locked_documents_rels['document-categoriesID']],
+      references: [document_categories.id],
+      relationName: 'document-categories',
+    }),
+    documentsID: one(documents, {
+      fields: [payload_locked_documents_rels.documentsID],
+      references: [documents.id],
+      relationName: 'documents',
+    }),
+    mediaID: one(media, {
+      fields: [payload_locked_documents_rels.mediaID],
+      references: [media.id],
+      relationName: 'media',
     }),
   })
 )
@@ -294,24 +2472,253 @@ export const relations_payload_preferences = relations(payload_preferences, ({ m
   }),
 }))
 export const relations_payload_migrations = relations(payload_migrations, () => ({}))
+export const relations_spec_settings_groups = relations(spec_settings_groups, ({ one }) => ({
+  _parentID: one(spec_settings, {
+    fields: [spec_settings_groups._parentID],
+    references: [spec_settings.id],
+    relationName: 'groups',
+  }),
+}))
+export const relations_spec_settings_applicant_resources = relations(
+  spec_settings_applicant_resources,
+  ({ one }) => ({
+    _parentID: one(spec_settings, {
+      fields: [spec_settings_applicant_resources._parentID],
+      references: [spec_settings.id],
+      relationName: 'applicantResources',
+    }),
+    file: one(media, {
+      fields: [spec_settings_applicant_resources.file],
+      references: [media.id],
+      relationName: 'file',
+    }),
+  })
+)
+export const relations_spec_settings_rels = relations(spec_settings_rels, ({ one }) => ({
+  parent: one(spec_settings, {
+    fields: [spec_settings_rels.parent],
+    references: [spec_settings.id],
+    relationName: '_rels',
+  }),
+  specialtiesID: one(specialties, {
+    fields: [spec_settings_rels.specialtiesID],
+    references: [specialties.id],
+    relationName: 'specialties',
+  }),
+}))
+export const relations_spec_settings = relations(spec_settings, ({ many }) => ({
+  groups: many(spec_settings_groups, {
+    relationName: 'groups',
+  }),
+  applicantResources: many(spec_settings_applicant_resources, {
+    relationName: 'applicantResources',
+  }),
+  _rels: many(spec_settings_rels, {
+    relationName: '_rels',
+  }),
+}))
+export const relations__spec_settings_v_version_groups = relations(
+  _spec_settings_v_version_groups,
+  ({ one }) => ({
+    _parentID: one(_spec_settings_v, {
+      fields: [_spec_settings_v_version_groups._parentID],
+      references: [_spec_settings_v.id],
+      relationName: 'version_groups',
+    }),
+  })
+)
+export const relations__spec_settings_v_version_applicant_resources = relations(
+  _spec_settings_v_version_applicant_resources,
+  ({ one }) => ({
+    _parentID: one(_spec_settings_v, {
+      fields: [_spec_settings_v_version_applicant_resources._parentID],
+      references: [_spec_settings_v.id],
+      relationName: 'version_applicantResources',
+    }),
+    file: one(media, {
+      fields: [_spec_settings_v_version_applicant_resources.file],
+      references: [media.id],
+      relationName: 'file',
+    }),
+  })
+)
+export const relations__spec_settings_v_rels = relations(_spec_settings_v_rels, ({ one }) => ({
+  parent: one(_spec_settings_v, {
+    fields: [_spec_settings_v_rels.parent],
+    references: [_spec_settings_v.id],
+    relationName: '_rels',
+  }),
+  specialtiesID: one(specialties, {
+    fields: [_spec_settings_v_rels.specialtiesID],
+    references: [specialties.id],
+    relationName: 'specialties',
+  }),
+}))
+export const relations__spec_settings_v = relations(_spec_settings_v, ({ many }) => ({
+  version_groups: many(_spec_settings_v_version_groups, {
+    relationName: 'version_groups',
+  }),
+  version_applicantResources: many(_spec_settings_v_version_applicant_resources, {
+    relationName: 'version_applicantResources',
+  }),
+  _rels: many(_spec_settings_v_rels, {
+    relationName: '_rels',
+  }),
+}))
+export const relations_tuition_page_settings = relations(tuition_page_settings, ({ one }) => ({
+  officialDocumentFile: one(media, {
+    fields: [tuition_page_settings.officialDocumentFile],
+    references: [media.id],
+    relationName: 'officialDocumentFile',
+  }),
+}))
+export const relations__tuition_page_settings_v = relations(
+  _tuition_page_settings_v,
+  ({ one }) => ({
+    version_officialDocumentFile: one(media, {
+      fields: [_tuition_page_settings_v.version_officialDocumentFile],
+      references: [media.id],
+      relationName: 'version_officialDocumentFile',
+    }),
+  })
+)
 
 type DatabaseSchema = {
-  payload_kv: typeof payload_kv
+  enum_users_roles: typeof enum_users_roles
+  enum_academic_council_members_council_role: typeof enum_academic_council_members_council_role
+  enum_academic_council_members_status: typeof enum_academic_council_members_status
+  enum__academic_council_members_v_version_council_role: typeof enum__academic_council_members_v_version_council_role
+  enum__academic_council_members_v_version_status: typeof enum__academic_council_members_v_version_status
+  enum_specialties_status: typeof enum_specialties_status
+  enum__specialties_v_version_status: typeof enum__specialties_v_version_status
+  enum_educational_programs_study_forms_form: typeof enum_educational_programs_study_forms_form
+  enum_educational_programs_education_level: typeof enum_educational_programs_education_level
+  enum_educational_programs_status: typeof enum_educational_programs_status
+  enum__educational_programs_v_version_study_forms_form: typeof enum__educational_programs_v_version_study_forms_form
+  enum__educational_programs_v_version_education_level: typeof enum__educational_programs_v_version_education_level
+  enum__educational_programs_v_version_status: typeof enum__educational_programs_v_version_status
+  enum_admission_campaigns_study_form: typeof enum_admission_campaigns_study_form
+  enum_admission_campaigns_status: typeof enum_admission_campaigns_status
+  enum__admission_campaigns_v_version_study_form: typeof enum__admission_campaigns_v_version_study_form
+  enum__admission_campaigns_v_version_status: typeof enum__admission_campaigns_v_version_status
+  enum_tuition_rates_study_form: typeof enum_tuition_rates_study_form
+  enum_tuition_rates_availability: typeof enum_tuition_rates_availability
+  enum_tuition_rates_currency: typeof enum_tuition_rates_currency
+  enum_tuition_rates_status: typeof enum_tuition_rates_status
+  enum__tuition_rates_v_version_study_form: typeof enum__tuition_rates_v_version_study_form
+  enum__tuition_rates_v_version_availability: typeof enum__tuition_rates_v_version_availability
+  enum__tuition_rates_v_version_currency: typeof enum__tuition_rates_v_version_currency
+  enum__tuition_rates_v_version_status: typeof enum__tuition_rates_v_version_status
+  enum_documents_document_type: typeof enum_documents_document_type
+  enum_documents_source: typeof enum_documents_source
+  enum_documents_status: typeof enum_documents_status
+  enum__documents_v_version_document_type: typeof enum__documents_v_version_document_type
+  enum__documents_v_version_source: typeof enum__documents_v_version_source
+  enum__documents_v_version_status: typeof enum__documents_v_version_status
+  enum_media_category: typeof enum_media_category
+  enum_spec_resource_destination: typeof enum_spec_resource_destination
+  enum_spec_settings_status: typeof enum_spec_settings_status
+  enum__spec_settings_v_version_status: typeof enum__spec_settings_v_version_status
+  enum_tuition_page_settings_status: typeof enum_tuition_page_settings_status
+  enum__tuition_page_settings_v_version_status: typeof enum__tuition_page_settings_v_version_status
+  users_roles: typeof users_roles
   users_sessions: typeof users_sessions
   users: typeof users
+  departments: typeof departments
+  _departments_v: typeof _departments_v
+  academic_council_members: typeof academic_council_members
+  academic_council_members_rels: typeof academic_council_members_rels
+  _academic_council_members_v: typeof _academic_council_members_v
+  _academic_council_members_v_rels: typeof _academic_council_members_v_rels
+  specialties_tags: typeof specialties_tags
+  specialties: typeof specialties
+  _specialties_v_version_tags: typeof _specialties_v_version_tags
+  _specialties_v: typeof _specialties_v
+  educational_programs_study_forms: typeof educational_programs_study_forms
+  educational_programs_careers: typeof educational_programs_careers
+  educational_programs_study_focus: typeof educational_programs_study_focus
+  educational_programs_faq: typeof educational_programs_faq
+  educational_programs: typeof educational_programs
+  _educational_programs_v_version_study_forms: typeof _educational_programs_v_version_study_forms
+  _educational_programs_v_version_careers: typeof _educational_programs_v_version_careers
+  _educational_programs_v_version_study_focus: typeof _educational_programs_v_version_study_focus
+  _educational_programs_v_version_faq: typeof _educational_programs_v_version_faq
+  _educational_programs_v: typeof _educational_programs_v
+  admission_campaigns: typeof admission_campaigns
+  _admission_campaigns_v: typeof _admission_campaigns_v
+  tuition_rates: typeof tuition_rates
+  _tuition_rates_v: typeof _tuition_rates_v
+  document_categories: typeof document_categories
+  documents: typeof documents
+  documents_rels: typeof documents_rels
+  _documents_v: typeof _documents_v
+  _documents_v_rels: typeof _documents_v_rels
+  media: typeof media
+  payload_kv: typeof payload_kv
   payload_locked_documents: typeof payload_locked_documents
   payload_locked_documents_rels: typeof payload_locked_documents_rels
   payload_preferences: typeof payload_preferences
   payload_preferences_rels: typeof payload_preferences_rels
   payload_migrations: typeof payload_migrations
-  relations_payload_kv: typeof relations_payload_kv
+  spec_settings_groups: typeof spec_settings_groups
+  spec_settings_applicant_resources: typeof spec_settings_applicant_resources
+  spec_settings: typeof spec_settings
+  spec_settings_rels: typeof spec_settings_rels
+  _spec_settings_v_version_groups: typeof _spec_settings_v_version_groups
+  _spec_settings_v_version_applicant_resources: typeof _spec_settings_v_version_applicant_resources
+  _spec_settings_v: typeof _spec_settings_v
+  _spec_settings_v_rels: typeof _spec_settings_v_rels
+  tuition_page_settings: typeof tuition_page_settings
+  _tuition_page_settings_v: typeof _tuition_page_settings_v
+  relations_users_roles: typeof relations_users_roles
   relations_users_sessions: typeof relations_users_sessions
   relations_users: typeof relations_users
+  relations_departments: typeof relations_departments
+  relations__departments_v: typeof relations__departments_v
+  relations_academic_council_members_rels: typeof relations_academic_council_members_rels
+  relations_academic_council_members: typeof relations_academic_council_members
+  relations__academic_council_members_v_rels: typeof relations__academic_council_members_v_rels
+  relations__academic_council_members_v: typeof relations__academic_council_members_v
+  relations_specialties_tags: typeof relations_specialties_tags
+  relations_specialties: typeof relations_specialties
+  relations__specialties_v_version_tags: typeof relations__specialties_v_version_tags
+  relations__specialties_v: typeof relations__specialties_v
+  relations_educational_programs_study_forms: typeof relations_educational_programs_study_forms
+  relations_educational_programs_careers: typeof relations_educational_programs_careers
+  relations_educational_programs_study_focus: typeof relations_educational_programs_study_focus
+  relations_educational_programs_faq: typeof relations_educational_programs_faq
+  relations_educational_programs: typeof relations_educational_programs
+  relations__educational_programs_v_version_study_forms: typeof relations__educational_programs_v_version_study_forms
+  relations__educational_programs_v_version_careers: typeof relations__educational_programs_v_version_careers
+  relations__educational_programs_v_version_study_focus: typeof relations__educational_programs_v_version_study_focus
+  relations__educational_programs_v_version_faq: typeof relations__educational_programs_v_version_faq
+  relations__educational_programs_v: typeof relations__educational_programs_v
+  relations_admission_campaigns: typeof relations_admission_campaigns
+  relations__admission_campaigns_v: typeof relations__admission_campaigns_v
+  relations_tuition_rates: typeof relations_tuition_rates
+  relations__tuition_rates_v: typeof relations__tuition_rates_v
+  relations_document_categories: typeof relations_document_categories
+  relations_documents_rels: typeof relations_documents_rels
+  relations_documents: typeof relations_documents
+  relations__documents_v_rels: typeof relations__documents_v_rels
+  relations__documents_v: typeof relations__documents_v
+  relations_media: typeof relations_media
+  relations_payload_kv: typeof relations_payload_kv
   relations_payload_locked_documents_rels: typeof relations_payload_locked_documents_rels
   relations_payload_locked_documents: typeof relations_payload_locked_documents
   relations_payload_preferences_rels: typeof relations_payload_preferences_rels
   relations_payload_preferences: typeof relations_payload_preferences
   relations_payload_migrations: typeof relations_payload_migrations
+  relations_spec_settings_groups: typeof relations_spec_settings_groups
+  relations_spec_settings_applicant_resources: typeof relations_spec_settings_applicant_resources
+  relations_spec_settings_rels: typeof relations_spec_settings_rels
+  relations_spec_settings: typeof relations_spec_settings
+  relations__spec_settings_v_version_groups: typeof relations__spec_settings_v_version_groups
+  relations__spec_settings_v_version_applicant_resources: typeof relations__spec_settings_v_version_applicant_resources
+  relations__spec_settings_v_rels: typeof relations__spec_settings_v_rels
+  relations__spec_settings_v: typeof relations__spec_settings_v
+  relations_tuition_page_settings: typeof relations_tuition_page_settings
+  relations__tuition_page_settings_v: typeof relations__tuition_page_settings_v
 }
 
 declare module '@payloadcms/db-postgres' {

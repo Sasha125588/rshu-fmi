@@ -17,37 +17,37 @@ import type { NavItem } from '../types'
 export const NAVIGATION: NavItem[] = [
   {
     label: 'Спеціальності',
-    href: '/specializations',
+    href: '/educational-programs',
     featured: {
       title: 'Освітні програми ФМІ',
       description:
         'Огляд напрямів факультету, сторінки спеціальностей, вступ і документи освітніх програм.',
-      href: '/specializations',
+      href: '/educational-programs',
       icon: GraduationCapIcon,
     },
     cards: [
       {
         title: 'Інженерія програмного забезпечення',
         description: 'Сторінка програми, вступ, документи та матеріали ОП.',
-        href: '/specializations',
+        href: '/educational-programs',
         icon: GraduationCapIcon,
       },
       {
         title: "Комп'ютерні науки",
         description: 'Напрям алгоритмів, даних, AI та програмних систем.',
-        href: '/specializations',
+        href: '/educational-programs',
         icon: BookOpenIcon,
       },
       {
         title: 'Середня освіта',
         description: 'Математика, інформатика та підготовка педагогів.',
-        href: '/specializations',
+        href: '/educational-programs',
         icon: LandmarkIcon,
       },
       {
         title: 'Усі програми',
         description: 'Повний список бакалаврських і магістерських ОП.',
-        href: '/specializations',
+        href: '/educational-programs',
         icon: FileTextIcon,
       },
     ],
@@ -72,7 +72,7 @@ export const NAVIGATION: NavItem[] = [
       {
         title: 'Усі спеціальності',
         description: 'Силабуси, редакції ОП та навчальні матеріали.',
-        href: '/specializations',
+        href: '/educational-programs',
         icon: GraduationCapIcon,
       },
       {

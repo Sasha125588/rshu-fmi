@@ -8,9 +8,8 @@ import type {
   CollectionAfterChangeHook,
   CollectionAfterDeleteHook,
   CollectionBeforeValidateHook,
+  PayloadRequest,
 } from 'payload'
-
-const TUITION_RATE_CONSUMER_PATHS = ['/vartist-navchannia', '/specializations'] as const
 
 export const prepareTuitionRate: CollectionBeforeValidateHook<TuitionRate> = async ({
   data,
@@ -39,26 +38,63 @@ export const prepareTuitionRate: CollectionBeforeValidateHook<TuitionRate> = asy
     overrideAccess: true,
     req,
     select: {
-      shortTitle: true,
+      adminTitle: true,
       studyForms: true,
+      title: true,
     },
   })
 
-  data.adminTitle = `${academicYear} · ${program.shortTitle} · ${studyFormLabels[studyForm]}`
+  data.adminTitle = `${academicYear} · ${program.adminTitle || program.title} · ${studyFormLabels[studyForm]}`
 
   return data
 }
 
-export const revalidateTuitionRateConsumers: CollectionAfterChangeHook<TuitionRate> = ({
+const TUITION_RATE_CONSUMER_PATHS = ['/vartist-navchannia', '/educational-programs']
+
+const getEducationalProgramConsumerPaths = async (req: PayloadRequest, ...rates: TuitionRate[]) => {
+  const paths = new Set(TUITION_RATE_CONSUMER_PATHS)
+  const programIds = rates
+    .map((rate) => getRelationId(rate?.educationalProgram))
+    .filter((id) => id !== undefined)
+
+  if (!programIds.length) return paths
+
+  const programs = await req.payload.find({
+    collection: 'educational-programs',
+    depth: 0,
+    overrideAccess: true,
+    pagination: false,
+    req,
+    select: {
+      slug: true,
+    },
+    where: {
+      id: {
+        in: programIds,
+      },
+      _status: {
+        equals: 'published',
+      },
+    },
+  })
+
+  for (const program of programs.docs) {
+    paths.add(`/educational-programs/${program.slug}`)
+  }
+
+  return paths
+}
+
+export const revalidateTuitionRateConsumers: CollectionAfterChangeHook<TuitionRate> = async ({
   doc,
   previousDoc,
-  req: { context, payload },
+  req,
 }) => {
-  if (context.disableRevalidate) return doc
+  if (req.context.disableRevalidate) return doc
 
   if (doc._status === 'published' || previousDoc?._status === 'published') {
-    for (const path of TUITION_RATE_CONSUMER_PATHS) {
-      payload.logger.info(`Revalidating tuition rate consumer at ${path}`)
+    for (const path of await getEducationalProgramConsumerPaths(req, doc, previousDoc)) {
+      req.payload.logger.info(`Revalidating tuition rate consumer at ${path}`)
       revalidatePath(path)
     }
   }
@@ -66,14 +102,13 @@ export const revalidateTuitionRateConsumers: CollectionAfterChangeHook<TuitionRa
   return doc
 }
 
-export const revalidateTuitionRateConsumersAfterDelete: CollectionAfterDeleteHook<TuitionRate> = ({
-  doc,
-  req: { context, payload },
-}) => {
-  if (context.disableRevalidate || doc?._status !== 'published') return doc
+export const revalidateTuitionRateConsumersAfterDelete: CollectionAfterDeleteHook<
+  TuitionRate
+> = async ({ doc, req }) => {
+  if (req.context.disableRevalidate || doc?._status !== 'published') return doc
 
-  for (const path of TUITION_RATE_CONSUMER_PATHS) {
-    payload.logger.info(`Revalidating tuition rate consumer at ${path}`)
+  for (const path of await getEducationalProgramConsumerPaths(req, doc)) {
+    req.payload.logger.info(`Revalidating tuition rate consumer at ${path}`)
     revalidatePath(path)
   }
 

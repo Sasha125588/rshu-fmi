@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils'
 import { NEWS_SOURCES, NEWS_SOURCE_CONFIG, getNewsArchiveHref } from '@/shared/news'
 
 import type { NewsSource } from '@/shared/news'
-import type { Route } from 'next'
 
 interface NewsSourceNavProps {
   activeSource?: NewsSource
@@ -18,7 +17,7 @@ export const NewsSourceNav = ({ activeSource }: NewsSourceNavProps) => (
   >
     <div className="bg-muted/45 flex w-max items-center gap-1 rounded-full border p-1">
       <Link
-        href={'/news' as Route}
+        href={'/news'}
         aria-current={activeSource === undefined ? 'page' : undefined}
         className={cn(
           buttonVariants({

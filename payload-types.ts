@@ -70,6 +70,7 @@ export interface Config {
     users: User
     departments: Department
     'academic-council-members': AcademicCouncilMember
+    specialties: Specialty
     'educational-programs': EducationalProgram
     'admission-campaigns': AdmissionCampaign
     'tuition-rates': TuitionRate
@@ -81,13 +82,22 @@ export interface Config {
     'payload-preferences': PayloadPreference
     'payload-migrations': PayloadMigration
   }
-  collectionsJoins: {}
+  collectionsJoins: {
+    specialties: {
+      educationalPrograms: 'educational-programs'
+    }
+    'educational-programs': {
+      admissionCampaigns: 'admission-campaigns'
+      tuitionRates: 'tuition-rates'
+    }
+  }
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>
     departments: DepartmentsSelect<false> | DepartmentsSelect<true>
     'academic-council-members':
       | AcademicCouncilMembersSelect<false>
       | AcademicCouncilMembersSelect<true>
+    specialties: SpecialtiesSelect<false> | SpecialtiesSelect<true>
     'educational-programs': EducationalProgramsSelect<false> | EducationalProgramsSelect<true>
     'admission-campaigns': AdmissionCampaignsSelect<false> | AdmissionCampaignsSelect<true>
     'tuition-rates': TuitionRatesSelect<false> | TuitionRatesSelect<true>
@@ -106,13 +116,13 @@ export interface Config {
   }
   fallbackLocale: null
   globals: {
-    'specializations-page-settings': SpecializationsPageSetting
+    'educational-programs-page-settings': EducationalProgramsPageSetting
     'tuition-page-settings': TuitionPageSetting
   }
   globalsSelect: {
-    'specializations-page-settings':
-      | SpecializationsPageSettingsSelect<false>
-      | SpecializationsPageSettingsSelect<true>
+    'educational-programs-page-settings':
+      | EducationalProgramsPageSettingsSelect<false>
+      | EducationalProgramsPageSettingsSelect<true>
     'tuition-page-settings': TuitionPageSettingsSelect<false> | TuitionPageSettingsSelect<true>
   }
   locale: null
@@ -266,12 +276,48 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "specialties".
+ */
+export interface Specialty {
+  id: number
+  title: string
+  /**
+   * Чинний код, наприклад F2 або A4.04.
+   */
+  code: string
+  /**
+   * Наприклад ІПЗ або КН.
+   */
+  abbreviation: string
+  /**
+   * Попередній код, наприклад 121.
+   */
+  legacyCode?: string | null
+  responsibleDepartment: number | Department
+  description: string
+  tags?:
+    | {
+        label: string
+        id?: string | null
+      }[]
+    | null
+  sortOrder?: number | null
+  educationalPrograms?: {
+    docs?: (number | EducationalProgram)[]
+    hasNextPage?: boolean
+    totalDocs?: number
+  }
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "educational-programs".
  */
 export interface EducationalProgram {
   id: number
   title: string
-  shortTitle: string
   /**
    * Формується автоматично з назви програми, рівня освіти та кодів спеціальності.
    */
@@ -282,32 +328,18 @@ export interface EducationalProgram {
   generateSlug?: boolean | null
   slug: string
   /**
-   * Новий код, наприклад F2.
+   * Спеціальність, у межах якої реалізується ця освітня програма.
    */
-  specialtyCode: string
-  /**
-   * Старий код, наприклад 121.
-   */
-  legacySpecialtyCode: string
-  specialtyName: string
+  specialty: number | Specialty
   educationLevel: 'bachelor' | 'master'
-  department: number | Department
   studyForms: {
     form: 'full-time' | 'part-time'
     durationLabel: string
     note?: string | null
     id?: string | null
   }[]
-  isFeatured?: boolean | null
   sortOrder?: number | null
-  description: string
   heroText: string
-  tags?:
-    | {
-        label: string
-        id?: string | null
-      }[]
-    | null
   careers?:
     | {
         title: string
@@ -329,6 +361,16 @@ export interface EducationalProgram {
         id?: string | null
       }[]
     | null
+  admissionCampaigns?: {
+    docs?: (number | AdmissionCampaign)[]
+    hasNextPage?: boolean
+    totalDocs?: number
+  }
+  tuitionRates?: {
+    docs?: (number | TuitionRate)[]
+    hasNextPage?: boolean
+    totalDocs?: number
+  }
   seoTitle?: string | null
   seoDescription?: string | null
   updatedAt: string
@@ -484,6 +526,10 @@ export interface PayloadLockedDocument {
         value: number | AcademicCouncilMember
       } | null)
     | ({
+        relationTo: 'specialties'
+        value: number | Specialty
+      } | null)
+    | ({
         relationTo: 'educational-programs'
         value: number | EducationalProgram
       } | null)
@@ -606,19 +652,38 @@ export interface AcademicCouncilMembersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "specialties_select".
+ */
+export interface SpecialtiesSelect<T extends boolean = true> {
+  title?: T
+  code?: T
+  abbreviation?: T
+  legacyCode?: T
+  responsibleDepartment?: T
+  description?: T
+  tags?:
+    | T
+    | {
+        label?: T
+        id?: T
+      }
+  sortOrder?: T
+  educationalPrograms?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "educational-programs_select".
  */
 export interface EducationalProgramsSelect<T extends boolean = true> {
   title?: T
-  shortTitle?: T
   adminTitle?: T
   generateSlug?: T
   slug?: T
-  specialtyCode?: T
-  legacySpecialtyCode?: T
-  specialtyName?: T
+  specialty?: T
   educationLevel?: T
-  department?: T
   studyForms?:
     | T
     | {
@@ -627,16 +692,8 @@ export interface EducationalProgramsSelect<T extends boolean = true> {
         note?: T
         id?: T
       }
-  isFeatured?: T
   sortOrder?: T
-  description?: T
   heroText?: T
-  tags?:
-    | T
-    | {
-        label?: T
-        id?: T
-      }
   careers?:
     | T
     | {
@@ -658,6 +715,8 @@ export interface EducationalProgramsSelect<T extends boolean = true> {
         answer?: T
         id?: T
       }
+  admissionCampaigns?: T
+  tuitionRates?: T
   seoTitle?: T
   seoDescription?: T
   updatedAt?: T
@@ -836,9 +895,9 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "specializations-page-settings".
+ * via the `definition` "educational-programs-page-settings".
  */
-export interface SpecializationsPageSetting {
+export interface EducationalProgramsPageSetting {
   id: number
   /**
    * Цей рік використовується для вибору даних вступної кампанії.
@@ -852,10 +911,7 @@ export interface SpecializationsPageSetting {
     interestLabel: string
     title: string
     description: string
-    specialtyCodes: {
-      code: string
-      id?: string | null
-    }[]
+    specialties: (number | Specialty)[]
     id?: string | null
   }[]
   /**
@@ -917,9 +973,9 @@ export interface TuitionPageSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "specializations-page-settings_select".
+ * via the `definition` "educational-programs-page-settings_select".
  */
-export interface SpecializationsPageSettingsSelect<T extends boolean = true> {
+export interface EducationalProgramsPageSettingsSelect<T extends boolean = true> {
   activeAdmissionCampaignYear?: T
   groups?:
     | T
@@ -928,12 +984,7 @@ export interface SpecializationsPageSettingsSelect<T extends boolean = true> {
         interestLabel?: T
         title?: T
         description?: T
-        specialtyCodes?:
-          | T
-          | {
-              code?: T
-              id?: T
-            }
+        specialties?: T
         id?: T
       }
   applicantResources?:

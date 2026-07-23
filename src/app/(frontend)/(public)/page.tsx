@@ -3,30 +3,24 @@ import {
   ArrowRightIcon,
   ArrowUpRight,
   BookOpenIcon,
-  BrainCircuitIcon,
-  CodeXmlIcon,
   EyeIcon,
   GraduationCapIcon,
-  HelpCircleIcon,
   Layers2Icon,
   LayoutGridIcon,
   ListXIcon,
   MapPinIcon,
-  MonitorDot,
-  NetworkIcon,
-  PiIcon,
 } from 'lucide-react'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 
 import { LandingBackdrop } from './_components/LandingBackground/LandingBackground'
+import { ProgramCard } from './_components/ProgramCard/ProgramCard'
 import { faqItems, heroStats, programRoutes, quickTags, reasons, studentLinks } from './_constants'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  Badge,
   Empty,
   EmptyDescription,
   EmptyHeader,
@@ -39,13 +33,10 @@ import {
   Typography,
   buttonVariants,
 } from '@/components/ui'
-import { cn } from '@/lib/utils'
-import { educationLevelLabels } from '@/payload/collections/EducationalPrograms/constants'
+import { cn } from '@/lib'
 import { SITE_URL } from '@/shared/constants'
 import { getNewsPage } from '@/shared/news'
 
-import type { EducationalProgram } from '@/payload-types'
-import type { LucideIcon } from 'lucide-react'
 import type { Metadata, Route } from 'next'
 
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -90,13 +81,40 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 const HomePage = async () => {
   const payload = await getPayload({ config })
-  const specializations = await payload.find({
-    collection: 'educational-programs',
-    depth: 2,
-    where: { isFeatured: { equals: true }, educationLevel: { equals: 'bachelor' } },
-  })
-
-  const news = await getNewsPage('university', 1)
+  const [specialties, news] = await Promise.all([
+    payload.find({
+      collection: 'specialties',
+      depth: 1,
+      joins: {
+        educationalPrograms: {
+          limit: 1,
+          sort: 'sortOrder',
+          where: {
+            educationLevel: {
+              equals: 'bachelor',
+            },
+          },
+        },
+      },
+      overrideAccess: false,
+      pagination: false,
+      populate: {
+        'educational-programs': {
+          educationLevel: true,
+          slug: true,
+          sortOrder: true,
+          title: true,
+        },
+      },
+      sort: ['sortOrder', 'code'],
+    }),
+    getNewsPage('university', 1),
+  ])
+  const featuredPrograms = specialties.docs.flatMap((specialty) =>
+    (specialty.educationalPrograms?.docs ?? []).flatMap((program) =>
+      typeof program === 'object' ? [{ program, specialty }] : []
+    )
+  )
 
   return (
     <div>
@@ -136,7 +154,7 @@ const HomePage = async () => {
             </Typography>
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
               <Link
-                href={'/specializations' as Route}
+                href={'/educational-programs'}
                 className={cn(
                   buttonVariants(),
                   'group bg-foreground! text-background! hover:bg-foreground/80! h-11 justify-center gap-1 px-5 text-sm font-bold! tracking-tight'
@@ -235,7 +253,7 @@ const HomePage = async () => {
       </section>
 
       <section
-        id="specializations"
+        id="educational-programs"
         className="px-4 py-15 md:px-12 md:py-20"
       >
         <div>
@@ -251,7 +269,7 @@ const HomePage = async () => {
 
               <div className="flex flex-wrap items-center gap-2 md:justify-end">
                 <Link
-                  href={'/specializations' as Route}
+                  href={'/educational-programs'}
                   className={cn(
                     buttonVariants({ variant: 'outline' }),
                     'h-10 gap-2 rounded-full px-4 text-sm font-semibold'
@@ -316,8 +334,8 @@ const HomePage = async () => {
                 </TabsList>
 
                 {programRoutes.map((route) => {
-                  const routePrograms = route.programCodes.flatMap((programCode) =>
-                    specializations.docs.filter((item) => item.specialtyCode === programCode)
+                  const routePrograms = route.specialtyCodes.flatMap((specialtyCode) =>
+                    featuredPrograms.filter(({ specialty }) => specialty.code === specialtyCode)
                   )
 
                   return (
@@ -328,10 +346,11 @@ const HomePage = async () => {
                     >
                       {routePrograms.length ? (
                         <div className="grid gap-3 md:grid-cols-2">
-                          {routePrograms.map((item) => (
+                          {routePrograms.map(({ program, specialty }) => (
                             <ProgramCard
-                              key={`${item.specialtyCode}-${item.educationLevel}`}
-                              item={item}
+                              key={program.id}
+                              program={program}
+                              specialty={specialty}
                             />
                           ))}
                         </div>
@@ -359,10 +378,11 @@ const HomePage = async () => {
               className="m-0"
             >
               <div className="grid gap-3 md:grid-cols-2">
-                {specializations.docs.map((item) => (
+                {featuredPrograms.map(({ program, specialty }) => (
                   <ProgramCard
-                    key={item.id}
-                    item={item}
+                    key={program.id}
+                    program={program}
+                    specialty={specialty}
                   />
                 ))}
               </div>
@@ -464,7 +484,7 @@ const HomePage = async () => {
               description="Останні оновлення з університетського сайту."
             />
             <Link
-              href={'/news' as Route}
+              href={'/news'}
               className={cn(
                 buttonVariants({
                   variant: 'outline',
@@ -636,83 +656,6 @@ const HomePage = async () => {
 }
 
 export default HomePage
-
-export const SPECIALIZATION_ICONS: Record<string, LucideIcon> = {
-  F2: CodeXmlIcon,
-  F3: BrainCircuitIcon,
-  'А4.04': PiIcon,
-  'А4.09': MonitorDot,
-  'А5.39': NetworkIcon,
-}
-
-const ProgramCard = ({ item }: { item: EducationalProgram }) => {
-  const Icon = SPECIALIZATION_ICONS[item.specialtyCode] ?? HelpCircleIcon
-
-  return (
-    <article className="group border-border bg-card-new/30 hover:bg-foreground/4 rounded-lg border p-5 transition">
-      <div className="flex h-full gap-4">
-        <span className="border-border bg-background/40 flex size-11 shrink-0 items-center justify-center rounded-lg border">
-          <Icon
-            className="text-accent-violet"
-            size={18}
-          />
-        </span>
-
-        <div className="flex min-w-0 flex-col justify-between">
-          <Typography
-            as="div"
-            variant="caption"
-            className="text-muted-foreground mb-2 flex flex-wrap items-center gap-2"
-          >
-            <Badge
-              variant="outline"
-              className="font-jetbrains text-accent-violet"
-            >
-              {item.specialtyCode}
-            </Badge>
-            <span className="font-jetbrains text-accent-violet">{item.shortTitle}</span>
-            <span>{educationLevelLabels[item.educationLevel]}</span>
-          </Typography>
-
-          <Typography
-            as="h3"
-            variant="title-md"
-          >
-            {item.title}
-          </Typography>
-
-          <Typography
-            as="p"
-            variant="body-md"
-            className="text-muted-foreground/80 mt-2 line-clamp-2"
-          >
-            {item.description}
-          </Typography>
-
-          <div className="mt-4 flex gap-2">
-            {item.tags?.map((tag) => (
-              <Badge
-                key={tag.id}
-                variant="secondary"
-                className="font-jetbrains text-foreground/80 text-xs"
-              >
-                {tag.label}
-              </Badge>
-            ))}
-          </div>
-        </div>
-
-        <Link
-          href={`/specializations/${item.slug}` as Route}
-          className="text-muted-foreground hover:text-accent-violet shrink-0 transition"
-          aria-label={`Детальніше про ${item.title}`}
-        >
-          <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </Link>
-      </div>
-    </article>
-  )
-}
 
 const SectionHeader = ({ title, description }: { title: string; description: string }) => (
   <div>

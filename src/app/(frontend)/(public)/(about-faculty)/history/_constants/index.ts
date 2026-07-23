@@ -129,7 +129,7 @@ export const historyPillars = [
     programs: [
       {
         label: 'Середня освіта. Математика',
-        href: '/specializations/a4-04-serednia-osvita-matematyka-bakalavr' as Route,
+        href: '/educational-programs/a4-04-serednia-osvita-matematyka-bakalavr' as Route,
       },
     ],
   },
@@ -142,11 +142,11 @@ export const historyPillars = [
     programs: [
       {
         label: 'Середня освіта. Інформатика',
-        href: '/specializations/a4-09-serednia-osvita-informatyka-bakalavr' as Route,
+        href: '/educational-programs/a4-09-serednia-osvita-informatyka-bakalavr' as Route,
       },
       {
         label: 'Професійна освіта. Цифрові технології',
-        href: '/specializations/a5-39-profesiina-osvita-tsyfrovi-tekhnolohii-bakalavr' as Route,
+        href: '/educational-programs/a5-39-profesiina-osvita-tsyfrovi-tekhnolohii-bakalavr' as Route,
       },
     ],
   },
@@ -159,11 +159,11 @@ export const historyPillars = [
     programs: [
       {
         label: 'Інженерія програмного забезпечення',
-        href: '/specializations/f2-inzheneriia-prohramnoho-zabezpechennia-bakalavr' as Route,
+        href: '/educational-programs/f2-inzheneriia-prohramnoho-zabezpechennia-bakalavr' as Route,
       },
       {
         label: 'Комп’ютерні науки',
-        href: '/specializations/f3-kompiuterni-nauky-bakalavr' as Route,
+        href: '/educational-programs/f3-kompiuterni-nauky-bakalavr' as Route,
       },
     ],
   },

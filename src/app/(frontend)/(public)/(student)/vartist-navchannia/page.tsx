@@ -50,10 +50,16 @@ const TuitionCostsPage = async () => {
   const [educationalPrograms, settings] = await Promise.all([
     payload.find({
       collection: 'educational-programs',
-      depth: 0,
+      depth: 1,
       overrideAccess: false,
       pagination: false,
-      sort: ['sortOrder', 'specialtyCode', 'title'],
+      populate: {
+        specialties: {
+          code: true,
+          sortOrder: true,
+        },
+      },
+      sort: ['sortOrder', 'title'],
     }),
     payload.findGlobal({
       slug: 'tuition-page-settings',

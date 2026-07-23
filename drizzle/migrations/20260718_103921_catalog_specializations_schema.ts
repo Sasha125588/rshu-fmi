@@ -4,6 +4,43 @@ import type { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
+  DO $migration$
+  BEGIN
+    IF to_regclass('public.admission_campaigns') IS NOT NULL THEN
+      IF to_regclass('public._admission_campaigns_v') IS NULL
+        OR to_regclass('public.spec_settings') IS NULL
+        OR to_regclass('public.spec_settings_groups_specialty_codes') IS NULL
+        OR to_regclass('public._spec_settings_v') IS NULL
+        OR to_regclass('public._spec_settings_v_version_groups_specialty_codes') IS NULL
+        OR to_regclass('public.tuition_page_settings') IS NULL
+        OR to_regclass('public._tuition_page_settings_v') IS NULL
+        OR NOT EXISTS (
+          SELECT 1
+          FROM information_schema.columns
+          WHERE table_schema = 'public'
+            AND table_name = 'tuition_rates'
+            AND column_name = 'admin_title'
+        )
+        OR NOT EXISTS (
+          SELECT 1
+          FROM information_schema.columns
+          WHERE table_schema = 'public'
+            AND table_name = 'payload_locked_documents_rels'
+            AND column_name = 'admission_campaigns_id'
+        )
+      THEN
+        RAISE EXCEPTION 'catalog_specializations_schema: detected a partial pre-existing schema';
+      END IF;
+
+      RETURN;
+    END IF;
+
+    IF to_regclass('public.spec_settings') IS NOT NULL
+      OR to_regclass('public.tuition_page_settings') IS NOT NULL
+    THEN
+      RAISE EXCEPTION 'catalog_specializations_schema: detected conflicting pre-existing tables';
+    END IF;
+
    CREATE TYPE "public"."enum_admission_campaigns_study_form" AS ENUM('full-time', 'part-time');
   CREATE TYPE "public"."enum_admission_campaigns_status" AS ENUM('draft', 'published');
   CREATE TYPE "public"."enum__admission_campaigns_v_version_study_form" AS ENUM('full-time', 'part-time');
@@ -261,7 +298,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "_tuition_rates_v_version_version_admin_title_idx" ON "_tuition_rates_v" USING btree ("version_admin_title");
   CREATE INDEX "_tuition_rates_v_version_version_study_form_idx" ON "_tuition_rates_v" USING btree ("version_study_form");
   CREATE INDEX "compound_index_1_idx" ON "_tuition_rates_v" USING btree ("version_academic_year","version_educational_program_id","version_study_form");
-  CREATE INDEX "payload_locked_documents_rels_admission_campaigns_id_idx" ON "payload_locked_documents_rels" USING btree ("admission_campaigns_id");`)
+  CREATE INDEX "payload_locked_documents_rels_admission_campaigns_id_idx" ON "payload_locked_documents_rels" USING btree ("admission_campaigns_id");
+  END
+  $migration$;`)
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {

@@ -1,7 +1,5 @@
-// import config from '@payload-config'
 import { ArrowRightIcon, ArrowUpRightIcon } from 'lucide-react'
 import Link from 'next/link'
-// import { getPayload } from 'payload'
 
 import { HistoryChapter } from './_components/HistoryChapter'
 import { HistoryEraNav } from './_components/HistoryEraNav'
@@ -10,7 +8,7 @@ import { ActiveHistoryEraIdProvider } from './_contexts/activeHistoryEraId'
 import { Typography } from '@/components/ui'
 import { SITE_URL } from '@/shared/constants'
 
-import type { Metadata, Route } from 'next'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Історія факультету',
@@ -39,16 +37,6 @@ export const metadata: Metadata = {
 }
 
 const HistoryPage = async () => {
-  // const payload = await getPayload({ config })
-  // const specializations = await payload.find({
-  //   collection: 'educational-programs',
-  //   select: {
-  //     slug: true,
-  //     title: true
-  //   },
-  //   where: { isFeatured: { equals: true }, educationLevel: { equals: 'bachelor' } },
-  // })
-
   return (
     <div className="overflow-x-clip">
       <header className="px-4 md:px-12">
@@ -105,7 +93,7 @@ const HistoryPage = async () => {
                 </div>
 
                 <Link
-                  href={'/specializations' as Route}
+                  href={'/educational-programs'}
                   className="text-accent-violet inline-flex shrink-0 items-center gap-1 text-sm font-semibold underline-offset-4 hover:underline"
                 >
                   Освітні програми

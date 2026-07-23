@@ -13,7 +13,7 @@ const getDocumentYear = (value?: null | string) => {
 
 export interface DocumentTitleProgram {
   educationLevel: EducationLevel
-  shortTitle: string
+  specialtyAbbreviation: string
 }
 
 interface BuildDocumentTitleArgs {
@@ -29,7 +29,9 @@ export const buildDocumentTitle = ({
   educationalPrograms = [],
   periodLabel,
 }: BuildDocumentTitleArgs) => {
-  const programTitles = unique(educationalPrograms.map((program) => program.shortTitle.trim()))
+  const specialtyAbbreviations = unique(
+    educationalPrograms.map((program) => program.specialtyAbbreviation.trim())
+  )
   const educationLevels = unique(
     educationalPrograms.map((program) => educationLevelLabels[program.educationLevel])
   )
@@ -37,7 +39,7 @@ export const buildDocumentTitle = ({
 
   return [
     documentTypeLabels[documentType!],
-    programTitles.join(' / '),
+    specialtyAbbreviations.join(' / '),
     educationLevels.join(' / '),
     period,
   ]

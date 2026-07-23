@@ -8,9 +8,8 @@ import type {
   CollectionAfterChangeHook,
   CollectionAfterDeleteHook,
   CollectionBeforeValidateHook,
+  PayloadRequest,
 } from 'payload'
-
-const SPECIALIZATIONS_PAGE_PATH = '/specializations'
 
 export const setCampaignAdminTitle: CollectionBeforeValidateHook<AdmissionCampaign> = async ({
   data,
@@ -31,30 +30,74 @@ export const setCampaignAdminTitle: CollectionBeforeValidateHook<AdmissionCampai
 
   const program = await req.payload.findByID({
     collection: 'educational-programs',
-    depth: 0,
+    depth: 1,
     id: programId,
     overrideAccess: true,
     req,
-    select: {
-      shortTitle: true,
+    populate: {
+      specialties: {
+        abbreviation: true,
+      },
     },
   })
 
-  data.adminTitle = `${campaignYear} · ${program.shortTitle} · ${studyFormLabels[studyForm]}`
+  const specialty = program && typeof program.specialty === 'object' ? program.specialty : undefined
+
+  if (!specialty) return data
+
+  data.adminTitle = `${campaignYear} · ${specialty.abbreviation} · ${studyFormLabels[studyForm]}`
 
   return data
 }
+const ADMISSION_CAMPAIGN_CONSUMER_PATHS = ['/educational-programs']
 
-export const revalidateAdmissionCampaignConsumers: CollectionAfterChangeHook<AdmissionCampaign> = ({
-  doc,
-  previousDoc,
-  req: { context, payload },
-}) => {
-  if (context.disableRevalidate) return doc
+const getEducationalProgramConsumerPaths = async (
+  req: PayloadRequest,
+  ...campaigns: AdmissionCampaign[]
+) => {
+  const paths = new Set(ADMISSION_CAMPAIGN_CONSUMER_PATHS)
+  const programIds = campaigns
+    .map((campaign) => getRelationId(campaign?.educationalProgram))
+    .filter((id) => id !== undefined)
+
+  if (!programIds.length) return paths
+
+  const programs = await req.payload.find({
+    collection: 'educational-programs',
+    depth: 0,
+    overrideAccess: true,
+    pagination: false,
+    req,
+    select: {
+      slug: true,
+    },
+    where: {
+      id: {
+        in: programIds,
+      },
+      _status: {
+        equals: 'published',
+      },
+    },
+  })
+
+  for (const program of programs.docs) {
+    paths.add(`/educational-programs/${program.slug}`)
+  }
+
+  return paths
+}
+
+export const revalidateAdmissionCampaignConsumers: CollectionAfterChangeHook<
+  AdmissionCampaign
+> = async ({ doc, previousDoc, req }) => {
+  if (req.context.disableRevalidate) return doc
 
   if (doc._status === 'published' || previousDoc?._status === 'published') {
-    payload.logger.info(`Revalidating admission campaign consumer at ${SPECIALIZATIONS_PAGE_PATH}`)
-    revalidatePath(SPECIALIZATIONS_PAGE_PATH)
+    for (const path of await getEducationalProgramConsumerPaths(req, doc, previousDoc)) {
+      req.payload.logger.info(`Revalidating admission campaign consumer at ${path}`)
+      revalidatePath(path)
+    }
   }
 
   return doc
@@ -62,11 +105,13 @@ export const revalidateAdmissionCampaignConsumers: CollectionAfterChangeHook<Adm
 
 export const revalidateAdmissionCampaignConsumersAfterDelete: CollectionAfterDeleteHook<
   AdmissionCampaign
-> = ({ doc, req: { context, payload } }) => {
-  if (context.disableRevalidate || doc?._status !== 'published') return doc
+> = async ({ doc, req }) => {
+  if (req.context.disableRevalidate || doc?._status !== 'published') return doc
 
-  payload.logger.info(`Revalidating admission campaign consumer at ${SPECIALIZATIONS_PAGE_PATH}`)
-  revalidatePath(SPECIALIZATIONS_PAGE_PATH)
+  for (const path of await getEducationalProgramConsumerPaths(req, doc)) {
+    req.payload.logger.info(`Revalidating admission campaign consumer at ${path}`)
+    revalidatePath(path)
+  }
 
   return doc
 }

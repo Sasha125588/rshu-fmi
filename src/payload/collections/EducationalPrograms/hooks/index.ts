@@ -1,6 +1,7 @@
 import { revalidatePath } from 'next/cache'
 
 import { educationLevelLabels } from '../constants'
+import { getRelationId } from '@/payload/helpers'
 
 import type { EducationalProgram } from '@/payload-types'
 import type {
@@ -8,24 +9,25 @@ import type {
   CollectionAfterDeleteHook,
   CollectionBeforeValidateHook,
   FieldHook,
+  PayloadRequest,
 } from 'payload'
 
 const HOME_PAGE_PATH = '/'
 const SITEMAP_PATH = '/sitemap.xml'
-const SPECIALIZATIONS_PAGE_PATH = '/specializations'
+const EDUCATIONAL_PROGRAMS_PAGE_PATH = '/educational-programs'
 const TUITION_PAGE_PATH = '/vartist-navchannia'
 
 const getProgramConsumerPaths = (...programs: Array<EducationalProgram | null | undefined>) => {
   const paths = new Set([
     HOME_PAGE_PATH,
     SITEMAP_PATH,
-    SPECIALIZATIONS_PAGE_PATH,
+    EDUCATIONAL_PROGRAMS_PAGE_PATH,
     TUITION_PAGE_PATH,
   ])
 
   for (const program of programs) {
     if (program?._status === 'published' && program.slug) {
-      paths.add(`${SPECIALIZATIONS_PAGE_PATH}/${program.slug}`)
+      paths.add(`${EDUCATIONAL_PROGRAMS_PAGE_PATH}/${program.slug}`)
     }
   }
 
@@ -33,41 +35,59 @@ const getProgramConsumerPaths = (...programs: Array<EducationalProgram | null | 
 }
 
 type ProgramIdentityData = Partial<
-  Pick<
-    EducationalProgram,
-    | 'adminTitle'
-    | 'educationLevel'
-    | 'legacySpecialtyCode'
-    | 'shortTitle'
-    | 'specialtyCode'
-    | 'title'
-  >
+  Pick<EducationalProgram, 'educationLevel' | 'title' | 'specialty'>
 >
 
-const buildProgramAdminTitle = (data: ProgramIdentityData) => {
-  const title = data.title || data.shortTitle
-  const educationLevel = educationLevelLabels[data.educationLevel!]
-  const codes = [data.specialtyCode, data.legacySpecialtyCode].filter(Boolean).join(' / ')
+const buildProgramAdminTitle = async (data: ProgramIdentityData, req: PayloadRequest) => {
+  const specialtyId = getRelationId(data.specialty)
+  const educationLevel = data.educationLevel ? educationLevelLabels[data.educationLevel] : undefined
 
-  return [title, `— ${educationLevel}`, `(${codes})`].filter(Boolean).join(' ')
+  if (!specialtyId) {
+    return [data.title, educationLevel ? `— ${educationLevel}` : undefined]
+      .filter(Boolean)
+      .join(' ')
+  }
+
+  const specialty = await req.payload.findByID({
+    collection: 'specialties',
+    depth: 0,
+    id: specialtyId,
+    overrideAccess: true,
+    req,
+    select: {
+      code: true,
+      legacyCode: true,
+    },
+  })
+  const codes = [specialty.code, specialty.legacyCode].filter(Boolean).join(' / ')
+
+  return [
+    data.title,
+    educationLevel ? `— ${educationLevel}` : undefined,
+    codes ? `(${codes})` : undefined,
+  ]
+    .filter(Boolean)
+    .join(' ')
 }
 
-export const setProgramAdminTitle: CollectionBeforeValidateHook<EducationalProgram> = ({
+export const setProgramAdminTitle: CollectionBeforeValidateHook<EducationalProgram> = async ({
   data,
+  originalDoc,
+  req,
 }) => {
   if (!data) return data
 
-  data.adminTitle = buildProgramAdminTitle(data)
+  data.adminTitle = await buildProgramAdminTitle({ ...originalDoc, ...data }, req)
 }
 
 export const getProgramAdminTitle: FieldHook<
   EducationalProgram,
   EducationalProgram['adminTitle'],
   EducationalProgram
-> = ({ siblingData, value }) => {
+> = async ({ siblingData, value, req }) => {
   if (value && value.trim()) return value
 
-  return buildProgramAdminTitle(siblingData)
+  return await buildProgramAdminTitle(siblingData, req)
 }
 
 export const revalidateProgramConsumers: CollectionAfterChangeHook<EducationalProgram> = ({
