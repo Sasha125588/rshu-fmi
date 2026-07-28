@@ -23,11 +23,7 @@ export const CouncilMemberImage = ({
 
   const blurDataURL = media?.blurDataURL ?? undefined
 
-  const rawSrc = image?.url ?? media?.url ?? photoUrl
-  const src =
-    rawSrc && media?.updatedAt
-      ? `${rawSrc}${rawSrc.includes('?') ? '&' : '?'}v=${encodeURIComponent(media.updatedAt)}`
-      : rawSrc
+  const src = image?.url ?? media?.url ?? photoUrl
 
   if (!src)
     return (

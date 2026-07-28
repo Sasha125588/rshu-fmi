@@ -7,17 +7,31 @@ import type { MetadataRoute } from 'next'
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const payload = await getPayload({ config })
-  const result = await payload.find({
-    collection: 'educational-programs',
-    depth: 0,
-    overrideAccess: false,
-    pagination: false,
-    select: {
-      slug: true,
-      updatedAt: true,
-    },
-    sort: 'slug',
-  })
+
+  const [educationalPrograms, facultyNews] = await Promise.all([
+    payload.find({
+      collection: 'educational-programs',
+      depth: 0,
+      overrideAccess: false,
+      pagination: false,
+      select: {
+        slug: true,
+        updatedAt: true,
+      },
+      sort: 'slug',
+    }),
+    payload.find({
+      collection: 'faculty-news',
+      depth: 0,
+      overrideAccess: false,
+      pagination: false,
+      select: {
+        slug: true,
+        updatedAt: true,
+      },
+      sort: ['-isPinned', '-updatedAt', '-publishedAt'],
+    }),
+  ])
 
   return [
     {
@@ -70,12 +84,18 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       changeFrequency: 'hourly',
       priority: 0.9,
     },
-    ...['university', 'kitm', 'iktmvi'].map((source) => ({
+    ...['university', 'kitm', 'iktmvi', 'faculty'].map((source) => ({
       url: `${SITE_URL}/news/${source}`,
       changeFrequency: 'hourly' as const,
       priority: 0.8,
     })),
-    ...result.docs.map(({ slug, updatedAt }) => ({
+    ...facultyNews.docs.map(({ slug, updatedAt }) => ({
+      url: `${SITE_URL}/news/faculty/${slug}`,
+      lastModified: updatedAt,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    })),
+    ...educationalPrograms.docs.map(({ slug, updatedAt }) => ({
       url: `${SITE_URL}/educational-programs/${slug}`,
       lastModified: updatedAt,
       changeFrequency: 'monthly' as const,

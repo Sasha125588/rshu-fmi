@@ -1,10 +1,11 @@
 import { ArrowRightIcon, TriangleAlertIcon } from 'lucide-react'
 import Link from 'next/link'
 
-import { NewsRow } from './NewsRow'
+import { buildNewsHref } from '../_helpers'
+import { ExternalNewsCard } from './ExternalNewsCard'
 import { Alert, AlertDescription, AlertTitle, Typography } from '@/components/ui'
 import { buttonVariants } from '@/components/ui/button'
-import { NEWS_SOURCE_CONFIG, getNewsArchiveHref } from '@/shared/news'
+import { NEWS_SOURCE_CONFIG } from '@/shared/news'
 
 import type { NewsOverviewResult } from '../_types'
 
@@ -15,11 +16,10 @@ interface OverviewSourceSectionProps {
 
 export const OverviewSourceSection = ({ result, index }: OverviewSourceSectionProps) => {
   const config = NEWS_SOURCE_CONFIG[result.source]
-  const headingId = `overview-${result.source}`
 
   return (
     <section
-      aria-labelledby={headingId}
+      aria-labelledby={`overview-${result.source}`}
       className="grid gap-8 py-10 lg:grid-cols-[minmax(240px,0.45fr)_minmax(0,1fr)] lg:gap-12"
     >
       <div>
@@ -32,7 +32,7 @@ export const OverviewSourceSection = ({ result, index }: OverviewSourceSectionPr
         </Typography>
         <Typography
           as="h2"
-          id={headingId}
+          id={`overview-${result.source}`}
           variant="heading-lg"
           className="mt-4 md:text-3xl"
         >
@@ -47,10 +47,10 @@ export const OverviewSourceSection = ({ result, index }: OverviewSourceSectionPr
         </Typography>
 
         <Link
-          href={getNewsArchiveHref(result.source)}
+          href={buildNewsHref(result.source)}
           className={`${buttonVariants({ variant: 'outline', size: 'sm' })} mt-6`}
         >
-          Увесь архів
+          Усі новини
           <ArrowRightIcon data-icon="inline-end" />
         </Link>
       </div>
@@ -58,10 +58,10 @@ export const OverviewSourceSection = ({ result, index }: OverviewSourceSectionPr
       {result.status === 'fulfilled' ? (
         <ul className="divide-y">
           {result.news.map((item) => (
-            <NewsRow
+            <ExternalNewsCard
               key={`${item.source}-${item.link}`}
               item={item}
-              compact
+              variant="compact"
             />
           ))}
         </ul>

@@ -1,4 +1,4 @@
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from '@/components/ui'
 
 export const NewsListSkeleton = ({ rows = 6 }: { rows?: number }) => (
   <div

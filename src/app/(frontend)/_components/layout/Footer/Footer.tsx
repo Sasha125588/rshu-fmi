@@ -49,7 +49,7 @@ export const Footer = async () => (
               className="w-12!"
             />
             <div className="flex items-center gap-5">
-              <Link
+              <a
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram факультету"
@@ -60,8 +60,8 @@ export const Footer = async () => (
                   aria-hidden="true"
                   className="size-[22px]"
                 />
-              </Link>
-              <Link
+              </a>
+              <a
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok факультету"
@@ -72,8 +72,8 @@ export const Footer = async () => (
                   aria-hidden="true"
                   className="size-[22px]"
                 />
-              </Link>
-              <Link
+              </a>
+              <a
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook факультету"
@@ -84,7 +84,7 @@ export const Footer = async () => (
                   aria-hidden="true"
                   className="size-[22px]"
                 />
-              </Link>
+              </a>
             </div>
           </div>
         </div>

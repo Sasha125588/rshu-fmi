@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["node", "jsdoc", "import", "unicorn", "vue", "promise", "typescript"],
-  "ignorePatterns": ["drizzle/migrations/*"],
+  "ignorePatterns": ["drizzle/migrations/*", "src/app/(payload)/admin/importMap.js"],
   "categories": {
     "correctness": "off"
   },

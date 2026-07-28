@@ -1,4 +1,4 @@
-import { generateBlurDataURL } from './hooks'
+import { addCacheBustingVersion, generateBlurDataURL } from './hooks'
 import { adminsOrEditors, publicAccess } from '@/payload/access'
 
 import type { CollectionConfig } from 'payload'
@@ -37,6 +37,12 @@ export const Media: CollectionConfig = {
     },
     crop: true,
     focalPoint: true,
+    formatOptions: {
+      format: 'avif',
+      options: {
+        quality: 80,
+      },
+    },
     imageSizes: [
       {
         name: 'thumbnail',
@@ -44,7 +50,7 @@ export const Media: CollectionConfig = {
         height: 300,
         position: 'centre',
         formatOptions: {
-          format: 'webp',
+          format: 'avif',
           options: {
             quality: 75,
             effort: 4,
@@ -55,6 +61,19 @@ export const Media: CollectionConfig = {
         name: 'card',
         width: 768,
         height: 768,
+        position: 'centre',
+        formatOptions: {
+          format: 'avif',
+          options: {
+            quality: 55,
+            effort: 4,
+          },
+        },
+      },
+      {
+        name: 'newsCard',
+        width: 960,
+        height: 540,
         position: 'centre',
         formatOptions: {
           format: 'avif',
@@ -118,6 +137,7 @@ export const Media: CollectionConfig = {
     },
   ],
   hooks: {
+    afterRead: [addCacheBustingVersion],
     beforeChange: [generateBlurDataURL],
   },
   timestamps: true,

@@ -1,10 +1,10 @@
 import { parseKitmNews, parseKitmPreviewImage } from '../parsers/kitm'
 import { fetchNewsDocument, getParsedNewsPage } from './shared'
 
-import type { DepartmentNews } from '../types'
-import type { NewsLoader } from './shared'
+import type { ExternalDepartmentNews } from '../types'
+import type { ExternalNewsLoader } from './shared'
 
-export const getKitmNewsPage: NewsLoader<'kitm'> = async (page, options) => {
+export const getKitmNewsPage: ExternalNewsLoader<'kitm'> = async (page, options) => {
   const news = await getParsedNewsPage('kitm', page, parseKitmNews, options)
 
   if (!options?.includeImages) return news
@@ -12,7 +12,7 @@ export const getKitmNewsPage: NewsLoader<'kitm'> = async (page, options) => {
   return enrichKitmNewsImages(news)
 }
 
-const enrichKitmNewsImages = async (news: DepartmentNews<'kitm'>[]) => {
+const enrichKitmNewsImages = async (news: ExternalDepartmentNews<'kitm'>[]) => {
   const results = await Promise.allSettled(
     news.map(async (item) => {
       if (item.previewImage) return item
@@ -28,7 +28,11 @@ const enrichKitmNewsImages = async (news: DepartmentNews<'kitm'>[]) => {
 }
 
 const getKitmPreviewImage = async (articleUrl: string) => {
-  const html = await fetchNewsDocument(articleUrl, `KITM article fetch failed: ${articleUrl}`)
+  const html = await fetchNewsDocument(
+    'kitm',
+    articleUrl,
+    `KITM article fetch failed: ${articleUrl}`
+  )
 
   return parseKitmPreviewImage(html, articleUrl)
 }

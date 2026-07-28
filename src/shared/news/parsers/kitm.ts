@@ -2,13 +2,13 @@ import * as cheerio from 'cheerio'
 
 import { normalizePublishedAt, normalizeText, resolveUrl } from './utils'
 
-import type { DepartmentNews } from '../types'
+import type { ExternalDepartmentNews } from '../types'
 
 const KITM_ORIGIN = 'https://kitm.rshu.edu.ua'
 
 export const parseKitmNews = (html: string) => {
   const $ = cheerio.load(html)
-  const news: DepartmentNews<'kitm'>[] = []
+  const news: ExternalDepartmentNews<'kitm'>[] = []
 
   $('li.wp-block-post').each((_, element) => {
     const post = $(element)

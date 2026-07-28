@@ -2,13 +2,13 @@ import * as cheerio from 'cheerio'
 
 import { normalizeText, resolveUrl } from './utils'
 
-import type { UniversityNews } from '../types'
+import type { ExternalUniversityNews } from '../types'
 
 const UNIVERSITY_ORIGIN = 'https://www.rshu.edu.ua'
 
 export const parseUniversityNews = (html: string) => {
   const $ = cheerio.load(html)
-  const news: UniversityNews[] = []
+  const news: ExternalUniversityNews[] = []
 
   $('tr.cat-list-row0, tr.cat-list-row1').each((_, element) => {
     const row = $(element)

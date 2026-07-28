@@ -8,7 +8,7 @@ import {
 } from './hooks'
 import { validateStudyForms } from './validators'
 import { adminsOrEditors, publishedOrAuthenticated } from '@/payload/access'
-import { slugifyProgramValue } from '@/payload/helpers'
+import { slugifyValue } from '@/payload/helpers'
 
 import type { EducationLevel } from './constants'
 import type { EducationalProgram } from '@/payload-types'
@@ -23,11 +23,11 @@ const educationLevelSlugParts = {
 type ProgramSlugData = Pick<EducationalProgram, 'educationLevel' | 'title' | 'id' | 'slug'>
 
 const slugifyProgram: Slugify<ProgramSlugData> = ({ data }) => {
-  if (data.slug) return slugifyProgramValue(data.slug)
+  if (data.slug) return slugifyValue(data.slug)
 
   const educationLevel = educationLevelSlugParts[data.educationLevel]
 
-  return slugifyProgramValue([data.title, educationLevel].filter(Boolean).join(' '))
+  return slugifyValue([data.title, educationLevel].filter(Boolean).join(' '))
 }
 
 const titledDescriptionFields = [

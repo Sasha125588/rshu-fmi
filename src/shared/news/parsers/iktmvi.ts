@@ -2,13 +2,13 @@ import * as cheerio from 'cheerio'
 
 import { normalizePublishedAt, normalizeText, resolveUrl } from './utils'
 
-import type { DepartmentNews } from '../types'
+import type { ExternalDepartmentNews } from '../types'
 
 const IKTMVI_ORIGIN = 'https://iktmvi.rshu.edu.ua'
 
 export const parseIktmviNews = (html: string) => {
   const $ = cheerio.load(html)
-  const news: DepartmentNews<'iktmvi'>[] = []
+  const news: ExternalDepartmentNews<'iktmvi'>[] = []
 
   $('article[itemprop="blogPost"], article.item').each((_, element) => {
     const article = $(element)

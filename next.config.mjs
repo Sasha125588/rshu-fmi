@@ -32,4 +32,4 @@ const nextConfig = {
   },
 }
 
-export default withSerwist(withPayload(nextConfig))
+export default withPayload(withSerwist(nextConfig))

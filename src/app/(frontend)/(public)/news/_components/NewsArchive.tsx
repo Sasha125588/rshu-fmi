@@ -1,20 +1,24 @@
 import { ArrowUpRightIcon } from 'lucide-react'
 
+import { ExternalNewsCard } from './ExternalNewsCard'
 import { NewsPagination } from './NewsPagination'
-import { NewsRow } from './NewsRow'
 import { Typography } from '@/components/ui'
 import { buttonVariants } from '@/components/ui/button'
 import { NEWS_SOURCE_CONFIG } from '@/shared/news'
 
-import type { NewsItem, NewsSource } from '@/shared/news'
+import type { ExternalNewsItem, ExternalNewsSource } from '@/shared/news'
 
-interface NewsArchiveProps<S extends NewsSource> {
+interface NewsArchiveProps<S extends ExternalNewsSource> {
   source: S
   page: number
-  news: NewsItem<S>[]
+  news: ExternalNewsItem<S>[]
 }
 
-export const NewsArchive = <S extends NewsSource>({ source, page, news }: NewsArchiveProps<S>) => {
+export const NewsArchive = <S extends ExternalNewsSource>({
+  source,
+  page,
+  news,
+}: NewsArchiveProps<S>) => {
   const config = NEWS_SOURCE_CONFIG[source]
 
   return (
@@ -55,7 +59,7 @@ export const NewsArchive = <S extends NewsSource>({ source, page, news }: NewsAr
       <div className="mt-2">
         <ul className="divide-y">
           {news.map((item) => (
-            <NewsRow
+            <ExternalNewsCard
               key={`${item.source}-${item.link}`}
               item={item}
             />

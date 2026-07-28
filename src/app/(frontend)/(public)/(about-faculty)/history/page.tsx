@@ -93,7 +93,7 @@ const HistoryPage = async () => {
                 </div>
 
                 <Link
-                  href={'/educational-programs'}
+                  href="/educational-programs"
                   className="text-accent-violet inline-flex shrink-0 items-center gap-1 text-sm font-semibold underline-offset-4 hover:underline"
                 >
                   Освітні програми

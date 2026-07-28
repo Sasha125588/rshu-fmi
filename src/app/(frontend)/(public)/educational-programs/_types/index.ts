@@ -48,7 +48,5 @@ export type CatalogEnrichedEducationalProgramSource = Omit<
 export type CatalogEnrichedSpecialtySource = Omit<CatalogSpecialtySource, 'educationalPrograms'> & {
   educationalPrograms?: {
     docs?: CatalogEnrichedEducationalProgramSource[]
-    hasNextPage?: boolean
-    totalDocs?: number
   }
 }

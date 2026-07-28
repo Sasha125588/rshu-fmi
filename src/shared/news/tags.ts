@@ -1,9 +1,15 @@
-import type { BaseNews, NewsItem, NewsSource, NewsTag, ParsedNews } from './types'
+import type {
+  ExternalNewsBase,
+  ExternalNewsBySource,
+  ExternalNewsItem,
+  ExternalNewsSource,
+} from './types'
+import type { NewsTagCode } from '@/payload/collections/FacultyNews/constants'
 
 type WeightedKeyword = readonly [value: string, weight: number]
 
 interface NewsTagRule {
-  tag: NewsTag
+  tag: NewsTagCode
   keywords: WeightedKeyword[]
 }
 
@@ -12,7 +18,7 @@ const MIN_TAG_SCORE = 2
 
 const TAG_RULES: NewsTagRule[] = [
   {
-    tag: 'Акредитація',
+    tag: 'accreditation',
     keywords: [
       ['акредитаці', 3],
       ['експертна група', 3],
@@ -23,7 +29,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Міжнародне',
+    tag: 'international',
     keywords: [
       ['міжнародн', 2],
       ['академічна мобільність', 3],
@@ -35,7 +41,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Стипендії',
+    tag: 'scholarships',
     keywords: [
       ['стипенді', 3],
       ['scholarship', 3],
@@ -43,7 +49,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Грант',
+    tag: 'grants',
     keywords: [
       ['грант', 3],
       ['грантов', 3],
@@ -51,7 +57,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Досягнення',
+    tag: 'achievements',
     keywords: [
       ['перемог', 3],
       ['призер', 3],
@@ -66,7 +72,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Партнерство',
+    tag: 'partnership',
     keywords: [
       ['меморандум', 3],
       ['співпрац', 2],
@@ -76,7 +82,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Профорієнтація',
+    tag: 'career-guidance',
     keywords: [
       ['профорієнтаці', 3],
       ['день відкритих дверей', 3],
@@ -87,7 +93,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: "Кар'єра",
+    tag: 'career',
     keywords: [
       ['працевлаштуван', 3],
       ['ваканс', 3],
@@ -97,7 +103,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Наука',
+    tag: 'science',
     keywords: [
       ['науков', 2],
       ['конференц', 3],
@@ -110,7 +116,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Освіта',
+    tag: 'education',
     keywords: [
       ['освіт', 1],
       ['навчан', 1],
@@ -123,7 +129,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'IT',
+    tag: 'it',
     keywords: [
       ['айті', 3],
       ['програмув', 2],
@@ -136,7 +142,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Математика',
+    tag: 'mathematics',
     keywords: [
       ['математик', 3],
       ['алгебр', 3],
@@ -144,7 +150,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Культура',
+    tag: 'culture',
     keywords: [
       ['мистец', 2],
       ['музич', 2],
@@ -157,7 +163,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Спорт',
+    tag: 'sports',
     keywords: [
       ['спорт', 3],
       ['чемпіонат', 3],
@@ -167,7 +173,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Свята',
+    tag: 'holidays',
     keywords: [
       ['зі святом', 3],
       ['з днем', 3],
@@ -178,7 +184,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Оголошення',
+    tag: 'announcements',
     keywords: [
       ['до уваги', 3],
       ['оголошення', 3],
@@ -191,7 +197,7 @@ const TAG_RULES: NewsTagRule[] = [
     ],
   },
   {
-    tag: 'Події',
+    tag: 'events',
     keywords: [
       ['вступ', 3],
       ['зустріч', 2],
@@ -230,7 +236,7 @@ const NORMALIZED_TAG_RULES = TAG_RULES.map((rule) => ({
 export const generateNewsTags = ({
   title,
   description,
-}: Pick<BaseNews, 'title' | 'description'>) => {
+}: Pick<ExternalNewsBase, 'title' | 'description'>) => {
   const normalizedTitle = normalizeText(title)
   const normalizedDescription = normalizeText(description ?? '')
 
@@ -249,5 +255,6 @@ export const generateNewsTags = ({
     .map(({ tag }) => tag)
 }
 
-export const addNewsTags = <S extends NewsSource>(news: ParsedNews[S][]): NewsItem<S>[] =>
-  news.map((item) => ({ ...item, tags: generateNewsTags(item) }))
+export const addNewsTags = <S extends ExternalNewsSource>(
+  news: ExternalNewsBySource[S][]
+): ExternalNewsItem<S>[] => news.map((item) => ({ ...item, tags: generateNewsTags(item) }))

@@ -3,7 +3,6 @@ import {
   ArrowRightIcon,
   ArrowUpRight,
   BookOpenIcon,
-  EyeIcon,
   GraduationCapIcon,
   Layers2Icon,
   LayoutGridIcon,
@@ -16,6 +15,9 @@ import { getPayload } from 'payload'
 import { LandingBackdrop } from './_components/LandingBackground/LandingBackground'
 import { ProgramCard } from './_components/ProgramCard/ProgramCard'
 import { faqItems, heroStats, programRoutes, quickTags, reasons, studentLinks } from './_constants'
+import { ExternalNewsCard } from './news/_components/ExternalNewsCard'
+import { FacultyNewsCard } from './news/_components/FacultyNewsCard'
+import { getLatestFacultyNews } from './news/faculty/_api'
 import {
   Accordion,
   AccordionContent,
@@ -81,7 +83,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 const HomePage = async () => {
   const payload = await getPayload({ config })
-  const [specialties, news] = await Promise.all([
+  const [specialties, facultyNews, departmentNews, universityNews] = await Promise.all([
     payload.find({
       collection: 'specialties',
       depth: 1,
@@ -108,13 +110,20 @@ const HomePage = async () => {
       },
       sort: ['sortOrder', 'code'],
     }),
-    getNewsPage('university', 1),
+    getLatestFacultyNews(3),
+    Promise.all(
+      (['kitm', 'iktmvi'] as const).map((source) => getNewsPage(source, 1, { limit: 1 }))
+    ),
+    getNewsPage('university', 1, { limit: 5 }),
   ])
+
   const featuredPrograms = specialties.docs.flatMap((specialty) =>
     (specialty.educationalPrograms?.docs ?? []).flatMap((program) =>
       typeof program === 'object' ? [{ program, specialty }] : []
     )
   )
+
+  const externalNews = [...departmentNews.flatMap((item) => item), ...universityNews]
 
   return (
     <div>
@@ -269,7 +278,7 @@ const HomePage = async () => {
 
               <div className="flex flex-wrap items-center gap-2 md:justify-end">
                 <Link
-                  href={'/educational-programs'}
+                  href="/educational-programs"
                   className={cn(
                     buttonVariants({ variant: 'outline' }),
                     'h-10 gap-2 rounded-full px-4 text-sm font-semibold'
@@ -480,8 +489,8 @@ const HomePage = async () => {
         <div>
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <SectionHeader
-              title="Новини університету"
-              description="Останні оновлення з університетського сайту."
+              title="Останні новини"
+              description="Новини факультету, університету та кафедр в одному потоці."
             />
             <Link
               href={'/news'}
@@ -499,68 +508,21 @@ const HomePage = async () => {
           </div>
 
           <ul className="mt-10 divide-y">
-            {news.slice(0, 6).map((item, index) => (
-              <li
-                key={`${item.link}-${index}`}
-                className="group relative"
-              >
-                <span
-                  aria-hidden="true"
-                  className="bg-accent-violet/60 absolute top-5 bottom-5 left-0 z-10 w-0.5 origin-center scale-y-0 rounded-full transition-transform duration-300 group-focus-within:scale-y-100 group-hover:scale-y-100"
-                />
-
-                <Link
-                  href={item.link as Route}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:bg-foreground/[0.035] flex min-h-32 items-start gap-6 px-4 py-5 transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-offset-4"
-                >
-                  <Typography
-                    as="span"
-                    variant="body-md"
-                    className="font-jetbrains text-muted-foreground/40 shrink-0 text-lg font-medium"
-                  >
-                    {String(index + 1).padStart(2, '0')}
-                  </Typography>
-
-                  <span className="min-w-0 flex-1 transition-transform duration-200 group-hover:translate-x-1">
-                    {!!item.tags.length && (
-                      <Typography
-                        as="span"
-                        variant="body-sm"
-                        className="text-muted-foreground/70 group-hover:text-muted-foreground mb-2 block transition-colors duration-200"
-                      >
-                        {item.tags.slice(0, 3).join(' • ')}
-                      </Typography>
-                    )}
-
-                    <Typography
-                      as="span"
-                      variant="title-sm"
-                      className="mb-3 line-clamp-1 leading-tight transition-colors duration-200 md:text-xl"
-                    >
-                      {item.title}
-                      <span className="sr-only">, відкривається в новій вкладці</span>
-                    </Typography>
-
-                    <Typography
-                      as="span"
-                      variant="body-sm"
-                      className="text-muted-foreground/70 group-hover:text-muted-foreground mt-4 flex items-center gap-1.5 transition-colors duration-200"
-                    >
-                      <EyeIcon
-                        aria-hidden="true"
-                        className="size-4"
-                      />
-                      <span>{item.views.toLocaleString('uk-UA')} переглядів</span>
-                    </Typography>
-                  </span>
-
-                  <span className="text-muted-foreground/80 shrink-0">
-                    <ArrowUpRight className="group-hover:text-foreground transition-[colors, transform] size-5 duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </span>
-                </Link>
-              </li>
+            {facultyNews.map((item) => (
+              <FacultyNewsCard
+                key={item.id}
+                item={item}
+                variant="compact"
+                withSource
+              />
+            ))}
+            {externalNews.map((item) => (
+              <ExternalNewsCard
+                key={`external-${item.source}-${item.link}`}
+                item={item}
+                variant="compact"
+                withSource
+              />
             ))}
           </ul>
         </div>

@@ -26,7 +26,7 @@ const NewsError = ({ error, unstable_retry }: NewsErrorProps) => (
         variant="heading-lg"
         className="font-jetbrains mt-4 font-bold"
       >
-        Джерело {error.message.split(' ')[3]} не відповідає
+        Не вдалося завантажити новини
       </Typography>
       <Alert className="mt-8">
         <TriangleAlertIcon />

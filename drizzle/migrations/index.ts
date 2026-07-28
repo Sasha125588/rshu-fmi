@@ -8,6 +8,7 @@ import * as migration_20260713_193323_media_blur_data_url from './20260713_19332
 import * as migration_20260718_103921_catalog_specializations_schema from './20260718_103921_catalog_specializations_schema'
 import * as migration_20260721_134934_normalize_specialties from './20260721_134934_normalize_specialties'
 import * as migration_20260721_203527_move_specialty_shared_fields from './20260721_203527_move_specialty_shared_fields'
+import * as migration_20260724_134652_faculty_news_and_redirects from './20260724_134652_faculty_news_and_redirects'
 
 export const migrations = [
   {
@@ -59,5 +60,10 @@ export const migrations = [
     up: migration_20260721_203527_move_specialty_shared_fields.up,
     down: migration_20260721_203527_move_specialty_shared_fields.down,
     name: '20260721_203527_move_specialty_shared_fields',
+  },
+  {
+    up: migration_20260724_134652_faculty_news_and_redirects.up,
+    down: migration_20260724_134652_faculty_news_and_redirects.down,
+    name: '20260724_134652_faculty_news_and_redirects',
   },
 ]

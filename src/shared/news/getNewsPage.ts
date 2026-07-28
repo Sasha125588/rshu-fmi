@@ -3,20 +3,16 @@ import { getKitmNewsPage } from './loaders/kitm'
 import { getUniversityNewsPage } from './loaders/university'
 import { addNewsTags } from './tags'
 
-import type { GetNewsPageOptions, NewsLoader } from './loaders/shared'
-import type { NewsSource } from './types'
+import type { GetNewsPageOptions } from './loaders/shared'
+import type { ExternalNewsSource } from './types'
 
-export type NewsLoaders = {
-  [S in NewsSource]: NewsLoader<S>
-}
-
-const loaders: NewsLoaders = {
+const loaders = {
   university: getUniversityNewsPage,
   kitm: getKitmNewsPage,
   iktmvi: getIktmviNewsPage,
 }
 
-export const getNewsPage = async <S extends NewsSource>(
+export const getNewsPage = async <S extends ExternalNewsSource>(
   source: S,
   page: number,
   options: GetNewsPageOptions = {}

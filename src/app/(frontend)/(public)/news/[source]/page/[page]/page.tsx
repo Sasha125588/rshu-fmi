@@ -1,33 +1,30 @@
 import { notFound } from 'next/navigation'
 
 import { NewsArchive } from '../../../_components/NewsArchive'
-import { NewsHeader } from '../../../_components/NewsHeader'
 import { NewsUnavailable } from '../../../_components/NewsUnavailable'
+import { parseNewsRoute } from '../../../_helpers'
 import {
-  NEWS_SOURCES,
+  EXTERNAL_NEWS_SOURCES,
   NEWS_SOURCE_CONFIG,
-  type NewsSource,
   PRERENDERED_PAGE_COUNT,
+  getExternalNewsErrorDetails,
   getNewsPage,
-  parseNewsRoute,
 } from '@/shared/news'
 
 import type { Metadata } from 'next'
-
-interface NewsSourcePagePageProps {
-  params: Promise<{ source: NewsSource; page: string }>
-}
 
 export const revalidate = 3600
 export const dynamicParams = true
 
 export const generateStaticParams = () =>
-  NEWS_SOURCES.flatMap((source) =>
+  EXTERNAL_NEWS_SOURCES.flatMap((source) =>
     Array.from({ length: PRERENDERED_PAGE_COUNT }, (_, index) => ({
       source,
-      page: String(index + 1),
-    })).filter(({ page }) => +page > 1)
+      page: String(index + 2),
+    }))
   )
+
+type NewsSourcePagePageProps = PageProps<'/news/[source]/page/[page]'>
 
 export const generateMetadata = async ({ params }: NewsSourcePagePageProps): Promise<Metadata> => {
   const { source, page } = await params
@@ -55,7 +52,6 @@ const PaginatedSourceNewsPage = async ({ params }: NewsSourcePagePageProps) => {
 
     return (
       <div>
-        <NewsHeader activeSource={route.source} />
         <NewsArchive
           source={route.source}
           page={route.page}
@@ -66,10 +62,9 @@ const PaginatedSourceNewsPage = async ({ params }: NewsSourcePagePageProps) => {
   } catch (error) {
     return (
       <div>
-        <NewsHeader activeSource={route.source} />
         <NewsUnavailable
           source={route.source}
-          error={error as Error}
+          error={getExternalNewsErrorDetails(error, route.source)}
         />
       </div>
     )

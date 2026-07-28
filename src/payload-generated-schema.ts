@@ -69,6 +69,49 @@ export const enum__educational_programs_v_version_status = pgEnum(
   'enum__educational_programs_v_version_status',
   ['draft', 'published']
 )
+export const enum_faculty_news_tags = pgEnum('enum_faculty_news_tags', [
+  'accreditation',
+  'international',
+  'scholarships',
+  'grants',
+  'science',
+  'education',
+  'events',
+  'achievements',
+  'partnership',
+  'career-guidance',
+  'holidays',
+  'culture',
+  'sports',
+  'announcements',
+  'it',
+  'mathematics',
+  'career',
+])
+export const enum_faculty_news_status = pgEnum('enum_faculty_news_status', ['draft', 'published'])
+export const enum__faculty_news_v_version_tags = pgEnum('enum__faculty_news_v_version_tags', [
+  'accreditation',
+  'international',
+  'scholarships',
+  'grants',
+  'science',
+  'education',
+  'events',
+  'achievements',
+  'partnership',
+  'career-guidance',
+  'holidays',
+  'culture',
+  'sports',
+  'announcements',
+  'it',
+  'mathematics',
+  'career',
+])
+export const enum__faculty_news_v_version_status = pgEnum('enum__faculty_news_v_version_status', [
+  'draft',
+  'published',
+])
 export const enum_admission_campaigns_study_form = pgEnum('enum_admission_campaigns_study_form', [
   'full-time',
   'part-time',
@@ -156,6 +199,7 @@ export const enum_media_category = pgEnum('enum_media_category', [
   'gallery',
   'other',
 ])
+export const enum_redirects_to_type = pgEnum('enum_redirects_to_type', ['reference', 'custom'])
 export const enum_spec_resource_destination = pgEnum('enum_spec_resource_destination', [
   'link',
   'file',
@@ -542,7 +586,6 @@ export const specialties = pgTable(
       onDelete: 'set null',
     }),
     description: varchar('description'),
-    isFeatured: boolean('is_featured').default(false),
     sortOrder: numeric('sort_order', { mode: 'number' }).default(0),
     updatedAt: timestamp('updated_at', {
       mode: 'string',
@@ -608,7 +651,6 @@ export const _specialties_v = pgTable(
       }
     ),
     version_description: varchar('version_description'),
-    version_isFeatured: boolean('version_is_featured').default(false),
     version_sortOrder: numeric('version_sort_order', {
       mode: 'number',
     }).default(0),
@@ -924,6 +966,204 @@ export const _educational_programs_v = pgTable(
     index('_educational_programs_v_created_at_idx').on(columns.createdAt),
     index('_educational_programs_v_updated_at_idx').on(columns.updatedAt),
     index('_educational_programs_v_latest_idx').on(columns.latest),
+  ]
+)
+
+export const faculty_news_tags = pgTable(
+  'faculty_news_tags',
+  {
+    order: integer('order').notNull(),
+    parent: integer('parent_id').notNull(),
+    value: enum_faculty_news_tags('value'),
+    id: serial('id').primaryKey(),
+  },
+  (columns) => [
+    index('faculty_news_tags_order_idx').on(columns.order),
+    index('faculty_news_tags_parent_idx').on(columns.parent),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [faculty_news.id],
+      name: 'faculty_news_tags_parent_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const faculty_news = pgTable(
+  'faculty_news',
+  {
+    id: serial('id').primaryKey(),
+    title: varchar('title'),
+    generateSlug: boolean('generate_slug').default(true),
+    slug: varchar('slug'),
+    excerpt: varchar('excerpt'),
+    content: jsonb('content'),
+    coverImage: integer('cover_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    publishedAt: timestamp('published_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    isPinned: boolean('is_pinned').default(false),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    _status: enum_faculty_news_status('_status').default('draft'),
+  },
+  (columns) => [
+    uniqueIndex('faculty_news_slug_idx').on(columns.slug),
+    index('faculty_news_cover_image_idx').on(columns.coverImage),
+    index('faculty_news_published_at_idx').on(columns.publishedAt),
+    index('faculty_news_updated_at_idx').on(columns.updatedAt),
+    index('faculty_news_created_at_idx').on(columns.createdAt),
+    index('faculty_news__status_idx').on(columns._status),
+  ]
+)
+
+export const faculty_news_rels = pgTable(
+  'faculty_news_rels',
+  {
+    id: serial('id').primaryKey(),
+    order: integer('order'),
+    parent: integer('parent_id').notNull(),
+    path: varchar('path').notNull(),
+    departmentsID: integer('departments_id'),
+  },
+  (columns) => [
+    index('faculty_news_rels_order_idx').on(columns.order),
+    index('faculty_news_rels_parent_idx').on(columns.parent),
+    index('faculty_news_rels_path_idx').on(columns.path),
+    index('faculty_news_rels_departments_id_idx').on(columns.departmentsID),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [faculty_news.id],
+      name: 'faculty_news_rels_parent_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['departmentsID']],
+      foreignColumns: [departments.id],
+      name: 'faculty_news_rels_departments_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const _faculty_news_v_version_tags = pgTable(
+  '_faculty_news_v_version_tags',
+  {
+    order: integer('order').notNull(),
+    parent: integer('parent_id').notNull(),
+    value: enum__faculty_news_v_version_tags('value'),
+    id: serial('id').primaryKey(),
+  },
+  (columns) => [
+    index('_faculty_news_v_version_tags_order_idx').on(columns.order),
+    index('_faculty_news_v_version_tags_parent_idx').on(columns.parent),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [_faculty_news_v.id],
+      name: '_faculty_news_v_version_tags_parent_fk',
+    }).onDelete('cascade'),
+  ]
+)
+
+export const _faculty_news_v = pgTable(
+  '_faculty_news_v',
+  {
+    id: serial('id').primaryKey(),
+    parent: integer('parent_id').references(() => faculty_news.id, {
+      onDelete: 'set null',
+    }),
+    version_title: varchar('version_title'),
+    version_generateSlug: boolean('version_generate_slug').default(true),
+    version_slug: varchar('version_slug'),
+    version_excerpt: varchar('version_excerpt'),
+    version_content: jsonb('version_content'),
+    version_coverImage: integer('version_cover_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    version_publishedAt: timestamp('version_published_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_isPinned: boolean('version_is_pinned').default(false),
+    version_updatedAt: timestamp('version_updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp('version_created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status: enum__faculty_news_v_version_status('version__status').default('draft'),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean('latest'),
+  },
+  (columns) => [
+    index('_faculty_news_v_parent_idx').on(columns.parent),
+    index('_faculty_news_v_version_version_slug_idx').on(columns.version_slug),
+    index('_faculty_news_v_version_version_cover_image_idx').on(columns.version_coverImage),
+    index('_faculty_news_v_version_version_published_at_idx').on(columns.version_publishedAt),
+    index('_faculty_news_v_version_version_updated_at_idx').on(columns.version_updatedAt),
+    index('_faculty_news_v_version_version_created_at_idx').on(columns.version_createdAt),
+    index('_faculty_news_v_version_version__status_idx').on(columns.version__status),
+    index('_faculty_news_v_created_at_idx').on(columns.createdAt),
+    index('_faculty_news_v_updated_at_idx').on(columns.updatedAt),
+    index('_faculty_news_v_latest_idx').on(columns.latest),
+  ]
+)
+
+export const _faculty_news_v_rels = pgTable(
+  '_faculty_news_v_rels',
+  {
+    id: serial('id').primaryKey(),
+    order: integer('order'),
+    parent: integer('parent_id').notNull(),
+    path: varchar('path').notNull(),
+    departmentsID: integer('departments_id'),
+  },
+  (columns) => [
+    index('_faculty_news_v_rels_order_idx').on(columns.order),
+    index('_faculty_news_v_rels_parent_idx').on(columns.parent),
+    index('_faculty_news_v_rels_path_idx').on(columns.path),
+    index('_faculty_news_v_rels_departments_id_idx').on(columns.departmentsID),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [_faculty_news_v.id],
+      name: '_faculty_news_v_rels_parent_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['departmentsID']],
+      foreignColumns: [departments.id],
+      name: '_faculty_news_v_rels_departments_fk',
+    }).onDelete('cascade'),
   ]
 )
 
@@ -1452,6 +1692,16 @@ export const media = pgTable(
     sizes_card_mimeType: varchar('sizes_card_mime_type'),
     sizes_card_filesize: numeric('sizes_card_filesize', { mode: 'number' }),
     sizes_card_filename: varchar('sizes_card_filename'),
+    sizes_newsCard_url: varchar('sizes_news_card_url'),
+    sizes_newsCard_width: numeric('sizes_news_card_width', { mode: 'number' }),
+    sizes_newsCard_height: numeric('sizes_news_card_height', {
+      mode: 'number',
+    }),
+    sizes_newsCard_mimeType: varchar('sizes_news_card_mime_type'),
+    sizes_newsCard_filesize: numeric('sizes_news_card_filesize', {
+      mode: 'number',
+    }),
+    sizes_newsCard_filename: varchar('sizes_news_card_filename'),
     sizes_hero_url: varchar('sizes_hero_url'),
     sizes_hero_width: numeric('sizes_hero_width', { mode: 'number' }),
     sizes_hero_height: numeric('sizes_hero_height', { mode: 'number' }),
@@ -1467,7 +1717,64 @@ export const media = pgTable(
       columns.sizes_thumbnail_filename
     ),
     index('media_sizes_card_sizes_card_filename_idx').on(columns.sizes_card_filename),
+    index('media_sizes_news_card_sizes_news_card_filename_idx').on(columns.sizes_newsCard_filename),
     index('media_sizes_hero_sizes_hero_filename_idx').on(columns.sizes_hero_filename),
+  ]
+)
+
+export const redirects = pgTable(
+  'redirects',
+  {
+    id: serial('id').primaryKey(),
+    from: varchar('from').notNull(),
+    to_type: enum_redirects_to_type('to_type').default('reference'),
+    to_url: varchar('to_url'),
+    updatedAt: timestamp('updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+  },
+  (columns) => [
+    uniqueIndex('redirects_from_idx').on(columns.from),
+    index('redirects_updated_at_idx').on(columns.updatedAt),
+    index('redirects_created_at_idx').on(columns.createdAt),
+  ]
+)
+
+export const redirects_rels = pgTable(
+  'redirects_rels',
+  {
+    id: serial('id').primaryKey(),
+    order: integer('order'),
+    parent: integer('parent_id').notNull(),
+    path: varchar('path').notNull(),
+    'faculty-newsID': integer('faculty_news_id'),
+  },
+  (columns) => [
+    index('redirects_rels_order_idx').on(columns.order),
+    index('redirects_rels_parent_idx').on(columns.parent),
+    index('redirects_rels_path_idx').on(columns.path),
+    index('redirects_rels_faculty_news_id_idx').on(columns['faculty-newsID']),
+    foreignKey({
+      columns: [columns['parent']],
+      foreignColumns: [redirects.id],
+      name: 'redirects_rels_parent_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['faculty-newsID']],
+      foreignColumns: [faculty_news.id],
+      name: 'redirects_rels_faculty_news_fk',
+    }).onDelete('cascade'),
   ]
 )
 
@@ -1520,11 +1827,13 @@ export const payload_locked_documents_rels = pgTable(
     'academic-council-membersID': integer('academic_council_members_id'),
     specialtiesID: integer('specialties_id'),
     'educational-programsID': integer('educational_programs_id'),
+    'faculty-newsID': integer('faculty_news_id'),
     'admission-campaignsID': integer('admission_campaigns_id'),
     'tuition-ratesID': integer('tuition_rates_id'),
     'document-categoriesID': integer('document_categories_id'),
     documentsID: integer('documents_id'),
     mediaID: integer('media_id'),
+    redirectsID: integer('redirects_id'),
   },
   (columns) => [
     index('payload_locked_documents_rels_order_idx').on(columns.order),
@@ -1539,6 +1848,7 @@ export const payload_locked_documents_rels = pgTable(
     index('payload_locked_documents_rels_educational_programs_id_idx').on(
       columns['educational-programsID']
     ),
+    index('payload_locked_documents_rels_faculty_news_id_idx').on(columns['faculty-newsID']),
     index('payload_locked_documents_rels_admission_campaigns_id_idx').on(
       columns['admission-campaignsID']
     ),
@@ -1548,6 +1858,7 @@ export const payload_locked_documents_rels = pgTable(
     ),
     index('payload_locked_documents_rels_documents_id_idx').on(columns.documentsID),
     index('payload_locked_documents_rels_media_id_idx').on(columns.mediaID),
+    index('payload_locked_documents_rels_redirects_id_idx').on(columns.redirectsID),
     foreignKey({
       columns: [columns['parent']],
       foreignColumns: [payload_locked_documents.id],
@@ -1579,6 +1890,11 @@ export const payload_locked_documents_rels = pgTable(
       name: 'payload_locked_documents_rels_educational_programs_fk',
     }).onDelete('cascade'),
     foreignKey({
+      columns: [columns['faculty-newsID']],
+      foreignColumns: [faculty_news.id],
+      name: 'payload_locked_documents_rels_faculty_news_fk',
+    }).onDelete('cascade'),
+    foreignKey({
       columns: [columns['admission-campaignsID']],
       foreignColumns: [admission_campaigns.id],
       name: 'payload_locked_documents_rels_admission_campaigns_fk',
@@ -1602,6 +1918,11 @@ export const payload_locked_documents_rels = pgTable(
       columns: [columns['mediaID']],
       foreignColumns: [media.id],
       name: 'payload_locked_documents_rels_media_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['redirectsID']],
+      foreignColumns: [redirects.id],
+      name: 'payload_locked_documents_rels_redirects_fk',
     }).onDelete('cascade'),
   ]
 )
@@ -2283,6 +2604,78 @@ export const relations__educational_programs_v = relations(
     }),
   })
 )
+export const relations_faculty_news_tags = relations(faculty_news_tags, ({ one }) => ({
+  parent: one(faculty_news, {
+    fields: [faculty_news_tags.parent],
+    references: [faculty_news.id],
+    relationName: 'tags',
+  }),
+}))
+export const relations_faculty_news_rels = relations(faculty_news_rels, ({ one }) => ({
+  parent: one(faculty_news, {
+    fields: [faculty_news_rels.parent],
+    references: [faculty_news.id],
+    relationName: '_rels',
+  }),
+  departmentsID: one(departments, {
+    fields: [faculty_news_rels.departmentsID],
+    references: [departments.id],
+    relationName: 'departments',
+  }),
+}))
+export const relations_faculty_news = relations(faculty_news, ({ one, many }) => ({
+  coverImage: one(media, {
+    fields: [faculty_news.coverImage],
+    references: [media.id],
+    relationName: 'coverImage',
+  }),
+  tags: many(faculty_news_tags, {
+    relationName: 'tags',
+  }),
+  _rels: many(faculty_news_rels, {
+    relationName: '_rels',
+  }),
+}))
+export const relations__faculty_news_v_version_tags = relations(
+  _faculty_news_v_version_tags,
+  ({ one }) => ({
+    parent: one(_faculty_news_v, {
+      fields: [_faculty_news_v_version_tags.parent],
+      references: [_faculty_news_v.id],
+      relationName: 'version_tags',
+    }),
+  })
+)
+export const relations__faculty_news_v_rels = relations(_faculty_news_v_rels, ({ one }) => ({
+  parent: one(_faculty_news_v, {
+    fields: [_faculty_news_v_rels.parent],
+    references: [_faculty_news_v.id],
+    relationName: '_rels',
+  }),
+  departmentsID: one(departments, {
+    fields: [_faculty_news_v_rels.departmentsID],
+    references: [departments.id],
+    relationName: 'departments',
+  }),
+}))
+export const relations__faculty_news_v = relations(_faculty_news_v, ({ one, many }) => ({
+  parent: one(faculty_news, {
+    fields: [_faculty_news_v.parent],
+    references: [faculty_news.id],
+    relationName: 'parent',
+  }),
+  version_coverImage: one(media, {
+    fields: [_faculty_news_v.version_coverImage],
+    references: [media.id],
+    relationName: 'version_coverImage',
+  }),
+  version_tags: many(_faculty_news_v_version_tags, {
+    relationName: 'version_tags',
+  }),
+  _rels: many(_faculty_news_v_rels, {
+    relationName: '_rels',
+  }),
+}))
 export const relations_admission_campaigns = relations(admission_campaigns, ({ one }) => ({
   educationalProgram: one(educational_programs, {
     fields: [admission_campaigns.educationalProgram],
@@ -2382,6 +2775,23 @@ export const relations__documents_v = relations(_documents_v, ({ one, many }) =>
   }),
 }))
 export const relations_media = relations(media, () => ({}))
+export const relations_redirects_rels = relations(redirects_rels, ({ one }) => ({
+  parent: one(redirects, {
+    fields: [redirects_rels.parent],
+    references: [redirects.id],
+    relationName: '_rels',
+  }),
+  'faculty-newsID': one(faculty_news, {
+    fields: [redirects_rels['faculty-newsID']],
+    references: [faculty_news.id],
+    relationName: 'faculty-news',
+  }),
+}))
+export const relations_redirects = relations(redirects, ({ many }) => ({
+  _rels: many(redirects_rels, {
+    relationName: '_rels',
+  }),
+}))
 export const relations_payload_kv = relations(payload_kv, () => ({}))
 export const relations_payload_locked_documents_rels = relations(
   payload_locked_documents_rels,
@@ -2416,6 +2826,11 @@ export const relations_payload_locked_documents_rels = relations(
       references: [educational_programs.id],
       relationName: 'educational-programs',
     }),
+    'faculty-newsID': one(faculty_news, {
+      fields: [payload_locked_documents_rels['faculty-newsID']],
+      references: [faculty_news.id],
+      relationName: 'faculty-news',
+    }),
     'admission-campaignsID': one(admission_campaigns, {
       fields: [payload_locked_documents_rels['admission-campaignsID']],
       references: [admission_campaigns.id],
@@ -2440,6 +2855,11 @@ export const relations_payload_locked_documents_rels = relations(
       fields: [payload_locked_documents_rels.mediaID],
       references: [media.id],
       relationName: 'media',
+    }),
+    redirectsID: one(redirects, {
+      fields: [payload_locked_documents_rels.redirectsID],
+      references: [redirects.id],
+      relationName: 'redirects',
     }),
   })
 )
@@ -2597,6 +3017,10 @@ type DatabaseSchema = {
   enum__educational_programs_v_version_study_forms_form: typeof enum__educational_programs_v_version_study_forms_form
   enum__educational_programs_v_version_education_level: typeof enum__educational_programs_v_version_education_level
   enum__educational_programs_v_version_status: typeof enum__educational_programs_v_version_status
+  enum_faculty_news_tags: typeof enum_faculty_news_tags
+  enum_faculty_news_status: typeof enum_faculty_news_status
+  enum__faculty_news_v_version_tags: typeof enum__faculty_news_v_version_tags
+  enum__faculty_news_v_version_status: typeof enum__faculty_news_v_version_status
   enum_admission_campaigns_study_form: typeof enum_admission_campaigns_study_form
   enum_admission_campaigns_status: typeof enum_admission_campaigns_status
   enum__admission_campaigns_v_version_study_form: typeof enum__admission_campaigns_v_version_study_form
@@ -2616,6 +3040,7 @@ type DatabaseSchema = {
   enum__documents_v_version_source: typeof enum__documents_v_version_source
   enum__documents_v_version_status: typeof enum__documents_v_version_status
   enum_media_category: typeof enum_media_category
+  enum_redirects_to_type: typeof enum_redirects_to_type
   enum_spec_resource_destination: typeof enum_spec_resource_destination
   enum_spec_settings_status: typeof enum_spec_settings_status
   enum__spec_settings_v_version_status: typeof enum__spec_settings_v_version_status
@@ -2644,6 +3069,12 @@ type DatabaseSchema = {
   _educational_programs_v_version_study_focus: typeof _educational_programs_v_version_study_focus
   _educational_programs_v_version_faq: typeof _educational_programs_v_version_faq
   _educational_programs_v: typeof _educational_programs_v
+  faculty_news_tags: typeof faculty_news_tags
+  faculty_news: typeof faculty_news
+  faculty_news_rels: typeof faculty_news_rels
+  _faculty_news_v_version_tags: typeof _faculty_news_v_version_tags
+  _faculty_news_v: typeof _faculty_news_v
+  _faculty_news_v_rels: typeof _faculty_news_v_rels
   admission_campaigns: typeof admission_campaigns
   _admission_campaigns_v: typeof _admission_campaigns_v
   tuition_rates: typeof tuition_rates
@@ -2654,6 +3085,8 @@ type DatabaseSchema = {
   _documents_v: typeof _documents_v
   _documents_v_rels: typeof _documents_v_rels
   media: typeof media
+  redirects: typeof redirects
+  redirects_rels: typeof redirects_rels
   payload_kv: typeof payload_kv
   payload_locked_documents: typeof payload_locked_documents
   payload_locked_documents_rels: typeof payload_locked_documents_rels
@@ -2693,6 +3126,12 @@ type DatabaseSchema = {
   relations__educational_programs_v_version_study_focus: typeof relations__educational_programs_v_version_study_focus
   relations__educational_programs_v_version_faq: typeof relations__educational_programs_v_version_faq
   relations__educational_programs_v: typeof relations__educational_programs_v
+  relations_faculty_news_tags: typeof relations_faculty_news_tags
+  relations_faculty_news_rels: typeof relations_faculty_news_rels
+  relations_faculty_news: typeof relations_faculty_news
+  relations__faculty_news_v_version_tags: typeof relations__faculty_news_v_version_tags
+  relations__faculty_news_v_rels: typeof relations__faculty_news_v_rels
+  relations__faculty_news_v: typeof relations__faculty_news_v
   relations_admission_campaigns: typeof relations_admission_campaigns
   relations__admission_campaigns_v: typeof relations__admission_campaigns_v
   relations_tuition_rates: typeof relations_tuition_rates
@@ -2703,6 +3142,8 @@ type DatabaseSchema = {
   relations__documents_v_rels: typeof relations__documents_v_rels
   relations__documents_v: typeof relations__documents_v
   relations_media: typeof relations_media
+  relations_redirects_rels: typeof relations_redirects_rels
+  relations_redirects: typeof relations_redirects
   relations_payload_kv: typeof relations_payload_kv
   relations_payload_locked_documents_rels: typeof relations_payload_locked_documents_rels
   relations_payload_locked_documents: typeof relations_payload_locked_documents

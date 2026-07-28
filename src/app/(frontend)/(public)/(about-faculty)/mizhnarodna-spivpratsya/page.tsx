@@ -336,14 +336,14 @@ const MizhnarodnaSpivpratsyaPage = () => (
                 <ExternalLink className="text-green-primary h-4 w-4" />
                 <span className="font-medium text-gray-800">Веб-сайт</span>
               </div>
-              <Link
+              <a
                 href="http://dir.rshu.edu.ua/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-green-primary hover:underline"
               >
                 http://dir.rshu.edu.ua/
-              </Link>
+              </a>
             </div>
 
             <div className="rounded-lg bg-blue-50 p-4">
@@ -351,12 +351,12 @@ const MizhnarodnaSpivpratsyaPage = () => (
                 <Mail className="h-4 w-4 text-blue-600" />
                 <span className="font-medium text-gray-800">Електронна пошта</span>
               </div>
-              <Link
+              <a
                 href="mailto:dir@rshu.edu.ua"
                 className="text-blue-600 hover:underline"
               >
                 dir@rshu.edu.ua
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -366,12 +366,12 @@ const MizhnarodnaSpivpratsyaPage = () => (
                 <Phone className="h-4 w-4 text-green-600" />
                 <span className="font-medium text-gray-800">Телефон</span>
               </div>
-              <Link
+              <a
                 href="tel:+380689598876"
                 className="text-green-600 hover:underline"
               >
                 +38 (068) 959 88 76
-              </Link>
+              </a>
             </div>
 
             <div className="rounded-lg bg-purple-50 p-4">
@@ -379,14 +379,14 @@ const MizhnarodnaSpivpratsyaPage = () => (
                 <Globe className="h-4 w-4 text-purple-600" />
                 <span className="font-medium text-gray-800">Соціальні мережі</span>
               </div>
-              <Link
+              <a
                 href="https://www.facebook.com/rshu.international"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-purple-600 hover:underline"
               >
                 Facebook
-              </Link>
+              </a>
             </div>
           </div>
         </div>

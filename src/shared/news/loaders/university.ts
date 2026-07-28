@@ -1,10 +1,10 @@
 import { parseUniversityNews, parseUniversityPreviewImage } from '../parsers/university'
 import { fetchNewsDocument, getParsedNewsPage } from './shared'
 
-import type { UniversityNews } from '../types'
-import type { NewsLoader } from './shared'
+import type { ExternalUniversityNews } from '../types'
+import type { ExternalNewsLoader } from './shared'
 
-export const getUniversityNewsPage: NewsLoader<'university'> = async (page, options) => {
+export const getUniversityNewsPage: ExternalNewsLoader<'university'> = async (page, options) => {
   const news = await getParsedNewsPage('university', page, parseUniversityNews, options)
 
   if (!options?.includeImages) return news
@@ -12,7 +12,7 @@ export const getUniversityNewsPage: NewsLoader<'university'> = async (page, opti
   return enrichUniversityNewsImages(news)
 }
 
-const enrichUniversityNewsImages = async (news: UniversityNews[]) => {
+const enrichUniversityNewsImages = async (news: ExternalUniversityNews[]) => {
   const results = await Promise.allSettled(
     news.map(async (item) => {
       if (item.previewImage) return item
@@ -28,7 +28,11 @@ const enrichUniversityNewsImages = async (news: UniversityNews[]) => {
 }
 
 const getUniversityPreviewImage = async (articleUrl: string) => {
-  const html = await fetchNewsDocument(articleUrl, `University article fetch failed: ${articleUrl}`)
+  const html = await fetchNewsDocument(
+    'university',
+    articleUrl,
+    `University article fetch failed: ${articleUrl}`
+  )
 
   return parseUniversityPreviewImage(html, articleUrl)
 }

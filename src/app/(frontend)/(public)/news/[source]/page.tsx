@@ -1,26 +1,23 @@
 import { notFound } from 'next/navigation'
 
 import { NewsArchive } from '../_components/NewsArchive'
-import { NewsHeader } from '../_components/NewsHeader'
 import { NewsUnavailable } from '../_components/NewsUnavailable'
+import { parseNewsRoute } from '../_helpers'
 import {
-  NEWS_SOURCES,
+  EXTERNAL_NEWS_SOURCES,
   NEWS_SOURCE_CONFIG,
-  type NewsSource,
+  getExternalNewsErrorDetails,
   getNewsPage,
-  parseNewsRoute,
 } from '@/shared/news'
 
 import type { Metadata } from 'next'
 
-interface NewsSourcePageProps {
-  params: Promise<{ source: NewsSource }>
-}
-
 export const revalidate = 3600
 export const dynamicParams = true
 
-export const generateStaticParams = () => NEWS_SOURCES.map((source) => ({ source }))
+export const generateStaticParams = () => EXTERNAL_NEWS_SOURCES.map((source) => ({ source }))
+
+type NewsSourcePageProps = PageProps<'/news/[source]'>
 
 export const generateMetadata = async ({ params }: NewsSourcePageProps): Promise<Metadata> => {
   const { source } = await params
@@ -48,7 +45,6 @@ const SourceNewsPage = async ({ params }: NewsSourcePageProps) => {
 
     return (
       <div>
-        <NewsHeader activeSource={route.source} />
         <NewsArchive
           source={route.source}
           page={route.page}
@@ -59,10 +55,9 @@ const SourceNewsPage = async ({ params }: NewsSourcePageProps) => {
   } catch (error) {
     return (
       <div>
-        <NewsHeader activeSource={route.source} />
         <NewsUnavailable
           source={route.source}
-          error={error as Error}
+          error={getExternalNewsErrorDetails(error, route.source)}
         />
       </div>
     )

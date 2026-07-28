@@ -1,5 +1,5 @@
-// import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
@@ -11,15 +11,17 @@ import {
   DocumentCategories,
   Documents,
   EducationalPrograms,
+  FacultyNews,
   Media,
   Specialties,
   TuitionRates,
   Users,
 } from '@/payload/collections'
 import { EducationalProgramsPageSettings, TuitionPageSettings } from '@/payload/globals'
+import { siteRedirectsPlugin } from '@/payload/plugins/redirects'
 
 export default buildConfig({
-  //   editor: lexicalEditor(),
+  editor: lexicalEditor(),
 
   collections: [
     Users,
@@ -27,6 +29,7 @@ export default buildConfig({
     AcademicCouncilMembers,
     Specialties,
     EducationalPrograms,
+    FacultyNews,
     AdmissionCampaigns,
     TuitionRates,
     DocumentCategories,
@@ -47,10 +50,11 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL,
     },
     migrationDir: './drizzle/migrations',
-    push: false,
+    push: true,
   }),
   sharp,
   plugins: [
+    siteRedirectsPlugin,
     s3Storage({
       enabled: !!process.env.R2_BUCKET,
       collections: {

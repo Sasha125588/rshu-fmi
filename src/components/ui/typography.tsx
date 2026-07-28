@@ -21,7 +21,7 @@ const typographyVariants = cva('', {
       'title-md': 'text-xl leading-tight font-semibold tracking-tight text-balance',
       'title-sm': 'text-lg leading-snug font-semibold tracking-tight text-balance',
 
-      'body-lg': 'text-lg leading-7 font-medium md:text-xl',
+      'body-lg': 'text-lg leading-7 font-medium',
       'body-md': 'text-base leading-6',
       'body-sm': 'text-sm leading-5',
 
@@ -64,19 +64,16 @@ const Typography = <Tag extends TypographyTag>({
   render,
   variant = 'body-md',
   ...props
-}: TypographyProps<Tag>) => {
-  const internalProps = {
-    className: cn(typographyVariants({ variant, className })),
-    'data-slot': 'typography',
-    'data-variant': variant,
-    ...props,
-  }
-
-  return useRender({
+}: TypographyProps<Tag>) =>
+  useRender({
     defaultTagName: as,
     render,
-    props: internalProps,
+    props: {
+      className: cn(typographyVariants({ variant, className })),
+      'data-slot': 'typography',
+      'data-variant': variant,
+      ...props,
+    },
   })
-}
 
 export { Typography, typographyVariants }

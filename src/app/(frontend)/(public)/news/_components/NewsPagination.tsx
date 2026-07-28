@@ -1,5 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 
+import { buildNewsHref } from '../_helpers'
 import {
   Pagination,
   PaginationContent,
@@ -8,7 +9,6 @@ import {
   PaginationLink,
 } from '@/components/ui/pagination'
 import { cn } from '@/lib/utils'
-import { getNewsArchiveHref } from '@/shared/news'
 
 import type { NewsSource } from '@/shared/news'
 
@@ -53,7 +53,7 @@ export const NewsPagination = ({ source, currentPage, totalPages }: NewsPaginati
       <PaginationContent className="max-w-full flex-wrap">
         <PaginationItem>
           <PaginationLink
-            href={getNewsArchiveHref(source, previousPage)}
+            href={buildNewsHref(source, previousPage)}
             aria-label="Попередня сторінка"
             aria-disabled={currentPage === 1}
             tabIndex={currentPage === 1 ? -1 : undefined}
@@ -67,7 +67,7 @@ export const NewsPagination = ({ source, currentPage, totalPages }: NewsPaginati
           typeof entry === 'number' ? (
             <PaginationItem key={entry}>
               <PaginationLink
-                href={getNewsArchiveHref(source, entry)}
+                href={buildNewsHref(source, entry)}
                 isActive={entry === currentPage}
                 className="rounded-full"
               >
@@ -83,7 +83,7 @@ export const NewsPagination = ({ source, currentPage, totalPages }: NewsPaginati
 
         <PaginationItem>
           <PaginationLink
-            href={getNewsArchiveHref(source, nextPage)}
+            href={buildNewsHref(source, nextPage)}
             aria-label="Наступна сторінка"
             aria-disabled={currentPage === totalPages}
             tabIndex={currentPage === totalPages ? -1 : undefined}

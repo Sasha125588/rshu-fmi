@@ -72,11 +72,13 @@ export interface Config {
     'academic-council-members': AcademicCouncilMember
     specialties: Specialty
     'educational-programs': EducationalProgram
+    'faculty-news': FacultyNews
     'admission-campaigns': AdmissionCampaign
     'tuition-rates': TuitionRate
     'document-categories': DocumentCategory
     documents: Document
     media: Media
+    redirects: Redirect
     'payload-kv': PayloadKv
     'payload-locked-documents': PayloadLockedDocument
     'payload-preferences': PayloadPreference
@@ -99,11 +101,13 @@ export interface Config {
       | AcademicCouncilMembersSelect<true>
     specialties: SpecialtiesSelect<false> | SpecialtiesSelect<true>
     'educational-programs': EducationalProgramsSelect<false> | EducationalProgramsSelect<true>
+    'faculty-news': FacultyNewsSelect<false> | FacultyNewsSelect<true>
     'admission-campaigns': AdmissionCampaignsSelect<false> | AdmissionCampaignsSelect<true>
     'tuition-rates': TuitionRatesSelect<false> | TuitionRatesSelect<true>
     'document-categories': DocumentCategoriesSelect<false> | DocumentCategoriesSelect<true>
     documents: DocumentsSelect<false> | DocumentsSelect<true>
     media: MediaSelect<false> | MediaSelect<true>
+    redirects: RedirectsSelect<false> | RedirectsSelect<true>
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
     'payload-locked-documents':
       | PayloadLockedDocumentsSelect<false>
@@ -257,6 +261,14 @@ export interface Media {
       filename?: string | null
     }
     card?: {
+      url?: string | null
+      width?: number | null
+      height?: number | null
+      mimeType?: string | null
+      filesize?: number | null
+      filename?: string | null
+    }
+    newsCard?: {
       url?: string | null
       width?: number | null
       height?: number | null
@@ -430,6 +442,70 @@ export interface TuitionRate {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faculty-news".
+ */
+export interface FacultyNews {
+  id: number
+  title: string
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null
+  /**
+   * Створюється із заголовка, доки ви не відредагуєте його вручну. Після зміни адреси опублікованої новини стара адреса перенаправлятиме на нову.
+   */
+  slug: string
+  excerpt: string
+  content: {
+    root: {
+      type: string
+      children: {
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  }
+  /**
+   * Необов’язкова обкладинка новини. Для публікації потрібен alt-текст.
+   */
+  coverImage?: (number | null) | Media
+  tags: (
+    | 'accreditation'
+    | 'international'
+    | 'scholarships'
+    | 'grants'
+    | 'science'
+    | 'education'
+    | 'events'
+    | 'achievements'
+    | 'partnership'
+    | 'career-guidance'
+    | 'holidays'
+    | 'culture'
+    | 'sports'
+    | 'announcements'
+    | 'it'
+    | 'mathematics'
+    | 'career'
+  )[]
+  relatedDepartments?: (number | Department)[] | null
+  /**
+   * Під час першої публікації встановиться автоматично, якщо дату не задано вручну.
+   */
+  publishedAt?: string | null
+  isPinned?: boolean | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "document-categories".
  */
 export interface DocumentCategory {
@@ -491,6 +567,24 @@ export interface Document {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects".
+ */
+export interface Redirect {
+  id: number
+  from: string
+  to?: {
+    type?: ('reference' | 'custom') | null
+    reference?: {
+      relationTo: 'faculty-news'
+      value: number | FacultyNews
+    } | null
+    url?: string | null
+  }
+  updatedAt: string
+  createdAt: string
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -534,6 +628,10 @@ export interface PayloadLockedDocument {
         value: number | EducationalProgram
       } | null)
     | ({
+        relationTo: 'faculty-news'
+        value: number | FacultyNews
+      } | null)
+    | ({
         relationTo: 'admission-campaigns'
         value: number | AdmissionCampaign
       } | null)
@@ -552,6 +650,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media'
         value: number | Media
+      } | null)
+    | ({
+        relationTo: 'redirects'
+        value: number | Redirect
       } | null)
   globalSlug?: string | null
   user: {
@@ -725,6 +827,25 @@ export interface EducationalProgramsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faculty-news_select".
+ */
+export interface FacultyNewsSelect<T extends boolean = true> {
+  title?: T
+  generateSlug?: T
+  slug?: T
+  excerpt?: T
+  content?: T
+  coverImage?: T
+  tags?: T
+  relatedDepartments?: T
+  publishedAt?: T
+  isPinned?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "admission-campaigns_select".
  */
 export interface AdmissionCampaignsSelect<T extends boolean = true> {
@@ -841,6 +962,16 @@ export interface MediaSelect<T extends boolean = true> {
               filesize?: T
               filename?: T
             }
+        newsCard?:
+          | T
+          | {
+              url?: T
+              width?: T
+              height?: T
+              mimeType?: T
+              filesize?: T
+              filename?: T
+            }
         hero?:
           | T
           | {
@@ -852,6 +983,22 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T
             }
       }
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects_select".
+ */
+export interface RedirectsSelect<T extends boolean = true> {
+  from?: T
+  to?:
+    | T
+    | {
+        type?: T
+        reference?: T
+        url?: T
+      }
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

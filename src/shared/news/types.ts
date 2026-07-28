@@ -1,59 +1,44 @@
-export const NEWS_SOURCES = ['university', 'kitm', 'iktmvi'] as const
+import type { NewsTagCode } from '@/payload/collections/FacultyNews/constants'
 
-export type NewsSource = (typeof NEWS_SOURCES)[number]
+export const EXTERNAL_NEWS_SOURCES = ['university', 'kitm', 'iktmvi'] as const
 
-export type NewsTag =
-  | 'Акредитація'
-  | 'Міжнародне'
-  | 'Стипендії'
-  | 'Грант'
-  | 'Наука'
-  | 'Освіта'
-  | 'Події'
-  | 'Досягнення'
-  | 'Партнерство'
-  | 'Профорієнтація'
-  | 'Свята'
-  | 'Культура'
-  | 'Спорт'
-  | 'Оголошення'
-  | 'IT'
-  | 'Математика'
-  | "Кар'єра"
+export type ExternalNewsSource = (typeof EXTERNAL_NEWS_SOURCES)[number]
+export type NewsSource = ExternalNewsSource | 'faculty'
 
-type DepartmentSource = 'kitm' | 'iktmvi'
+type ExternalDepartmentSource = Exclude<ExternalNewsSource, 'university'>
 
-export interface BaseNews {
+export interface ExternalNewsBase {
   title: string
   link: string
-  source: NewsSource
+  source: ExternalNewsSource
   description?: string
   previewImage?: string
 }
 
-export interface UniversityNews extends BaseNews {
+export interface ExternalUniversityNews extends ExternalNewsBase {
   source: 'university'
   views: number
 }
 
-export interface DepartmentNews<S extends DepartmentSource = DepartmentSource> extends BaseNews {
+export interface ExternalDepartmentNews<
+  S extends ExternalDepartmentSource = ExternalDepartmentSource,
+> extends ExternalNewsBase {
   source: S
   publishedAt: string
 }
 
-export interface ParsedNews {
-  university: UniversityNews
-  kitm: DepartmentNews<'kitm'>
-  iktmvi: DepartmentNews<'iktmvi'>
+export interface ExternalNewsBySource {
+  university: ExternalUniversityNews
+  kitm: ExternalDepartmentNews<'kitm'>
+  iktmvi: ExternalDepartmentNews<'iktmvi'>
 }
 
-export type ParsedNewsItem = ParsedNews[NewsSource]
+export type ExternalNewsItem<S extends ExternalNewsSource = ExternalNewsSource> =
+  ExternalNewsBySource[S] & {
+    tags: NewsTagCode[]
+  }
 
-export type NewsItem<S extends NewsSource = NewsSource> = ParsedNews[S] & {
-  tags: NewsTag[]
-}
-
-export interface NewsSourceConfig {
+export interface ExternalNewsSourceConfig {
   label: string
   badgeLabel: string
   fullLabel: string

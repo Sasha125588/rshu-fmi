@@ -1,5 +1,5 @@
 export * from './config'
+export * from './errors'
 export * from './getNewsPage'
-export * from './routing'
 export * from './tags'
 export * from './types'

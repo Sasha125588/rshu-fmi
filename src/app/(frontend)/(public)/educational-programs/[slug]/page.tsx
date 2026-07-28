@@ -19,9 +19,7 @@ export const generateStaticParams = async () => {
   return result.docs.map(({ slug }) => ({ slug }))
 }
 
-interface EducationalProgramPageProps {
-  params: Promise<{ slug: string }>
-}
+type EducationalProgramPageProps = PageProps<'/educational-programs/[slug]'>
 
 const EducationalProgramPage = async ({ params }: EducationalProgramPageProps) => {
   const { slug } = await params

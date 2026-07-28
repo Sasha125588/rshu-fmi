@@ -1,5 +1,9 @@
-import type { NewsItem, NewsSource } from '@/shared/news/types'
+import type { ExternalNewsErrorDetails, ExternalNewsItem, ExternalNewsSource } from '@/shared/news'
 
 export type NewsOverviewResult =
-  | { source: NewsSource; status: 'fulfilled'; news: NewsItem[] }
-  | { source: NewsSource; status: 'rejected'; error: Error }
+  | { source: ExternalNewsSource; status: 'fulfilled'; news: ExternalNewsItem[] }
+  | {
+      source: ExternalNewsSource
+      status: 'rejected'
+      error: ExternalNewsErrorDetails
+    }

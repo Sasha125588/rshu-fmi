@@ -5,11 +5,11 @@ import { Alert, AlertDescription, AlertTitle, Typography } from '@/components/ui
 import { buttonVariants } from '@/components/ui/button'
 import { NEWS_SOURCE_CONFIG } from '@/shared/news'
 
-import type { NewsSource } from '@/shared/news'
+import type { ExternalNewsErrorDetails, ExternalNewsSource } from '@/shared/news'
 
 interface NewsUnavailableProps {
-  source: NewsSource
-  error: Error
+  source: ExternalNewsSource
+  error: ExternalNewsErrorDetails
 }
 
 export const NewsUnavailable = ({ source, error }: NewsUnavailableProps) => {
@@ -58,6 +58,15 @@ export const NewsUnavailable = ({ source, error }: NewsUnavailableProps) => {
             >
               {error.message}
             </Typography>
+            {error.status ? (
+              <Typography
+                as="p"
+                variant="caption"
+                className="font-jetbrains mt-2 opacity-80"
+              >
+                HTTP {error.status}
+              </Typography>
+            ) : null}
           </AlertDescription>
         </Alert>
 
