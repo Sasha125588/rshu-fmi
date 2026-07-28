@@ -46,6 +46,7 @@ export const ExternalNewsCard = ({
               <Image
                 src={item.previewImage}
                 alt=""
+                unoptimized
                 fill
                 loading="lazy"
                 sizes={
@@ -53,7 +54,6 @@ export const ExternalNewsCard = ({
                     ? '(max-width: 767px) calc(100vw - 4rem), 38vw'
                     : '(max-width: 767px) calc(100vw - 4rem), 220px'
                 }
-                unoptimized
                 className="object-cover transition-transform duration-500 group-hover/news-card:scale-[1.03]"
               />
             </NewsCardMedia>

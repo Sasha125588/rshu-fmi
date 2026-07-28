@@ -11,6 +11,7 @@ const nextConfig = {
   /* config options here */
   experimental: {
     viewTransition: true,
+    useTypeScriptCli: true,
   },
   typedRoutes: true,
   allowedDevOrigins: ['192.168.31.44'],
