@@ -149,7 +149,7 @@ const FacultyNewsArticlePage = async ({ params }: FacultyNewsArticlePageProps) =
             <Typography
               as="h1"
               variant="heading-xl"
-              className="mt-6 font-black"
+              className="mt-6 text-4xl leading-tight font-black text-pretty md:text-6xl"
             >
               {article.title}
             </Typography>
@@ -217,7 +217,7 @@ const FacultyNewsArticlePage = async ({ params }: FacultyNewsArticlePageProps) =
               <Image
                 src={cover.url}
                 alt={cover.alt}
-                unoptimized
+                // unoptimized
                 width={cover.width}
                 height={cover.height}
                 priority

@@ -35,7 +35,7 @@ import {
   Typography,
   buttonVariants,
 } from '@/components/ui'
-import { cn } from '@/lib'
+import { cn } from '@/lib/utils'
 import { SITE_URL } from '@/shared/constants'
 import { getNewsPage } from '@/shared/news'
 

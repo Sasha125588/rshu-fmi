@@ -48,7 +48,7 @@ export const CouncilMemberImage = ({
       blurDataURL={blurDataURL}
       className={cn('mt-6 aspect-square w-full object-cover', className)}
       style={{ objectPosition: `${media?.focalX}% ${media?.focalY}%` }}
-      unoptimized
+      // unoptimized
       {...props}
     />
   )

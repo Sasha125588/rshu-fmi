@@ -34,7 +34,7 @@ const FacultyUpload = ({ node }: { node: SerializedUploadNode }) => {
         <Image
           src={image.url}
           alt={image.alt}
-          unoptimized
+          // unoptimized
           width={image.width}
           height={image.height}
           placeholder={image.blurDataURL ? 'blur' : 'empty'}

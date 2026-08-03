@@ -1,11 +1,14 @@
 'use client'
 
-import { type ReactNode, useLayoutEffect, useMemo, useState } from 'react'
+import { useLayoutEffect, useMemo, useState } from 'react'
 
-import { type Theme, ThemeContext } from './ThemeContext'
-import { COOKIES } from '@/shared/constants/cookies'
-import { dispatchCookieEvent, getCookie, setCookie } from '@/shared/helpers/cookies'
+import { ThemeContext } from './ThemeContext'
+import { COOKIES } from '@/shared/constants'
+import { getCookie, setCookie } from '@/shared/helpers'
 import { usePreferredColorScheme } from '@/shared/hooks'
+
+import type { Theme } from './ThemeContext'
+import type { ReactNode } from 'react'
 
 const getSystemTheme = (): Exclude<Theme, 'system'> => {
   if (typeof window === 'undefined') return 'dark'
@@ -23,6 +26,7 @@ export interface ThemeProviderProps {
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const colorScheme = usePreferredColorScheme()
+
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window === 'undefined') return 'system'
     return (getCookie(COOKIES.THEME) as Theme | undefined) ?? 'system'
@@ -32,11 +36,11 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     const root = document.documentElement
     const activeTheme = getTheme(theme)
 
-    dispatchCookieEvent()
     setCookie(COOKIES.THEME, theme, { path: '/' })
 
     root.classList.remove('dark', 'light')
     root.classList.add(activeTheme)
+    root.style.colorScheme = activeTheme
   }, [theme, colorScheme])
 
   const animate = async (x: number, y: number, theme: Theme) => {
@@ -58,10 +62,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     )
   }
 
-  const value = useMemo(
-    () => ({ value: getTheme(theme), set: setTheme, animate }),
-    [theme, colorScheme]
-  )
+  const value = useMemo(() => ({ value: getTheme(theme), set: setTheme, animate }), [theme])
 
   return <ThemeContext value={value}>{children}</ThemeContext>
 }

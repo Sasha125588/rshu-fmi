@@ -6,7 +6,7 @@ import type { ComponentProps, MouseEvent } from 'react'
 
 type ThemeButtonProps = ComponentProps<'button'>
 
-export function ThemeSwitcher(props: ThemeButtonProps) {
+export const ThemeSwitcher = (props: ThemeButtonProps) => {
   const theme = useTheme()
 
   const onThemeClick = async (event: MouseEvent<HTMLButtonElement>) => {
@@ -54,6 +54,7 @@ export function ThemeSwitcher(props: ThemeButtonProps) {
           </svg>
         </span>
       </span>
+      <span className="sr-only">Перемикання теми</span>
     </button>
   )
 }

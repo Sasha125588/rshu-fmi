@@ -2,6 +2,8 @@ import config from '@payload-config'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 
+import { Typography } from '@/components/ui'
+
 export const dynamicParams = true
 
 export const generateStaticParams = async () => {
@@ -46,6 +48,13 @@ const EducationalProgramPage = async ({ params }: EducationalProgramPageProps) =
 
   return (
     <>
+      <Typography
+        as="h2"
+        variant="heading-2xl"
+        className="pb-4"
+      >
+        coming soon
+      </Typography>
       {educationalProgram.title} – {educationalProgram.slug}
     </>
   )
