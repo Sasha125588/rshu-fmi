@@ -217,7 +217,7 @@ const FacultyNewsArticlePage = async ({ params }: FacultyNewsArticlePageProps) =
               <Image
                 src={cover.url}
                 alt={cover.alt}
-                // unoptimized
+                unoptimized
                 width={cover.width}
                 height={cover.height}
                 priority

@@ -42,7 +42,7 @@ export const FacultyNewsCard = ({
                 <Image
                   src={item.coverImage.sizes.newsCard?.url}
                   alt={item.coverImage.alt}
-                  // unoptimized
+                  unoptimized
                   fill
                   loading="lazy"
                   placeholder={item.coverImage.blurDataURL ? 'blur' : 'empty'}

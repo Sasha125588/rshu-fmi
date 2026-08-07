@@ -46,7 +46,7 @@ export const ExternalNewsCard = ({
               <Image
                 src={item.previewImage}
                 alt=""
-                // unoptimized
+                unoptimized
                 fill
                 loading="lazy"
                 sizes={
