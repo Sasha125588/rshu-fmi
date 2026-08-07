@@ -10,9 +10,10 @@ const r2PublicUrl = process.env.R2_PUBLIC_URL
 const nextConfig = {
   /* config options here */
   experimental: {
-    viewTransition: true,
     useTypeScriptCli: true,
+    turbopackRustReactCompiler: true,
   },
+  reactCompiler: true,
   typedRoutes: true,
   allowedDevOrigins: ['192.168.31.44'],
   images: {
