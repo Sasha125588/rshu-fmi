@@ -1,3 +1,5 @@
+import { Temporal } from '@js-temporal/polyfill'
+
 import { scheduleCollator } from '@/lib'
 
 import type { ScheduleData, ScheduleLesson, ScheduleMode } from '@/shared/schedule/types'

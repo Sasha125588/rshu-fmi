@@ -1,3 +1,4 @@
+import { Temporal } from '@js-temporal/polyfill'
 import { expect, test } from 'bun:test'
 import ExcelJS from 'exceljs'
 import { readFile } from 'node:fs/promises'
