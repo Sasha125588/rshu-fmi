@@ -1,5 +1,3 @@
-export const normalizeText = (value: string) => value.replace(/\s+/g, ' ').trim()
-
 export const resolveUrl = (value: string | undefined, origin: string) => {
   if (!value) return undefined
 

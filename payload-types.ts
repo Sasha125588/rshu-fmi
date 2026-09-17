@@ -78,6 +78,7 @@ export interface Config {
     'document-categories': DocumentCategory
     documents: Document
     media: Media
+    schedules: Schedule
     redirects: Redirect
     'payload-kv': PayloadKv
     'payload-locked-documents': PayloadLockedDocument
@@ -107,6 +108,7 @@ export interface Config {
     'document-categories': DocumentCategoriesSelect<false> | DocumentCategoriesSelect<true>
     documents: DocumentsSelect<false> | DocumentsSelect<true>
     media: MediaSelect<false> | MediaSelect<true>
+    schedules: SchedulesSelect<false> | SchedulesSelect<true>
     redirects: RedirectsSelect<false> | RedirectsSelect<true>
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
     'payload-locked-documents':
@@ -566,6 +568,29 @@ export interface Document {
   _status?: ('draft' | 'published') | null
 }
 /**
+ * Дані імпортуються з Google. Зміни вносіть у вихідну таблицю.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "schedules".
+ */
+export interface Schedule {
+  id: number
+  sourceKey: string
+  snapshot?:
+    | {
+        [k: string]: unknown
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null
+  syncedAt?: string | null
+  lastError?: string | null
+  updatedAt: string
+  createdAt: string
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
@@ -650,6 +675,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media'
         value: number | Media
+      } | null)
+    | ({
+        relationTo: 'schedules'
+        value: number | Schedule
       } | null)
     | ({
         relationTo: 'redirects'
@@ -983,6 +1012,18 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T
             }
       }
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "schedules_select".
+ */
+export interface SchedulesSelect<T extends boolean = true> {
+  sourceKey?: T
+  snapshot?: T
+  syncedAt?: T
+  lastError?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

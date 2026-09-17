@@ -5,6 +5,7 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { type ReactNode } from 'react'
 
 import { ThemeProvider } from './_contexts/theme'
+import { TooltipProvider } from '@/components/ui/tooltip'
 
 interface Props {
   children: ReactNode
@@ -17,7 +18,9 @@ export const Provider = ({ children }: Props) => {
       disable={process.env.NODE_ENV !== 'production'}
     >
       <NuqsAdapter>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <TooltipProvider>{children}</TooltipProvider>
+        </ThemeProvider>
       </NuqsAdapter>
     </SerwistProvider>
   )

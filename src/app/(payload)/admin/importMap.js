@@ -17,6 +17,7 @@ import { LexicalDiffComponent as LexicalDiffComponent_44fe37237e0ebf4470c9990d8c
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 
 import { DocumentTitleField as DocumentTitleField_22215b0d03d1872fe78b7e9747827f3e } from '@/payload/collections/Documents/components/DocumentTitleField'
+import { SyncScheduleButton as SyncScheduleButton_471dfa29823c2312342cfbb1fec0c1df } from '@/payload/collections/Schedules/components/SyncScheduleButton'
 import { StudyFormSelect as StudyFormSelect_94c3a901e3ba45520d44c306c8669a80 } from '@/payload/components/StudyFormSelect/StudyFormSelect'
 
 /** @type import('payload').ImportMap */
@@ -54,6 +55,8 @@ export const importMap = {
     StudyFormSelect_94c3a901e3ba45520d44c306c8669a80,
   '@/payload/collections/Documents/components/DocumentTitleField#DocumentTitleField':
     DocumentTitleField_22215b0d03d1872fe78b7e9747827f3e,
+  '@/payload/collections/Schedules/components/SyncScheduleButton#SyncScheduleButton':
+    SyncScheduleButton_471dfa29823c2312342cfbb1fec0c1df,
   '@payloadcms/storage-s3/client#S3ClientUploadHandler':
     S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
   '@payloadcms/next/rsc#CollectionCards': CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,

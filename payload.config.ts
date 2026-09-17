@@ -13,6 +13,7 @@ import {
   EducationalPrograms,
   FacultyNews,
   Media,
+  Schedules,
   Specialties,
   TuitionRates,
   Users,
@@ -35,6 +36,7 @@ export default buildConfig({
     DocumentCategories,
     Documents,
     Media,
+    Schedules,
   ],
 
   globals: [EducationalProgramsPageSettings, TuitionPageSettings],

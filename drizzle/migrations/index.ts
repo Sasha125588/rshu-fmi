@@ -9,6 +9,8 @@ import * as migration_20260718_103921_catalog_specializations_schema from './202
 import * as migration_20260721_134934_normalize_specialties from './20260721_134934_normalize_specialties'
 import * as migration_20260721_203527_move_specialty_shared_fields from './20260721_203527_move_specialty_shared_fields'
 import * as migration_20260724_134652_faculty_news_and_redirects from './20260724_134652_faculty_news_and_redirects'
+import * as migration_20260915_193152_schedule from './20260915_193152_schedule'
+import * as migration_20260916_155031_simplify_schedules from './20260916_155031_simplify_schedules'
 
 export const migrations = [
   {
@@ -65,5 +67,15 @@ export const migrations = [
     up: migration_20260724_134652_faculty_news_and_redirects.up,
     down: migration_20260724_134652_faculty_news_and_redirects.down,
     name: '20260724_134652_faculty_news_and_redirects',
+  },
+  {
+    up: migration_20260915_193152_schedule.up,
+    down: migration_20260915_193152_schedule.down,
+    name: '20260915_193152_schedule',
+  },
+  {
+    up: migration_20260916_155031_simplify_schedules.up,
+    down: migration_20260916_155031_simplify_schedules.down,
+    name: '20260916_155031_simplify_schedules',
   },
 ]

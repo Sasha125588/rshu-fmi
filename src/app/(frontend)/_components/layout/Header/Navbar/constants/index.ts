@@ -65,8 +65,8 @@ export const NAVIGATION: NavItem[] = [
     cards: [
       {
         title: 'Розклад',
-        description: 'Посилання на актуальні розклади за курсами.',
-        href: '/#student',
+        description: 'Пошук за групою, викладачем або аудиторією.',
+        href: '/rozklad',
         icon: CalendarDaysIcon,
       },
       {

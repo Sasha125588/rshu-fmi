@@ -1,0 +1,16 @@
+{
+  "name": "fmi-schedule-cron",
+  "main": "index.ts",
+  "compatibility_date": "2026-09-15",
+  "workers_dev": false,
+  "preview_urls": false,
+  "triggers": {
+    "crons": ["*/30 * * * *"]
+  },
+  "vars": {
+    "SCHEDULE_BASE_URL": "https://fmi-rshu.dev"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

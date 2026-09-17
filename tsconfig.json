@@ -27,7 +27,8 @@
       "@payload": ["./src/payload"],
       "@payload-config": ["./payload.config.ts"],
       "@/payload-types": ["./payload-types.ts"]
-    }
+    },
+    "types": ["bun"]
   },
   "include": [
     "next-env.d.ts",

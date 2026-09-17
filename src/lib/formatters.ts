@@ -4,6 +4,14 @@ function createFormatter(options: Intl.DateTimeFormatOptions, locale = DEFAULT_L
   return new Intl.DateTimeFormat(locale, options)
 }
 
+export const scheduleDateFormatter = createFormatter({
+  timeZone: 'Europe/Kyiv',
+  day: '2-digit',
+  month: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+})
+
 export const documentDateFormatter = createFormatter({
   day: '2-digit',
   month: '2-digit',

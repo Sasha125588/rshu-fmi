@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio'
 
-import { normalizePublishedAt, normalizeText, resolveUrl } from './utils'
+import { normalizePublishedAt, resolveUrl } from './utils'
+import { normalizeText } from '@/shared/utils/helpers'
 
 import type { ExternalDepartmentNews } from '../types'
 

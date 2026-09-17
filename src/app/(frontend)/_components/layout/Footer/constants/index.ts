@@ -4,7 +4,7 @@ export const footerGroups = [
     links: [
       { label: 'Спеціальності', href: '/educational-programs' },
       { label: 'Вартість навчання', href: '/vartist-navchannia' },
-      { label: 'Розклад', href: '/#student' },
+      { label: 'Розклад', href: '/rozklad' },
       { label: 'Документи', href: '/normatyvni-dokumenty' },
     ],
   },
