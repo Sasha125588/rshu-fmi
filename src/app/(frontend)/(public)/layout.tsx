@@ -1,4 +1,7 @@
+import { Suspense } from 'react'
+
 import { Footer, Header } from '../_components/layout'
+import { ScheduleAnnouncement } from './_components/ScheduleAnnouncement/ScheduleAnnouncement'
 
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
@@ -19,6 +22,9 @@ const PublicLayout = ({ children }: PublicLayoutProps) => (
     <Header />
     {children}
     <Footer />
+    <Suspense fallback={null}>
+      <ScheduleAnnouncement />
+    </Suspense>
   </main>
 )
 

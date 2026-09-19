@@ -5,7 +5,6 @@ import { JetBrains_Mono, Nunito } from 'next/font/google'
 import { ThemeScript } from './_scripts/ThemeScript'
 import './globals.css'
 import { Provider } from './provider'
-import { ThemeSwitcher } from '@/app/(frontend)/_components/ThemeSwitcher/ThemeSwitcher'
 import { cn } from '@/lib/utils'
 import { SITE_URL } from '@/shared/constants'
 
@@ -146,10 +145,7 @@ const RootLayout = ({ children }: RootLayoutProps) => (
         </>
       )}
 
-      <Provider>
-        {children}
-        <ThemeSwitcher />
-      </Provider>
+      <Provider>{children}</Provider>
     </body>
   </html>
 )

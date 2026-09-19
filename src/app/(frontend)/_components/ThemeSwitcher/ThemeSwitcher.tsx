@@ -1,37 +1,44 @@
 'use client'
 
+import { useSyncExternalStore } from 'react'
+
 import { useTheme } from '@/frontend_contexts/theme'
+import { cn } from '@/lib/utils'
 
 import type { ComponentProps, MouseEvent } from 'react'
 
+const subscribe = () => () => {}
+const getClientSnapshot = () => true
+const getServerSnapshot = () => false
+
 type ThemeButtonProps = ComponentProps<'button'>
 
-export const ThemeSwitcher = (props: ThemeButtonProps) => {
+export const ThemeSwitcher = ({ className, ...props }: ThemeButtonProps) => {
   const theme = useTheme()
+  const isHydrated = useSyncExternalStore(subscribe, getClientSnapshot, getServerSnapshot)
 
-  const onThemeClick = async (event: MouseEvent<HTMLButtonElement>) => {
-    const x = event.clientX
-    const y = event.clientY
-    theme.animate(x, y, theme.value === 'dark' ? 'light' : 'dark')
-  }
+  const onThemeClick = (event: MouseEvent<HTMLButtonElement>) =>
+    theme.animate(event.clientX, event.clientY, theme.value === 'dark' ? 'light' : 'dark')
 
   return (
     <button
-      className="vt-switch fixed right-4 bottom-4 z-50 block h-8 w-[60px] shrink-0 cursor-pointer rounded-full border transition-colors duration-300 ease-in-out"
+      className={cn(
+        'vt-switch focus-visible:ring-ring relative block h-7 w-[52px] shrink-0 cursor-pointer rounded-full border transition-colors duration-300 ease-in-out outline-none focus-visible:ring-3',
+        className
+      )}
       role="switch"
-      aria-checked={theme.value === 'dark'}
+      aria-checked={isHydrated && theme.value === 'dark'}
       onClick={onThemeClick}
-      aria-label="Перемикання режиму теми"
       {...props}
     >
-      <span className="absolute top-[2px] left-[2px] size-[26px] rounded-full bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.06)] transition-all duration-300 ease-in-out dark:translate-x-[28px] dark:bg-[#1a1a1a]">
-        <span className="vt-switch-icon relative block size-[26px] overflow-hidden rounded-full">
+      <span className="absolute top-[2px] left-[2px] size-[22px] rounded-full bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_1px_2px_rgba(0,0,0,0.06)] transition-all duration-300 ease-in-out dark:translate-x-[26px] dark:bg-[#1a1a1a]">
+        <span className="vt-switch-icon relative block size-[22px] overflow-hidden rounded-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
             focusable="false"
             viewBox="0 0 24 24"
-            className="absolute top-[5px] left-[5px] size-4 opacity-100 dark:opacity-0"
+            className="absolute top-1 left-1 size-3.5 opacity-100 dark:opacity-0"
           >
             <path d="M12,18c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6S15.3,18,12,18zM12,8c-2.2,0-4,1.8-4,4c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4C16,9.8,14.2,8,12,8z"></path>
             <path d="M12,4c-0.6,0-1-0.4-1-1V1c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,3.6,12.6,4,12,4z"></path>
@@ -48,7 +55,7 @@ export const ThemeSwitcher = (props: ThemeButtonProps) => {
             aria-hidden="true"
             focusable="false"
             viewBox="0 0 24 24"
-            className="absolute top-[5px] left-[5px] size-4 opacity-0 dark:opacity-100"
+            className="absolute top-1 left-1 size-3.5 opacity-0 dark:opacity-100"
           >
             <path d="M12.1,22c-0.3,0-0.6,0-0.9,0c-5.5-0.5-9.5-5.4-9-10.9c0.4-4.8,4.2-8.6,9-9c0.4,0,0.8,0.2,1,0.5c0.2,0.3,0.2,0.8-0.1,1.1c-2,2.7-1.4,6.4,1.3,8.4c2.1,1.6,5,1.6,7.1,0c0.3-0.2,0.7-0.3,1.1-0.1c0.3,0.2,0.5,0.6,0.5,1c-0.2,2.7-1.5,5.1-3.6,6.8C16.6,21.2,14.4,22,12.1,22zM9.3,4.4c-2.9,1-5,3.6-5.2,6.8c-0.4,4.4,2.8,8.3,7.2,8.7c2.1,0.2,4.2-0.4,5.8-1.8c1.1-0.9,1.9-2.1,2.4-3.4c-2.5,0.9-5.3,0.5-7.5-1.1C9.2,11.4,8.1,7.7,9.3,4.4z"></path>
           </svg>

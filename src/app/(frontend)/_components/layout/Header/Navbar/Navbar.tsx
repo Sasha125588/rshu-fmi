@@ -1,4 +1,3 @@
-import { ArrowRightIcon } from 'lucide-react'
 import Link from 'next/link'
 
 import { NavPanelCard } from './components/NavPanelCard/NavPanelCard'
@@ -11,7 +10,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   Typography,
-  buttonVariants,
   navigationMenuTriggerStyle,
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
@@ -70,20 +68,5 @@ export const Navbar = () => (
         ))}
       </NavigationMenuList>
     </NavigationMenu>
-
-    <a
-      href="https://www.rshu.edu.ua/pryimalna-komisiia"
-      target="_blank"
-      rel="noopener noreferrer"
-      className={cn(
-        buttonVariants({
-          variant: 'secondary',
-          size: 'sm',
-        })
-      )}
-    >
-      Вступнику
-      <ArrowRightIcon data-icon="inline-end" />
-    </a>
   </div>
 )

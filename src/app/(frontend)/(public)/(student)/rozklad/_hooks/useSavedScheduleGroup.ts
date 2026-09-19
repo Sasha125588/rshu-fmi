@@ -2,6 +2,7 @@ import { useQueryState } from 'nuqs'
 import { useEffect, useState } from 'react'
 
 import { scheduleSearchParams } from '../_constants'
+import { LOCAL_STORAGE_PREFIX } from '@/shared/constants/localstorage'
 
 export function useSavedScheduleGroup({
   groups,
@@ -12,7 +13,7 @@ export function useSavedScheduleGroup({
   selected: string
   sourceKey: string
 }) {
-  const storageKey = `fmi.schedule.group.v1:${sourceKey}`
+  const storageKey = `${LOCAL_STORAGE_PREFIX}-schedule:group.v1:${sourceKey}`
   const [, setSelected] = useQueryState('selected', scheduleSearchParams.selected)
   const [savedGroup, setSavedGroup] = useState('')
 

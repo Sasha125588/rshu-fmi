@@ -10,7 +10,17 @@ async function request(url: URL, env: CronEnvironment) {
     signal: AbortSignal.timeout(55_000),
   })
 
-  if (!response.ok) throw new Error(`Schedule endpoint returned HTTP ${response.status}`)
+  if (!response.ok) {
+    const body = await response.text().catch(() => '')
+
+    console.error('Request failed:', {
+      url: url.toString(),
+      status: response.status,
+      body,
+    })
+
+    throw new Error(`Schedule endpoint returned HTTP ${response.status}`)
+  }
 
   return response
 }
@@ -29,7 +39,8 @@ export async function runScheduleCron(env: CronEnvironment) {
 
     try {
       await request(url, env)
-    } catch {
+    } catch (error) {
+      console.error(`Failed to sync source "${source}"`, error)
       failures.push(source)
     }
   }
