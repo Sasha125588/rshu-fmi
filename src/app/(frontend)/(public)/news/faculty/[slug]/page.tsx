@@ -5,6 +5,7 @@ import { notFound, permanentRedirect } from 'next/navigation'
 import { Suspense } from 'react'
 
 import { FacultyNewsRichText } from '../../_components/FacultyNewsRichText'
+import { getLatestFacultyNews } from '../_api'
 import { resolveFacultyNewsRoute } from './_helpers'
 import { Badge, Skeleton, Typography, buttonVariants } from '@/components/ui'
 import { newsDateFormatter } from '@/lib'
@@ -26,6 +27,9 @@ const getFacultyNewsArticle = async (slug: string) => {
 
   return resolution.article
 }
+
+export const generateStaticParams = async () =>
+  (await getLatestFacultyNews(5)).map(({ slug }) => ({ slug }))
 
 type FacultyNewsArticlePageProps = PageProps<'/news/faculty/[slug]'>
 type FacultyNewsArticleContentProps = Pick<FacultyNewsArticlePageProps, 'params'>
