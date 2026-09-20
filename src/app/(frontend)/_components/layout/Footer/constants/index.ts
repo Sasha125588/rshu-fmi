@@ -1,10 +1,12 @@
+import { DEFAULT_SCHEDULE_PATH } from '@/shared/schedule/config'
+
 export const footerGroups = [
   {
     title: 'Навчання',
     links: [
       { label: 'Спеціальності', href: '/educational-programs' },
       { label: 'Вартість навчання', href: '/vartist-navchannia' },
-      { label: 'Розклад', href: '/rozklad' },
+      { label: 'Розклад', href: DEFAULT_SCHEDULE_PATH },
       { label: 'Документи', href: '/normatyvni-dokumenty' },
     ],
   },

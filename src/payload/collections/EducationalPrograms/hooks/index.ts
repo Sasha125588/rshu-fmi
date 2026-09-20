@@ -1,7 +1,8 @@
 import { revalidatePath } from 'next/cache'
 
 import { educationLevelLabels } from '../constants'
-import { getRelationId } from '@/payload/helpers'
+import { getRelationId, invalidateCacheTags } from '@/payload/helpers'
+import { CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 
 import type { EducationalProgram } from '@/payload-types'
 import type {
@@ -98,6 +99,7 @@ export const revalidateProgramConsumers: CollectionAfterChangeHook<EducationalPr
   if (context.disableRevalidate) return doc
 
   if (doc._status === 'published' || previousDoc?._status === 'published') {
+    invalidateCacheTags(CONTENT_CACHE_TAGS.educationalPrograms)
     for (const path of getProgramConsumerPaths(doc, previousDoc)) {
       payload.logger.info(`Revalidating educational program consumer at ${path}`)
       revalidatePath(path)
@@ -112,6 +114,7 @@ export const revalidateProgramConsumersAfterDelete: CollectionAfterDeleteHook<
 > = ({ doc, req: { context, payload } }) => {
   if (context.disableRevalidate || doc?._status !== 'published') return doc
 
+  invalidateCacheTags(CONTENT_CACHE_TAGS.educationalPrograms)
   for (const path of getProgramConsumerPaths(doc)) {
     payload.logger.info(`Revalidating educational program consumer at ${path}`)
     revalidatePath(path)

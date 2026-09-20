@@ -1,9 +1,10 @@
 import config from '@payload-config'
+import { cacheLife, cacheTag } from 'next/cache'
 import { getPayload } from 'payload'
-import { cache } from 'react'
 
 import { getFacultyNewsBySlug } from '../_api'
 import { getRelationId } from '@/payload/helpers'
+import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 import { getFacultyNewsPath } from '@/shared/news/faculty/paths'
 
 import type { FacultyNewsArticleData } from '../_types'
@@ -21,58 +22,68 @@ type FacultyNewsRouteResolution =
       url: string
     }
 
-export const resolveFacultyNewsRoute = cache(
-  async (slug: string): Promise<FacultyNewsRouteResolution> => {
-    const normalizedSlug = slug.trim()
+export const resolveFacultyNewsRoute = async (
+  slug: string
+): Promise<FacultyNewsRouteResolution> => {
+  'use cache'
 
-    if (!normalizedSlug) return { kind: 'not-found' }
+  cacheLife(CMS_CACHE_LIFE)
+  cacheTag(
+    CONTENT_CACHE_TAGS.facultyNews,
+    CONTENT_CACHE_TAGS.departments,
+    CONTENT_CACHE_TAGS.media,
+    CONTENT_CACHE_TAGS.redirects
+  )
 
-    const article = await getFacultyNewsBySlug(normalizedSlug)
+  const normalizedSlug = slug.trim()
 
-    if (article) return { article, kind: 'article' }
+  if (!normalizedSlug) return { kind: 'not-found' }
 
-    const payload = await getPayload({ config })
+  const article = await getFacultyNewsBySlug(normalizedSlug)
 
-    const from = getFacultyNewsPath(normalizedSlug)
-    const redirectResult = await payload.find({
-      collection: 'redirects',
-      depth: 0,
-      limit: 1,
-      overrideAccess: false,
-      page: 1,
-      select: {
-        from: true,
-        to: true,
+  if (article) return { article, kind: 'article' }
+
+  const payload = await getPayload({ config })
+
+  const from = getFacultyNewsPath(normalizedSlug)
+  const redirectResult = await payload.find({
+    collection: 'redirects',
+    depth: 0,
+    limit: 1,
+    overrideAccess: false,
+    page: 1,
+    select: {
+      from: true,
+      to: true,
+    },
+    where: {
+      from: {
+        equals: from,
       },
-      where: {
-        from: {
-          equals: from,
-        },
-      },
-    })
-    const redirect = redirectResult.docs[0]
+    },
+  })
+  const redirect = redirectResult.docs[0]
 
-    if (!redirect) return { kind: 'not-found' }
+  if (!redirect) return { kind: 'not-found' }
 
-    const targetID = getRelationId(redirect.to?.reference?.value)
+  const targetID = getRelationId(redirect.to?.reference?.value)
 
-    if (!targetID) return { kind: 'not-found' }
+  if (!targetID) return { kind: 'not-found' }
 
-    const target = await payload.findByID({
-      collection: 'faculty-news',
-      depth: 0,
-      id: targetID,
-      overrideAccess: false,
-      select: {
-        slug: true,
-      },
-    })
+  const target = await payload.findByID({
+    collection: 'faculty-news',
+    depth: 0,
+    id: targetID,
+    overrideAccess: false,
+    select: {
+      slug: true,
+    },
+  })
 
-    if (!target.slug || target.slug === normalizedSlug) return { kind: 'not-found' }
+  if (!target.slug || target.slug === normalizedSlug) return { kind: 'not-found' }
 
-    return {
-      kind: 'redirect',
-      url: getFacultyNewsPath(target.slug),
-    }
+  return {
+    kind: 'redirect',
+    url: getFacultyNewsPath(target.slug),
   }
-)
+}

@@ -2,6 +2,7 @@ import { MailIcon, MapPinIcon, PhoneIcon, SquareArrowOutUpRightIcon } from 'luci
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { CurrentYear } from './components/CurrentYear'
 import { footerGroups } from './constants'
 import { Separator, Typography } from '@/components/ui'
 import { FacebookIcon, InstagramIcon, TiktokIcon } from '@/public/images/components'
@@ -190,7 +191,7 @@ export const Footer = async () => (
           as="p"
           variant="caption"
         >
-          © {new Date().getFullYear()} ФМІ РДГУ. Усі права захищені.
+          © <CurrentYear /> ФМІ РДГУ. Усі права захищені.
         </Typography>
 
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3">

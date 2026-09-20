@@ -1,10 +1,10 @@
 import { CalendarDaysIcon } from 'lucide-react'
-import { useQueryStates } from 'nuqs'
 
-import { scheduleSearchParams } from '../_constants'
 import { isCurrentLesson } from '../_helpers'
 import { LessonCard } from './LessonCard'
+import { useScheduleExplorer } from './ScheduleExplorerContext'
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty'
+import { Skeleton } from '@/components/ui/skeleton'
 import { lessonForms, pluralRules } from '@/lib'
 import { cn } from '@/lib/utils'
 import { SCHEDULE_DAYS } from '@/shared/schedule/config'
@@ -14,26 +14,36 @@ import type { ScheduleData } from '@/shared/schedule/types'
 
 interface ScheduleDaysProps {
   lessons: ScheduleData['lessons']
-  now: KyivNow
+  now: KyivNow | null
   schedule: ScheduleData
 }
 
 export const ScheduleDays = ({ lessons, now, schedule }: ScheduleDaysProps) => {
-  const [state] = useQueryStates({
-    view: scheduleSearchParams.view,
-    day: scheduleSearchParams.day,
-  })
+  const { state } = useScheduleExplorer()
 
-  const activeDay = state.day === 'today' ? now.day : +state.day
-  const activeDays = state.view === 'week' ? [1, 2, 3, 4, 5, 6, 7] : [activeDay]
+  const activeDay = state.day === 'today' ? now?.day : +state.day
+  if (state.view === 'day' && activeDay === undefined) {
+    return (
+      <div
+        className="grid gap-3"
+        aria-busy="true"
+        aria-label="Визначаємо поточний день за київським часом"
+      >
+        <Skeleton className="h-6 w-40 rounded-md" />
+        <Skeleton className="h-40 w-full rounded-2xl" />
+      </div>
+    )
+  }
+
+  const activeDays =
+    state.view === 'week' ? [1, 2, 3, 4, 5, 6, 7] : activeDay === undefined ? [] : [activeDay]
 
   return (
     <>
       {state.view === 'day' && (
         <div className="mb-5 flex items-center gap-3">
-          <h3 className="text-xl font-bold">{SCHEDULE_DAYS[activeDay - 1]}</h3>
-          {now.day === activeDay && <span className="text-accent-violet text-xs">Сьогодні</span>}
-          <span className="font-jetbrains text-muted-foreground ml-auto text-xs">Час Києва</span>
+          <h3 className="text-xl font-bold">{SCHEDULE_DAYS[activeDay! - 1]}</h3>
+          {now?.day === activeDay && <span className="text-accent-violet text-xs">Сьогодні</span>}
         </div>
       )}
 
@@ -47,7 +57,7 @@ export const ScheduleDays = ({ lessons, now, schedule }: ScheduleDaysProps) => {
             >
               {state.view === 'week' && (
                 <div className="mb-3 flex items-center justify-between border-b pb-3">
-                  <h3 className={cn('font-bold', now.day === day && 'text-accent-violet')}>
+                  <h3 className={cn('font-bold', now?.day === day && 'text-accent-violet')}>
                     {SCHEDULE_DAYS[day - 1]}
                   </h3>
                   <span className="font-jetbrains text-muted-foreground text-xs">
@@ -80,7 +90,7 @@ export const ScheduleDays = ({ lessons, now, schedule }: ScheduleDaysProps) => {
                       <LessonCard
                         lesson={lesson}
                         compact={state.view === 'week'}
-                        current={isCurrentLesson(lesson, now, schedule.effectiveFrom)}
+                        current={now ? isCurrentLesson(lesson, now, schedule.effectiveFrom) : false}
                       />
                     </div>
                   ))}

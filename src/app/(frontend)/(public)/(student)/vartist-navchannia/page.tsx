@@ -1,5 +1,6 @@
 import config from '@payload-config'
 import { ArrowUpRightIcon, FileTextIcon } from 'lucide-react'
+import { cacheLife, cacheTag } from 'next/cache'
 import { getPayload } from 'payload'
 
 import { PaymentDetails } from './_components/PaymentDetails/PaymentDetails'
@@ -9,6 +10,7 @@ import { buildTuitionCatalog } from './_helpers'
 import { Tabs, TabsContent, TabsList, TabsTrigger, Typography } from '@/components/ui'
 import { documentDateFormatter } from '@/lib'
 import { SITE_URL } from '@/shared/constants'
+import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 
 import type { EducationLevel } from '@/payload/collections/EducationalPrograms/constants'
 import type { Metadata } from 'next'
@@ -45,6 +47,17 @@ const LEVELS = [
 ] as const satisfies { label: string; value: EducationLevel }[]
 
 const TuitionCostsPage = async () => {
+  'use cache'
+
+  cacheLife(CMS_CACHE_LIFE)
+  cacheTag(
+    CONTENT_CACHE_TAGS.educationalPrograms,
+    CONTENT_CACHE_TAGS.specialties,
+    CONTENT_CACHE_TAGS.tuitionRates,
+    CONTENT_CACHE_TAGS.tuitionSettings,
+    CONTENT_CACHE_TAGS.media
+  )
+
   const payload = await getPayload({ config })
 
   const [educationalPrograms, settings] = await Promise.all([

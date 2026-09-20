@@ -5,7 +5,7 @@ import type {
   FacultyNewsMediaData,
   MediaSize,
 } from '../_types'
-import type { FacultyNews, Media } from '@/payload-types'
+import type { FacultyNews } from '@/payload-types'
 import type { TransformCollectionWithSelect } from 'payload'
 
 type FacultyNewsCardDocument = TransformCollectionWithSelect<
@@ -13,14 +13,14 @@ type FacultyNewsCardDocument = TransformCollectionWithSelect<
   typeof FACULTY_NEWS_CARD_SELECT
 >
 
-const toImageVariant = (media: Media, variant?: MediaSize): FacultyNewsImageVariant | undefined => {
+const toImageVariant = (variant?: MediaSize): FacultyNewsImageVariant | undefined => {
   if (!variant?.url) return undefined
 
   return {
     ...variant,
     width: variant.width ?? undefined,
     height: variant.height ?? undefined,
-    url: variant?.url ?? media?.url,
+    url: variant.url,
   }
 }
 
@@ -41,8 +41,8 @@ const mapToFacultyNewsMedia = (
     height: media.height ?? undefined,
     blurDataURL: media.blurDataURL ?? undefined,
     sizes: {
-      newsCard: toImageVariant(media, media.sizes?.newsCard),
-      hero: toImageVariant(media, media.sizes?.newsCard),
+      newsCard: toImageVariant(media.sizes?.newsCard),
+      hero: toImageVariant(media.sizes?.hero),
     },
   }
 }

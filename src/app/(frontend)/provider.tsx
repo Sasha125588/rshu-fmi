@@ -1,6 +1,6 @@
 'use client'
 
-import { SerwistProvider } from '@serwist/turbopack/react'
+import { SerwistProvider } from '@serwist/next/react'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { type ReactNode } from 'react'
 
@@ -13,15 +13,17 @@ interface Props {
 
 export const Provider = ({ children }: Props) => {
   return (
-    <SerwistProvider
-      swUrl="/serwist/sw.js"
-      disable={process.env.NODE_ENV !== 'production'}
-    >
-      <NuqsAdapter>
+    <NuqsAdapter>
+      <SerwistProvider
+        swUrl="/sw.js"
+        disable={process.env.NODE_ENV !== 'production'}
+        cacheOnNavigation={false}
+        options={{ scope: '/' }}
+      >
         <ThemeProvider>
           <TooltipProvider>{children}</TooltipProvider>
         </ThemeProvider>
-      </NuqsAdapter>
-    </SerwistProvider>
+      </SerwistProvider>
+    </NuqsAdapter>
   )
 }

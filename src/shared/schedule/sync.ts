@@ -6,6 +6,8 @@ import type { ScheduleSource } from './config'
 import type { ScheduleData } from './types'
 import type { Payload } from 'payload'
 
+export type InvalidateScheduleCache = (sourceKey: string) => Promise<void> | void
+
 export async function downloadSchedule(source: ScheduleSource, fetcher: typeof fetch = fetch) {
   const response = await fetcher(scheduleExportUrl(source.spreadsheetId), {
     cache: 'no-store',
@@ -16,7 +18,11 @@ export async function downloadSchedule(source: ScheduleSource, fetcher: typeof f
   return Buffer.from(await response.arrayBuffer())
 }
 
-export async function syncSchedule(payload: Payload, source: ScheduleSource) {
+export async function syncSchedule(
+  payload: Payload,
+  source: ScheduleSource,
+  invalidateCache: InvalidateScheduleCache
+) {
   const doc =
     (await findSchedule(payload, source.key)) ??
     (await payload.create({
@@ -38,6 +44,7 @@ export async function syncSchedule(payload: Payload, source: ScheduleSource) {
       overrideAccess: true,
       data: { lastError: message },
     })
+    await invalidateCache(source.key)
 
     payload.logger.error({ msg: 'Schedule import failed', source: source.key, error: message })
     return { status: 'error' as const }
@@ -49,6 +56,7 @@ export async function syncSchedule(payload: Payload, source: ScheduleSource) {
     overrideAccess: true,
     data: { snapshot: { ...snapshot }, syncedAt: new Date().toISOString(), lastError: null },
   })
+  await invalidateCache(source.key)
 
   return { status: 'success' as const, lessons: snapshot.lessons.length }
 }

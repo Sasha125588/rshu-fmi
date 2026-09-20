@@ -1,6 +1,9 @@
 import { revalidatePath } from 'next/cache'
 import { ValidationError } from 'payload'
 
+import { invalidateCacheTags } from '@/payload/helpers'
+import { CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
+
 import type { Specialty } from '@/payload-types'
 import type {
   CollectionAfterChangeHook,
@@ -126,6 +129,7 @@ export const revalidateSpecialtyConsumers: CollectionAfterChangeHook<Specialty> 
   if (req.context.disableRevalidate) return doc
 
   if (doc._status === 'published' || previousDoc?._status === 'published') {
+    invalidateCacheTags(CONTENT_CACHE_TAGS.specialties)
     for (const path of await getSpecialtyConsumerPaths(doc.id, req)) {
       req.payload.logger.info(`Revalidating specialty consumer at ${path}`)
       revalidatePath(path)
@@ -141,6 +145,7 @@ export const revalidateSpecialtyConsumersAfterDelete: CollectionAfterDeleteHook<
 }) => {
   if (req.context.disableRevalidate || doc?._status !== 'published') return doc
 
+  invalidateCacheTags(CONTENT_CACHE_TAGS.specialties)
   for (const path of SPECIALTY_CONSUMER_PATHS) {
     req.payload.logger.info(`Revalidating specialty consumer at ${path}`)
     revalidatePath(path)

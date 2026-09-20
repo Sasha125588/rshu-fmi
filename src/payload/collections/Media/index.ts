@@ -1,4 +1,9 @@
-import { addCacheBustingVersion, generateBlurDataURL } from './hooks'
+import {
+  addCacheBustingVersion,
+  generateBlurDataURL,
+  revalidateMediaConsumers,
+  revalidateMediaConsumersAfterDelete,
+} from './hooks'
 import { adminsOrEditors, publicAccess } from '@/payload/access'
 
 import type { CollectionConfig } from 'payload'
@@ -137,6 +142,8 @@ export const Media: CollectionConfig = {
     },
   ],
   hooks: {
+    afterChange: [revalidateMediaConsumers],
+    afterDelete: [revalidateMediaConsumersAfterDelete],
     afterRead: [addCacheBustingVersion],
     beforeChange: [generateBlurDataURL],
   },

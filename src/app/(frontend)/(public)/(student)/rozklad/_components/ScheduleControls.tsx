@@ -1,7 +1,7 @@
 import { ChevronDownIcon } from 'lucide-react'
-import { useQueryStates } from 'nuqs'
 
-import { SCHEDULE_DAY_VALUES, scheduleSearchParams } from '../_constants'
+import { SCHEDULE_DAY_VALUES } from '../_constants'
+import { useScheduleExplorer } from './ScheduleExplorerContext'
 import { Button } from '@/components/ui/button'
 import { lessonForms, pluralRules } from '@/lib'
 import { cn } from '@/lib/utils'
@@ -12,20 +12,12 @@ import type { ScheduleData } from '@/shared/schedule/types'
 
 interface ScheduleControlsProps {
   lessons: ScheduleData['lessons']
-  now: KyivNow
+  now: KyivNow | null
 }
 
 export const ScheduleControls = ({ lessons, now }: ScheduleControlsProps) => {
-  const [state, setState] = useQueryStates(
-    {
-      mode: scheduleSearchParams.mode,
-      view: scheduleSearchParams.view,
-      day: scheduleSearchParams.day,
-      subgroup: scheduleSearchParams.subgroup,
-    },
-    { history: 'push', scroll: false }
-  )
-  const activeDay = state.day === 'today' ? now.day : +state.day
+  const { state, setState } = useScheduleExplorer()
+  const activeDay = state.day === 'today' ? now?.day : +state.day
 
   return (
     <>
@@ -65,7 +57,7 @@ export const ScheduleControls = ({ lessons, now }: ScheduleControlsProps) => {
                 onChange={(event) =>
                   setState({ subgroup: event.target.value as 'all' | '1' | '2' })
                 }
-                className="bg-background focus-visible:outline-primary min-h-10 appearance-none rounded-xl border py-2 pr-8 pl-3 focus-visible:outline-2"
+                className="bg-background focus-visible:outline-accent-violet min-h-10 appearance-none rounded-xl border py-2 pr-8 pl-3 focus-visible:outline-2"
               >
                 <option value="all">Усі підгрупи</option>
                 <option value="1">Підгрупа 1</option>
@@ -98,15 +90,19 @@ export const ScheduleControls = ({ lessons, now }: ScheduleControlsProps) => {
                 key={day}
                 variant={activeDay === index + 1 ? 'default' : 'ghost'}
                 onClick={() => setState({ day })}
-                className="h-auto min-h-14 flex-col gap-1 rounded-2xl px-1 py-3"
+                className={cn(
+                  'h-auto min-h-14 flex-col gap-1 rounded-2xl px-1 py-3',
+                  activeDay === index + 1 &&
+                    'bg-accent-violet-dark hover:bg-accent-violet-dark/95 text-background font-semibold'
+                )}
                 aria-label={SCHEDULE_DAYS[index]}
                 aria-current={activeDay === index + 1 ? 'date' : undefined}
               >
                 <span>{SCHEDULE_SHORT_DAYS[index]}</span>
                 <span
                   className={cn(
-                    'font-jetbrains text-[10px]',
-                    activeDay === index + 1 ? 'text-primary-foreground/75' : 'text-muted-foreground'
+                    'font-jetbrains text-[10px] font-semibold',
+                    activeDay === index + 1 ? 'text-background' : 'text-muted-foreground'
                   )}
                 >
                   {count} {lessonForms[pluralRules.select(count)]}

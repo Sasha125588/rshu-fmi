@@ -1,7 +1,8 @@
 import { RefreshCwIcon } from 'lucide-react'
+import { Suspense } from 'react'
 
 import { NewsHeaderBackground } from './NewsHeaderBackground'
-import { NewsSourceNav } from './NewsSourceNav'
+import { NewsSourceNav, NewsSourceNavFallback } from './NewsSourceNav'
 import { Typography } from '@/components/ui'
 
 export const NewsHeader = () => (
@@ -26,7 +27,9 @@ export const NewsHeader = () => (
     </div>
 
     <div className="relative z-10 mt-8 flex flex-col gap-4 pb-6 md:mt-10 md:pb-8 lg:flex-row lg:items-center lg:justify-between">
-      <NewsSourceNav />
+      <Suspense fallback={<NewsSourceNavFallback />}>
+        <NewsSourceNav />
+      </Suspense>
       <Typography
         as="p"
         variant="caption"

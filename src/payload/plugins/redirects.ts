@@ -2,6 +2,8 @@ import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { revalidatePath } from 'next/cache'
 
 import { adminsOrEditors } from '@/payload/access'
+import { invalidateCacheTags } from '@/payload/helpers'
+import { CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 
 import type { Redirect } from '@/payload-types'
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
@@ -9,6 +11,7 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
 const revalidateRedirectPath: CollectionAfterChangeHook<Redirect> = ({ doc, previousDoc, req }) => {
   if (req.context.disableRedirectRevalidate) return doc
 
+  invalidateCacheTags(CONTENT_CACHE_TAGS.redirects)
   const paths = new Set([doc.from, previousDoc.from].filter(Boolean))
 
   for (const path of paths) {
@@ -22,6 +25,7 @@ const revalidateRedirectPath: CollectionAfterChangeHook<Redirect> = ({ doc, prev
 const revalidateRedirectPathAfterDelete: CollectionAfterDeleteHook<Redirect> = ({ doc, req }) => {
   if (req.context.disableRedirectRevalidate) return doc
 
+  invalidateCacheTags(CONTENT_CACHE_TAGS.redirects)
   req.payload.logger.info(`Revalidating redirect at ${doc.from}`)
   revalidatePath(doc.from)
 

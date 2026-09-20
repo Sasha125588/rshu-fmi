@@ -1,7 +1,4 @@
 import { withPayload } from '@payloadcms/next/withPayload'
-import { withSerwist } from '@serwist/turbopack'
-
-const r2PublicUrl = process.env.R2_PUBLIC_URL
 
 /**
  * @type {import('next').NextConfig}
@@ -9,12 +6,14 @@ const r2PublicUrl = process.env.R2_PUBLIC_URL
 
 const nextConfig = {
   /* config options here */
-  experimental: {
-    useTypeScriptCli: true,
-    turbopackRustReactCompiler: true,
-  },
+  cacheComponents: true,
+  partialPrefetching: true,
   reactCompiler: true,
   typedRoutes: true,
+  experimental: {
+    exposeTestingApiInProductionBuild: process.env.NEXT_INSTANT_TESTS === '1',
+    turbopackRustReactCompiler: true,
+  },
   allowedDevOrigins: ['192.168.31.44'],
   images: {
     // Payment required
@@ -22,7 +21,7 @@ const nextConfig = {
     // unoptimized: true,
 
     remotePatterns: [
-      new URL(`${r2PublicUrl}/**`),
+      new URL(`${process.env.R2_PUBLIC_URL}/**`),
       new URL('https://avatars.githubusercontent.com/**'),
       { protocol: 'https', hostname: 'media.fmi-rshu.dev' },
       { protocol: 'https', hostname: 'www.rshu.edu.ua' },
@@ -34,4 +33,4 @@ const nextConfig = {
   },
 }
 
-export default withPayload(withSerwist(nextConfig))
+export default withPayload(nextConfig)

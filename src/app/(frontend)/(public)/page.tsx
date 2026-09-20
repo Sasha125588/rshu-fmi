@@ -9,6 +9,7 @@ import {
   ListXIcon,
   MapPinIcon,
 } from 'lucide-react'
+import { cacheLife, cacheTag } from 'next/cache'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 
@@ -37,6 +38,7 @@ import {
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import { SITE_URL } from '@/shared/constants'
+import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 import { getNewsPage } from '@/shared/news'
 
 import type { Metadata, Route } from 'next'
@@ -82,6 +84,16 @@ export const generateMetadata = async (): Promise<Metadata> => {
 }
 
 const HomePage = async () => {
+  'use cache'
+
+  cacheLife(CMS_CACHE_LIFE)
+  cacheTag(
+    CONTENT_CACHE_TAGS.specialties,
+    CONTENT_CACHE_TAGS.educationalPrograms,
+    CONTENT_CACHE_TAGS.facultyNews,
+    CONTENT_CACHE_TAGS.media
+  )
+
   const payload = await getPayload({ config })
   const [specialties, facultyNews, departmentNews, universityNews] = await Promise.all([
     payload.find({
@@ -110,11 +122,11 @@ const HomePage = async () => {
       },
       sort: ['sortOrder', 'code'],
     }),
-    getLatestFacultyNews(3),
+    getLatestFacultyNews(1),
     Promise.all(
       (['kitm', 'iktmvi'] as const).map((source) => getNewsPage(source, 1, { limit: 1 }))
     ),
-    getNewsPage('university', 1, { limit: 5 }),
+    getNewsPage('university', 1, { limit: 4 }),
   ])
 
   const featuredPrograms = specialties.docs.flatMap((specialty) =>

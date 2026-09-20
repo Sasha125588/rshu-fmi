@@ -1,4 +1,5 @@
 import config from '@payload-config'
+import { cacheLife, cacheTag } from 'next/cache'
 import { getPayload } from 'payload'
 
 import { CollectiveMotionCanvas } from './_components/CollectiveMotionCanvas/CollectiveMotionCanvas'
@@ -6,6 +7,7 @@ import { CouncilMemberImage } from './_components/CouncilMemberImage/CouncilMemb
 import { ACADEMIC_COUNCIL_ROLE_LABELS, councilActivity } from './_constants'
 import { Typography } from '@/components/ui'
 import { SITE_URL } from '@/shared/constants'
+import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 
 import type { Metadata } from 'next'
 
@@ -36,6 +38,11 @@ export const metadata: Metadata = {
 }
 
 const VchenaRadaPage = async () => {
+  'use cache'
+
+  cacheLife(CMS_CACHE_LIFE)
+  cacheTag(CONTENT_CACHE_TAGS.academicCouncil, CONTENT_CACHE_TAGS.media)
+
   const payload = await getPayload({ config })
   const result = await payload.find({
     collection: 'academic-council-members',

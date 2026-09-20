@@ -1,7 +1,7 @@
 import { ArrowRightIcon, ArrowUpRightIcon } from 'lucide-react'
 import Link from 'next/link'
 
-import { Badge, Typography } from '@/components/ui'
+import { Badge, Skeleton, Typography } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 import type { Route } from 'next'
@@ -184,6 +184,56 @@ const NewsCardAction = ({
   </span>
 )
 
+type NewsCardSkeletonVariant = 'compact' | 'featured'
+
+const CARD_LAYOUT: Record<NewsCardSkeletonVariant, string> = {
+  featured: 'py-6 md:grid-cols-[minmax(260px,0.65fr)_minmax(0,1fr)_auto]',
+  compact: 'py-5 md:grid-cols-[minmax(0,1fr)_auto]',
+}
+
+const NewsCardSkeleton = ({ variant }: { variant: NewsCardSkeletonVariant }) => (
+  <li>
+    <div className={cn('grid min-w-0 gap-5 px-4 md:items-center', CARD_LAYOUT[variant])}>
+      {variant === 'featured' && (
+        <Skeleton className="aspect-video w-full rounded-md md:aspect-auto md:h-[180px]" />
+      )}
+
+      <div className="min-w-0">
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <Skeleton className="h-5 w-28" />
+          <Skeleton className="h-5 w-36" />
+        </div>
+
+        {variant === 'featured' ? (
+          <>
+            <div className="flex flex-col">
+              <Skeleton className="my-1.5 h-5 w-full" />
+              <Skeleton className="my-1.5 h-5 w-3/4" />
+            </div>
+            <div className="mt-3 flex flex-col">
+              <Skeleton className="my-1 h-4 w-full" />
+              <Skeleton className="my-1 h-4 w-2/3" />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="flex flex-col">
+              <Skeleton className="my-1 h-4 w-full" />
+              <Skeleton className="my-1 h-4 w-1/2" />
+            </div>
+            <div className="mt-3 flex flex-col">
+              <Skeleton className="my-1 h-3 w-full" />
+              <Skeleton className="my-1 h-3 w-4/5" />
+            </div>
+          </>
+        )}
+      </div>
+
+      <Skeleton className="hidden size-5 self-start md:block" />
+    </div>
+  </li>
+)
+
 export {
   NewsCard,
   NewsCardLink,
@@ -194,4 +244,5 @@ export {
   NewsCardTitle,
   NewsCardExcerpt,
   NewsCardAction,
+  NewsCardSkeleton,
 }

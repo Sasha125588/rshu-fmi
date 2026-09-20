@@ -1,4 +1,7 @@
+import { revalidateTag } from 'next/cache'
+
 import { checkRole } from '@/payload/access'
+import { scheduleCacheTag } from '@/shared/schedule/cache'
 import { SCHEDULE_SOURCES, getScheduleSource } from '@/shared/schedule/config'
 import { syncSchedule } from '@/shared/schedule/sync'
 
@@ -12,10 +15,19 @@ export const isCronAuthorized = (headers: Headers) => {
 }
 
 const runSync = async (req: PayloadRequest) => {
-  const source = getScheduleSource(req.searchParams.get('source') ?? '')!
+  const source = getScheduleSource(req.searchParams.get('source') ?? '')
+
+  if (!source) {
+    return Response.json(
+      { error: 'Невідоме джерело розкладу.' },
+      { status: 400, headers: { 'Cache-Control': 'no-store' } }
+    )
+  }
 
   try {
-    const result = await syncSchedule(req.payload, source)
+    const result = await syncSchedule(req.payload, source, (sourceKey) => {
+      revalidateTag(scheduleCacheTag(sourceKey), { expire: 0 })
+    })
     return Response.json(
       { source: source.key, ...result },
       {
@@ -27,7 +39,7 @@ const runSync = async (req: PayloadRequest) => {
     req.payload.logger.error({ msg: 'Schedule sync failed', source: source.key, error })
     return Response.json(
       { source: source.key, error: 'Не вдалося оновити розклад.' },
-      { status: 503 }
+      { status: 503, headers: { 'Cache-Control': 'no-store' } }
     )
   }
 }

@@ -1,11 +1,19 @@
 import config from '@payload-config'
+import { cacheLife, cacheTag } from 'next/cache'
 import { getPayload } from 'payload'
 
 import { SITE_URL } from '@/shared/constants'
+import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
+import { SCHEDULE_SOURCES } from '@/shared/schedule/config'
 
 import type { MetadataRoute } from 'next'
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
+  'use cache'
+
+  cacheLife(CMS_CACHE_LIFE)
+  cacheTag(CONTENT_CACHE_TAGS.educationalPrograms, CONTENT_CACHE_TAGS.facultyNews)
+
   const payload = await getPayload({ config })
 
   const [educationalPrograms, facultyNews] = await Promise.all([
@@ -44,11 +52,14 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-    {
-      url: `${SITE_URL}/rozklad`,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
+    ...SCHEDULE_SOURCES.map(
+      ({ key }) =>
+        ({
+          url: `${SITE_URL}/rozklad/${key}`,
+          changeFrequency: 'daily',
+          priority: 0.9,
+        }) as const
+    ),
     {
       url: `${SITE_URL}/departments`,
       changeFrequency: 'monthly',

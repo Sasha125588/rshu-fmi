@@ -1,22 +1,23 @@
-import { InfoIcon } from 'lucide-react'
+import { notFound } from 'next/navigation'
 
-import { getSchedulePageData } from '../../_api/getSchedulePageData'
-import { kyivNow } from '../../_helpers'
-import { ScheduleResults } from '../ScheduleResults'
-import { ScheduleSearchPanel } from '../ScheduleSearchPanel'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { getScheduleBySourceKey } from '../../_api/getScheduleBySourceKey'
+import { ScheduleExplorer } from '../ScheduleExplorer'
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from '@/components/ui/empty'
 import { Skeleton } from '@/components/ui/skeleton'
+import { getScheduleSource, scheduleSourceUrl } from '@/shared/schedule/config'
 
 interface ScheduleContentProps {
-  searchParams: PageProps<'/rozklad'>['searchParams']
+  params: PageProps<'/rozklad/[source]'>['params']
 }
 
-export const ScheduleContent = async ({ searchParams }: ScheduleContentProps) => {
-  const { schedule, source, sourceUrl, stale, unavailable } =
-    await getSchedulePageData(searchParams)
+export const ScheduleContent = async ({ params }: ScheduleContentProps) => {
+  const { source: sourceKey } = await params
+  const source = getScheduleSource(sourceKey)
 
-  const now = kyivNow()
+  if (!source) notFound()
+
+  const { schedule, syncedAt, unavailable } = await getScheduleBySourceKey(source.key)
+  const sourceUrl = scheduleSourceUrl(source.spreadsheetId)
 
   if (!schedule) {
     return (
@@ -40,30 +41,12 @@ export const ScheduleContent = async ({ searchParams }: ScheduleContentProps) =>
   }
 
   return (
-    <>
-      <div className="mx-auto max-w-[1600px] px-4 pb-16 md:px-12">
-        <ScheduleSearchPanel
-          schedule={schedule}
-          source={source}
-        />
-        <ScheduleResults
-          now={now}
-          schedule={schedule}
-          source={source}
-        />
-      </div>
-      {(unavailable || stale) && (
-        <div className="mx-auto mb-10 max-w-[1600px] px-4 md:px-12">
-          <Alert>
-            <InfoIcon />
-            <AlertTitle>Показуємо останню перевірену версію</AlertTitle>
-            <AlertDescription>
-              Оновлення затримується. Перевірте можливі зміни у вихідній Google-таблиці.
-            </AlertDescription>
-          </Alert>
-        </div>
-      )}
-    </>
+    <ScheduleExplorer
+      schedule={schedule}
+      source={source}
+      syncedAt={syncedAt}
+      unavailable={unavailable}
+    />
   )
 }
 

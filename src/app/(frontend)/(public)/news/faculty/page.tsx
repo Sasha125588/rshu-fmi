@@ -1,11 +1,10 @@
 import { FacultyNewsCard } from '../_components/FacultyNewsCard'
 import { NewsPagination } from '../_components/NewsPagination'
 import { getFacultyNewsPage } from './_api'
+import { FACULTY_NEWS_PAGE_SIZE } from './_constants'
 import { Typography } from '@/components/ui'
 
 import type { Metadata } from 'next'
-
-export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'Новини факультету',
@@ -21,7 +20,7 @@ export const metadata: Metadata = {
 }
 
 const FacultyNewsPage = async () => {
-  const result = await getFacultyNewsPage(1, 12)
+  const result = await getFacultyNewsPage(1, FACULTY_NEWS_PAGE_SIZE)
 
   return (
     <section

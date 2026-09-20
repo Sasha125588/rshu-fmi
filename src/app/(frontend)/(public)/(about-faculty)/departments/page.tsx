@@ -1,5 +1,6 @@
 import config from '@payload-config'
 import { OrbitIcon } from 'lucide-react'
+import { cacheLife, cacheTag } from 'next/cache'
 import { getPayload } from 'payload'
 
 import { DepartmentsExperience } from './_components/DepartmentsExperience'
@@ -12,6 +13,7 @@ import {
   Typography,
 } from '@/components/ui'
 import { SITE_URL } from '@/shared/constants'
+import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 
 import type { Metadata } from 'next'
 
@@ -41,6 +43,11 @@ export const metadata: Metadata = {
 }
 
 const DepartmentsPage = async () => {
+  'use cache'
+
+  cacheLife(CMS_CACHE_LIFE)
+  cacheTag(CONTENT_CACHE_TAGS.departments)
+
   const payload = await getPayload({ config })
   const departments = await payload.find({
     collection: 'departments',

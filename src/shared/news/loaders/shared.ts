@@ -1,4 +1,4 @@
-import { NEWS_REVALIDATE_SECONDS, NEWS_SOURCE_CONFIG } from '../config'
+import { NEWS_SOURCE_CONFIG } from '../config'
 import { ExternalNewsError } from '../errors'
 
 import type { ExternalNewsBySource, ExternalNewsSource } from '../types'
@@ -35,10 +35,7 @@ export const fetchNewsDocument = async (
   context: string
 ) => {
   try {
-    const response = await fetch(url, {
-      next: { revalidate: NEWS_REVALIDATE_SECONDS },
-      signal: AbortSignal.timeout(8_000),
-    })
+    const response = await fetch(url, { signal: AbortSignal.timeout(16_000) })
 
     if (!response.ok) {
       throw new ExternalNewsError({

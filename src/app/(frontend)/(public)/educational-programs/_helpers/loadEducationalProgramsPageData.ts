@@ -1,5 +1,6 @@
 import 'server-only'
 import config from '@payload-config'
+import { cacheLife, cacheTag } from 'next/cache'
 import { getPayload } from 'payload'
 
 import {
@@ -11,8 +12,22 @@ import {
   TUITION_PAGE_SETTINGS_SELECT,
   TUITION_RATE_SELECT,
 } from '../_constants'
+import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 
 export const loadEducationalProgramsPageData = async () => {
+  'use cache'
+
+  cacheLife(CMS_CACHE_LIFE)
+  cacheTag(
+    CONTENT_CACHE_TAGS.educationalProgramSettings,
+    CONTENT_CACHE_TAGS.tuitionSettings,
+    CONTENT_CACHE_TAGS.specialties,
+    CONTENT_CACHE_TAGS.educationalPrograms,
+    CONTENT_CACHE_TAGS.admissionCampaigns,
+    CONTENT_CACHE_TAGS.tuitionRates,
+    CONTENT_CACHE_TAGS.media
+  )
+
   const payload = await getPayload({ config })
 
   const [educationalProgramsSettings, tuitionSettings] = await Promise.all([

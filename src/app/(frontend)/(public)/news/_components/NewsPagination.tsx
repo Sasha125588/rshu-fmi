@@ -84,6 +84,7 @@ export const NewsPagination = ({ source, currentPage, totalPages }: NewsPaginati
         <PaginationItem>
           <PaginationLink
             href={buildNewsHref(source, nextPage)}
+            data-testid="news-pagination-next"
             aria-label="Наступна сторінка"
             aria-disabled={currentPage === totalPages}
             tabIndex={currentPage === totalPages ? -1 : undefined}

@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from 'lucide-react'
+import { cacheLife, cacheTag } from 'next/cache'
 import Link from 'next/link'
 
 import { FacultyNewsCard } from './_components/FacultyNewsCard'
@@ -6,10 +7,9 @@ import { OverviewSourceSection } from './_components/OverviewSourceSection'
 import { getNewsOverview } from './_helpers'
 import { getLatestFacultyNews } from './faculty/_api'
 import { Typography, buttonVariants } from '@/components/ui'
+import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 
 import type { Metadata } from 'next'
-
-export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'Новини ФМІ',
@@ -18,6 +18,11 @@ export const metadata: Metadata = {
 }
 
 const NewsOverviewPage = async () => {
+  'use cache'
+
+  cacheLife(CMS_CACHE_LIFE)
+  cacheTag(CONTENT_CACHE_TAGS.facultyNews, CONTENT_CACHE_TAGS.media)
+
   const [facultyResult, externalResult] = await Promise.allSettled([
     getLatestFacultyNews(4),
     getNewsOverview(),

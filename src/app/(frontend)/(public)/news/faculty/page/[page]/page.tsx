@@ -1,17 +1,18 @@
 import { notFound, permanentRedirect } from 'next/navigation'
+import { Suspense } from 'react'
 
 import { FacultyNewsCard } from '../../../_components/FacultyNewsCard'
 import { NewsPagination } from '../../../_components/NewsPagination'
 import { getFacultyNewsPage } from '../../_api'
+import { FACULTY_NEWS_PAGE_SIZE } from '../../_constants'
+import FacultyNewsLoading from '../../loading'
 import { Typography } from '@/components/ui'
 import { PRERENDERED_PAGE_COUNT } from '@/shared/news'
 
 import type { Metadata } from 'next'
 
-export const revalidate = 3600
-export const dynamicParams = true
-
 type PaginatedFacultyNewsPageProps = PageProps<'/news/faculty/page/[page]'>
+type PaginatedFacultyNewsContentProps = Pick<PaginatedFacultyNewsPageProps, 'params'>
 
 export const generateStaticParams = async () =>
   Array.from({ length: PRERENDERED_PAGE_COUNT }, (_, index) => ({
@@ -27,7 +28,7 @@ export const generateMetadata = async ({
   if (typeof page !== 'number') notFound()
   if (page === 1) permanentRedirect('/news/faculty')
 
-  const result = await getFacultyNewsPage(page, 12)
+  const result = await getFacultyNewsPage(page, FACULTY_NEWS_PAGE_SIZE)
   if (!result.docs.length || page > result.totalPages) notFound()
 
   return {
@@ -44,17 +45,18 @@ export const generateMetadata = async ({
   }
 }
 
-const PaginatedFacultyNewsPage = async ({ params }: PaginatedFacultyNewsPageProps) => {
+const PaginatedFacultyNewsContent = async ({ params }: PaginatedFacultyNewsContentProps) => {
   const page = +(await params).page
 
   if (typeof page !== 'number') notFound()
   if (page === 1) permanentRedirect('/news/faculty')
 
-  const result = await getFacultyNewsPage(page, 12)
+  const result = await getFacultyNewsPage(page, FACULTY_NEWS_PAGE_SIZE)
   if (!result.docs.length || page > result.totalPages) notFound()
 
   return (
     <section
+      data-testid="faculty-news-page-content"
       aria-labelledby="faculty-news-heading"
       className="px-4 py-12 md:px-12 md:py-16"
     >
@@ -106,5 +108,13 @@ const PaginatedFacultyNewsPage = async ({ params }: PaginatedFacultyNewsPageProp
     </section>
   )
 }
+
+const PaginatedFacultyNewsPage = ({ params }: PaginatedFacultyNewsPageProps) => (
+  <div data-testid="faculty-news-page-shell">
+    <Suspense fallback={<FacultyNewsLoading />}>
+      <PaginatedFacultyNewsContent params={params} />
+    </Suspense>
+  </div>
+)
 
 export default PaginatedFacultyNewsPage

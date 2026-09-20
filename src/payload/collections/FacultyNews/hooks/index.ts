@@ -1,7 +1,8 @@
 import { revalidatePath } from 'next/cache'
 import { ValidationError } from 'payload'
 
-import { getRelationId, slugifyValue } from '@/payload/helpers'
+import { getRelationId, invalidateCacheTags, slugifyValue } from '@/payload/helpers'
+import { CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 import { getFacultyNewsPath } from '@/shared/news/faculty/paths'
 
 import type { FacultyNews, Media, Redirect } from '@/payload-types'
@@ -38,6 +39,8 @@ const revalidateFacultyNewsPaths = (
   req: PayloadRequest,
   redirectPaths: string[] = []
 ) => {
+  invalidateCacheTags(CONTENT_CACHE_TAGS.facultyNews)
+
   for (const path of getFacultyNewsPaths(slugs, redirectPaths)) {
     req.payload.logger.info(`Revalidating faculty news consumer at ${path}`)
     revalidatePath(path)

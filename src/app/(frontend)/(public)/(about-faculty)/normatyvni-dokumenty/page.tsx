@@ -1,4 +1,5 @@
 import config from '@payload-config'
+import { cacheLife, cacheTag } from 'next/cache'
 import { getPayload } from 'payload'
 import { Suspense } from 'react'
 
@@ -7,6 +8,7 @@ import { NormatyvniDokumentyBackground } from './_components/NormatyvniDokumenty
 import { toCatalogDocument } from './_helpers'
 import { Typography } from '@/components/ui'
 import { SITE_URL } from '@/shared/constants'
+import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 
 import type { Metadata } from 'next'
 
@@ -35,6 +37,15 @@ export const metadata: Metadata = {
 }
 
 const NormatyvniDokumentyPage = async () => {
+  'use cache'
+
+  cacheLife(CMS_CACHE_LIFE)
+  cacheTag(
+    CONTENT_CACHE_TAGS.documents,
+    CONTENT_CACHE_TAGS.documentCategories,
+    CONTENT_CACHE_TAGS.media
+  )
+
   const payload = await getPayload({ config })
   const result = await payload.find({
     collection: 'documents',

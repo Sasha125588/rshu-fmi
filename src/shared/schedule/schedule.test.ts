@@ -1,4 +1,3 @@
-import { Temporal } from '@js-temporal/polyfill'
 import { expect, test } from 'bun:test'
 import ExcelJS from 'exceljs'
 import { readFile } from 'node:fs/promises'
@@ -7,8 +6,8 @@ import { SCHEDULE_SOURCES, DEFAULT_SCHEDULE_SOURCE as source } from './config'
 import { parseSchedule, safeMeetingUrl } from './parser'
 import { downloadSchedule, syncSchedule } from './sync'
 import {
+  getKyivNow,
   isCurrentLesson,
-  kyivNow,
   roomLabel,
   scheduleOptions,
   selectLessons,
@@ -209,9 +208,9 @@ test('invalid files, dates and lesson times still fail instead of overwriting th
 })
 
 test('Kyiv time, lesson boundaries and start date are respected', async () => {
-  expect(kyivNow(Temporal.Instant.from('2026-09-14T05:00:00Z')).time).toBe('08:00')
-  expect(kyivNow(Temporal.Instant.from('2026-12-14T06:00:00Z')).time).toBe('08:00')
-  expect(kyivNow(Temporal.Instant.from('2026-09-13T21:30:00Z')).day).toBe(1)
+  expect(getKyivNow(Date.parse('2026-09-14T05:00:00Z')).time).toBe('08:00')
+  expect(getKyivNow(Date.parse('2026-12-14T06:00:00Z')).time).toBe('08:00')
+  expect(getKyivNow(Date.parse('2026-09-13T21:30:00Z')).day).toBe(1)
 
   const lesson = (await courseFixture('bachelor-1')).lessons[0]
   expect(
@@ -226,6 +225,10 @@ test('Kyiv time, lesson boundaries and start date are respected', async () => {
 })
 
 test('sync preserves a good snapshot on failure and replaces it on success without a separate DB client', async () => {
+  const invalidated: string[] = []
+  const invalidate = (sourceKey: string) => {
+    invalidated.push(sourceKey)
+  }
   const snapshot = await courseFixture('bachelor-1')
   let doc = {
     id: 1,
@@ -246,17 +249,19 @@ test('sync preserves a good snapshot on failure and replaces it on success witho
   const originalFetch = globalThis.fetch
   try {
     globalThis.fetch = (async () => new Response('', { status: 503 })) as unknown as typeof fetch
-    expect((await syncSchedule(payload, source)).status).toBe('error')
+    expect((await syncSchedule(payload, source, invalidate)).status).toBe('error')
     expect(doc.snapshot).toEqual({ ...snapshot })
     expect(doc.syncedAt).toBe('2020-01-01T00:00:00Z')
     expect(doc.lastError?.includes('503')).toBeTrue()
+    expect(invalidated).toEqual([source.key])
 
     const buffer = await fixture()
     globalThis.fetch = (async () => new Response(buffer)) as unknown as typeof fetch
-    expect((await syncSchedule(payload, source)).status).toBe('success')
+    expect((await syncSchedule(payload, source, invalidate)).status).toBe('success')
     expect(doc.lastError).toBeNull()
     expect(doc.syncedAt).not.toBe('2020-01-01T00:00:00Z')
     expect(doc.snapshot).toEqual({ ...snapshot })
+    expect(invalidated).toEqual([source.key, source.key])
   } finally {
     globalThis.fetch = originalFetch
   }
@@ -264,6 +269,7 @@ test('sync preserves a good snapshot on failure and replaces it on success witho
 
 test('first import creates only the requested course', async () => {
   const writes: unknown[] = []
+  const invalidated: string[] = []
   const payload = {
     find: async ({ where }: { where: { sourceKey: { equals: string } } }) => {
       expect(where.sourceKey.equals).toBe('master-2')
@@ -283,8 +289,15 @@ test('first import creates only the requested course', async () => {
   const buffer = await fixture('master-2')
   try {
     globalThis.fetch = (async () => new Response(buffer)) as unknown as typeof fetch
-    expect((await syncSchedule(payload, SCHEDULE_SOURCES[5])).status).toBe('success')
+    expect(
+      (
+        await syncSchedule(payload, SCHEDULE_SOURCES[5], (sourceKey) => {
+          invalidated.push(sourceKey)
+        })
+      ).status
+    ).toBe('success')
     expect(writes).toEqual([{ sourceKey: 'master-2' }])
+    expect(invalidated).toEqual(['master-2'])
   } finally {
     globalThis.fetch = originalFetch
   }

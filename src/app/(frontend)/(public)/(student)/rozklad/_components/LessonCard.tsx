@@ -16,8 +16,8 @@ export const LessonCard = ({ lesson, current, compact = false }: LessonCardProps
     <article
       className={cn(
         'bg-card relative flex h-full flex-col gap-3 rounded-2xl border p-4 transition-colors',
-        current && 'border-primary bg-primary/5 ring-primary/20 ring-1',
-        !current && 'hover:border-primary/35',
+        current && 'border-accent-violet bg-accent-violet/5 ring-accent-violet/20 ring-1',
+        !current && 'hover:border-accent-violet/35',
         !compact && 'md:p-6'
       )}
     >

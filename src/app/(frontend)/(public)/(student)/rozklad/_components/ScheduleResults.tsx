@@ -1,14 +1,14 @@
 'use client'
 
 import { BookmarkIcon, CalendarDaysIcon, LinkIcon } from 'lucide-react'
-import { useQueryStates } from 'nuqs'
 
-import { scheduleSearchParams, serializeScheduleSearchParams } from '../_constants'
+import { serializeScheduleSearchParams } from '../_constants'
 import { getScheduleMode } from '../_constants/modes'
 import { scheduleOptions, selectLessons } from '../_helpers'
 import { useSavedScheduleGroup } from '../_hooks/useSavedScheduleGroup'
 import { ScheduleControls } from './ScheduleControls'
 import { ScheduleDays } from './ScheduleDays'
+import { useScheduleExplorer } from './ScheduleExplorerContext'
 import { Button } from '@/components/ui/button'
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty'
 import { cn } from '@/lib/utils'
@@ -19,17 +19,13 @@ import type { ScheduleSource } from '@/shared/schedule/config'
 import type { ScheduleData } from '@/shared/schedule/types'
 
 type ScheduleResultsProps = {
-  now: KyivNow
+  now: KyivNow | null
   schedule: ScheduleData
   source: ScheduleSource
 }
 
 export function ScheduleResults({ now, schedule, source }: ScheduleResultsProps) {
-  const [state] = useQueryStates({
-    mode: scheduleSearchParams.mode,
-    selected: scheduleSearchParams.selected,
-    subgroup: scheduleSearchParams.subgroup,
-  })
+  const { state } = useScheduleExplorer()
 
   const options = scheduleOptions(schedule, state.mode)
   const selected = options.includes(state.selected) ? state.selected : ''
@@ -81,14 +77,17 @@ const ScheduleHeading = ({
   source: ScheduleSource
   title: string
 }) => {
-  const [state] = useQueryStates(scheduleSearchParams)
+  const { state, setState } = useScheduleExplorer()
 
   const mode = getScheduleMode(state.mode)
+
+  const selectSavedGroup = (value: string) => setState({ selected: value }, { history: 'replace' })
 
   const { savedGroup, toggleSavedGroup } = useSavedScheduleGroup({
     groups,
     selected,
     sourceKey: source.key,
+    selectSavedGroup,
   })
 
   const { copied, copy } = useCopy()
@@ -96,53 +95,50 @@ const ScheduleHeading = ({
   const share = async () => {
     const url = serializeScheduleSearchParams(window.location.href, {
       ...state,
-      source: source.key,
       selected,
     })
     await copy(url)
   }
 
   return (
-    <>
-      <div className="flex flex-wrap items-end justify-between gap-5">
-        <div>
-          <p className="font-jetbrains text-accent-violet text-xs tracking-widest uppercase">
-            {mode.label} · {source.label}
-          </p>
-          <h2 className="mt-2 text-3xl font-extrabold tracking-tight md:text-4xl">{title}</h2>
-          <p className="text-muted-foreground mt-2 text-sm">
-            {lessons.length} занять на тиждень · за розкладом із{' '}
-            {effectiveFrom.split('-').reverse().join('.')}
-          </p>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {state.mode === 'group' && (
-            <Button
-              variant="outline"
-              onClick={toggleSavedGroup}
-              aria-pressed={savedGroup === selected}
-            >
-              <BookmarkIcon
-                aria-hidden="true"
-                data-icon="inline-start"
-                className={cn(savedGroup === selected && 'fill-current')}
-              />
-              {savedGroup === selected ? 'Моя група' : 'Зберегти групу'}
-            </Button>
-          )}
+    <div className="flex flex-wrap items-end justify-between gap-5">
+      <div>
+        <p className="font-jetbrains text-accent-violet text-xs tracking-widest uppercase">
+          {mode.label} · {source.label}
+        </p>
+        <h2 className="mt-2 text-3xl font-extrabold tracking-tight md:text-4xl">{title}</h2>
+        <p className="text-muted-foreground mt-2 text-sm">
+          {lessons.length} занять на тиждень · за розкладом із{' '}
+          {effectiveFrom.split('-').reverse().join('.')}
+        </p>
+      </div>
+      <div className="flex flex-wrap items-center gap-2">
+        {state.mode === 'group' && (
           <Button
             variant="outline"
-            onClick={() => share()}
+            onClick={toggleSavedGroup}
+            aria-pressed={savedGroup === selected}
           >
-            <LinkIcon
+            <BookmarkIcon
               aria-hidden="true"
               data-icon="inline-start"
+              className={cn(savedGroup === selected && 'fill-current')}
             />
-            {copied ? 'Скопійовано' : 'Поділитися'}
+            {savedGroup === selected ? 'Моя група' : 'Зберегти групу'}
           </Button>
-        </div>
+        )}
+        <Button
+          variant="outline"
+          onClick={() => share()}
+        >
+          <LinkIcon
+            aria-hidden="true"
+            data-icon="inline-start"
+          />
+          {copied ? 'Скопійовано' : 'Поділитися'}
+        </Button>
       </div>
-    </>
+    </div>
   )
 }
 

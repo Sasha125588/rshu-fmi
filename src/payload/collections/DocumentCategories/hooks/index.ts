@@ -1,6 +1,9 @@
 import { revalidatePath } from 'next/cache'
 import { APIError } from 'payload'
 
+import { invalidateCacheTags } from '@/payload/helpers'
+import { CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
+
 import type { DocumentCategory } from '@/payload-types'
 import type {
   CollectionAfterChangeHook,
@@ -38,6 +41,7 @@ export const revalidateDocumentCatalogCategory: CollectionAfterChangeHook<Docume
 }) => {
   if (context.disableRevalidate) return doc
 
+  invalidateCacheTags(CONTENT_CACHE_TAGS.documentCategories)
   payload.logger.info(`Revalidating document catalog at ${DOCUMENT_CATALOG_PATH}`)
   revalidatePath(DOCUMENT_CATALOG_PATH)
 
@@ -49,6 +53,7 @@ export const revalidateDocumentCatalogCategoryAfterDelete: CollectionAfterDelete
 > = ({ doc, req: { context, payload } }) => {
   if (context.disableRevalidate) return doc
 
+  invalidateCacheTags(CONTENT_CACHE_TAGS.documentCategories)
   payload.logger.info(`Revalidating document catalog at ${DOCUMENT_CATALOG_PATH}`)
   revalidatePath(DOCUMENT_CATALOG_PATH)
 

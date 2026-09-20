@@ -2,11 +2,12 @@
 
 import { RotateCcwIcon } from 'lucide-react'
 import { motion } from 'motion/react'
-import { parseAsStringLiteral, useQueryState } from 'nuqs'
+import { useQueryStates } from 'nuqs'
 import { useMemo } from 'react'
 
 import { DocumentCard } from './components/DocumentCard/DocumentCard'
 import { SearchInput } from './components/SearchInput/SearchInput'
+import { DEFAULT_CATEGORY, documentSearchParams } from './constants'
 import {
   Button,
   Empty,
@@ -21,7 +22,7 @@ import {
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
-import type { CatalogDocument, DocumentCategory } from './types'
+import type { CatalogDocument } from './types'
 
 const normalize = (value: string) =>
   value
@@ -29,25 +30,12 @@ const normalize = (value: string) =>
     .normalize('NFD')
     .replace(/[\u0300-\u036F]/g, '')
 
-const DEFAULT_CATEGORY: DocumentCategory = {
-  slug: 'all',
-  sortOrder: 0,
-  title: 'Усі категорії',
-}
-
 interface DocumentExplorerProps {
   documents: CatalogDocument[]
 }
 
 export const DocumentExplorer = ({ documents }: DocumentExplorerProps) => {
-  const [query, setQuery] = useQueryState('q', {
-    defaultValue: '',
-  })
-  const [tab, setTab] = useQueryState(
-    'tab',
-    parseAsStringLiteral(['faculty', 'university', 'all']).withDefault('all')
-  )
-  const [category, setCategory] = useQueryState('category', { defaultValue: 'all' })
+  const [filters, setFilters] = useQueryStates(documentSearchParams)
 
   const categories = [
     DEFAULT_CATEGORY,
@@ -59,19 +47,15 @@ export const DocumentExplorer = ({ documents }: DocumentExplorerProps) => {
   const filteredDocuments = useMemo(
     () =>
       documents.filter((doc) => {
-        if (tab !== 'all' && doc.source !== tab) return false
-        if (category !== 'all' && doc.category.slug !== category) return false
+        if (filters.tab !== 'all' && doc.source !== filters.tab) return false
+        if (filters.category !== 'all' && doc.category.slug !== filters.category) return false
 
-        return normalize(doc.title).includes(normalize(query))
+        return normalize(doc.title).includes(normalize(filters.q))
       }),
-    [documents, tab, category, query]
+    [documents, filters.tab, filters.category, filters.q]
   )
 
-  const resetFilters = () => {
-    setQuery('')
-    setCategory('all')
-    setTab('all')
-  }
+  const resetFilters = () => setFilters(null)
 
   return (
     <section
@@ -80,14 +64,14 @@ export const DocumentExplorer = ({ documents }: DocumentExplorerProps) => {
       className="px-4 py-8 md:px-12 md:py-12"
     >
       <Tabs
-        value={tab}
-        onValueChange={(tab) => setTab(tab)}
+        value={filters.tab}
+        onValueChange={(tab) => setFilters({ tab })}
         className="gap-0"
       >
         <div className="flex flex-wrap items-center justify-between gap-4 border-b py-3">
           <SearchInput
-            value={query}
-            onChange={setQuery}
+            value={filters.q}
+            onChange={(q) => setFilters({ q })}
           />
 
           <TabsList
@@ -121,11 +105,11 @@ export const DocumentExplorer = ({ documents }: DocumentExplorerProps) => {
             <Button
               key={item.slug}
               variant="ghost"
-              aria-pressed={category === item.slug}
-              onClick={() => setCategory(item.slug)}
+              aria-pressed={filters.category === item.slug}
+              onClick={() => setFilters({ category: item.slug })}
               className={cn(
                 'rounded-md px-2 py-1.5 text-sm font-semibold transition-colors',
-                category === item.slug
+                filters.category === item.slug
                   ? 'bg-accent-violet/10 text-accent-violet hover:bg-accent-violet/10! hover:text-accent-violet'
                   : 'text-muted-foreground hover:text-foreground'
               )}
@@ -135,7 +119,7 @@ export const DocumentExplorer = ({ documents }: DocumentExplorerProps) => {
           ))}
         </div>
 
-        <TabsContent value={tab}>
+        <TabsContent value={filters.tab}>
           <div className="pt-5">
             <div className="flex items-center justify-between pb-5">
               <p className="text-muted-foreground text-sm font-medium">Результати пошуку</p>
@@ -149,7 +133,7 @@ export const DocumentExplorer = ({ documents }: DocumentExplorerProps) => {
                 {filteredDocuments.map((document, index) => (
                   <DocumentCard
                     key={document.id}
-                    query={query}
+                    query={filters.q}
                     document={document}
                     index={index}
                   />

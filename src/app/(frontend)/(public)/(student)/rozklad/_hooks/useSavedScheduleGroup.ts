@@ -1,20 +1,19 @@
-import { useQueryState } from 'nuqs'
 import { useEffect, useState } from 'react'
 
-import { scheduleSearchParams } from '../_constants'
 import { LOCAL_STORAGE_PREFIX } from '@/shared/constants/localstorage'
 
 export function useSavedScheduleGroup({
   groups,
   selected,
   sourceKey,
+  selectSavedGroup,
 }: {
   groups: string[]
   selected: string
   sourceKey: string
+  selectSavedGroup: (value: string) => void
 }) {
   const storageKey = `${LOCAL_STORAGE_PREFIX}-schedule:group.v1:${sourceKey}`
-  const [, setSelected] = useQueryState('selected', scheduleSearchParams.selected)
   const [savedGroup, setSavedGroup] = useState('')
 
   useEffect(() => {
@@ -26,7 +25,7 @@ export function useSavedScheduleGroup({
 
       setSavedGroup(saved)
       const params = new URLSearchParams(window.location.search)
-      if (!params.has('selected') && !params.has('mode')) setSelected(saved, { history: 'replace' })
+      if (!params.has('selected') && !params.has('mode')) selectSavedGroup(saved)
     } catch {}
   }, [groups, storageKey])
 

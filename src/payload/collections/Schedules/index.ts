@@ -20,9 +20,9 @@ export const Schedules: CollectionConfig = {
   access: {
     admin: (args) => !!adminsOrEditors(args),
     read: adminsOrEditors,
-    create: adminsOrEditors,
-    update: adminsOrEditors,
-    delete: adminsOrEditors,
+    create: () => false,
+    update: () => false,
+    delete: () => false,
   },
   endpoints: scheduleEndpoints,
   fields: [

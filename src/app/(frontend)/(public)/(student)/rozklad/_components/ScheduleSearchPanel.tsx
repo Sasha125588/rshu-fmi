@@ -1,10 +1,9 @@
 'use client'
 
-import { useQueryState } from 'nuqs'
 import { useState } from 'react'
 
-import { scheduleSearchParams } from '../_constants'
 import { getScheduleMode } from '../_constants/modes'
+import { useScheduleExplorer } from './ScheduleExplorerContext'
 import { ScheduleSearchContent } from './ScheduleSearchContent'
 import { ScheduleSearchDock } from './ScheduleSearchDock'
 import { Button } from '@/components/ui/button'
@@ -27,11 +26,11 @@ export function ScheduleSearchPanel({
   schedule: ScheduleData
   source: ScheduleSource
 }) {
-  const [mode] = useQueryState('mode', scheduleSearchParams.mode)
+  const { state } = useScheduleExplorer()
   const [desktopOpen, setDesktopOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const title = getScheduleMode(mode).selectionLabel
+  const title = getScheduleMode(state.mode).selectionLabel
 
   return (
     <section

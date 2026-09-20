@@ -12,6 +12,8 @@ import {
   UsersIcon,
 } from 'lucide-react'
 
+import { DEFAULT_SCHEDULE_PATH } from '@/shared/schedule/config'
+
 import type { NavItem } from '../types'
 
 export const NAVIGATION: NavItem[] = [
@@ -66,7 +68,7 @@ export const NAVIGATION: NavItem[] = [
       {
         title: 'Розклад',
         description: 'Пошук за групою, викладачем або аудиторією.',
-        href: '/rozklad',
+        href: DEFAULT_SCHEDULE_PATH,
         icon: CalendarDaysIcon,
       },
       {

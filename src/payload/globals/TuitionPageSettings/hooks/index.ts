@@ -1,5 +1,8 @@
 import { revalidatePath } from 'next/cache'
 
+import { invalidateCacheTags } from '@/payload/helpers'
+import { CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
+
 import type { GlobalAfterChangeHook } from 'payload'
 
 const TUITION_PAGE_PATH = '/vartist-navchannia'
@@ -15,6 +18,7 @@ export const revalidateTuitionPageSettings: GlobalAfterChangeHook = ({
   if (context.disableRevalidate) return doc
 
   if (doc._status === 'published' || previousDoc?._status === 'published') {
+    invalidateCacheTags(CONTENT_CACHE_TAGS.tuitionSettings)
     for (const path of TUITION_SETTINGS_CONSUMER_PATHS) {
       payload.logger.info(`Revalidating tuition page settings consumer at ${path}`)
       revalidatePath(path)

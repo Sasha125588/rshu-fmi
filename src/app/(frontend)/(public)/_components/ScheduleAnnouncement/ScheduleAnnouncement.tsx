@@ -9,6 +9,7 @@ import { browser } from 'react-dom'
 
 import { Button, Typography } from '@/components/ui'
 import { LOCAL_STORAGE } from '@/shared/constants/localstorage'
+import { DEFAULT_SCHEDULE_PATH } from '@/shared/schedule/config'
 
 const ANNOUNCEMENT_EXPIRES_AT = new Date('2026-09-26T00:00:00+03:00').getTime()
 const ANNOUNCEMENT_VERSION = '1'
@@ -63,7 +64,7 @@ export const ScheduleAnnouncement = () => {
         >
           <div className="flex items-start gap-1">
             <Link
-              href="/rozklad"
+              href={DEFAULT_SCHEDULE_PATH}
               onClick={dismiss}
               className="group focus-visible:ring-ring flex min-w-0 flex-1 items-center gap-3 rounded-xl p-2 outline-none focus-visible:ring-3"
             >

@@ -25,3 +25,17 @@ export const newsDateFormatter = createFormatter({
   year: 'numeric',
   timeZone: 'UTC',
 })
+
+export const kyivTimeFormatter = createFormatter(
+  {
+    timeZone: 'Europe/Kyiv',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    weekday: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  },
+  'en-CA'
+)

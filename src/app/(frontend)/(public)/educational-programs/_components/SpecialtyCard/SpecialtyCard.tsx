@@ -81,6 +81,7 @@ export const SpecialtyCard = ({ specialty }: SpecialtyCardProps) => {
               <Link
                 href={`/educational-programs/${activeProgram.slug}`}
                 aria-label={`Детальніше про програму «${activeProgram.title}»`}
+                data-testid="educational-program-link"
               />
             )
           }

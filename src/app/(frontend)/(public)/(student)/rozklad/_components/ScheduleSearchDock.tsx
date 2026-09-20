@@ -1,9 +1,8 @@
 import { ChevronDownIcon } from 'lucide-react'
-import { useQueryStates } from 'nuqs'
 
-import { scheduleSearchParams } from '../_constants'
 import { SCHEDULE_MODES } from '../_constants/modes'
 import { roomLabel, scheduleOptions } from '../_helpers'
+import { useScheduleExplorer } from './ScheduleExplorerContext'
 import { Separator } from '@/components/ui/separator'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
@@ -22,14 +21,7 @@ export const ScheduleSearchDock = ({
   openSearch,
   selectionTrigger,
 }: ScheduleSearchDockProps) => {
-  const [state, setState] = useQueryStates(
-    {
-      mode: scheduleSearchParams.mode,
-      selected: scheduleSearchParams.selected,
-      subgroup: scheduleSearchParams.subgroup,
-    },
-    { history: 'push', scroll: false }
-  )
+  const { state, setState } = useScheduleExplorer()
 
   const mode = SCHEDULE_MODES.find((item) => item.value === state.mode)!
 

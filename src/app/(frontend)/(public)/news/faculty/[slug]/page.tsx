@@ -2,19 +2,16 @@ import { ArrowLeftIcon, CalendarDaysIcon, PinIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound, permanentRedirect } from 'next/navigation'
+import { Suspense } from 'react'
 
 import { FacultyNewsRichText } from '../../_components/FacultyNewsRichText'
-import { getLatestFacultyNews } from '../_api'
 import { resolveFacultyNewsRoute } from './_helpers'
-import { Badge, Typography, buttonVariants } from '@/components/ui'
+import { Badge, Skeleton, Typography, buttonVariants } from '@/components/ui'
 import { newsDateFormatter } from '@/lib'
 import { getNewsTagLabel } from '@/payload/collections/FacultyNews/constants'
 import { SITE_URL } from '@/shared/constants'
 
 import type { Metadata, Route } from 'next'
-
-export const revalidate = 3600
-export const dynamicParams = true
 
 const absoluteUrl = (value: string) => new URL(value, SITE_URL).href
 
@@ -31,9 +28,7 @@ const getFacultyNewsArticle = async (slug: string) => {
 }
 
 type FacultyNewsArticlePageProps = PageProps<'/news/faculty/[slug]'>
-
-export const generateStaticParams = async () =>
-  (await getLatestFacultyNews(5)).map(({ slug }) => ({ slug }))
+type FacultyNewsArticleContentProps = Pick<FacultyNewsArticlePageProps, 'params'>
 
 export const generateMetadata = async ({
   params,
@@ -42,13 +37,14 @@ export const generateMetadata = async ({
   const article = await getFacultyNewsArticle(slug)
 
   const cover = article.coverImage
+  const coverImage = cover?.sizes.newsCard ?? cover
 
-  const image = cover?.sizes.newsCard
+  const image = coverImage
     ? {
-        url: absoluteUrl(cover.sizes.newsCard.url),
-        width: String(cover.sizes.newsCard.width),
-        height: String(cover.sizes.newsCard.height),
-        alt: cover.alt,
+        url: absoluteUrl(coverImage.url),
+        width: String(coverImage.width),
+        height: String(coverImage.height),
+        alt: cover?.alt ?? '',
       }
     : {
         url: absoluteUrl('/images/logo.avif'),
@@ -83,11 +79,12 @@ export const generateMetadata = async ({
   }
 }
 
-const FacultyNewsArticlePage = async ({ params }: FacultyNewsArticlePageProps) => {
+const FacultyNewsArticleContent = async ({ params }: FacultyNewsArticleContentProps) => {
   const { slug } = await params
   const article = await getFacultyNewsArticle(slug)
 
   const cover = article.coverImage
+  const coverImage = cover?.sizes.newsCard ?? cover
 
   const canonicalUrl = absoluteUrl(`/news/faculty/${article.slug}`)
   const tagLabels = article.tags.map(getNewsTagLabel)
@@ -106,7 +103,7 @@ const FacultyNewsArticlePage = async ({ params }: FacultyNewsArticlePageProps) =
       '@type': 'WebPage',
       '@id': canonicalUrl,
     },
-    image: [absoluteUrl(cover?.sizes.newsCard?.url ?? '/images/logo.avif')],
+    image: [absoluteUrl(coverImage?.url ?? '/images/logo.avif')],
     articleSection: tagLabels,
     publisher: {
       '@type': 'EducationalOrganization',
@@ -121,7 +118,7 @@ const FacultyNewsArticlePage = async ({ params }: FacultyNewsArticlePageProps) =
   }
 
   return (
-    <div>
+    <div data-testid="faculty-news-article-content">
       <article>
         <header className="border-b px-4 py-12 md:px-12 md:py-16">
           <div className="mx-auto max-w-6xl">
@@ -213,24 +210,27 @@ const FacultyNewsArticlePage = async ({ params }: FacultyNewsArticlePageProps) =
 
         {!!cover && (
           <figure className="px-4 pt-10 md:px-12 md:pt-14">
-            <div className="bg-muted relative mx-auto max-w-4xl overflow-hidden rounded-lg">
-              <Image
-                src={cover.url}
-                alt={cover.alt}
-                unoptimized
-                width={cover.width}
-                height={cover.height}
-                priority
-                placeholder={cover.blurDataURL ? 'blur' : 'empty'}
-                blurDataURL={cover.blurDataURL}
-                style={{ objectPosition: `${cover.focalX}% ${cover.focalY}%` }}
-              />
+            <div className="mx-auto w-fit max-w-4xl">
+              <div className="bg-muted overflow-hidden rounded-lg">
+                <Image
+                  src={cover.url}
+                  alt={cover.alt}
+                  unoptimized
+                  width={cover.width}
+                  height={cover.height}
+                  priority
+                  placeholder={cover.blurDataURL ? 'blur' : 'empty'}
+                  blurDataURL={cover.blurDataURL}
+                  className="block h-auto max-w-full"
+                  style={{ objectPosition: `${cover.focalX}% ${cover.focalY}%` }}
+                />
+              </div>
+              {!!cover.caption && (
+                <figcaption className="text-muted-foreground mt-3 text-center text-sm">
+                  {cover.caption}
+                </figcaption>
+              )}
             </div>
-            {!!cover.caption && (
-              <figcaption className="text-muted-foreground mx-auto mt-3 max-w-4xl text-center text-sm">
-                {cover.caption}
-              </figcaption>
-            )}
           </figure>
         )}
 
@@ -258,5 +258,33 @@ const FacultyNewsArticlePage = async ({ params }: FacultyNewsArticlePageProps) =
     </div>
   )
 }
+
+const FacultyNewsArticleFallback = () => (
+  <article aria-label="Завантаження новини факультету">
+    <header className="border-b px-4 py-12 md:px-12 md:py-16">
+      <div className="mx-auto max-w-6xl space-y-6">
+        <Skeleton className="h-6 w-20 rounded-full" />
+        <Skeleton className="h-14 w-full max-w-4xl" />
+        <Skeleton className="h-7 w-full max-w-3xl" />
+        <Skeleton className="h-5 w-52" />
+      </div>
+    </header>
+    <div className="px-4 py-12 md:px-12 md:py-16">
+      <div className="mx-auto max-w-3xl space-y-4">
+        <Skeleton className="h-5 w-full" />
+        <Skeleton className="h-5 w-full" />
+        <Skeleton className="h-5 w-4/5" />
+      </div>
+    </div>
+  </article>
+)
+
+const FacultyNewsArticlePage = ({ params }: FacultyNewsArticlePageProps) => (
+  <div data-testid="faculty-news-article-shell">
+    <Suspense fallback={<FacultyNewsArticleFallback />}>
+      <FacultyNewsArticleContent params={params} />
+    </Suspense>
+  </div>
+)
 
 export default FacultyNewsArticlePage

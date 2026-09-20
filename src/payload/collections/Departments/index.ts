@@ -1,5 +1,6 @@
 import { slugField } from 'payload'
 
+import { revalidateDepartmentConsumers, revalidateDepartmentConsumersAfterDelete } from './hooks'
 import { adminsOrEditors, publicAccess } from '@/payload/access'
 
 import type { CollectionConfig } from 'payload'
@@ -60,6 +61,10 @@ export const Departments: CollectionConfig = {
       },
     },
   ],
+  hooks: {
+    afterChange: [revalidateDepartmentConsumers],
+    afterDelete: [revalidateDepartmentConsumersAfterDelete],
+  },
   timestamps: true,
   versions: {
     maxPerDoc: 20,

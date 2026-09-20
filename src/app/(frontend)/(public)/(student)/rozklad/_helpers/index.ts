@@ -1,6 +1,4 @@
-import { Temporal } from '@js-temporal/polyfill'
-
-import { scheduleCollator } from '@/lib'
+import { kyivTimeFormatter, scheduleCollator } from '@/lib'
 
 import type { ScheduleData, ScheduleLesson, ScheduleMode } from '@/shared/schedule/types'
 
@@ -34,19 +32,49 @@ export const selectLessons = (
     })
     .sort((a, b) => a.start.localeCompare(b.start))
 
-export const kyivNow = (instant: Temporal.Instant = Temporal.Now.instant()) => {
-  const zdt = instant.toZonedDateTimeISO('Europe/Kyiv')
+const WEEKDAY_NUMBER = {
+  Mon: 1,
+  Tue: 2,
+  Wed: 3,
+  Thu: 4,
+  Fri: 5,
+  Sat: 6,
+  Sun: 7,
+} as const
+
+export interface KyivNow {
+  date: string
+  day: number
+  time: string
+  epochMs: number
+}
+
+export interface KyivDateTime {
+  date: string
+  day: number
+  time: string
+}
+
+export const getKyivNow = (epochMs: number): KyivNow => {
+  const parts = Object.fromEntries(
+    kyivTimeFormatter.formatToParts(new Date(epochMs)).map(({ type, value }) => [type, value])
+  )
+  const day = WEEKDAY_NUMBER[parts.weekday as keyof typeof WEEKDAY_NUMBER]
+
+  if (!day) throw new RangeError('Не вдалося визначити день тижня для Europe/Kyiv.')
 
   return {
-    date: zdt.toPlainDate().toString(), // "YYYY-MM-DD"
-    day: zdt.dayOfWeek, // 1 (Mon) - 7 (Sun)
-    time: zdt.toPlainTime().toString({ smallestUnit: 'minute' }), // "HH:MM"
+    date: `${parts.year}-${parts.month}-${parts.day}`,
+    day,
+    time: `${parts.hour}:${parts.minute}`,
+    epochMs,
   }
 }
 
-export type KyivNow = ReturnType<typeof kyivNow>
+export const isScheduleStale = (syncedAt: string | null, nowMs: number) =>
+  !syncedAt || nowMs - Date.parse(syncedAt) > 60 * 60 * 1000
 
-export const isCurrentLesson = (lesson: ScheduleLesson, now: KyivNow, effectiveFrom: string) =>
+export const isCurrentLesson = (lesson: ScheduleLesson, now: KyivDateTime, effectiveFrom: string) =>
   !lesson.cancelled &&
   now.date >= effectiveFrom &&
   now.day === lesson.day &&

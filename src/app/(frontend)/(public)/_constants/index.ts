@@ -1,12 +1,14 @@
 import { CalendarDaysIcon, FileTextIcon, GraduationCapIcon, MailIcon } from 'lucide-react'
 
+import { DEFAULT_SCHEDULE_PATH } from '@/shared/schedule/config'
+
 export const quickTags = [
   {
     label: 'ІПЗ',
     href: '/educational-programs/f2-inzheneriia-prohramnoho-zabezpechennia-bakalavr',
   },
   { label: "Комп'ютерні науки", href: '/educational-programs/f3-kompiuterni-nauky-bakalavr' },
-  { label: 'Розклад', href: '/rozklad' },
+  { label: 'Розклад', href: DEFAULT_SCHEDULE_PATH },
   { label: 'Документи', href: '/normatyvni-dokumenty' },
   { label: 'Контакти', href: '/contacts' },
   { label: 'Вступ', href: 'https://www.rshu.edu.ua/pryimalna-komisiia', external: true },
@@ -23,8 +25,8 @@ export const heroStats = [
 export const studentLinks = [
   {
     title: 'Розклад',
-    description: 'Пари першого курсу за групою, викладачем або аудиторією.',
-    href: '/rozklad',
+    description: 'Пошук за групою, викладачем або аудиторією.',
+    href: DEFAULT_SCHEDULE_PATH,
     icon: CalendarDaysIcon,
   },
   {

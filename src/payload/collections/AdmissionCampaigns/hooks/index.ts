@@ -1,7 +1,8 @@
 import { revalidatePath } from 'next/cache'
 
 import { studyFormLabels } from '../../EducationalPrograms/constants'
-import { getRelationId } from '@/payload/helpers'
+import { getRelationId, invalidateCacheTags } from '@/payload/helpers'
+import { CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 
 import type { AdmissionCampaign } from '@/payload-types'
 import type {
@@ -94,6 +95,7 @@ export const revalidateAdmissionCampaignConsumers: CollectionAfterChangeHook<
   if (req.context.disableRevalidate) return doc
 
   if (doc._status === 'published' || previousDoc?._status === 'published') {
+    invalidateCacheTags(CONTENT_CACHE_TAGS.admissionCampaigns)
     for (const path of await getEducationalProgramConsumerPaths(req, doc, previousDoc)) {
       req.payload.logger.info(`Revalidating admission campaign consumer at ${path}`)
       revalidatePath(path)
@@ -108,6 +110,7 @@ export const revalidateAdmissionCampaignConsumersAfterDelete: CollectionAfterDel
 > = async ({ doc, req }) => {
   if (req.context.disableRevalidate || doc?._status !== 'published') return doc
 
+  invalidateCacheTags(CONTENT_CACHE_TAGS.admissionCampaigns)
   for (const path of await getEducationalProgramConsumerPaths(req, doc)) {
     req.payload.logger.info(`Revalidating admission campaign consumer at ${path}`)
     revalidatePath(path)

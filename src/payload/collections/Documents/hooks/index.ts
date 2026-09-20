@@ -2,6 +2,8 @@ import { revalidatePath } from 'next/cache'
 import { ValidationError } from 'payload'
 
 import { buildDocumentTitle } from '../helpers'
+import { invalidateCacheTags } from '@/payload/helpers'
+import { CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 
 import type { DocumentTitleProgram } from '../helpers'
 import type { Document } from '@/payload-types'
@@ -156,6 +158,7 @@ export const revalidateDocumentCatalog: CollectionAfterChangeHook<Document> = ({
   if (req.context.disableRevalidate) return doc
 
   if (doc._status === 'published' || previousDoc?._status === 'published') {
+    invalidateCacheTags(CONTENT_CACHE_TAGS.documents)
     req.payload.logger.info(`Revalidating document catalog at ${DOCUMENT_CATALOG_PATH}`)
     revalidatePath(DOCUMENT_CATALOG_PATH)
   }
@@ -169,6 +172,7 @@ export const revalidateDocumentCatalogAfterDelete: CollectionAfterDeleteHook<Doc
 }) => {
   if (req.context.disableRevalidate || doc?._status !== 'published') return doc
 
+  invalidateCacheTags(CONTENT_CACHE_TAGS.documents)
   req.payload.logger.info(`Revalidating document catalog at ${DOCUMENT_CATALOG_PATH}`)
   revalidatePath(DOCUMENT_CATALOG_PATH)
 

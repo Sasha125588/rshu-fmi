@@ -31,22 +31,27 @@ export const FacultyNewsCard = ({
   withSource = false,
 }: FacultyNewsCardProps) => {
   const tagLabels = item.tags.map(getNewsTagLabel)
+  const cover = item.coverImage
+  const image = cover?.sizes.newsCard ?? cover
 
   return (
     <NewsCard variant={variant}>
       <article>
-        <NewsCardLink href={`/news/faculty/${item.slug}`}>
+        <NewsCardLink
+          href={`/news/faculty/${item.slug}`}
+          data-testid="faculty-news-article-link"
+        >
           {variant !== 'compact' && (
             <NewsCardMedia className="from-muted via-muted/65 to-accent-violet/15 bg-linear-to-br">
-              {item.coverImage && item.coverImage.sizes.newsCard?.url ? (
+              {image ? (
                 <Image
-                  src={item.coverImage.sizes.newsCard?.url}
-                  alt={item.coverImage.alt}
+                  src={image.url}
+                  alt={cover?.alt ?? ''}
                   unoptimized
                   fill
                   loading="lazy"
-                  placeholder={item.coverImage.blurDataURL ? 'blur' : 'empty'}
-                  blurDataURL={item.coverImage.blurDataURL}
+                  placeholder={cover?.blurDataURL ? 'blur' : 'empty'}
+                  blurDataURL={cover?.blurDataURL}
                   sizes={
                     variant === 'featured'
                       ? '(max-width: 767px) calc(100vw - 4rem), 38vw'
