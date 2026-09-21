@@ -139,16 +139,17 @@ const HomePage = async () => {
 
   return (
     <div>
-      <section className="relative flex min-h-[70vh] items-center overflow-hidden py-14 md:min-h-[78vh]">
+      <section className="relative flex min-h-[70vh] items-center overflow-hidden py-12 sm:py-14 md:min-h-[78vh]">
         <LandingBackdrop />
         <div className="from-background via-background/80 pointer-events-none absolute inset-0 bg-linear-to-r to-transparent" />
         <div className="from-background pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-linear-to-t to-transparent" />
 
-        <div className="relative w-full px-12">
+        <div className="relative w-full px-4 sm:px-6 md:px-12">
           <div className="flex max-w-4xl flex-col items-start">
             <Typography
               as="h1"
               variant="display"
+              className="text-4xl leading-[1.02] sm:text-6xl md:text-7xl xl:text-8xl"
             >
               Факультет математики та інформатики
             </Typography>
@@ -156,7 +157,7 @@ const HomePage = async () => {
             <Typography
               as="p"
               variant="overline"
-              className="mt-6 max-w-3xl text-sm"
+              className="mt-5 max-w-3xl text-xs sm:mt-6 sm:text-sm"
             >
               <span className="bg-background text-accent-violet rounded-full box-decoration-clone px-3">
                 IT, математика та цифрова освіта
@@ -166,14 +167,14 @@ const HomePage = async () => {
             <Typography
               as="p"
               variant="body-lg"
-              className="mt-5 max-w-2xl leading-relaxed"
+              className="mt-5 max-w-2xl text-base leading-relaxed sm:text-lg"
             >
               <span className="bg-background text-muted-foreground rounded-full box-decoration-clone px-3">
                 Освітні програми, документи, новини та студентські сервіси факультету в одному
                 місці. Швидкий старт для абітурієнтів і зручна навігація для студентів.
               </span>
             </Typography>
-            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row">
+            <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
               <Link
                 href={'/educational-programs'}
                 className={cn(
@@ -207,7 +208,7 @@ const HomePage = async () => {
                 Вступнику
               </Link>
             </div>
-            <div className="mt-13">
+            <div className="mt-10 sm:mt-13">
               <Typography
                 as="p"
                 variant="overline"
@@ -217,7 +218,7 @@ const HomePage = async () => {
                   Швидкий доступ
                 </span>
               </Typography>
-              <div className="mt-3 flex w-fit max-w-full flex-wrap items-center gap-x-6 gap-y-3 rounded-full px-3 py-2.5">
+              <div className="mt-3 flex max-w-full flex-wrap items-center gap-x-5 gap-y-3 py-2.5 sm:w-fit sm:gap-x-6 sm:px-3">
                 {quickTags.map((tag) => (
                   <Link
                     key={tag.label}
@@ -248,11 +249,11 @@ const HomePage = async () => {
       </section>
 
       <section className="bg-card-new/25 border-border border-y px-4 md:px-6">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-8 gap-y-4 py-4 md:justify-between md:py-5">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-x-4 gap-y-5 py-5 sm:flex sm:flex-wrap sm:items-center sm:gap-x-8 md:justify-between">
           {heroStats.map((stat) => (
             <div
               key={stat.label}
-              className="flex min-w-[145px] items-baseline gap-2.5"
+              className="flex min-w-0 flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-2.5"
             >
               <Typography
                 as="span"
@@ -288,7 +289,7 @@ const HomePage = async () => {
                 description="Можна підібрати програму за наміром або одразу переглянути всі варіанти."
               />
 
-              <div className="flex flex-wrap items-center gap-2 md:justify-end">
+              <div className="flex flex-col items-start gap-2 sm:flex-row sm:flex-wrap sm:items-center md:justify-end">
                 <Link
                   href="/educational-programs"
                   className={cn(
@@ -332,11 +333,11 @@ const HomePage = async () => {
             >
               <Tabs
                 defaultValue={programRoutes[0].id}
-                className="gap-5"
+                className="gap-4"
               >
                 <TabsList
                   variant="default"
-                  className="h-auto! w-full justify-start rounded-none border-0 bg-transparent p-0"
+                  className="h-fit! w-full min-w-0 justify-start overflow-x-auto rounded-none border-0 bg-transparent p-0 py-1"
                 >
                   {programRoutes.map((route) => (
                     <TabsTrigger
@@ -543,8 +544,8 @@ const HomePage = async () => {
       <section className=" px-4 py-15 md:px-12 md:py-20">
         <div className="mx-auto grid min-h-80 gap-10 lg:grid-cols-[0.7fr_1.3fr]">
           <SectionHeader
-            title="FAQ"
-            description="Короткі відповіді на питання, які найчастіше виникають перед вступом або під час пошуку інформації."
+            title="Часті запитання"
+            description="Про вибір напряму, підготовку до навчання, практику та вибір дисциплін."
           />
           <Accordion
             defaultValue={[faqItems[0].question]}
@@ -580,7 +581,7 @@ const HomePage = async () => {
       </section>
 
       <section className="px-4 pt-6 pb-20 md:px-6">
-        <div className="border-border bg-card-new/50 mx-auto grid max-w-7xl gap-8 rounded-lg border p-6 md:grid-cols-[1fr_auto] md:items-center">
+        <div className="border-border bg-card-new/50 mx-auto grid max-w-7xl gap-8 rounded-lg border p-5 sm:p-6 md:grid-cols-[1fr_auto] md:items-center">
           <div>
             <Typography
               as="p"

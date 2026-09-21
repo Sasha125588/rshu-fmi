@@ -93,7 +93,7 @@ export const ScheduleControls = ({ lessons, now }: ScheduleControlsProps) => {
                 className={cn(
                   'h-auto min-h-14 flex-col gap-1 rounded-2xl px-1 py-3',
                   activeDay === index + 1 &&
-                    'bg-accent-violet-dark hover:bg-accent-violet-dark/95 text-background font-semibold'
+                    'bg-accent-violet-dark hover:bg-accent-violet-dark/95 font-bold'
                 )}
                 aria-label={SCHEDULE_DAYS[index]}
                 aria-current={activeDay === index + 1 ? 'date' : undefined}
@@ -102,7 +102,7 @@ export const ScheduleControls = ({ lessons, now }: ScheduleControlsProps) => {
                 <span
                   className={cn(
                     'font-jetbrains text-[10px] font-semibold',
-                    activeDay === index + 1 ? 'text-background' : 'text-muted-foreground'
+                    activeDay === index + 1 ? 'text-muted' : 'text-muted-foreground'
                   )}
                 >
                   {count} {lessonForms[pluralRules.select(count)]}

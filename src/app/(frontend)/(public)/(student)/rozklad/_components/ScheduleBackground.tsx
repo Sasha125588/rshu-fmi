@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from 'react'
 
 import { useTheme } from '@/frontend_contexts/theme'
+import { useMediaQuery } from '@/shared/hooks/useMediaQuery'
 
 const VERTEX_SHADER = `
 attribute vec2 position;
@@ -292,8 +293,11 @@ export function ScheduleSculpture() {
   const fallbackRef = useRef<HTMLDivElement>(null)
   const { value: theme } = useTheme()
   const isDark = theme === 'dark'
+  const showBackground = useMediaQuery('(min-width: 700px)')
 
   useLayoutEffect(() => {
+    if (!showBackground) return
+
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -653,12 +657,12 @@ export function ScheduleSculpture() {
       gl.deleteBuffer(buffer)
       gl.deleteTexture(labelTexture)
     }
-  }, [isDark])
+  }, [isDark, showBackground])
 
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-y-0 right-0 w-full overflow-hidden sm:right-[-4%] sm:w-[72%] lg:right-[-6%] lg:w-[76%]"
+      className="pointer-events-none absolute inset-y-0 right-0 hidden w-full overflow-hidden min-[700px]:block sm:right-[-4%] sm:w-[72%] lg:right-[-6%] lg:w-[76%]"
     >
       <div
         ref={fallbackRef}

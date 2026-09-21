@@ -5,14 +5,15 @@ import Link from 'next/link'
 import { CurrentYear } from './components/CurrentYear'
 import { footerGroups } from './constants'
 import { Separator, Typography } from '@/components/ui'
+import { cn } from '@/lib/utils'
 import { FacebookIcon, InstagramIcon, TiktokIcon } from '@/public/images/components'
 
 import type { Route } from 'next'
 
 export const Footer = async () => (
   <footer className="bg-background text-foreground border-t">
-    <div className="px-6 pt-10 pb-6 md:px-8 lg:pt-12 lg:pb-8">
-      <div className="grid gap-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.35fr)] ">
+    <div className="px-4 pt-10 pb-6 sm:px-6 md:px-8 lg:pt-12 lg:pb-8">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.35fr)] lg:gap-14">
         <div>
           <Link
             href="/"
@@ -93,10 +94,16 @@ export const Footer = async () => (
         <div className="flex flex-col justify-between">
           <nav
             aria-label="Навігація у футері"
-            className="grid grid-cols-2 sm:grid-cols-3"
+            className="grid grid-cols-2 gap-x-4 gap-y-9 md:grid-cols-3 lg:gap-x-4"
           >
-            {footerGroups.map((group) => (
-              <div key={group.title}>
+            {footerGroups.map((group, index) => (
+              <div
+                key={group.title}
+                className={cn(
+                  'min-w-0',
+                  index === footerGroups.length - 1 && 'col-span-2 md:col-span-1'
+                )}
+              >
                 <Typography
                   as="h3"
                   variant="overline"
@@ -104,7 +111,12 @@ export const Footer = async () => (
                 >
                   {group.title}
                 </Typography>
-                <ul className="mt-5 flex flex-col gap-3">
+                <ul
+                  className={cn(
+                    'mt-5 flex flex-col gap-3',
+                    index === footerGroups.length - 1 && 'grid grid-cols-2 gap-x-4 md:flex'
+                  )}
+                >
                   {group.links.map((link) => (
                     <li key={`${group.title}-${link.label}`}>
                       <Link
@@ -132,16 +144,16 @@ export const Footer = async () => (
               </div>
             ))}
           </nav>
-          <address className="text-muted-foreground flex flex-wrap gap-18 not-italic">
+          <address className="text-muted-foreground mt-10 flex flex-col gap-4 not-italic sm:flex-row sm:flex-wrap sm:gap-x-14 lg:mt-12">
             <a
               href="https://maps.google.com/?q=Рівне,+вул.+Пластова,+31"
               target="_blank"
               rel="noopener noreferrer"
-              className="group hover:text-foreground inline-flex items-center gap-2.5 transition-colors"
+              className="group hover:text-foreground inline-flex min-w-0 items-start gap-2.5 transition-colors"
             >
               <MapPinIcon
-                className="text-accent-violet"
                 size={20}
+                className="text-accent-violet shrink-0"
               />
               <Typography
                 as="span"
@@ -184,7 +196,7 @@ export const Footer = async () => (
         </div>
       </div>
 
-      <Separator className="-mx-8 my-6 min-w-screen" />
+      <Separator className="my-6" />
 
       <div className="text-muted-foreground flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <Typography

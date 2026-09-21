@@ -32,7 +32,7 @@ export const ProgramCard = ({ program, specialty }: ProgramCardProps) => {
   const Icon = SPECIALTY_ICONS[specialty.code] ?? HelpCircleIcon
 
   return (
-    <article className="group border-border bg-card-new/30 hover:bg-foreground/4 rounded-lg border p-5 transition">
+    <article className="group border-border bg-card-new/30 hover:bg-foreground/4 min-w-0 rounded-lg border p-4 transition sm:p-5">
       <div className="flex h-full gap-4">
         <span className="border-border bg-background/40 flex size-11 shrink-0 items-center justify-center rounded-lg border">
           <Icon
@@ -72,7 +72,7 @@ export const ProgramCard = ({ program, specialty }: ProgramCardProps) => {
             {specialty.description}
           </Typography>
 
-          <div className="mt-4 flex gap-2">
+          <div className="mt-4 flex flex-wrap gap-2">
             {specialty.tags?.map((tag) => (
               <Badge
                 key={tag.id}
