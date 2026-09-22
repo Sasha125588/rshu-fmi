@@ -204,6 +204,126 @@ html {
   animation: fadeIn 0.4s ease-out forwards;
 }
 
+@keyframes home-hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-highlight {
+  --home-highlighted: 1;
+  --home-highlight-lightness: 82%;
+  --home-highlight-color: hsl(var(--home-highlight-hue) 80% var(--home-highlight-lightness));
+
+  color: var(--foreground);
+  background-color: transparent;
+}
+
+.dark .home-highlight {
+  --home-highlight-lightness: 28%;
+}
+
+.home-highlight[data-tone='amber'] {
+  --home-highlight-hue: 45;
+}
+
+.home-highlight[data-tone='sky'] {
+  --home-highlight-hue: 205;
+}
+
+.home-highlight[data-tone='coral'] {
+  --home-highlight-hue: 12;
+}
+
+.home-highlight[data-tone='mint'] {
+  --home-highlight-hue: 155;
+}
+
+.home-highlight > span {
+  background: linear-gradient(120deg, var(--home-highlight-color) 50%, transparent 50%) 110% 0 /
+    200% 100% no-repeat;
+  background-position: calc((1 - var(--home-highlighted)) * 110%) 0;
+  box-decoration-break: clone;
+}
+
+@keyframes home-highlight-fill {
+  to {
+    --home-highlighted: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-highlight > span {
+    transition: background-position 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  @supports (animation-timeline: view()) {
+    .home-highlight {
+      --home-highlighted: 0;
+
+      animation: home-highlight-fill steps(1) both;
+      animation-timeline: view();
+      animation-range: entry 100% cover 10%;
+    }
+  }
+
+  .home-hero-enter {
+    animation: home-hero-enter 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .home-reveal {
+    transition:
+      opacity 500ms ease-out,
+      transform 600ms cubic-bezier(0.2, 0.75, 0.2, 1);
+  }
+
+  .home-reveal-delayed {
+    transition-delay: 90ms;
+  }
+
+  .home-reveal[data-home-reveal='pending'] {
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+
+  .home-reveal-rise[data-home-reveal='pending'] {
+    transform: translateY(18px);
+  }
+
+  .home-reveal-left[data-home-reveal='pending'] {
+    transform: translateX(-20px);
+  }
+
+  .home-reveal-right[data-home-reveal='pending'] {
+    transform: translateX(20px);
+  }
+
+  .home-reveal-settle[data-home-reveal='pending'] {
+    transform: translateY(12px) scale(0.985);
+  }
+
+  .home-hero-enter-0 {
+    animation-delay: 0ms;
+  }
+  .home-hero-enter-1 {
+    animation-delay: 70ms;
+  }
+  .home-hero-enter-2 {
+    animation-delay: 140ms;
+  }
+  .home-hero-enter-3 {
+    animation-delay: 210ms;
+  }
+  .home-hero-enter-4 {
+    animation-delay: 280ms;
+  }
+}
+
 /* VitePress Theme Switch Variables */
 :root {
   --vt-c-divider: rgba(60, 60, 67, 0.12);

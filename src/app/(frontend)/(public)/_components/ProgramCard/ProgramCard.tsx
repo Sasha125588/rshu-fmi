@@ -32,9 +32,9 @@ export const ProgramCard = ({ program, specialty }: ProgramCardProps) => {
   const Icon = SPECIALTY_ICONS[specialty.code] ?? HelpCircleIcon
 
   return (
-    <article className="group border-border bg-card-new/30 hover:bg-foreground/4 min-w-0 rounded-lg border p-4 transition sm:p-5">
+    <article className="group border-border bg-card-new/30 hover:border-accent-violet/45 hover:bg-foreground/4 has-focus-visible:border-accent-violet min-w-0 rounded-lg border p-4 transition-[border-color,background-color] duration-200 sm:p-5">
       <div className="flex h-full gap-4">
-        <span className="border-border bg-background/40 flex size-11 shrink-0 items-center justify-center rounded-lg border">
+        <span className="border-border bg-background/40 group-hover:border-accent-violet/35 flex size-11 shrink-0 items-center justify-center rounded-lg border transition-colors duration-200">
           <Icon
             className="text-accent-violet"
             size={18}
@@ -87,7 +87,7 @@ export const ProgramCard = ({ program, specialty }: ProgramCardProps) => {
 
         <Link
           href={`/educational-programs/${program.slug}`}
-          className="text-muted-foreground hover:text-accent-violet shrink-0 transition"
+          className="text-muted-foreground hover:text-accent-violet focus-visible:text-accent-violet focus-visible:ring-accent-violet/30 shrink-0 rounded-sm transition-colors focus-visible:ring-3 focus-visible:outline-none"
           aria-label={`Детальніше про ${program.title}`}
         >
           <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

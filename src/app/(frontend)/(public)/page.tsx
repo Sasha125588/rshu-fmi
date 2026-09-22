@@ -13,8 +13,10 @@ import { cacheLife, cacheTag } from 'next/cache'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 
+import { HomeReveal } from './_components/HomeReveal/HomeReveal'
 import { LandingBackdrop } from './_components/LandingBackground/LandingBackground'
 import { ProgramCard } from './_components/ProgramCard/ProgramCard'
+import { ReasonDescription } from './_components/ReasonDescription/ReasonDescription'
 import { faqItems, heroStats, programRoutes, quickTags, reasons, studentLinks } from './_constants'
 import { ExternalNewsCard } from './news/_components/ExternalNewsCard'
 import { FacultyNewsCard } from './news/_components/FacultyNewsCard'
@@ -149,7 +151,7 @@ const HomePage = async () => {
             <Typography
               as="h1"
               variant="display"
-              className="text-4xl leading-[1.02] sm:text-6xl md:text-7xl xl:text-8xl"
+              className="home-hero-enter home-hero-enter-0 text-4xl leading-[1.02] sm:text-6xl md:text-7xl xl:text-8xl"
             >
               Факультет математики та інформатики
             </Typography>
@@ -157,7 +159,7 @@ const HomePage = async () => {
             <Typography
               as="p"
               variant="overline"
-              className="mt-5 max-w-3xl text-xs sm:mt-6 sm:text-sm"
+              className="home-hero-enter home-hero-enter-1 mt-5 max-w-3xl text-xs sm:mt-6 sm:text-sm"
             >
               <span className="bg-background text-accent-violet rounded-full box-decoration-clone px-3">
                 IT, математика та цифрова освіта
@@ -167,14 +169,14 @@ const HomePage = async () => {
             <Typography
               as="p"
               variant="body-lg"
-              className="mt-5 max-w-2xl text-base leading-relaxed sm:text-lg"
+              className="home-hero-enter home-hero-enter-2 mt-5 max-w-2xl text-base leading-relaxed sm:text-lg"
             >
               <span className="bg-background text-muted-foreground rounded-full box-decoration-clone px-3">
                 Освітні програми, документи, новини та студентські сервіси факультету в одному
                 місці. Швидкий старт для абітурієнтів і зручна навігація для студентів.
               </span>
             </Typography>
-            <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <div className="home-hero-enter home-hero-enter-3 mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
               <Link
                 href={'/educational-programs'}
                 className={cn(
@@ -207,7 +209,7 @@ const HomePage = async () => {
                 Вступнику
               </a>
             </div>
-            <div className="mt-10 sm:mt-13">
+            <div className="home-hero-enter home-hero-enter-4 mt-10 sm:mt-13">
               <Typography
                 as="p"
                 variant="overline"
@@ -277,7 +279,7 @@ const HomePage = async () => {
         id="educational-programs"
         className="px-4 py-15 md:px-12 md:py-20"
       >
-        <div>
+        <HomeReveal>
           <Tabs
             defaultValue="guided"
             className="gap-6"
@@ -409,7 +411,7 @@ const HomePage = async () => {
               </div>
             </TabsContent>
           </Tabs>
-        </div>
+        </HomeReveal>
       </section>
 
       <section
@@ -417,11 +419,17 @@ const HomePage = async () => {
         className="px-4 py-15 md:px-12 md:py-20"
       >
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-          <SectionHeader
-            title="Швидкий доступ студенту"
-            description="Найчастіші переходи без довгих меню. Цей блок має працювати як панель керування, а не як рекламна секція."
-          />
-          <div className="grid gap-3 sm:grid-cols-2">
+          <HomeReveal variant="left">
+            <SectionHeader
+              title="Швидкий доступ студенту"
+              description="Найчастіші переходи без довгих меню. Цей блок має працювати як панель керування, а не як рекламна секція."
+            />
+          </HomeReveal>
+          <HomeReveal
+            variant="right"
+            delayed
+            className="grid gap-3 sm:grid-cols-2"
+          >
             {studentLinks.map((item) => {
               const Icon = item.icon
 
@@ -450,7 +458,7 @@ const HomePage = async () => {
                 </Link>
               )
             })}
-          </div>
+          </HomeReveal>
         </div>
       </section>
 
@@ -458,7 +466,7 @@ const HomePage = async () => {
         <div>
           <SectionHeader
             title="Чому ФМІ?"
-            description="Замість сухої статистики показуємо, що саме робить факультет зрозумілим вибором для абітурієнта і корисним середовищем для студента."
+            description="Тут математика, технології та освіта працюють разом. Це дає різні способи застосувати знання – від розробки до викладання."
           />
 
           <div className="mt-12">
@@ -486,7 +494,7 @@ const HomePage = async () => {
                   variant="body-md"
                   className="text-muted-foreground/85 max-w-3xl text-lg leading-8"
                 >
-                  {reason.description}
+                  <ReasonDescription reason={reason} />
                 </Typography>
               </article>
             ))}
@@ -499,7 +507,10 @@ const HomePage = async () => {
         className="px-4 py-15 md:px-12 md:py-20"
       >
         <div>
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <HomeReveal
+            variant="rise"
+            className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between"
+          >
             <SectionHeader
               title="Останні новини"
               description="Новини факультету, університету та кафедр в одному потоці."
@@ -517,31 +528,39 @@ const HomePage = async () => {
               Усі новини
               <ArrowUpRight data-icon="inline-end" />
             </Link>
-          </div>
+          </HomeReveal>
 
-          <ul className="mt-10 divide-y">
-            {facultyNews.map((item) => (
-              <FacultyNewsCard
-                key={item.id}
-                item={item}
-                variant="compact"
-                withSource
-              />
-            ))}
-            {externalNews.map((item) => (
-              <ExternalNewsCard
-                key={`external-${item.source}-${item.link}`}
-                item={item}
-                variant="compact"
-                withSource
-              />
-            ))}
-          </ul>
+          <HomeReveal
+            variant="fade"
+            delayed
+          >
+            <ul className="mt-10 divide-y">
+              {facultyNews.map((item) => (
+                <FacultyNewsCard
+                  key={item.id}
+                  item={item}
+                  variant="compact"
+                  withSource
+                />
+              ))}
+              {externalNews.map((item) => (
+                <ExternalNewsCard
+                  key={`external-${item.source}-${item.link}`}
+                  item={item}
+                  variant="compact"
+                  withSource
+                />
+              ))}
+            </ul>
+          </HomeReveal>
         </div>
       </section>
 
       <section className=" px-4 py-15 md:px-12 md:py-20">
-        <div className="mx-auto grid min-h-80 gap-10 lg:grid-cols-[0.7fr_1.3fr]">
+        <HomeReveal
+          variant="fade"
+          className="mx-auto grid min-h-80 gap-10 lg:grid-cols-[0.7fr_1.3fr]"
+        >
           <SectionHeader
             title="Часті запитання"
             description="Про вибір напряму, підготовку до навчання, практику та вибір дисциплін."
@@ -556,7 +575,10 @@ const HomePage = async () => {
                 value={item.question}
                 className="bg-transparent data-open:bg-transparent"
               >
-                <AccordionTrigger className="py-5 hover:no-underline">
+                <AccordionTrigger
+                  animatedIcon
+                  className="py-5 hover:no-underline"
+                >
                   <Typography
                     as="span"
                     variant="title-md"
@@ -576,11 +598,14 @@ const HomePage = async () => {
               </AccordionItem>
             ))}
           </Accordion>
-        </div>
+        </HomeReveal>
       </section>
 
       <section className="px-4 pt-6 pb-20 md:px-6">
-        <div className="border-border bg-card-new/50 mx-auto grid max-w-7xl gap-8 rounded-lg border p-5 sm:p-6 md:grid-cols-[1fr_auto] md:items-center">
+        <HomeReveal
+          variant="settle"
+          className="border-border bg-card-new/50 mx-auto grid max-w-7xl gap-8 rounded-lg border p-5 sm:p-6 md:grid-cols-[1fr_auto] md:items-center"
+        >
           <div>
             <Typography
               as="p"
@@ -623,7 +648,7 @@ const HomePage = async () => {
               Контакти
             </Link>
           </div>
-        </div>
+        </HomeReveal>
       </section>
     </div>
   )

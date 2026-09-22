@@ -23,7 +23,12 @@ function AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {
   )
 }
 
-function AccordionTrigger({ className, children, ...props }: AccordionPrimitive.Trigger.Props) {
+function AccordionTrigger({
+  className,
+  children,
+  animatedIcon = false,
+  ...props
+}: AccordionPrimitive.Trigger.Props & { animatedIcon?: boolean }) {
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
@@ -35,14 +40,23 @@ function AccordionTrigger({ className, children, ...props }: AccordionPrimitive.
         {...props}
       >
         {children}
-        <ChevronDownIcon
-          data-slot="accordion-trigger-icon"
-          className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
-        />
-        <ChevronUpIcon
-          data-slot="accordion-trigger-icon"
-          className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
-        />
+        {animatedIcon ? (
+          <ChevronDownIcon
+            data-slot="accordion-trigger-icon"
+            className="pointer-events-none shrink-0 transition-transform duration-200 group-aria-expanded/accordion-trigger:rotate-180 motion-reduce:transition-none"
+          />
+        ) : (
+          <>
+            <ChevronDownIcon
+              data-slot="accordion-trigger-icon"
+              className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
+            />
+            <ChevronUpIcon
+              data-slot="accordion-trigger-icon"
+              className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
+            />
+          </>
+        )}
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )
