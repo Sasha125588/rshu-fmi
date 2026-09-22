@@ -9,6 +9,7 @@ import {
   ScheduleSourceMeta,
   ScheduleSourceMetaFallback,
 } from '../_components/ScheduleSourceMeta/ScheduleSourceMeta'
+import { AnimatedSuspense } from '@/components/common/AnimatedSuspense/AnimatedSuspense'
 import { SCHEDULE_SOURCES } from '@/shared/schedule/config'
 
 export const generateStaticParams = () => SCHEDULE_SOURCES.map(({ key }) => ({ source: key }))
@@ -22,9 +23,9 @@ const ScheduleSourcePage = ({ params }: PageProps<'/rozklad/[source]'>) => (
         </Suspense>
       }
     />
-    <Suspense fallback={<ScheduleContentFallback />}>
+    <AnimatedSuspense fallback={<ScheduleContentFallback />}>
       <ScheduleContent params={params} />
-    </Suspense>
+    </AnimatedSuspense>
   </div>
 )
 

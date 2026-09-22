@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build && TURBOPACK=1 serwist build",
+    "build:clear": "next build",
     "build:instant": "NEXT_INSTANT_TESTS=1 next build",
     "start": "next start",
     "start:instant": "NEXT_INSTANT_TESTS=1 next start",

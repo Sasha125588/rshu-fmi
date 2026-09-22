@@ -189,9 +189,8 @@ const HomePage = async () => {
                 />
               </Link>
 
-              <Link
+              <a
                 href="https://www.rshu.edu.ua/pryimalna-komisiia"
-                prefetch={false}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
@@ -206,7 +205,7 @@ const HomePage = async () => {
                   size={16}
                 />
                 Вступнику
-              </Link>
+              </a>
             </div>
             <div className="mt-10 sm:mt-13">
               <Typography

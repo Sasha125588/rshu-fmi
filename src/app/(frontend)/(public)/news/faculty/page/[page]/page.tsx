@@ -1,11 +1,11 @@
 import { notFound, permanentRedirect } from 'next/navigation'
-import { Suspense } from 'react'
 
 import { FacultyNewsCard } from '../../../_components/FacultyNewsCard'
 import { NewsPagination } from '../../../_components/NewsPagination'
 import { getFacultyNewsPage } from '../../_api'
 import { FACULTY_NEWS_PAGE_SIZE } from '../../_constants'
 import FacultyNewsLoading from '../../loading'
+import { AnimatedSuspense } from '@/components/common/AnimatedSuspense/AnimatedSuspense'
 import { Typography } from '@/components/ui'
 import { PRERENDERED_PAGE_COUNT } from '@/shared/news'
 
@@ -111,9 +111,9 @@ const PaginatedFacultyNewsContent = async ({ params }: PaginatedFacultyNewsConte
 
 const PaginatedFacultyNewsPage = ({ params }: PaginatedFacultyNewsPageProps) => (
   <div data-testid="faculty-news-page-shell">
-    <Suspense fallback={<FacultyNewsLoading />}>
+    <AnimatedSuspense fallback={<FacultyNewsLoading />}>
       <PaginatedFacultyNewsContent params={params} />
-    </Suspense>
+    </AnimatedSuspense>
   </div>
 )
 

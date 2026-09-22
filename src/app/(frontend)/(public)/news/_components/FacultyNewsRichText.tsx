@@ -29,7 +29,7 @@ const FacultyUpload = ({ node }: { node: SerializedUploadNode }) => {
   const image = node.value as FacultyNewsMediaData
 
   return (
-    <figure className="my-8">
+    <figure className="my-6">
       <div className="bg-muted relative overflow-hidden rounded-lg">
         <Image
           src={image.url}

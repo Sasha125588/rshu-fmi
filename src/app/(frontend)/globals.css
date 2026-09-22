@@ -244,3 +244,81 @@ html[data-theme-transition='active']::view-transition-group(root) {
 html[data-theme-transition='active']::view-transition-new(root) {
   clip-path: var(--theme-transition-clip-start);
 }
+
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(.suspense-reveal) {
+  animation: 140ms ease-out both suspense-fade-out;
+}
+
+::view-transition-new(.suspense-reveal) {
+  animation: 200ms ease-out 60ms both suspense-fade-in;
+}
+
+::view-transition-group(.news-cover),
+::view-transition-group(.news-title),
+::view-transition-group(.news-excerpt) {
+  animation-duration: 320ms;
+}
+
+::view-transition-group(.news-meta) {
+  animation-duration: 260ms;
+}
+
+::view-transition-group(.faculty-news-list) {
+  animation: none;
+}
+
+::view-transition-old(.faculty-news-list) {
+  animation: 120ms ease-out both suspense-fade-out;
+}
+
+::view-transition-new(.faculty-news-list) {
+  animation: 180ms ease-out 40ms both suspense-fade-in;
+}
+
+::view-transition-old(.news-excerpt) {
+  animation: 100ms ease-out both suspense-fade-out;
+}
+
+::view-transition-new(.news-excerpt) {
+  animation: 180ms ease-out 70ms both suspense-fade-in;
+}
+
+@keyframes suspense-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes suspense-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(.suspense-reveal),
+  ::view-transition-new(.suspense-reveal),
+  ::view-transition-group(.suspense-reveal),
+  ::view-transition-old(.news-cover),
+  ::view-transition-new(.news-cover),
+  ::view-transition-group(.news-cover),
+  ::view-transition-old(.news-title),
+  ::view-transition-new(.news-title),
+  ::view-transition-group(.news-title),
+  ::view-transition-old(.news-excerpt),
+  ::view-transition-new(.news-excerpt),
+  ::view-transition-group(.news-excerpt),
+  ::view-transition-old(.news-meta),
+  ::view-transition-new(.news-meta),
+  ::view-transition-group(.news-meta),
+  ::view-transition-old(.faculty-news-list),
+  ::view-transition-new(.faculty-news-list),
+  ::view-transition-group(.faculty-news-list) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

@@ -2,11 +2,12 @@ import { ArrowLeftIcon, CalendarDaysIcon, PinIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound, permanentRedirect } from 'next/navigation'
-import { Suspense } from 'react'
+import { ViewTransition } from 'react'
 
 import { FacultyNewsRichText } from '../../_components/FacultyNewsRichText'
 import { getLatestFacultyNews } from '../_api'
 import { resolveFacultyNewsRoute } from './_helpers'
+import { AnimatedSuspense } from '@/components/common/AnimatedSuspense/AnimatedSuspense'
 import { Badge, Skeleton, Typography, buttonVariants } from '@/components/ui'
 import { newsDateFormatter } from '@/lib'
 import { getNewsTagLabel } from '@/payload/collections/FacultyNews/constants'
@@ -124,69 +125,92 @@ const FacultyNewsArticleContent = async ({ params }: FacultyNewsArticleContentPr
   return (
     <div data-testid="faculty-news-article-content">
       <article>
-        <header className="border-b px-4 py-12 md:px-12 md:py-16">
+        <header className="border-b px-4 py-8 md:px-12 md:py-12">
           <div className="mx-auto max-w-6xl">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge
-                variant="outline"
-                className="font-jetbrains rounded-full tracking-wide uppercase"
+            <ViewTransition
+              name={`faculty-news-title-${article.id}`}
+              share="news-title"
+              default="none"
+            >
+              <Typography
+                as="h1"
+                variant="heading-xl"
+                className="text-4xl leading-tight font-black text-pretty md:text-6xl"
               >
-                ФМІ
-              </Badge>
-              {!!article.isPinned && (
-                <Badge
-                  variant="secondary"
-                  className="rounded-full"
-                >
-                  <PinIcon
-                    aria-hidden="true"
-                    data-icon="inline-start"
-                  />
-                  Закріплено
-                </Badge>
-              )}
-            </div>
-
-            <Typography
-              as="h1"
-              variant="heading-xl"
-              className="mt-6 text-4xl leading-tight font-black text-pretty md:text-6xl"
+                {article.title}
+              </Typography>
+            </ViewTransition>
+            <ViewTransition
+              name={`faculty-news-excerpt-${article.id}`}
+              share="news-excerpt"
+              default="none"
             >
-              {article.title}
-            </Typography>
-            <Typography
-              as="p"
-              variant="body-lg"
-              className="text-muted-foreground mt-6 leading-8"
-            >
-              {article.excerpt}
-            </Typography>
+              <Typography
+                as="p"
+                variant="body-lg"
+                className="text-muted-foreground mt-6 leading-8"
+              >
+                {article.excerpt}
+              </Typography>
+            </ViewTransition>
 
             <div className="text-muted-foreground mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
-              <Typography
-                as="time"
-                variant="body-sm"
-                dateTime={article.publishedAt}
-                className="flex items-center gap-2"
-              >
-                <CalendarDaysIcon
-                  aria-hidden="true"
-                  className="size-4"
-                />
-                {newsDateFormatter.format(new Date(article.publishedAt))}
-              </Typography>
-
-              <div className="flex flex-wrap gap-2">
-                {tagLabels.map((tag) => (
+              {!!article.isPinned && (
+                <ViewTransition
+                  name={`faculty-news-pinned-${article.id}`}
+                  share="news-meta"
+                  default="none"
+                >
                   <Badge
-                    key={tag}
-                    variant="ghost"
+                    variant="secondary"
                     className="rounded-full"
                   >
-                    {tag}
+                    <PinIcon
+                      aria-hidden="true"
+                      data-icon="inline-start"
+                    />
+                    Закріплено
                   </Badge>
-                ))}
-              </div>
+                </ViewTransition>
+              )}
+              <ViewTransition
+                name={`faculty-news-date-${article.id}`}
+                share="news-meta"
+                default="none"
+              >
+                <Typography
+                  as="time"
+                  variant="body-sm"
+                  dateTime={article.publishedAt}
+                  className="flex items-center gap-2"
+                >
+                  <CalendarDaysIcon
+                    aria-hidden="true"
+                    className="size-4"
+                  />
+                  {newsDateFormatter.format(new Date(article.publishedAt))}
+                </Typography>
+              </ViewTransition>
+
+              {!!tagLabels.length && (
+                <ViewTransition
+                  name={`faculty-news-tags-${article.id}`}
+                  share="news-meta"
+                  default="none"
+                >
+                  <div className="flex flex-wrap gap-2">
+                    {tagLabels.map((tag) => (
+                      <Badge
+                        key={tag}
+                        variant="ghost"
+                        className="rounded-full"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </ViewTransition>
+              )}
             </div>
 
             {!!article.relatedDepartments.length && (
@@ -213,22 +237,28 @@ const FacultyNewsArticleContent = async ({ params }: FacultyNewsArticleContentPr
         </header>
 
         {!!cover && (
-          <figure className="px-4 pt-10 md:px-12 md:pt-14">
+          <figure className="px-4 pt-6 md:px-12 md:pt-10">
             <div className="mx-auto w-fit max-w-4xl">
-              <div className="bg-muted overflow-hidden rounded-lg">
-                <Image
-                  src={cover.url}
-                  alt={cover.alt}
-                  unoptimized
-                  width={cover.width}
-                  height={cover.height}
-                  priority
-                  placeholder={cover.blurDataURL ? 'blur' : 'empty'}
-                  blurDataURL={cover.blurDataURL}
-                  className="block h-auto max-w-full"
-                  style={{ objectPosition: `${cover.focalX}% ${cover.focalY}%` }}
-                />
-              </div>
+              <ViewTransition
+                name={`faculty-news-cover-${article.id}`}
+                share="news-cover"
+                default="none"
+              >
+                <div className="bg-muted overflow-hidden rounded-lg">
+                  <Image
+                    src={cover.url}
+                    alt={cover.alt}
+                    unoptimized
+                    width={cover.width}
+                    height={cover.height}
+                    priority
+                    placeholder={cover.blurDataURL ? 'blur' : 'empty'}
+                    blurDataURL={cover.blurDataURL}
+                    className="block h-auto max-w-full"
+                    style={{ objectPosition: `${cover.focalX}% ${cover.focalY}%` }}
+                  />
+                </div>
+              </ViewTransition>
               {!!cover.caption && (
                 <figcaption className="text-muted-foreground mt-3 text-center text-sm">
                   {cover.caption}
@@ -238,11 +268,11 @@ const FacultyNewsArticleContent = async ({ params }: FacultyNewsArticleContentPr
           </figure>
         )}
 
-        <div className="px-4 py-12 md:px-12 md:py-16">
+        <div className="px-4 py-4 md:px-12 md:py-8">
           <div className="mx-auto max-w-3xl">
             <FacultyNewsRichText data={article.content} />
 
-            <div className="mt-14 border-t pt-8">
+            <div className="mt-10 border-t pt-6">
               <Link
                 href="/news/faculty"
                 className={buttonVariants({ variant: 'outline' })}
@@ -254,7 +284,6 @@ const FacultyNewsArticleContent = async ({ params }: FacultyNewsArticleContentPr
           </div>
         </div>
       </article>
-
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -285,9 +314,9 @@ const FacultyNewsArticleFallback = () => (
 
 const FacultyNewsArticlePage = ({ params }: FacultyNewsArticlePageProps) => (
   <div data-testid="faculty-news-article-shell">
-    <Suspense fallback={<FacultyNewsArticleFallback />}>
+    <AnimatedSuspense fallback={<FacultyNewsArticleFallback />}>
       <FacultyNewsArticleContent params={params} />
-    </Suspense>
+    </AnimatedSuspense>
   </div>
 )
 
