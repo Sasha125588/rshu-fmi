@@ -97,7 +97,7 @@ const HomePage = async () => {
   )
 
   const payload = await getPayload({ config })
-  const [specialties, facultyNews, departmentNews, universityNews] = await Promise.all([
+  const [specialties, facultyNews, externalNewsResults] = await Promise.all([
     payload.find({
       collection: 'specialties',
       depth: 1,
@@ -125,10 +125,11 @@ const HomePage = async () => {
       sort: ['sortOrder', 'code'],
     }),
     getLatestFacultyNews(1),
-    Promise.all(
-      (['kitm', 'iktmvi'] as const).map((source) => getNewsPage(source, 1, { limit: 1 }))
-    ),
-    getNewsPage('university', 1, { limit: 4 }),
+    Promise.allSettled([
+      getNewsPage('kitm', 1, { limit: 1 }),
+      getNewsPage('iktmvi', 1, { limit: 1 }),
+      getNewsPage('university', 1, { limit: 4 }),
+    ]),
   ])
 
   const featuredPrograms = specialties.docs.flatMap((specialty) =>
@@ -137,7 +138,9 @@ const HomePage = async () => {
     )
   )
 
-  const externalNews = [...departmentNews.flatMap((item) => item), ...universityNews]
+  const externalNews = externalNewsResults.flatMap((result) =>
+    result.status === 'fulfilled' ? result.value : []
+  )
 
   return (
     <div>
