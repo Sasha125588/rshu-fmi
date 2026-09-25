@@ -9,7 +9,6 @@ import {
   EXTERNAL_NEWS_SOURCES,
   NEWS_SOURCE_CONFIG,
   PRERENDERED_PAGE_COUNT,
-  getExternalNewsErrorDetails,
   getNewsPage,
 } from '@/shared/news'
 
@@ -47,28 +46,28 @@ const PaginatedSourceNewsContent = async ({ params }: PaginatedSourceNewsContent
 
   if (!route || route.page === 1) notFound()
 
-  try {
-    const news = await getNewsPage(route.source, route.page, { includeImages: true })
+  const result = await getNewsPage(route.source, route.page, { includeImages: true })
 
-    return (
-      <div data-testid="external-news-page-content">
-        <NewsArchive
-          source={route.source}
-          page={route.page}
-          news={news}
-        />
-      </div>
-    )
-  } catch (error) {
+  if (result.status === 'rejected') {
     return (
       <div data-testid="external-news-page-content">
         <NewsUnavailable
           source={route.source}
-          error={getExternalNewsErrorDetails(error, route.source)}
+          error={result.error}
         />
       </div>
     )
   }
+
+  return (
+    <div data-testid="external-news-page-content">
+      <NewsArchive
+        source={route.source}
+        page={route.page}
+        news={result.news}
+      />
+    </div>
+  )
 }
 
 const PaginatedSourceNewsPage = ({ params }: NewsSourcePagePageProps) => (

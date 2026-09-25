@@ -43,6 +43,7 @@ import { SITE_URL } from '@/shared/constants'
 import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 import { getNewsPage } from '@/shared/news'
 
+import type { ExternalNewsItem } from '@/shared/news'
 import type { Metadata, Route } from 'next'
 
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -128,7 +129,7 @@ const HomePage = async () => {
       sort: ['sortOrder', 'code'],
     }),
     getLatestFacultyNews(1),
-    Promise.allSettled([
+    Promise.all([
       getNewsPage('kitm', 1, { limit: 1 }),
       getNewsPage('iktmvi', 1, { limit: 1 }),
       getNewsPage('university', 1, { limit: 4 }),
@@ -141,8 +142,8 @@ const HomePage = async () => {
     )
   )
 
-  const externalNews = externalNewsResults.flatMap((result) =>
-    result.status === 'fulfilled' ? result.value : []
+  const externalNews = externalNewsResults.flatMap<ExternalNewsItem>((result) =>
+    result.status === 'fulfilled' ? result.news : []
   )
 
   return (

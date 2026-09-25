@@ -3,14 +3,11 @@ import Link from 'next/link'
 
 import { buildNewsHref } from '../_helpers'
 import { ExternalNewsCard } from './ExternalNewsCard'
-import { Alert, AlertDescription, AlertTitle, Typography } from '@/components/ui'
-import { buttonVariants } from '@/components/ui/button'
-import { NEWS_SOURCE_CONFIG } from '@/shared/news'
-
-import type { NewsOverviewResult } from '../_types'
+import { Alert, AlertDescription, AlertTitle, Typography, buttonVariants } from '@/components/ui'
+import { type ExternalNewsPageResult, NEWS_SOURCE_CONFIG } from '@/shared/news'
 
 interface OverviewSourceSectionProps {
-  result: NewsOverviewResult
+  result: ExternalNewsPageResult
   index: number
 }
 

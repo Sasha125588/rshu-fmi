@@ -1,5 +1,3 @@
-import { cacheLife } from 'next/cache'
-
 import { parseUniversityNews, parseUniversityPreviewImage } from '../parsers/university'
 import { fetchNewsDocument, getParsedNewsPage } from './shared'
 
@@ -7,9 +5,6 @@ import type { ExternalUniversityNews } from '../types'
 import type { ExternalNewsLoader } from './shared'
 
 export const getUniversityNewsPage: ExternalNewsLoader<'university'> = async (page, options) => {
-  'use cache'
-
-  cacheLife('hours')
   const news = await getParsedNewsPage('university', page, parseUniversityNews, options)
 
   if (!options?.includeImages) return news

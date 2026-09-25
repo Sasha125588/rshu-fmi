@@ -1,5 +1,3 @@
-import { cacheLife } from 'next/cache'
-
 import { parseKitmNews, parseKitmPreviewImage } from '../parsers/kitm'
 import { fetchNewsDocument, getParsedNewsPage } from './shared'
 
@@ -7,9 +5,6 @@ import type { ExternalDepartmentNews } from '../types'
 import type { ExternalNewsLoader } from './shared'
 
 export const getKitmNewsPage: ExternalNewsLoader<'kitm'> = async (page, options) => {
-  'use cache'
-
-  cacheLife('hours')
   const news = await getParsedNewsPage('kitm', page, parseKitmNews, options)
 
   if (!options?.includeImages) return news
