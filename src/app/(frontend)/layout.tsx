@@ -48,9 +48,6 @@ export const metadata: Metadata = {
       url: SITE_URL,
     },
   ],
-  alternates: {
-    canonical: '/',
-  },
   keywords: [
     'РДГУ',
     'Факультет',

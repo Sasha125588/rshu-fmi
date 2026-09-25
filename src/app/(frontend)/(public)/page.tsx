@@ -51,6 +51,9 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
   return {
     description: baseDescription,
+    alternates: {
+      canonical: '/',
+    },
     openGraph: {
       siteName: 'Факультет математики та інформатики РДГУ',
       title:
