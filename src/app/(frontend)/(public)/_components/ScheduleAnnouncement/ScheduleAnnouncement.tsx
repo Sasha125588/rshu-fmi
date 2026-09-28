@@ -11,7 +11,7 @@ import { Button, Typography } from '@/components/ui'
 import { LOCAL_STORAGE } from '@/shared/constants/localstorage'
 import { DEFAULT_SCHEDULE_PATH } from '@/shared/schedule/config'
 
-const ANNOUNCEMENT_EXPIRES_AT = new Date('2026-09-26T00:00:00+03:00').getTime()
+const ANNOUNCEMENT_EXPIRES_AT = new Date('2026-10-05T00:00:00+03:00').getTime()
 const ANNOUNCEMENT_VERSION = '1'
 
 export const ScheduleAnnouncement = () => {
