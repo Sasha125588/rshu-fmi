@@ -43,7 +43,6 @@ export function ScheduleResults({ now, schedule, source }: ScheduleResultsProps)
     >
       <ScheduleHeading
         lessons={lessons}
-        effectiveFrom={schedule.effectiveFrom}
         groups={schedule.groups}
         selected={selected}
         source={source}
@@ -56,7 +55,6 @@ export function ScheduleResults({ now, schedule, source }: ScheduleResultsProps)
       <ScheduleDays
         lessons={lessons}
         now={now}
-        schedule={schedule}
       />
     </section>
   )
@@ -64,14 +62,12 @@ export function ScheduleResults({ now, schedule, source }: ScheduleResultsProps)
 
 const ScheduleHeading = ({
   lessons,
-  effectiveFrom,
   groups,
   selected,
   source,
   title,
 }: {
   lessons: ScheduleData['lessons']
-  effectiveFrom: string
   groups: string[]
   selected: string
   source: ScheduleSource
@@ -107,10 +103,7 @@ const ScheduleHeading = ({
           {mode.label} · {source.label}
         </p>
         <h2 className="mt-2 text-3xl font-extrabold tracking-tight md:text-4xl">{title}</h2>
-        <p className="text-muted-foreground mt-2 text-sm">
-          {lessons.length} занять на тиждень · за розкладом із{' '}
-          {effectiveFrom.split('-').reverse().join('.')}
-        </p>
+        <p className="text-muted-foreground mt-2 text-sm">{lessons.length} занять на тиждень</p>
       </div>
       <div className="flex flex-wrap items-center gap-2">
         {state.mode === 'group' && (

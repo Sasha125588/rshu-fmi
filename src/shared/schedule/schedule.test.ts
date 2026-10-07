@@ -44,7 +44,6 @@ test('all six real workbooks retain lesson counts and groups discovered from hea
   ]
   for (const [index, item] of SCHEDULE_SOURCES.entries()) {
     const data = await courseFixture(item.key)
-    expect(data.effectiveFrom).toBe('2026-09-01')
     expect(data.lessons.length).toBe(expected[index][0] as number)
     expect(data.groups).toEqual(expected[index][1] as string[])
     expect(new Set(data.lessons.map((lesson) => lesson.id)).size).toBe(data.lessons.length)
@@ -130,13 +129,7 @@ test('course-specific cell formats retain times, rooms, online links and cancell
   for (const lesson of cancelled) {
     expect(lesson.meetingUrl).toBeNull()
     expect(lesson.subject.startsWith('нб')).toBeFalse()
-    expect(
-      isCurrentLesson(
-        lesson,
-        { date: '2026-09-16', day: 3, time: lesson.start },
-        masters.effectiveFrom
-      )
-    ).toBeFalse()
+    expect(isCurrentLesson(lesson, { date: '2026-09-16', day: 3, time: lesson.start })).toBeFalse()
   }
 })
 
@@ -178,7 +171,51 @@ test('a lesson without a room or meeting URL is retained as recorded by the dean
   expect(roomLabel(lesson.room)).toBe('Ауд. не зазначено')
 })
 
-test('invalid files, dates and lesson times still fail instead of overwriting the snapshot', async () => {
+test('schedule import ignores missing, blank and outdated date headers', async () => {
+  const original = await courseFixture('bachelor-1')
+  for (const title of [null, '   ', 'Розклад занять', 'Розклад з 31.02.2026 р.']) {
+    const data = await altered((sheet) => {
+      sheet.getCell('A1').value = title
+    })
+    expect(data).toEqual(original)
+    expect(data).not.toHaveProperty('effectiveFrom')
+  }
+})
+
+test('a full Latin teacher name retains the English subject and meeting URL', async () => {
+  const data = await altered((sheet) => {
+    sheet.getCell('D9').value = {
+      text: {
+        richText: [
+          { text: 'Computer and Information Technologies (in the field)   IHOR VOITOVYCH ' },
+          { text: 'https://meet.google.com/dvd-xzjb-qew' },
+        ],
+      },
+      hyperlink: 'https://meet.google.com/dvd-xzjb-qew',
+    } as unknown as ExcelJS.CellValue
+  })
+  const lesson = data.lessons.find((item) => item.teacher === 'IHOR VOITOVYCH')!
+  expect(lesson.subject).toBe('Computer and Information Technologies (in the field)')
+  expect(lesson.meetingUrl).toBe('https://meet.google.com/dvd-xzjb-qew')
+  expect(lesson.online).toBeTrue()
+  expect(lesson.room).toBeNull()
+  expect(scheduleOptions(data, 'teacher')).toContain('IHOR VOITOVYCH')
+  expect(selectLessons(data, 'teacher', 'IHOR VOITOVYCH')).toContainEqual(lesson)
+
+  for (const text of [
+    'Computer and Information Technologies (in the field)',
+    'Computer and Information Technologies IHOR',
+    'Computer and Information Technologies Павелків О.М. IHOR VOITOVYCH',
+  ]) {
+    await expect(
+      altered((sheet) => {
+        sheet.getCell('D9').value = text
+      })
+    ).rejects.toThrow(/викладача/)
+  }
+})
+
+test('invalid files and lesson times still fail instead of overwriting the snapshot', async () => {
   expect(
     downloadSchedule(
       source,
@@ -187,12 +224,6 @@ test('invalid files, dates and lesson times still fail instead of overwriting th
   ).rejects.toThrow(/503/)
 
   expect(parseSchedule(Buffer.from('<html>Sign in</html>'), source)).rejects.toThrow()
-
-  expect(
-    altered((sheet) => {
-      sheet.getCell('A1').value = 'Розклад з 31.02.2026 р.'
-    })
-  ).rejects.toThrow(/дата/)
 
   expect(
     altered((sheet) => {
@@ -207,21 +238,16 @@ test('invalid files, dates and lesson times still fail instead of overwriting th
   ).rejects.toThrow(/час/)
 })
 
-test('Kyiv time, lesson boundaries and start date are respected', async () => {
+test('Kyiv time and lesson boundaries are respected regardless of calendar date', async () => {
   expect(getKyivNow(Date.parse('2026-09-14T05:00:00Z')).time).toBe('08:00')
   expect(getKyivNow(Date.parse('2026-12-14T06:00:00Z')).time).toBe('08:00')
   expect(getKyivNow(Date.parse('2026-09-13T21:30:00Z')).day).toBe(1)
 
   const lesson = (await courseFixture('bachelor-1')).lessons[0]
-  expect(
-    isCurrentLesson(lesson, { date: '2026-09-14', day: 1, time: '08:00' }, '2026-09-01')
-  ).toBeTrue()
-  expect(
-    isCurrentLesson(lesson, { date: '2026-09-14', day: 1, time: '09:20' }, '2026-09-01')
-  ).toBeFalse()
-  expect(
-    isCurrentLesson(lesson, { date: '2026-08-31', day: 1, time: '08:00' }, '2026-09-01')
-  ).toBeFalse()
+  expect(isCurrentLesson(lesson, { date: '2026-09-14', day: 1, time: '08:00' })).toBeTrue()
+  expect(isCurrentLesson(lesson, { date: '2026-09-14', day: 1, time: '09:20' })).toBeFalse()
+  expect(isCurrentLesson(lesson, { date: '2026-08-31', day: 1, time: '08:00' })).toBeTrue()
+  expect(isCurrentLesson(lesson, { date: '2026-09-15', day: 2, time: '08:00' })).toBeFalse()
 })
 
 test('sync preserves a good snapshot on failure and replaces it on success without a separate DB client', async () => {

@@ -15,10 +15,9 @@ import type { ScheduleData } from '@/shared/schedule/types'
 interface ScheduleDaysProps {
   lessons: ScheduleData['lessons']
   now: KyivNow | null
-  schedule: ScheduleData
 }
 
-export const ScheduleDays = ({ lessons, now, schedule }: ScheduleDaysProps) => {
+export const ScheduleDays = ({ lessons, now }: ScheduleDaysProps) => {
   const { state } = useScheduleExplorer()
 
   const activeDay = state.day === 'today' ? now?.day : +state.day
@@ -90,7 +89,7 @@ export const ScheduleDays = ({ lessons, now, schedule }: ScheduleDaysProps) => {
                       <LessonCard
                         lesson={lesson}
                         compact={state.view === 'week'}
-                        current={now ? isCurrentLesson(lesson, now, schedule.effectiveFrom) : false}
+                        current={now ? isCurrentLesson(lesson, now) : false}
                       />
                     </div>
                   ))}

@@ -21,7 +21,6 @@ export interface ScheduleLesson {
 }
 
 export interface ScheduleData {
-  effectiveFrom: string
   groups: string[]
   lessons: ScheduleLesson[]
 }

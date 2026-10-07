@@ -74,12 +74,8 @@ export const getKyivNow = (epochMs: number): KyivNow => {
 export const isScheduleStale = (syncedAt: string | null, nowMs: number) =>
   !syncedAt || nowMs - Date.parse(syncedAt) > 60 * 60 * 1000
 
-export const isCurrentLesson = (lesson: ScheduleLesson, now: KyivDateTime, effectiveFrom: string) =>
-  !lesson.cancelled &&
-  now.date >= effectiveFrom &&
-  now.day === lesson.day &&
-  now.time >= lesson.start &&
-  now.time < lesson.end
+export const isCurrentLesson = (lesson: ScheduleLesson, now: KyivDateTime) =>
+  !lesson.cancelled && now.day === lesson.day && now.time >= lesson.start && now.time < lesson.end
 
 export const roomLabel = (room: string | null) =>
   room?.startsWith('гуртожиток') ? room : `Ауд. ${room ?? 'не зазначено'}`

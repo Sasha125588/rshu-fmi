@@ -87,6 +87,8 @@ function parseLesson(text: string, hyperlink: string | undefined, address: strin
     ...withoutUrls.matchAll(
       /[А-ЯІЇЄҐ][а-яіїєґ’'ʼ-]+(?:\s*[-–]\s*[А-ЯІЇЄҐ][а-яіїєґ’'ʼ-]+)?\s+[А-ЯІЇЄҐ]\.\s*[А-ЯІЇЄҐ]\./g
     ),
+    // Full Latin names are written in capitals after the subject.
+    ...withoutUrls.matchAll(/\b[A-Z][A-Z’'-]+\s+[A-Z][A-Z’'-]+$/g),
   ]
   if (teachers.length !== 1) throw new Error(`Клітинка ${address}: не вдалося визначити викладача.`)
   const teacherMatch = teachers[0]
@@ -129,15 +131,6 @@ export async function parseSchedule(buffer: Buffer, source: ScheduleSource): Pro
   await workbook.xlsx.load(buffer as unknown as ExcelJS.Buffer)
   const sheet = workbook.worksheets[0]
   if (!sheet) throw new Error('Не знайдено аркуш розкладу.')
-  const title = normalizeText(cellText(sheet.getCell('A1')))
-  const date = title.match(/з\s+(\d{2})\.(\d{2})\.(\d{4})/)
-  if (!date) throw new Error('Не розпізнано дату початку розкладу.')
-  const effectiveFrom = `${date[3]}-${date[2]}-${date[1]}`
-  if (
-    Number.isNaN(Date.parse(effectiveFrom)) ||
-    new Date(effectiveFrom).toISOString().slice(0, 10) !== effectiveFrom
-  )
-    throw new Error('Некоректна дата початку розкладу.')
   // Template: A = day, B = lesson number, C = time; headers are rows 2 and 3.
   const columns: { column: number; group: string; subgroup: number }[] = []
   for (let column = 4; column <= sheet.columnCount; column++) {
@@ -217,5 +210,5 @@ export async function parseSchedule(buffer: Buffer, source: ScheduleSource): Pro
       }
     }
   }
-  return { effectiveFrom, groups, lessons: [...lessons.values()] }
+  return { groups, lessons: [...lessons.values()] }
 }
