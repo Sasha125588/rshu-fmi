@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const OfflinePage = () => {
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-3xl flex-col items-center justify-center px-4 py-16 text-center">
+    <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col items-center justify-center px-4 py-16 text-center">
       <h1 className="text-3xl font-extrabold tracking-tight md:text-4xl">
         Немає підключення до інтернету
       </h1>
