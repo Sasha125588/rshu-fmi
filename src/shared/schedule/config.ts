@@ -70,7 +70,6 @@ export const scheduleSourceUrl = (spreadsheetId: string) =>
 export const scheduleExportUrl = (spreadsheetId: string) =>
   `https://docs.google.com/spreadsheets/d/${spreadsheetId}/export?format=xlsx`
 
-export const SCHEDULE_REFRESH_MS = 30 * 60 * 1000
 export const SCHEDULE_DAYS = [
   'Понеділок',
   'Вівторок',

@@ -2,6 +2,8 @@ import { kyivTimeFormatter, scheduleCollator } from '@/lib'
 
 import type { ScheduleData, ScheduleLesson, ScheduleMode } from '@/shared/schedule/types'
 
+export { isScheduleStale } from '@/shared/schedule/refresh'
+
 export const scheduleOptions = (schedule: ScheduleData, mode: ScheduleMode) => {
   if (mode === 'group') return schedule.groups
 
@@ -70,9 +72,6 @@ export const getKyivNow = (epochMs: number): KyivNow => {
     epochMs,
   }
 }
-
-export const isScheduleStale = (syncedAt: string | null, nowMs: number) =>
-  !syncedAt || nowMs - Date.parse(syncedAt) > 60 * 60 * 1000
 
 export const isCurrentLesson = (lesson: ScheduleLesson, now: KyivDateTime) =>
   !lesson.cancelled && now.day === lesson.day && now.time >= lesson.start && now.time < lesson.end

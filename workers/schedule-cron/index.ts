@@ -1,3 +1,5 @@
+import { shouldSyncSchedule } from '../../src/shared/schedule/refresh'
+
 export interface CronEnvironment {
   SCHEDULE_BASE_URL: string
   CRON_SECRET: string
@@ -51,7 +53,9 @@ export async function runScheduleCron(env: CronEnvironment) {
 }
 
 export default {
-  async scheduled(_controller: unknown, env: CronEnvironment) {
+  async scheduled(controller: { scheduledTime: number }, env: CronEnvironment) {
+    if (!shouldSyncSchedule(controller.scheduledTime)) return
+
     await runScheduleCron(env)
   },
 }

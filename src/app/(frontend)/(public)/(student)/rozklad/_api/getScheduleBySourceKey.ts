@@ -10,7 +10,7 @@ import type { ScheduleData } from '@/shared/schedule/types'
 export const getScheduleBySourceKey = async (sourceKey: string) => {
   'use cache'
 
-  cacheLife({ stale: 300, revalidate: 1800, expire: 3600 })
+  cacheLife({ stale: 300, revalidate: 3600, expire: 7200 })
   cacheTag(scheduleCacheTag(sourceKey))
 
   const payload = await getPayload({ config })

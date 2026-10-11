@@ -35,5 +35,20 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
+## Schedule sync
+
+The Cloudflare Worker wakes hourly and calls the sync API only at these times in
+`Europe/Kyiv`: 07:00–17:00 hourly, then 19:00 and 21:00, every day. Other hours are
+skipped without calling Vercel. Seasonal clock changes are handled automatically.
+
+The freshness indicator uses the same schedule, with a 10-minute grace period for
+each import to finish. Planned evening and overnight pauses do not trigger a delay
+warning, but missed imports and import errors still do.
+
+```bash
 bunx wrangler dev --config workers/schedule-cron/wrangler.json --test-scheduled
 curl "http://localhost:8787/__scheduled"
+```
+
+The local scheduled trigger also respects the current hour. To simulate a specific
+run, pass its Unix timestamp in milliseconds via the `time` query parameter.
