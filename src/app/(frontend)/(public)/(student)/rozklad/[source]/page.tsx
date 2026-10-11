@@ -10,8 +10,8 @@ import {
   ScheduleSourceMeta,
   ScheduleSourceMetaFallback,
 } from '../_components/ScheduleSourceMeta/ScheduleSourceMeta'
-import { AnimatedSuspense } from '@/components/common/AnimatedSuspense/AnimatedSuspense'
-import { SITE_URL } from '@/shared/constants'
+import { AnimatedSuspense } from '@/components/common'
+import { getSocialMetadata } from '@/shared/og'
 import { SCHEDULE_SOURCES, getScheduleSource } from '@/shared/schedule/config'
 
 import type { Metadata } from 'next'
@@ -34,19 +34,7 @@ export const generateMetadata = async ({
     title,
     description,
     alternates: { canonical },
-    openGraph: {
-      title,
-      description,
-      siteName: 'Факультет математики та інформатики РДГУ',
-      type: 'website',
-      locale: 'uk_UA',
-      url: new URL(canonical, SITE_URL).href,
-    },
-    twitter: {
-      card: 'summary',
-      title,
-      description,
-    },
+    ...getSocialMetadata(canonical, title, description),
   }
 }
 

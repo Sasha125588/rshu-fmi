@@ -11,6 +11,7 @@ import {
   PRERENDERED_PAGE_COUNT,
   getNewsPage,
 } from '@/shared/news'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata } from 'next'
 
@@ -37,6 +38,11 @@ export const generateMetadata = async ({ params }: NewsSourcePagePageProps): Pro
     title: `${config.fullLabel} — сторінка ${route.page}`,
     description: `Сторінка ${route.page} архіву новин: ${config.fullLabel}.`,
     alternates: { canonical: `/news/${route.source}/page/${route.page}` },
+    ...getSocialMetadata(
+      `/news/${route.source}/page/${route.page}`,
+      `${config.fullLabel} — сторінка ${route.page}`,
+      `Сторінка ${route.page} архіву новин: ${config.fullLabel}.`
+    ),
   }
 }
 

@@ -1,4 +1,4 @@
-import { CopyButton } from '@/components/common/CopyButton/CopyButton'
+import { CopyButton } from '@/components/common'
 import { Typography } from '@/components/ui'
 
 interface PaymentDetailsProps {

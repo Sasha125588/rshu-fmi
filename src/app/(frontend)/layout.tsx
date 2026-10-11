@@ -7,6 +7,7 @@ import './globals.css'
 import { Provider } from './provider'
 import { cn } from '@/lib/utils'
 import { SITE_URL } from '@/shared/constants'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
@@ -56,19 +57,11 @@ export const metadata: Metadata = {
     'ФМІ',
     'РДГУ ФМІ',
   ],
-  openGraph: {
-    title: 'Факультет математики та інформатики РДГУ',
-    description:
-      'Неофіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
-    siteName: 'Факультет математики та інформатики РДГУ',
-    type: 'website',
-    locale: 'uk_UA',
-  },
-  twitter: {
-    title: 'Факультет математики та інформатики РДГУ',
-    description:
-      'Неофіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.',
-  },
+  ...getSocialMetadata(
+    '/',
+    'Факультет математики та інформатики РДГУ',
+    'Неофіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету.'
+  ),
   robots: {
     index: true,
     follow: true,

@@ -6,7 +6,7 @@ import { HistoryEraNav } from './_components/HistoryEraNav'
 import { OFFICIAL_HISTORY_URL, historyEras, historyEvents, historyPillars } from './_constants'
 import { ActiveHistoryEraIdProvider } from './_contexts/activeHistoryEraId'
 import { Typography } from '@/components/ui'
-import { SITE_URL } from '@/shared/constants'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata } from 'next'
 
@@ -17,23 +17,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/history',
   },
-  openGraph: {
-    title: 'Історія факультету математики та інформатики',
-    description:
-      'Історія факультету математики та інформатики РДГУ: від Учительського інституту до сучасних напрямів математики, IT та цифрової освіти',
-    images: [
-      {
-        url: new URL('/images/logo.avif', SITE_URL).href,
-        width: 120,
-        height: 120,
-        type: 'image/avif',
-        alt: 'ФМІ логотип',
-      },
-    ],
-    url: new URL('/history', SITE_URL).href,
-    type: 'website',
-    locale: 'uk_UA',
-  },
+  ...getSocialMetadata(
+    '/history',
+    'Історія факультету математики та інформатики',
+    'Історія факультету математики та інформатики РДГУ: від Учительського інституту до сучасних напрямів математики, IT та цифрової освіти'
+  ),
 }
 
 const HistoryPage = async () => {

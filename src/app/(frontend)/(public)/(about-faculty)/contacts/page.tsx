@@ -5,7 +5,7 @@ import { ContactMethods } from './_components/ContactMethods/ContactMethods'
 import { Socials } from './_components/Socials/Socials'
 import { WorkingHours } from './_components/WorkingHours/WorkingHours'
 import { Typography } from '@/components/ui'
-import { SITE_URL } from '@/shared/constants'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata } from 'next'
 
@@ -16,23 +16,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/contacts',
   },
-  openGraph: {
-    title: 'Контакти факультету математики та інформатики',
-    description:
-      'Контактна інформація факультету математики та інформатики РДГУ: адреса, телефони, електронна пошта та графік роботи.',
-    images: [
-      {
-        url: new URL('/images/logo.avif', SITE_URL).href,
-        width: 120,
-        height: 120,
-        type: 'image/avif',
-        alt: 'ФМІ логотип',
-      },
-    ],
-    url: new URL('/contacts', SITE_URL).href,
-    type: 'website',
-    locale: 'uk_UA',
-  },
+  ...getSocialMetadata(
+    '/contacts',
+    'Контакти факультету математики та інформатики',
+    'Контактна інформація факультету математики та інформатики РДГУ: адреса, телефони, електронна пошта та графік роботи.'
+  ),
 }
 
 const ContactsPage = () => (

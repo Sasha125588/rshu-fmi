@@ -17,7 +17,7 @@ import {
   EmptyTitle,
   Typography,
 } from '@/components/ui'
-import { SITE_URL } from '@/shared/constants'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata } from 'next'
 
@@ -28,23 +28,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/educational-programs',
   },
-  openGraph: {
-    title: 'Спеціальності факультету математики та інформатики',
-    description:
-      'Оберіть освітній напрям і порівняйте практичні умови вступу на бакалаврські та магістерські програми ФМІ РДГУ.',
-    images: [
-      {
-        url: new URL('/images/logo.avif', SITE_URL).href,
-        width: 120,
-        height: 120,
-        type: 'image/avif',
-        alt: 'ФМІ логотип',
-      },
-    ],
-    url: new URL('/educational-programs', SITE_URL).href,
-    type: 'website',
-    locale: 'uk_UA',
-  },
+  ...getSocialMetadata(
+    '/educational-programs',
+    'Спеціальності факультету математики та інформатики',
+    'Оберіть освітній напрям і порівняйте практичні умови вступу на бакалаврські та магістерські програми ФМІ РДГУ.'
+  ),
 }
 
 const EducationalProgramsPage = async () => {

@@ -39,53 +39,20 @@ import {
   buttonVariants,
 } from '@/components/ui'
 import { cn } from '@/lib/utils'
-import { SITE_URL } from '@/shared/constants'
 import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 import { getNewsPage } from '@/shared/news'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { ExternalNewsItem } from '@/shared/news'
 import type { Metadata, Route } from 'next'
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const baseDescription =
+  const description =
     'Неофіційна сторінка факультету математики та інформатики Рівненського державного гуманітарного університету. Новини, спеціальності, міжнародна співпраця, документи та контакти.'
-
   return {
-    description: baseDescription,
-    alternates: {
-      canonical: '/',
-    },
-    openGraph: {
-      siteName: 'Факультет математики та інформатики РДГУ',
-      title:
-        'Факультет математики та інформатики Рівненського державного гуманітарного університету',
-      description: 'Неофіційна сторінка ФМІ Рівненського державного гуманітарного університету.',
-      images: [
-        {
-          url: new URL('/images/logo.avif', SITE_URL).href,
-          width: 120,
-          height: 120,
-          type: 'image/avif',
-          alt: 'ФМІ логотип',
-        },
-      ],
-      url: SITE_URL,
-      type: 'website',
-      locale: 'uk_UA',
-    },
-    twitter: {
-      title: 'Факультет математики та інформатики РДГУ',
-      description: baseDescription,
-      images: [
-        {
-          url: new URL('/images/logo.avif', SITE_URL).href,
-          width: 120,
-          height: 120,
-          type: 'image/avif',
-          alt: 'ФМІ логотип',
-        },
-      ],
-    },
+    description,
+    alternates: { canonical: '/' },
+    ...getSocialMetadata('/', 'Факультет математики та інформатики РДГУ', description),
   }
 }
 

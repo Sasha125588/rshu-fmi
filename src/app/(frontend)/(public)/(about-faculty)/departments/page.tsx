@@ -12,8 +12,8 @@ import {
   EmptyTitle,
   Typography,
 } from '@/components/ui'
-import { SITE_URL } from '@/shared/constants'
 import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata } from 'next'
 
@@ -24,22 +24,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/departments',
   },
-  openGraph: {
-    title: 'Кафедри факультету математики та інформатики',
-    description: 'Освітні й наукові осередки факультету математики та інформатики РДГУ.',
-    images: [
-      {
-        url: new URL('/images/logo.avif', SITE_URL).href,
-        width: 120,
-        height: 120,
-        type: 'image/avif',
-        alt: 'ФМІ логотип',
-      },
-    ],
-    url: new URL('/departments', SITE_URL).href,
-    type: 'website',
-    locale: 'uk_UA',
-  },
+  ...getSocialMetadata(
+    '/departments',
+    'Кафедри факультету математики та інформатики',
+    'Освітні й наукові осередки факультету математики та інформатики РДГУ.'
+  ),
 }
 
 const DepartmentsPage = async () => {

@@ -5,6 +5,12 @@ import { Suspense } from 'react'
 
 import { getEducationalProgramBySlug } from './_api/getEducationalProgramBySlug'
 import { Skeleton, Typography } from '@/components/ui'
+import { getSocialMetadata } from '@/shared/og'
+
+import type { Metadata } from 'next'
+
+type EducationalProgramPageProps = PageProps<'/educational-programs/[slug]'>
+type EducationalProgramContentProps = Pick<EducationalProgramPageProps, 'params'>
 
 export const generateStaticParams = async () => {
   const payload = await getPayload({ config })
@@ -21,8 +27,25 @@ export const generateStaticParams = async () => {
   return result.docs.map(({ slug }) => ({ slug }))
 }
 
-type EducationalProgramPageProps = PageProps<'/educational-programs/[slug]'>
-type EducationalProgramContentProps = Pick<EducationalProgramPageProps, 'params'>
+export const generateMetadata = async ({
+  params,
+}: EducationalProgramPageProps): Promise<Metadata> => {
+  const { slug } = await params
+
+  const program = await getEducationalProgramBySlug(slug)
+  if (!program) notFound()
+
+  const title = program.seoTitle || program.title
+  const description = program.seoDescription || program.heroText
+  const canonical = `/educational-programs/${program.slug}`
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    ...getSocialMetadata(canonical, title, description, program.updatedAt),
+  }
+}
 
 const EducationalProgramContent = async ({ params }: EducationalProgramContentProps) => {
   const { slug } = await params

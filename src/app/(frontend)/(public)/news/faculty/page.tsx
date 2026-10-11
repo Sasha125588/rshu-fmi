@@ -3,6 +3,7 @@ import { NewsPagination } from '../_components/NewsPagination'
 import { getFacultyNewsPage } from './_api'
 import { FACULTY_NEWS_PAGE_SIZE } from './_constants'
 import { Typography } from '@/components/ui'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata } from 'next'
 
@@ -10,13 +11,11 @@ export const metadata: Metadata = {
   title: 'Новини факультету',
   description: 'Події, оголошення та досягнення факультету математики та інформатики РДГУ.',
   alternates: { canonical: '/news/faculty' },
-  openGraph: {
-    title: 'Новини факультету математики та інформатики',
-    description: 'Події, оголошення та досягнення факультету математики та інформатики РДГУ.',
-    type: 'website',
-    locale: 'uk_UA',
-    url: '/news/faculty',
-  },
+  ...getSocialMetadata(
+    '/news/faculty',
+    'Новини факультету математики та інформатики',
+    'Події, оголошення та досягнення факультету математики та інформатики РДГУ.'
+  ),
 }
 
 const FacultyNewsPage = async () => {

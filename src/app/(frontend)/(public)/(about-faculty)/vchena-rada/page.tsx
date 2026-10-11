@@ -6,8 +6,8 @@ import { CollectiveMotionCanvas } from './_components/CollectiveMotionCanvas/Col
 import { CouncilMemberImage } from './_components/CouncilMemberImage/CouncilMemberImage'
 import { ACADEMIC_COUNCIL_ROLE_LABELS, councilActivity } from './_constants'
 import { Typography } from '@/components/ui'
-import { SITE_URL } from '@/shared/constants'
 import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata } from 'next'
 
@@ -18,23 +18,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/vchena-rada',
   },
-  openGraph: {
-    title: 'Вчена рада факультету математики та інформатики',
-    description:
-      'Склад, керівництво та напрями діяльності Вченої ради факультету математики та інформатики РДГУ.',
-    images: [
-      {
-        url: new URL('/images/logo.avif', SITE_URL).href,
-        width: 120,
-        height: 120,
-        type: 'image/avif',
-        alt: 'ФМІ логотип',
-      },
-    ],
-    url: new URL('/vchena-rada', SITE_URL).href,
-    type: 'website',
-    locale: 'uk_UA',
-  },
+  ...getSocialMetadata(
+    '/vchena-rada',
+    'Вчена рада факультету математики та інформатики',
+    'Склад, керівництво та напрями діяльності Вченої ради факультету математики та інформатики РДГУ.'
+  ),
 }
 
 const VchenaRadaPage = async () => {

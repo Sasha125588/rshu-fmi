@@ -9,8 +9,8 @@ import { TuitionTable } from './_components/TuitionTable/TuitionTable'
 import { buildTuitionCatalog } from './_helpers'
 import { Tabs, TabsContent, TabsList, TabsTrigger, Typography } from '@/components/ui'
 import { documentDateFormatter } from '@/lib'
-import { SITE_URL } from '@/shared/constants'
 import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { EducationLevel } from '@/payload/collections/EducationalPrograms/constants'
 import type { Metadata } from 'next'
@@ -22,23 +22,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/vartist-navchannia',
   },
-  openGraph: {
-    title: 'Вартість навчання на факультеті математики та інформатики',
-    description:
-      'Порівняйте вартість контрактного навчання за освітніми програмами та формами навчання.',
-    images: [
-      {
-        url: new URL('/images/logo.avif', SITE_URL).href,
-        width: 120,
-        height: 120,
-        type: 'image/avif',
-        alt: 'ФМІ логотип',
-      },
-    ],
-    url: new URL('/vartist-navchannia', SITE_URL).href,
-    type: 'website',
-    locale: 'uk_UA',
-  },
+  ...getSocialMetadata(
+    '/vartist-navchannia',
+    'Вартість навчання на факультеті математики та інформатики',
+    'Порівняйте вартість контрактного навчання за освітніми програмами та формами навчання.'
+  ),
 }
 
 const LEVELS = [

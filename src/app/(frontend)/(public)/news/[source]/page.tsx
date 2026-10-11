@@ -6,6 +6,7 @@ import { NewsUnavailable } from '../_components/NewsUnavailable'
 import { parseNewsRoute } from '../_helpers'
 import SourceNewsLoading from './loading'
 import { EXTERNAL_NEWS_SOURCES, NEWS_SOURCE_CONFIG, getNewsPage } from '@/shared/news'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata } from 'next'
 
@@ -26,6 +27,11 @@ export const generateMetadata = async ({ params }: NewsSourcePageProps): Promise
     title: config.fullLabel,
     description: `Архів новин: ${config.fullLabel}.`,
     alternates: { canonical: `/news/${route.source}` },
+    ...getSocialMetadata(
+      `/news/${route.source}`,
+      config.fullLabel,
+      `Архів новин: ${config.fullLabel}.`
+    ),
   }
 }
 

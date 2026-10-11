@@ -8,6 +8,7 @@ import { getNewsOverview } from './_helpers'
 import { getLatestFacultyNews } from './faculty/_api'
 import { Typography, buttonVariants } from '@/components/ui'
 import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata } from 'next'
 
@@ -15,6 +16,11 @@ export const metadata: Metadata = {
   title: 'Новини ФМІ',
   description: 'Новини факультету математики та інформатики, РДГУ та профільних кафедр.',
   alternates: { canonical: '/news' },
+  ...getSocialMetadata(
+    '/news',
+    'Новини ФМІ',
+    'Новини факультету математики та інформатики, РДГУ та профільних кафедр.'
+  ),
 }
 
 const NewsOverviewPage = async () => {

@@ -13,6 +13,7 @@ import {
 import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata } from 'next'
 
@@ -23,30 +24,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/mizhnarodna-spivpratsya',
   },
-  openGraph: {
-    title: 'Міжнародна співпраця факультету математики та інформатики',
-    description:
-      'Міжнародні стажування, програми подвійного диплому та семестрового навчання факультету математики та інформатики РДГУ',
-    images: [
-      {
-        url: new URL(
-          '/images/logo.avif',
-          process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
-        ).href,
-
-        width: 120,
-        height: 120,
-        type: 'image/avif',
-        alt: 'ФМІ логотип',
-      },
-    ],
-    url: new URL(
-      '/mizhnarodna-spivpratsya',
-      process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'
-    ).href,
-    type: 'website',
-    locale: 'uk_UA',
-  },
+  ...getSocialMetadata(
+    '/mizhnarodna-spivpratsya',
+    'Міжнародна співпраця факультету математики та інформатики',
+    'Міжнародні стажування, програми подвійного диплому та семестрового навчання факультету математики та інформатики РДГУ'
+  ),
 }
 
 const MizhnarodnaSpivpratsyaPage = () => (

@@ -9,18 +9,31 @@ export const getEducationalProgramBySlug = async (slug: string) => {
 
   cacheLife(CMS_CACHE_LIFE)
   // TODO: granular invalidate
-  cacheTag(CONTENT_CACHE_TAGS.educationalPrograms, `educational-program:${slug}`)
+  cacheTag(
+    CONTENT_CACHE_TAGS.educationalPrograms,
+    CONTENT_CACHE_TAGS.specialties,
+    `educational-program:${slug}`
+  )
 
   const payload = await getPayload({ config })
   const result = await payload.find({
     collection: 'educational-programs',
-    depth: 0,
+    depth: 1,
     limit: 1,
     overrideAccess: false,
     pagination: false,
+    populate: {
+      specialties: { code: true },
+    },
     select: {
       slug: true,
       title: true,
+      specialty: true,
+      educationLevel: true,
+      heroText: true,
+      seoTitle: true,
+      seoDescription: true,
+      updatedAt: true,
     },
     where: {
       slug: { equals: slug },

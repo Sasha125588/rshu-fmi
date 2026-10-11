@@ -10,6 +10,9 @@ const nextConfig = {
   partialPrefetching: true,
   reactCompiler: true,
   typedRoutes: true,
+  outputFileTracingIncludes: {
+    '/og/*': ['./src/shared/og/assets/*.ttf'],
+  },
   experimental: {
     exposeTestingApiInProductionBuild: process.env.NEXT_INSTANT_TESTS === '1',
     turbopackRustReactCompiler: true,

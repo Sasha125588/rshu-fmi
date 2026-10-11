@@ -7,8 +7,8 @@ import { DocumentExplorer } from './_components/DocumentExplorer/DocumentExplore
 import { NormatyvniDokumentyBackground } from './_components/NormatyvniDokumentyBackground/NormatyvniDokumentyBackground'
 import { toCatalogDocument } from './_helpers'
 import { Typography } from '@/components/ui'
-import { SITE_URL } from '@/shared/constants'
 import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata } from 'next'
 
@@ -18,22 +18,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/normatyvni-dokumenty',
   },
-  openGraph: {
-    title: 'Нормативні документи факультету математики та інформатики',
-    description: 'Нормативні документи факультету математики та інформатики',
-    images: [
-      {
-        url: new URL('/images/logo.avif', SITE_URL).href,
-        width: 120,
-        height: 120,
-        type: 'image/avif',
-        alt: 'ФМІ логотип',
-      },
-    ],
-    url: new URL('/normatyvni-dokumenty', SITE_URL).href,
-    type: 'website',
-    locale: 'uk_UA',
-  },
+  ...getSocialMetadata(
+    '/normatyvni-dokumenty',
+    'Нормативні документи факультету математики та інформатики',
+    'Нормативні документи факультету математики та інформатики'
+  ),
 }
 
 const NormatyvniDokumentyPage = async () => {

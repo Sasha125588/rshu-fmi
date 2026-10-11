@@ -5,9 +5,10 @@ import { NewsPagination } from '../../../_components/NewsPagination'
 import { getFacultyNewsPage } from '../../_api'
 import { FACULTY_NEWS_PAGE_SIZE } from '../../_constants'
 import FacultyNewsLoading from '../../loading'
-import { AnimatedSuspense } from '@/components/common/AnimatedSuspense/AnimatedSuspense'
+import { AnimatedSuspense } from '@/components/common'
 import { Typography } from '@/components/ui'
 import { PRERENDERED_PAGE_COUNT } from '@/shared/news'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata } from 'next'
 
@@ -35,13 +36,11 @@ export const generateMetadata = async ({
     title: `Новини факультету — сторінка ${page}`,
     description: `Сторінка ${page} архіву новин факультету математики та інформатики РДГУ.`,
     alternates: { canonical: `/news/faculty/page/${page}` },
-    openGraph: {
-      title: `Новини факультету — сторінка ${page}`,
-      description: `Сторінка ${page} архіву новин факультету математики та інформатики РДГУ.`,
-      type: 'website',
-      locale: 'uk_UA',
-      url: `/news/faculty/page/${page}`,
-    },
+    ...getSocialMetadata(
+      `/news/faculty/page/${page}`,
+      `Новини факультету — сторінка ${page}`,
+      `Сторінка ${page} архіву новин факультету математики та інформатики РДГУ.`
+    ),
   }
 }
 

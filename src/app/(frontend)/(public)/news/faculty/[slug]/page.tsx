@@ -7,11 +7,12 @@ import { ViewTransition } from 'react'
 import { FacultyNewsRichText } from '../../_components/FacultyNewsRichText'
 import { getLatestFacultyNews } from '../_api'
 import { resolveFacultyNewsRoute } from './_helpers'
-import { AnimatedSuspense } from '@/components/common/AnimatedSuspense/AnimatedSuspense'
+import { AnimatedSuspense } from '@/components/common'
 import { Badge, Skeleton, Typography, buttonVariants } from '@/components/ui'
 import { newsDateFormatter } from '@/lib'
 import { getNewsTagLabel } from '@/payload/collections/FacultyNews/constants'
 import { SITE_URL } from '@/shared/constants'
+import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata, Route } from 'next'
 
@@ -41,45 +42,21 @@ export const generateMetadata = async ({
   const { slug } = await params
   const article = await getFacultyNewsArticle(slug)
 
-  const cover = article.coverImage
-  const coverImage = cover?.sizes.newsCard ?? cover
-
-  const image = coverImage
-    ? {
-        url: absoluteUrl(coverImage.url),
-        width: String(coverImage.width),
-        height: String(coverImage.height),
-        alt: cover?.alt ?? '',
-      }
-    : {
-        url: absoluteUrl('/images/logo.avif'),
-        width: 120,
-        height: 120,
-        alt: 'Логотип факультету математики та інформатики РДГУ',
-      }
-
   const canonical = `/news/faculty/${article.slug}`
+  const revision = `${article.updatedAt}-${article.coverImage?.updatedAt ?? ''}`
+  const social = getSocialMetadata(canonical, article.title, article.excerpt, revision)
 
   return {
     title: article.title,
     description: article.excerpt,
     alternates: { canonical },
+    ...social,
     openGraph: {
-      title: article.title,
-      description: article.excerpt,
+      ...social.openGraph,
       type: 'article',
-      locale: 'uk_UA',
-      url: absoluteUrl(canonical),
       publishedTime: article.publishedAt,
       modifiedTime: article.updatedAt,
       tags: article.tags.map(getNewsTagLabel),
-      images: [image],
-    },
-    twitter: {
-      card: cover ? 'summary_large_image' : 'summary',
-      title: article.title,
-      description: article.excerpt,
-      images: [image.url],
     },
   }
 }
