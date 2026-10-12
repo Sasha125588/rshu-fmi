@@ -107,7 +107,10 @@ export const Header = () => (
                         value={item.label}
                         className="border-border bg-muted/45 data-open:bg-muted/60 my-1.5 overflow-hidden rounded-xl border"
                       >
-                        <AccordionTrigger className="hover:bg-muted/70 **:data-[slot=accordion-trigger-icon]:text-accent-violet min-h-14 items-center px-4 py-3 text-base font-semibold hover:no-underline">
+                        <AccordionTrigger
+                          animatedIcon
+                          className="hover:bg-muted/70 **:data-[slot=accordion-trigger-icon]:text-accent-violet min-h-14 items-center px-4 py-3 text-base font-semibold hover:no-underline"
+                        >
                           {item.label}
                         </AccordionTrigger>
                         <AccordionContent className="border-border/70 flex flex-col gap-1 border-t pt-2 pb-3 [&_a]:no-underline">

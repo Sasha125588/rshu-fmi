@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 
 import { Footer, Header } from '../_components/layout'
-import { ScheduleAnnouncement } from './_components/ScheduleAnnouncement/ScheduleAnnouncement'
+import { ScheduleAnnouncement } from './_components'
 
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'

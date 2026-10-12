@@ -2,21 +2,22 @@ import config from '@payload-config'
 import {
   ArrowRightIcon,
   ArrowUpRight,
-  BookOpenIcon,
   GraduationCapIcon,
   Layers2Icon,
   LayoutGridIcon,
   ListXIcon,
-  MapPinIcon,
 } from 'lucide-react'
 import { cacheLife, cacheTag } from 'next/cache'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 
-import { HomeReveal } from './_components/HomeReveal/HomeReveal'
-import { LandingBackdrop } from './_components/LandingBackground/LandingBackground'
-import { ProgramCard } from './_components/ProgramCard/ProgramCard'
-import { ReasonDescription } from './_components/ReasonDescription/ReasonDescription'
+import {
+  AdmissionCTA,
+  HomeReveal,
+  LandingBackdrop,
+  ProgramCard,
+  ReasonDescription,
+} from './_components'
 import { faqItems, heroStats, programRoutes, quickTags, reasons, studentLinks } from './_constants'
 import { ExternalNewsCard } from './news/_components/ExternalNewsCard'
 import { FacultyNewsCard } from './news/_components/FacultyNewsCard'
@@ -533,7 +534,7 @@ const HomePage = async () => {
       <section className=" px-4 py-15 md:px-12 md:py-20">
         <HomeReveal
           variant="fade"
-          className="mx-auto grid min-h-80 gap-10 lg:grid-cols-[0.7fr_1.3fr]"
+          className="mx-auto grid gap-10 lg:grid-cols-[0.7fr_1.3fr]"
         >
           <SectionHeader
             title="Часті запитання"
@@ -575,55 +576,7 @@ const HomePage = async () => {
         </HomeReveal>
       </section>
 
-      <section className="px-4 pt-6 pb-20 md:px-6">
-        <HomeReveal
-          variant="settle"
-          className="border-border bg-card-new/50 mx-auto grid max-w-7xl gap-8 rounded-lg border p-5 sm:p-6 md:grid-cols-[1fr_auto] md:items-center"
-        >
-          <div>
-            <Typography
-              as="p"
-              variant="overline"
-              className="text-accent-violet mb-3 tracking-[0.28em]"
-            >
-              admission
-            </Typography>
-            <Typography
-              as="h2"
-              variant="heading-lg"
-              className="md:text-3xl"
-            >
-              Хочеш вступити на ФМІ?
-            </Typography>
-            <Typography
-              as="p"
-              variant="body-md"
-              className="text-muted-foreground mt-3 max-w-2xl leading-7"
-            >
-              Почни зі спеціальності. Якщо потрібна жива відповідь, звертайся до деканату або
-              приймальної комісії РДГУ.
-            </Typography>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="https://www.rshu.edu.ua/pryimalna-komisiia"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-foreground text-background hover:bg-foreground/80 inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition"
-            >
-              <BookOpenIcon className="size-4" />
-              Приймальна комісія
-            </Link>
-            <Link
-              href="/contacts"
-              className="border-border hover:bg-background/5.5 hover:text-foreground text-muted-foreground inline-flex items-center justify-center gap-2 rounded-md border px-5 py-3 text-sm font-semibold transition"
-            >
-              <MapPinIcon className="size-4" />
-              Контакти
-            </Link>
-          </div>
-        </HomeReveal>
-      </section>
+      <AdmissionCTA />
     </div>
   )
 }
