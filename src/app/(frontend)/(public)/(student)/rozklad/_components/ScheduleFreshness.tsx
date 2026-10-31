@@ -1,6 +1,6 @@
 'use client'
 
-import { InfoIcon } from 'lucide-react'
+import { TriangleAlertIcon } from 'lucide-react'
 
 import { isScheduleStale } from '../_helpers'
 import { useKyivNow } from '../_hooks/useKyivNow'
@@ -41,14 +41,15 @@ export const ScheduleFreshnessAlert = ({
   if (!unavailable && !stale) return null
 
   return (
-    <div className="mx-auto mb-10 max-w-[1600px] px-4 md:px-12">
-      <Alert>
-        <InfoIcon />
-        <AlertTitle>Показуємо останню перевірену версію</AlertTitle>
-        <AlertDescription>
-          Оновлення затримується. Перевірте можливі зміни у вихідній Google-таблиці.
-        </AlertDescription>
-      </Alert>
-    </div>
+    <Alert
+      variant="warning"
+      className="mt-6 rounded-xl p-4 sm:px-5"
+    >
+      <TriangleAlertIcon aria-hidden="true" />
+      <AlertTitle>Розклад може бути неактуальним</AlertTitle>
+      <AlertDescription>
+        <p>Оновлення затримується. Перед заняттями перевірте можливі зміни в оригіналі.</p>
+      </AlertDescription>
+    </Alert>
   )
 }

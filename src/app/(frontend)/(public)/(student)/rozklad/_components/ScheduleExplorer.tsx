@@ -62,20 +62,18 @@ const ScheduleTimeAwareContent = ({
   const now = useKyivNow()
 
   return (
-    <>
-      <div className="mx-auto max-w-[1600px] px-4 pb-16 md:px-12">
-        {children}
-        <ScheduleResults
-          now={now}
-          schedule={schedule}
-          source={source}
-        />
-      </div>
+    <div className="mx-auto max-w-[1600px] px-4 pb-16 md:px-12">
+      {children}
       <ScheduleFreshnessAlert
         syncedAt={syncedAt}
         unavailable={unavailable}
         now={now}
       />
-    </>
+      <ScheduleResults
+        now={now}
+        schedule={schedule}
+        source={source}
+      />
+    </div>
   )
 }
