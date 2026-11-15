@@ -1,7 +1,8 @@
 'use client'
 
-import { ArrowUpRightIcon } from 'lucide-react'
+import { ArrowRightIcon } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
+import Link from 'next/link'
 import { useLayoutEffect, useRef, useState } from 'react'
 
 import { DepartmentsOrbitCanvas, getDepartmentOrbit } from './DepartmentsOrbitCanvas'
@@ -9,6 +10,7 @@ import { Typography } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 import type { Department } from '@/payload-types'
+import type { Route } from 'next'
 
 type CardPlacement = 'above' | 'below' | 'left' | 'right'
 
@@ -19,7 +21,12 @@ const cardPlacementClasses: Record<CardPlacement, string> = {
   right: 'top-1/2 left-[calc(100%+0.75rem)] -translate-y-1/2',
 }
 
-export type DepartmentViewModel = Omit<Department, 'generateSlug' | 'updatedAt' | 'createdAt'>
+export type DepartmentViewModel = Pick<
+  Department,
+  'id' | 'slug' | 'name' | 'shortName' | 'description'
+>
+
+const DepartmentLink = motion.create(Link)
 
 interface DepartmentsExperienceProps {
   departments: DepartmentViewModel[]
@@ -181,10 +188,8 @@ export const DepartmentsExperience = ({ departments }: DepartmentsExperienceProp
                 {department.name}. {department.description}
               </p>
 
-              <motion.a
-                href={department.websiteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <DepartmentLink
+                href={`/departments/${department.slug}` as Route}
                 aria-label={`${department.shortName}: ${department.name}`}
                 aria-describedby={descriptionId}
                 data-active={isActive || undefined}
@@ -237,7 +242,7 @@ export const DepartmentsExperience = ({ departments }: DepartmentsExperienceProp
                     {department.shortName}
                   </span>
                 </span>
-              </motion.a>
+              </DepartmentLink>
 
               <AnimatePresence>
                 {isActive && (
@@ -279,8 +284,8 @@ export const DepartmentsExperience = ({ departments }: DepartmentsExperienceProp
                       variant="caption"
                       className="font-jetbrains text-muted-foreground mt-4 flex items-center gap-1.5"
                     >
-                      Натисніть, щоб відкрити сайт
-                      <ArrowUpRightIcon
+                      Відкрити сторінку кафедри
+                      <ArrowRightIcon
                         aria-hidden="true"
                         size={14}
                       />

@@ -1,0 +1,61 @@
+.hero::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 0 30%;
+  background-image: radial-gradient(
+    circle,
+    color-mix(in oklch, var(--accent-violet) 60%, transparent) 1.1px,
+    transparent 1.6px
+  );
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at 77% 44%, black, transparent 69%);
+  content: '';
+}
+
+.researchCard:nth-child(4n + 1) > .cover {
+  background:
+    radial-gradient(
+      120% 140% at 100% 0,
+      color-mix(in oklch, var(--accent-violet) 26%, transparent),
+      transparent 62%
+    ),
+    repeating-linear-gradient(0deg, var(--border) 0 1px, transparent 1px 16px),
+    repeating-linear-gradient(90deg, var(--border) 0 1px, transparent 1px 16px);
+}
+
+.researchCard:nth-child(4n + 2) > .cover {
+  background:
+    radial-gradient(
+      120% 140% at 0 0,
+      color-mix(in oklch, var(--accent-violet) 24%, transparent),
+      transparent 62%
+    ),
+    repeating-linear-gradient(135deg, var(--border) 0 1px, transparent 1px 12px);
+}
+
+.researchCard:nth-child(4n + 3) > .cover {
+  background:
+    radial-gradient(
+      110% 140% at 100% 100%,
+      color-mix(in oklch, var(--accent-violet) 24%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(var(--border) 1.6px, transparent 1.7px) 0 0 / 14px 14px;
+}
+
+.researchCard:nth-child(4n) > .cover {
+  background:
+    radial-gradient(
+      120% 140% at 50% 0,
+      color-mix(in oklch, var(--accent-violet) 22%, transparent),
+      transparent 62%
+    ),
+    repeating-radial-gradient(circle at 88% 18%, transparent 0 11px, var(--border) 11px 12px);
+}
+
+@media (max-width: 640px) {
+  .hero::before {
+    opacity: 0.45;
+    inset-inline-start: 12%;
+  }
+}

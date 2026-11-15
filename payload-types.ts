@@ -202,32 +202,48 @@ export interface Department {
   slug: string
   description: string
   websiteUrl: string
+  logo?: (number | null) | Media
+  foundedYear?: number | null
+  contacts?: {
+    address?: string | null
+    room?: string | null
+    email?: string | null
+  }
+  /**
+   * Виберіть посаду для фільтра й діаграми складу.
+   */
+  staff?:
+    | {
+        name: string
+        role: 'professor' | 'associate' | 'senior' | 'lecturer' | 'assistant' | 'other'
+        note?: string | null
+        isHead?: boolean | null
+        /**
+         * Укажіть значення, яке використовується в розкладі занять.
+         */
+        scheduleName?: string | null
+        id?: string | null
+      }[]
+    | null
+  research?:
+    | {
+        title: string
+        description: string
+        topic?: string | null
+        url?: string | null
+        id?: string | null
+      }[]
+    | null
+  leadership?:
+    | {
+        name: string
+        period: string
+        id?: string | null
+      }[]
+    | null
+  sourceUrl?: string | null
   updatedAt: string
   createdAt: string
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "academic-council-members".
- */
-export interface AcademicCouncilMember {
-  id: number
-  name: string
-  councilRole: 'chair' | 'deputy-chair' | 'secretary' | 'member'
-  sortOrder: number
-  position: string
-  description: string
-  departments?: (number | Department)[] | null
-  /**
-   * Завантажте файл або вкажіть HTTPS-посилання нижче.
-   */
-  photo?: (number | null) | Media
-  /**
-   * Зовнішнє HTTPS-посилання. Залиште порожнім, якщо фото завантажене як файл.
-   */
-  photoUrl?: string | null
-  updatedAt: string
-  createdAt: string
-  _status?: ('draft' | 'published') | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -289,6 +305,30 @@ export interface Media {
       filename?: string | null
     }
   }
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "academic-council-members".
+ */
+export interface AcademicCouncilMember {
+  id: number
+  name: string
+  councilRole: 'chair' | 'deputy-chair' | 'secretary' | 'member'
+  sortOrder: number
+  position: string
+  description: string
+  departments?: (number | Department)[] | null
+  /**
+   * Завантажте файл або вкажіть HTTPS-посилання нижче.
+   */
+  photo?: (number | null) | Media
+  /**
+   * Зовнішнє HTTPS-посилання. Залиште порожнім, якщо фото завантажене як файл.
+   */
+  photoUrl?: string | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -764,6 +804,42 @@ export interface DepartmentsSelect<T extends boolean = true> {
   slug?: T
   description?: T
   websiteUrl?: T
+  logo?: T
+  foundedYear?: T
+  contacts?:
+    | T
+    | {
+        address?: T
+        room?: T
+        email?: T
+      }
+  staff?:
+    | T
+    | {
+        name?: T
+        role?: T
+        note?: T
+        isHead?: T
+        scheduleName?: T
+        id?: T
+      }
+  research?:
+    | T
+    | {
+        title?: T
+        description?: T
+        topic?: T
+        url?: T
+        id?: T
+      }
+  leadership?:
+    | T
+    | {
+        name?: T
+        period?: T
+        id?: T
+      }
+  sourceUrl?: T
   updatedAt?: T
   createdAt?: T
 }

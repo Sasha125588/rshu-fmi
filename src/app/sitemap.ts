@@ -2,6 +2,7 @@ import config from '@payload-config'
 import { cacheLife, cacheTag } from 'next/cache'
 import { getPayload } from 'payload'
 
+import { getDepartments } from './(frontend)/(public)/(about-faculty)/departments/_api/queries'
 import { SITE_URL } from '@/shared/constants'
 import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 import { SCHEDULE_SOURCES } from '@/shared/schedule/config'
@@ -12,11 +13,15 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   'use cache'
 
   cacheLife(CMS_CACHE_LIFE)
-  cacheTag(CONTENT_CACHE_TAGS.educationalPrograms, CONTENT_CACHE_TAGS.facultyNews)
+  cacheTag(
+    CONTENT_CACHE_TAGS.educationalPrograms,
+    CONTENT_CACHE_TAGS.facultyNews,
+    CONTENT_CACHE_TAGS.departments
+  )
 
   const payload = await getPayload({ config })
 
-  const [educationalPrograms, facultyNews] = await Promise.all([
+  const [educationalPrograms, facultyNews, departments] = await Promise.all([
     payload.find({
       collection: 'educational-programs',
       depth: 0,
@@ -39,6 +44,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       },
       sort: ['-isPinned', '-updatedAt', '-publishedAt'],
     }),
+    getDepartments(),
   ])
 
   return [
@@ -104,6 +110,12 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       url: `${SITE_URL}/news/${source}`,
       changeFrequency: 'hourly' as const,
       priority: 0.8,
+    })),
+    ...departments.map(({ slug, updatedAt }) => ({
+      url: `${SITE_URL}/departments/${slug}`,
+      lastModified: updatedAt,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
     })),
     ...facultyNews.docs.map(({ slug, updatedAt }) => ({
       url: `${SITE_URL}/news/faculty/${slug}`,

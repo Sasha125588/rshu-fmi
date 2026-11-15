@@ -57,7 +57,7 @@ export const importMap = {
     DocumentTitleField_22215b0d03d1872fe78b7e9747827f3e,
   '@/payload/collections/Schedules/components/SyncScheduleButton#SyncScheduleButton':
     SyncScheduleButton_471dfa29823c2312342cfbb1fec0c1df,
+  '@payloadcms/next/rsc#CollectionCards': CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
   '@payloadcms/storage-s3/client#S3ClientUploadHandler':
     S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
-  '@payloadcms/next/rsc#CollectionCards': CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
 }

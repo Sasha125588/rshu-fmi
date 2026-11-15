@@ -1,4 +1,4 @@
-import { createSerializer, parseAsString, parseAsStringLiteral } from 'nuqs'
+import { createSerializer, parseAsString, parseAsStringLiteral } from 'nuqs/server'
 
 export const SCHEDULE_DAY_VALUES = ['1', '2', '3', '4', '5', '6', '7'] as const
 

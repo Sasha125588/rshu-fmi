@@ -9,18 +9,9 @@ describe('social cards', () => {
   let fetchAssets: ReturnType<typeof spyOn<typeof globalThis, 'fetch'>>
 
   beforeEach(() => {
-    const fetchPublicAssets = Object.assign(
-      async (input: Parameters<typeof fetch>[0]) => {
-        const url = new URL(input instanceof Request ? input.url : String(input))
-        if (url.pathname === '/images/og/background.png') {
-          return new Response(await Bun.file('public/images/og/background.png').arrayBuffer(), {
-            headers: { 'Content-Type': 'image/png' },
-          })
-        }
-        return new Response(null, { status: 503 })
-      },
-      { preconnect: globalThis.fetch.preconnect }
-    )
+    const fetchPublicAssets = Object.assign(async () => new Response(null, { status: 503 }), {
+      preconnect: globalThis.fetch.preconnect,
+    })
     fetchAssets = spyOn(globalThis, 'fetch').mockImplementation(fetchPublicAssets)
   })
 
@@ -48,19 +39,11 @@ describe('social cards', () => {
     expect(Buffer.from(highlighted).equals(Buffer.from(plain))).toBe(false)
   })
 
-  it('loads the public background from the current deployment origin', async () => {
-    const response = await renderSocialCard(
-      SOCIAL_CARDS['/'],
-      true,
-      'https://preview.example.org/og/home'
-    )
+  it('renders the bundled background without an HTTP request', async () => {
+    const response = await renderSocialCard(SOCIAL_CARDS['/'])
     const image = await sharp(Buffer.from(await response.arrayBuffer())).metadata()
     expect([image.format, image.width, image.height]).toEqual(['png', 1200, 630])
-    expect(
-      fetchAssets.mock.calls.some(
-        ([input]) => String(input) === 'https://preview.example.org/images/og/background.png'
-      )
-    ).toBe(true)
+    expect(fetchAssets).not.toHaveBeenCalled()
   })
 
   it.each([

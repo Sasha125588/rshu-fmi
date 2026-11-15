@@ -58,6 +58,7 @@ export default buildConfig({
   plugins: [
     siteRedirectsPlugin,
     s3Storage({
+      alwaysInsertFields: true,
       enabled: !!process.env.R2_BUCKET,
       collections: {
         media: {

@@ -4,27 +4,46 @@ import { ArrowRightIcon, XIcon } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { use, useState } from 'react'
+import { use, useId, useState } from 'react'
 import { browser } from 'react-dom'
 
 import { Button, Typography } from '@/components/ui'
-import { LOCAL_STORAGE } from '@/shared/constants/localstorage'
-import { DEFAULT_SCHEDULE_PATH } from '@/shared/schedule/config'
 
-const ANNOUNCEMENT_EXPIRES_AT = new Date('2026-10-05T00:00:00+03:00').getTime()
-const ANNOUNCEMENT_VERSION = '1'
+import type { Route } from 'next'
 
-export const ScheduleAnnouncement = () => {
-  use(browser('Schedule announcement depends on localStorage.'))
+interface AnnouncementProps<Path extends string> {
+  href: Route<Path>
+  sectionPath: string
+  title: string
+  description: string
+  dismissLabel: string
+  storageKey: string
+  version: string
+  expiresAt?: number
+}
+
+export const Announcement = <Path extends string>({
+  href,
+  sectionPath,
+  title,
+  description,
+  dismissLabel,
+  storageKey,
+  version,
+  expiresAt,
+}: AnnouncementProps<Path>) => {
+  use(browser('Announcements depend on localStorage.'))
 
   const pathname = usePathname()
+  const titleId = useId()
   const shouldReduceMotion = useReducedMotion() === true
+  const isOnTargetSection = pathname === sectionPath || pathname.startsWith(`${sectionPath}/`)
 
   const [isVisible, setIsVisible] = useState(() => {
-    if (Date.now() >= ANNOUNCEMENT_EXPIRES_AT) return false
+    if (expiresAt !== undefined && Date.now() >= expiresAt) return false
 
     try {
-      return localStorage.getItem(LOCAL_STORAGE.ANNOUNCEMENT.SCHEDULE) !== ANNOUNCEMENT_VERSION
+      return localStorage.getItem(storageKey) !== version
     } catch {
       return true
     }
@@ -34,16 +53,15 @@ export const ScheduleAnnouncement = () => {
     setIsVisible(false)
 
     try {
-      localStorage.setItem(LOCAL_STORAGE.ANNOUNCEMENT.SCHEDULE, ANNOUNCEMENT_VERSION)
+      localStorage.setItem(storageKey, version)
     } catch {}
   }
 
   return (
     <AnimatePresence>
-      {isVisible && !pathname.startsWith('/rozklad') && (
+      {isVisible && !isOnTargetSection && (
         <motion.aside
-          key="schedule-announcement"
-          aria-labelledby="schedule-announcement-title"
+          aria-labelledby={titleId}
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: 16, y: 12 }}
           animate={{ opacity: 1, x: 0, y: 0 }}
           exit={
@@ -60,11 +78,11 @@ export const ScheduleAnnouncement = () => {
               ? { duration: 0.15 }
               : { type: 'spring', stiffness: 360, damping: 30, mass: 0.8 }
           }
-          className="bg-background border-border fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] left-4 z-40 rounded-2xl border p-2 shadow-[0_18px_60px_-20px_rgb(0_0_0/0.35)] sm:right-6 sm:bottom-6 sm:left-auto sm:w-80"
+          className="bg-background border-border pointer-events-auto rounded-2xl border p-2 shadow-[0_18px_60px_-20px_rgb(0_0_0/0.35)]"
         >
           <div className="flex items-start gap-1">
             <Link
-              href={DEFAULT_SCHEDULE_PATH}
+              href={href}
               onClick={dismiss}
               className="group focus-visible:ring-ring flex min-w-0 flex-1 items-center gap-3 rounded-xl p-2 outline-none focus-visible:ring-3"
             >
@@ -74,25 +92,25 @@ export const ScheduleAnnouncement = () => {
 
               <span className="min-w-0 flex-1">
                 <Typography
-                  id="schedule-announcement-title"
+                  id={titleId}
                   as="span"
                   variant="label"
                   className="block"
                 >
-                  Розклад занять
+                  {title}
                 </Typography>
                 <Typography
                   as="span"
                   variant="caption"
                   className="text-muted-foreground mt-0.5 block"
                 >
-                  Уже доступний на сайті
+                  {description}
                 </Typography>
               </span>
 
               <ArrowRightIcon
                 aria-hidden="true"
-                className="text-muted-foreground size-4 shrink-0 transition-transform group-hover:translate-x-0.5"
+                className="text-muted-foreground size-4 shrink-0 motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5"
               />
             </Link>
 
@@ -101,7 +119,7 @@ export const ScheduleAnnouncement = () => {
               variant="ghost"
               size="icon-sm"
               className="text-muted-foreground shrink-0"
-              aria-label="Закрити повідомлення про розклад"
+              aria-label={dismissLabel}
               onClick={dismiss}
             >
               <XIcon />

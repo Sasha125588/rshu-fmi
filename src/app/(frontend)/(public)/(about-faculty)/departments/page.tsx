@@ -1,8 +1,7 @@
-import config from '@payload-config'
 import { OrbitIcon } from 'lucide-react'
 import { cacheLife, cacheTag } from 'next/cache'
-import { getPayload } from 'payload'
 
+import { getDepartments } from './_api/queries'
 import { DepartmentsExperience } from './_components/DepartmentsExperience'
 import {
   Empty,
@@ -37,20 +36,7 @@ const DepartmentsPage = async () => {
   cacheLife(CMS_CACHE_LIFE)
   cacheTag(CONTENT_CACHE_TAGS.departments)
 
-  const payload = await getPayload({ config })
-  const departments = await payload.find({
-    collection: 'departments',
-    overrideAccess: false,
-    pagination: false,
-    sort: 'name',
-    select: {
-      name: true,
-      shortName: true,
-      slug: true,
-      description: true,
-      websiteUrl: true,
-    },
-  })
+  const departments = await getDepartments()
 
   return (
     <div className="overflow-x-clip">
@@ -77,7 +63,7 @@ const DepartmentsPage = async () => {
       </header>
 
       <div>
-        {departments.docs.length ? (
+        {departments.length ? (
           <div>
             <div className="flex flex-col gap-3 border-b px-4 py-5 sm:flex-row sm:items-center sm:justify-between md:px-12">
               <div className="flex items-center gap-4">
@@ -97,7 +83,7 @@ const DepartmentsPage = async () => {
                   variant="caption"
                   className="font-jetbrains text-muted-foreground"
                 >
-                  {departments.docs.length} кафедри
+                  {departments.length} кафедри
                 </Typography>
               </div>
 
@@ -112,7 +98,7 @@ const DepartmentsPage = async () => {
                 <span className="sm:hidden">Перший дотик — опис · другий — перехід</span>
               </Typography>
             </div>
-            <DepartmentsExperience departments={departments.docs} />
+            <DepartmentsExperience departments={departments} />
           </div>
         ) : (
           <div className="px-4 py-16 md:px-12 md:py-24">

@@ -10,6 +10,9 @@ import type { SocialCard } from './config'
 
 const regular = readFile(join(process.cwd(), 'src/shared/og/assets/Manrope-Regular.ttf'))
 const semibold = readFile(join(process.cwd(), 'src/shared/og/assets/Manrope-SemiBold.ttf'))
+const facultyBackground = readFile(join(process.cwd(), 'public/images/og/background.png')).then(
+  (png) => `data:image/png;base64,${png.toString('base64')}`
+)
 const violet = '#9785ff'
 
 const renderHeadline = (
@@ -127,16 +130,13 @@ const loadPhoto = async (photo: NonNullable<SocialCard['photo']>) => {
   }
 }
 
-export const renderSocialCard = async (
-  card: SocialCard,
-  showHighlight = true,
-  baseUrl = SITE_URL
-) => {
+export const renderSocialCard = async (card: SocialCard, showHighlight = true) => {
   const [fontRegular, fontSemibold, photo] = await Promise.all([
     regular,
     semibold,
     card.photo ? loadPhoto(card.photo) : undefined,
   ])
+  const imageSrc = photo ?? (await facultyBackground)
 
   const fontSize = card.lines
     ? 76
@@ -166,7 +166,7 @@ export const renderSocialCard = async (
     >
       <img
         alt=""
-        src={photo ?? new URL('/images/og/background.png', baseUrl).href}
+        src={imageSrc}
         width={photo ? 760 : 1200}
         height={630}
         style={{ position: 'absolute', right: 0, top: 0 }}

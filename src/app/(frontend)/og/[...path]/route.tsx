@@ -1,3 +1,4 @@
+import { getDepartment } from '../../(public)/(about-faculty)/departments/_api/queries'
 import { getEducationalProgramBySlug } from '../../(public)/educational-programs/[slug]/_api/getEducationalProgramBySlug'
 import { resolveFacultyNewsRoute } from '../../(public)/news/faculty/[slug]/_helpers'
 import { newsDateFormatter } from '@/lib/formatters'
@@ -51,6 +52,17 @@ const getCard = async (segments: string[]): Promise<SocialCard | undefined> => {
     }
   }
 
+  if (segments[0] === 'departments' && segments.length === 2) {
+    const department = await getDepartment(segments[1])
+    if (!department) return undefined
+
+    return {
+      title: department.name,
+      subtitle: 'Кафедри',
+      highlight: department.name,
+    }
+  }
+
   if (segments[0] === 'educational-programs' && segments.length === 2) {
     const program = await getEducationalProgramBySlug(segments[1])
     if (!program) return undefined
@@ -93,9 +105,5 @@ export const GET = async (
   const card = await getCard(path)
   if (!card) return new Response('Not found', { status: 404 })
 
-  return renderSocialCard(
-    card,
-    new URL(request.url).searchParams.get('highlight') !== 'off',
-    request.url
-  )
+  return renderSocialCard(card, new URL(request.url).searchParams.get('highlight') !== 'off')
 }

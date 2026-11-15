@@ -11,6 +11,7 @@ import * as migration_20260721_203527_move_specialty_shared_fields from './20260
 import * as migration_20260724_134652_faculty_news_and_redirects from './20260724_134652_faculty_news_and_redirects'
 import * as migration_20260915_193152_schedule from './20260915_193152_schedule'
 import * as migration_20260916_155031_simplify_schedules from './20260916_155031_simplify_schedules'
+import * as migration_20261114_215403_department_profiles from './20261114_215403_department_profiles'
 
 export const migrations = [
   {
@@ -77,5 +78,10 @@ export const migrations = [
     up: migration_20260916_155031_simplify_schedules.up,
     down: migration_20260916_155031_simplify_schedules.down,
     name: '20260916_155031_simplify_schedules',
+  },
+  {
+    up: migration_20261114_215403_department_profiles.up,
+    down: migration_20261114_215403_department_profiles.down,
+    name: '20261114_215403_department_profiles',
   },
 ]

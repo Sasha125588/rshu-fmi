@@ -11,7 +11,7 @@ const nextConfig = {
   reactCompiler: true,
   typedRoutes: true,
   outputFileTracingIncludes: {
-    '/og/*': ['./src/shared/og/assets/*.ttf'],
+    '/og/*': ['./src/shared/og/assets/*.ttf', './public/images/og/background.png'],
   },
   experimental: {
     exposeTestingApiInProductionBuild: process.env.NEXT_INSTANT_TESTS === '1',

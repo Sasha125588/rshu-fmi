@@ -21,10 +21,7 @@ function valueText(value: unknown): string {
 
 const cellText = (cell: ExcelJS.Cell) => valueText(cell.master.value)
 
-const normalizeDay = (text: string) =>
-  normalizeText(text)
-    .replace(/[’ʼ`]/g, "'")
-    .toLowerCase()
+const normalizeDay = (text: string) => normalizeText(text).replace(/[’ʼ`]/g, "'").toLowerCase()
 
 export function safeMeetingUrl(value: string): string | null {
   try {
