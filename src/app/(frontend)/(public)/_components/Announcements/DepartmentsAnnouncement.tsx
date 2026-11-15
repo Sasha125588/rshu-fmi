@@ -3,7 +3,7 @@ import { LOCAL_STORAGE } from '@/shared/constants/localstorage'
 
 export const DepartmentsAnnouncement = () => (
   <Announcement
-    href="/departments"
+    href="/departments/kitm"
     sectionPath="/departments"
     title="Сторінки кафедр"
     description="Склад, наукові напрями й освітні програми"
