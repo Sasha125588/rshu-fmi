@@ -59,6 +59,7 @@ const SourceNewsContent = async ({ params }: SourceNewsContentProps) => {
       <NewsArchive
         source={route.source}
         page={route.page}
+        pageCount={result.pageCount}
         news={result.news}
       />
     </div>

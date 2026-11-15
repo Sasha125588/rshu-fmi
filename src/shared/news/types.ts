@@ -1,11 +1,12 @@
 import type { NewsTagCode } from '@/payload/collections/FacultyNews/constants'
 
-export const EXTERNAL_NEWS_SOURCES = ['university', 'kitm', 'iktmvi'] as const
+export const EXTERNAL_NEWS_SOURCES = ['university', 'kitm', 'iktmvi', 'kafmat'] as const
 
 export type ExternalNewsSource = (typeof EXTERNAL_NEWS_SOURCES)[number]
 export type NewsSource = ExternalNewsSource | 'faculty'
 
 type ExternalDepartmentSource = Exclude<ExternalNewsSource, 'university'>
+export type UpstreamPaginatedNewsSource = Exclude<ExternalNewsSource, 'kafmat'>
 
 export interface ExternalNewsBase {
   title: string
@@ -24,13 +25,14 @@ export interface ExternalDepartmentNews<
   S extends ExternalDepartmentSource = ExternalDepartmentSource,
 > extends ExternalNewsBase {
   source: S
-  publishedAt: string
+  publishedAt?: string
 }
 
 export interface ExternalNewsBySource {
   university: ExternalUniversityNews
   kitm: ExternalDepartmentNews<'kitm'>
   iktmvi: ExternalDepartmentNews<'iktmvi'>
+  kafmat: ExternalDepartmentNews<'kafmat'>
 }
 
 export type ExternalNewsItem<S extends ExternalNewsSource = ExternalNewsSource> =
@@ -38,12 +40,13 @@ export type ExternalNewsItem<S extends ExternalNewsSource = ExternalNewsSource> 
     tags: NewsTagCode[]
   }
 
-export interface ExternalNewsSourceConfig {
+interface ExternalNewsSourceDetails {
   label: string
   badgeLabel: string
   fullLabel: string
   overviewDescription: string
   archiveUrl: string
-  pageCount: number
-  getPageUrl: (page: number) => string
 }
+
+export type ExternalNewsSourceConfig = ExternalNewsSourceDetails &
+  ({ pageCount: number; getPageUrl: (page: number) => string } | { pageSize: number })

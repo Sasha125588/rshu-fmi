@@ -1,41 +1,52 @@
 import { NEWS_SOURCE_CONFIG } from '../config'
 import { ExternalNewsError } from '../errors'
 
-import type { ExternalNewsBySource, ExternalNewsSource } from '../types'
+import type {
+  ExternalNewsBySource,
+  ExternalNewsSource,
+  UpstreamPaginatedNewsSource,
+} from '../types'
 
 export interface GetNewsPageOptions {
   limit?: number
   includeImages?: boolean
 }
 
+interface LoadedNewsPage<S extends ExternalNewsSource> {
+  news: ExternalNewsBySource[S][]
+  pageCount: number
+}
+
 export type ExternalNewsLoader<S extends ExternalNewsSource> = (
   page: number,
   options?: GetNewsPageOptions
-) => Promise<ExternalNewsBySource[S][]>
+) => Promise<LoadedNewsPage<S>>
 
-export const getParsedNewsPage = async <S extends ExternalNewsSource>(
+export const getParsedNewsPage = async <S extends UpstreamPaginatedNewsSource>(
   source: S,
   page: number,
   parser: (html: string) => ExternalNewsBySource[S][],
   options: GetNewsPageOptions = {}
 ) => {
+  const { getPageUrl, pageCount } = NEWS_SOURCE_CONFIG[source]
   const html = await fetchNewsDocument(
     source,
-    NEWS_SOURCE_CONFIG[source].getPageUrl(page),
+    getPageUrl(page),
     `News fetch failed: ${source} page ${page}`
   )
   const news = parser(html)
 
-  return options.limit ? news.slice(0, options.limit) : news
+  return { news: options.limit ? news.slice(0, options.limit) : news, pageCount }
 }
 
 export const fetchNewsDocument = async (
   source: ExternalNewsSource,
   url: string,
-  context: string
+  context: string,
+  options: Pick<RequestInit, 'cache'> = {}
 ) => {
   try {
-    const response = await fetch(url, { signal: AbortSignal.timeout(16_000) })
+    const response = await fetch(url, { ...options, signal: AbortSignal.timeout(16_000) })
 
     if (!response.ok) {
       throw new ExternalNewsError({

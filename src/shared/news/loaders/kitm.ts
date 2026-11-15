@@ -5,11 +5,11 @@ import type { ExternalDepartmentNews } from '../types'
 import type { ExternalNewsLoader } from './shared'
 
 export const getKitmNewsPage: ExternalNewsLoader<'kitm'> = async (page, options) => {
-  const news = await getParsedNewsPage('kitm', page, parseKitmNews, options)
+  const result = await getParsedNewsPage('kitm', page, parseKitmNews, options)
 
-  if (!options?.includeImages) return news
+  if (!options?.includeImages) return result
 
-  return enrichKitmNewsImages(news)
+  return { ...result, news: await enrichKitmNewsImages(result.news) }
 }
 
 const enrichKitmNewsImages = async (news: ExternalDepartmentNews<'kitm'>[]) => {

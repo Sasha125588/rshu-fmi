@@ -5,6 +5,7 @@ import { getPayload } from 'payload'
 import { getDepartments } from './(frontend)/(public)/(about-faculty)/departments/_api/queries'
 import { SITE_URL } from '@/shared/constants'
 import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
+import { EXTERNAL_NEWS_SOURCES } from '@/shared/news/types'
 import { SCHEDULE_SOURCES } from '@/shared/schedule/config'
 
 import type { MetadataRoute } from 'next'
@@ -106,7 +107,7 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       changeFrequency: 'hourly',
       priority: 0.9,
     },
-    ...['university', 'kitm', 'iktmvi', 'faculty'].map((source) => ({
+    ...[...EXTERNAL_NEWS_SOURCES, 'faculty'].map((source) => ({
       url: `${SITE_URL}/news/${source}`,
       changeFrequency: 'hourly' as const,
       priority: 0.8,

@@ -65,11 +65,14 @@ const PaginatedSourceNewsContent = async ({ params }: PaginatedSourceNewsContent
     )
   }
 
+  if (route.page > result.pageCount) notFound()
+
   return (
     <div data-testid="external-news-page-content">
       <NewsArchive
         source={route.source}
         page={route.page}
+        pageCount={result.pageCount}
         news={result.news}
       />
     </div>

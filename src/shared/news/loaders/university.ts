@@ -5,11 +5,11 @@ import type { ExternalUniversityNews } from '../types'
 import type { ExternalNewsLoader } from './shared'
 
 export const getUniversityNewsPage: ExternalNewsLoader<'university'> = async (page, options) => {
-  const news = await getParsedNewsPage('university', page, parseUniversityNews, options)
+  const result = await getParsedNewsPage('university', page, parseUniversityNews, options)
 
-  if (!options?.includeImages) return news
+  if (!options?.includeImages) return result
 
-  return enrichUniversityNewsImages(news)
+  return { ...result, news: await enrichUniversityNewsImages(result.news) }
 }
 
 const enrichUniversityNewsImages = async (news: ExternalUniversityNews[]) => {

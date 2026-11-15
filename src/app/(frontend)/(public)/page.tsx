@@ -100,6 +100,7 @@ const HomePage = async () => {
     Promise.all([
       getNewsPage('kitm', 1, { limit: 1 }),
       getNewsPage('iktmvi', 1, { limit: 1 }),
+      getNewsPage('kafmat', 1, { limit: 2 }),
       getNewsPage('university', 1, { limit: 4 }),
     ]),
   ])

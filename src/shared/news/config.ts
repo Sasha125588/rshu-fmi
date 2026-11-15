@@ -3,7 +3,7 @@ import type { ExternalNewsSource, ExternalNewsSourceConfig } from './types'
 export const PRERENDERED_PAGE_COUNT = 3
 export const NEWS_REVALIDATE_SECONDS = 1 * 60 * 60
 
-export const NEWS_SOURCE_CONFIG: Record<ExternalNewsSource, ExternalNewsSourceConfig> = {
+export const NEWS_SOURCE_CONFIG = {
   university: {
     label: 'РДГУ',
     badgeLabel: 'РДГУ',
@@ -34,4 +34,13 @@ export const NEWS_SOURCE_CONFIG: Record<ExternalNewsSource, ExternalNewsSourceCo
     getPageUrl: (page) =>
       `https://iktmvi.rshu.edu.ua/pro-kafedru/podii.html?start=${Math.max(0, page - 1) * 9}`,
   },
-}
+  kafmat: {
+    label: 'Математика',
+    badgeLabel: 'Математика',
+    fullLabel: 'Кафедра математики та методики її навчання',
+    overviewDescription:
+      'Події кафедри, математичні олімпіади та робота зі студентами й учителями.',
+    archiveUrl: 'https://sites.google.com/view/kafmat/%D0%BD%D0%BE%D0%B2%D0%B8%D0%BD%D0%B8',
+    pageSize: 10,
+  },
+} satisfies Record<ExternalNewsSource, ExternalNewsSourceConfig>

@@ -11,12 +11,14 @@ import type { ExternalNewsItem, ExternalNewsSource } from '@/shared/news'
 interface NewsArchiveProps<S extends ExternalNewsSource> {
   source: S
   page: number
+  pageCount: number
   news: ExternalNewsItem<S>[]
 }
 
 export const NewsArchive = <S extends ExternalNewsSource>({
   source,
   page,
+  pageCount,
   news,
 }: NewsArchiveProps<S>) => {
   const config = NEWS_SOURCE_CONFIG[source]
@@ -33,7 +35,7 @@ export const NewsArchive = <S extends ExternalNewsSource>({
             variant="caption"
             className="font-jetbrains text-muted-foreground"
           >
-            Сторінка {page} із {config.pageCount}
+            Сторінка {page} із {pageCount}
           </Typography>
           <Typography
             as="h2"
@@ -67,13 +69,15 @@ export const NewsArchive = <S extends ExternalNewsSource>({
         </ul>
       </div>
 
-      <div className="mt-10 border-t pt-8">
-        <NewsPagination
-          source={source}
-          currentPage={page}
-          totalPages={config.pageCount}
-        />
-      </div>
+      {pageCount > 1 && (
+        <div className="mt-10 border-t pt-8">
+          <NewsPagination
+            source={source}
+            currentPage={page}
+            totalPages={pageCount}
+          />
+        </div>
+      )}
     </section>
   )
 }

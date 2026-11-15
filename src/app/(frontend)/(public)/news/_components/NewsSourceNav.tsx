@@ -5,19 +5,8 @@ import { useSelectedLayoutSegment } from 'next/navigation'
 
 import { buttonVariants } from '@/components/ui'
 import { cn } from '@/lib/utils'
-
-import type { Route } from 'next'
-
-const NEWS_SOURCE_LABELS = {
-  university: 'РДГУ',
-  kitm: 'ІТ&М',
-  iktmvi: 'ЦТ&МНІ',
-} as const
-
-const buildNewsHref = (source: string, page = 1) =>
-  (page === 1 ? `/news/${source}` : `/news/${source}/page/${page}`) as Route
-
-const EXTERNAL_NEWS_SOURCES = ['university', 'kitm', 'iktmvi'] as const
+import { NEWS_SOURCE_CONFIG } from '@/shared/news/config'
+import { EXTERNAL_NEWS_SOURCES } from '@/shared/news/types'
 
 interface NewsSourceNavViewProps {
   activeSource: string | null
@@ -66,7 +55,7 @@ const NewsSourceNavView = ({ activeSource }: NewsSourceNavViewProps) => (
       {EXTERNAL_NEWS_SOURCES.map((source) => (
         <Link
           key={source}
-          href={buildNewsHref(source)}
+          href={`/news/${source}`}
           aria-current={activeSource === source ? 'page' : undefined}
           className={cn(
             buttonVariants({
@@ -76,7 +65,7 @@ const NewsSourceNavView = ({ activeSource }: NewsSourceNavViewProps) => (
             'rounded-full px-4'
           )}
         >
-          {NEWS_SOURCE_LABELS[source]}
+          {NEWS_SOURCE_CONFIG[source].label}
         </Link>
       ))}
     </div>

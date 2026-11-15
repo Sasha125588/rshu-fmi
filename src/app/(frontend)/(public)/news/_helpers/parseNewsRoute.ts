@@ -7,10 +7,10 @@ const isExternalNewsSource = (source: string): source is ExternalNewsSource =>
   EXTERNAL_NEWS_SOURCES.some((candidate) => candidate === source)
 
 export const parseNewsRoute = (source: string, page: number) => {
-  if (!isExternalNewsSource(source)) return null
+  if (!isExternalNewsSource(source) || !Number.isSafeInteger(page) || page < 1) return null
 
-  if (!Number.isInteger(page) || page < 1 || page > NEWS_SOURCE_CONFIG[source].pageCount)
-    return null
+  const config = NEWS_SOURCE_CONFIG[source]
+  if ('pageCount' in config && page > config.pageCount) return null
 
   return { source, page }
 }

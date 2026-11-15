@@ -1,6 +1,6 @@
 import { CalendarDaysIcon, EyeIcon } from 'lucide-react'
-import Image from 'next/image'
 
+import { ExternalNewsCover } from './ExternalNewsCover'
 import {
   NewsCard,
   NewsCardAction,
@@ -41,27 +41,21 @@ export const ExternalNewsCard = ({
           href={item.link}
           external
         >
-          {variant === 'compact' ? null : item.previewImage ? (
-            <NewsCardMedia>
-              <Image
-                src={item.previewImage}
-                alt=""
-                unoptimized
-                fill
-                loading="lazy"
-                sizes={
-                  variant === 'featured'
-                    ? '(max-width: 767px) calc(100vw - 4rem), 38vw'
-                    : '(max-width: 767px) calc(100vw - 4rem), 220px'
-                }
-                className="object-cover transition-transform duration-500 group-hover/news-card:scale-[1.03]"
-              />
-            </NewsCardMedia>
-          ) : (
+          {variant !== 'compact' && (
             <NewsCardMedia className="from-muted to-muted/35 bg-linear-to-br">
-              <span className="font-jetbrains text-muted-foreground/45 absolute inset-0 flex items-end p-4 text-xs tracking-[0.2em] uppercase">
+              <span
+                aria-hidden="true"
+                className="font-jetbrains text-muted-foreground/45 absolute inset-0 flex items-end p-4 text-xs tracking-[0.2em] uppercase"
+              >
                 {source.badgeLabel}
               </span>
+              {item.previewImage && (
+                <ExternalNewsCover
+                  key={item.previewImage}
+                  src={item.previewImage}
+                  featured={variant === 'featured'}
+                />
+              )}
             </NewsCardMedia>
           )}
 
@@ -82,18 +76,20 @@ export const ExternalNewsCard = ({
                   {item.views.toLocaleString('uk-UA')} переглядів
                 </Typography>
               ) : (
-                <Typography
-                  as="time"
-                  variant="body-sm"
-                  dateTime={item.publishedAt}
-                  className="text-muted-foreground flex items-center gap-1.5"
-                >
-                  <CalendarDaysIcon
-                    aria-hidden="true"
-                    className="size-4"
-                  />
-                  {newsDateFormatter.format(new Date(item.publishedAt))}
-                </Typography>
+                item.publishedAt && (
+                  <Typography
+                    as="time"
+                    variant="body-sm"
+                    dateTime={item.publishedAt}
+                    className="text-muted-foreground flex items-center gap-1.5"
+                  >
+                    <CalendarDaysIcon
+                      aria-hidden="true"
+                      className="size-4"
+                    />
+                    {newsDateFormatter.format(new Date(item.publishedAt))}
+                  </Typography>
+                )
               )}
 
               {!!tagLabels.length && <NewsCardTags tags={tagLabels} />}
