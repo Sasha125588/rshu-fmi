@@ -39,7 +39,7 @@ export function ScheduleSearchPanel({
   const isDesktop = useMediaQuery('(min-width: 40rem)')
 
   const operatingSystem = useOperatingSystem()
-  const modifierLabel = isDesktop && operatingSystem === 'macos' ? '⌥' : 'Alt'
+  const modifierLabel = operatingSystem === 'macos' ? '⌥' : 'Alt'
 
   const openSearch = () => setOpened(true)
   const closeSearch = () => setOpened(false)

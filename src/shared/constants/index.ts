@@ -1,2 +1,5 @@
+export * from './cache'
 export * from './cookies'
 export * from './env'
+export * from './localstorage'
+export * from './socials'

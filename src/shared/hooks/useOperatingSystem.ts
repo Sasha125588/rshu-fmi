@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useSyncExternalStore } from 'react'
 
 export type OperatingSystem = 'android' | 'ios' | 'linux' | 'macos' | 'undetermined' | 'windows'
 
@@ -16,7 +16,7 @@ export const getOperatingSystem = (): OperatingSystem => {
   return 'undetermined'
 }
 
-export const useOperatingSystem = () => {
-  const [osOperatingSystem] = useState<OperatingSystem>(getOperatingSystem())
-  return osOperatingSystem
-}
+const subscribe = () => () => {}
+
+export const useOperatingSystem = (): OperatingSystem =>
+  useSyncExternalStore(subscribe, getOperatingSystem, () => 'undetermined')

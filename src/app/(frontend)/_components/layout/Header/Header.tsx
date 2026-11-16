@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ThemeSwitcher } from '../../ThemeSwitcher/ThemeSwitcher'
 import { NAVIGATION } from './Navbar/constants'
 import { Navbar } from './Navbar/Navbar'
+import { SiteCommand } from './SiteCommand/SiteCommand'
 import {
   Accordion,
   AccordionContent,
@@ -47,6 +48,7 @@ export const Header = () => (
       </div>
 
       <div className="flex shrink-0 items-center gap-2">
+        <SiteCommand />
         <ThemeSwitcher />
 
         <a

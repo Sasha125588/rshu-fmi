@@ -1,4 +1,5 @@
 import { FacebookIcon, InstagramIcon, TiktokIcon } from '@/public/images/components'
+import { FACULTY_SOCIAL_URLS } from '@/shared/constants/socials'
 
 export const SocialData = [
   {
@@ -7,7 +8,7 @@ export const SocialData = [
     description: 'Фото з життя університету, події та досягнення студентів',
     image: InstagramIcon,
     actionTitle: 'Підписатися',
-    link: 'https://www.instagram.com/fmi_rshu/',
+    link: FACULTY_SOCIAL_URLS.instagram,
   },
   {
     title: 'TikTok',
@@ -15,7 +16,7 @@ export const SocialData = [
     description: 'Короткі відео про студентське життя та навчальний процес',
     image: TiktokIcon,
     actionTitle: 'Стежити',
-    link: 'https://www.tiktok.com/@fmi_rshu',
+    link: FACULTY_SOCIAL_URLS.tiktok,
   },
   {
     title: 'Facebook',
@@ -23,6 +24,6 @@ export const SocialData = [
     description: 'Офіційні новини, оголошення та анонси подій університету',
     image: FacebookIcon,
     actionTitle: 'Слідкувати',
-    link: 'https://www.facebook.com/groups/1748613002125956/',
+    link: FACULTY_SOCIAL_URLS.facebook,
   },
 ]

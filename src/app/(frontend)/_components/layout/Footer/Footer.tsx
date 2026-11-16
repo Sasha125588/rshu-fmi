@@ -7,6 +7,7 @@ import { footerGroups } from './constants'
 import { Separator, Typography } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import { FacebookIcon, InstagramIcon, TiktokIcon } from '@/public/images/components'
+import { FACULTY_SOCIAL_URLS } from '@/shared/constants/socials'
 
 import type { Route } from 'next'
 
@@ -55,7 +56,7 @@ export const Footer = async () => (
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram факультету"
-                href="https://www.instagram.com/fmi_rshu/"
+                href={FACULTY_SOCIAL_URLS.instagram}
                 className="text-muted-foreground transition-[color,opacity,transform, discrete] hover:text-accent-violet focus-visible:text-accent-violet inline-flex size-6 items-center justify-center opacity-70 duration-200 hover:-translate-y-0.5 hover:scale-110 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none motion-reduce:transform-none"
               >
                 <InstagramIcon
@@ -67,7 +68,7 @@ export const Footer = async () => (
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok факультету"
-                href="https://www.tiktok.com/@fmi_rshu"
+                href={FACULTY_SOCIAL_URLS.tiktok}
                 className="text-muted-foreground transition-[color,opacity,transform, discrete] hover:text-accent-violet focus-visible:text-accent-violet inline-flex size-6 items-center justify-center opacity-70 duration-200 hover:-translate-y-0.5 hover:scale-110 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none motion-reduce:transform-none"
               >
                 <TiktokIcon
@@ -79,7 +80,7 @@ export const Footer = async () => (
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook факультету"
-                href="https://www.facebook.com/groups/1748613002125956/"
+                href={FACULTY_SOCIAL_URLS.facebook}
                 className="text-muted-foreground transition-[color,opacity,transform, discrete] hover:text-accent-violet focus-visible:text-accent-violet inline-flex size-6 items-center justify-center opacity-70 duration-200 hover:-translate-y-0.5 hover:scale-110 hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none motion-reduce:transform-none"
               >
                 <FacebookIcon
