@@ -4,6 +4,7 @@ import { getPayload } from 'payload'
 import { Suspense } from 'react'
 
 import { getEducationalProgramBySlug } from './_api/getEducationalProgramBySlug'
+import { PageBreadcrumbs } from '@/components/common'
 import { Skeleton, Typography } from '@/components/ui'
 import { getSocialMetadata } from '@/shared/og'
 
@@ -55,6 +56,11 @@ const EducationalProgramContent = async ({ params }: EducationalProgramContentPr
 
   return (
     <div data-testid="educational-program-content">
+      <PageBreadcrumbs
+        current={educationalProgram.title}
+        parents={[{ href: '/educational-programs', label: 'Спеціальності' }]}
+        className="mb-5"
+      />
       <Typography
         as="h2"
         variant="heading-2xl"
@@ -72,13 +78,17 @@ const EducationalProgramFallback = () => (
     aria-hidden="true"
     className="space-y-4"
   >
+    <Skeleton className="h-5 w-52 max-w-full" />
     <Skeleton className="h-12 w-64 max-w-full" />
     <Skeleton className="h-5 w-80 max-w-full" />
   </div>
 )
 
 const EducationalProgramPage = ({ params }: EducationalProgramPageProps) => (
-  <div data-testid="educational-program-shell">
+  <div
+    data-testid="educational-program-shell"
+    className="px-4 py-8 md:px-12 md:py-12"
+  >
     <Suspense fallback={<EducationalProgramFallback />}>
       <EducationalProgramContent params={params} />
     </Suspense>

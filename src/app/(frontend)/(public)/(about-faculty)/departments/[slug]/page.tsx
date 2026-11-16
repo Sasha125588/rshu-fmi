@@ -18,7 +18,7 @@ import { getDepartment, getDepartmentPrograms, getDepartments } from '../_api/qu
 import { DepartmentStaff } from './_components/DepartmentStaff'
 import { RESEARCH_ICONS, STAFF_FORMS } from './_constants'
 import styles from './department.module.css'
-import { CopyButton } from '@/components/common'
+import { CopyButton, PageBreadcrumbs } from '@/components/common'
 import { Skeleton, Typography } from '@/components/ui'
 import { pluralRules } from '@/lib/plurals'
 import { cn } from '@/lib/utils'
@@ -88,27 +88,11 @@ const DepartmentProfile = async ({ params }: Pick<ProfilePageProps, 'params'>) =
     <article>
       <header className={cn(styles.hero, 'relative isolate overflow-hidden')}>
         <div className="mx-auto w-full max-w-7xl px-4 pt-7 pb-6 md:px-12 md:pt-12 md:pb-8">
-          <nav
-            aria-label="Шлях сторінки"
-            className="text-muted-foreground mb-7 flex items-center gap-2.5 text-sm md:mb-9"
-          >
-            <Link
-              href="/departments"
-              className="hover:text-foreground"
-            >
-              Кафедри
-            </Link>
-            <ChevronRightIcon
-              aria-hidden="true"
-              className="size-3.5"
-            />
-            <span
-              aria-current="page"
-              className="text-foreground font-semibold"
-            >
-              {department.shortName.trim()}
-            </span>
-          </nav>
+          <PageBreadcrumbs
+            current={department.shortName.trim()}
+            parents={[{ href: '/departments', label: 'Кафедри' }]}
+            className="mb-7 md:mb-9"
+          />
           <div className="grid items-center gap-7 md:grid-cols-[minmax(0,1fr)_auto] md:gap-8 lg:gap-12">
             <div>
               <p
