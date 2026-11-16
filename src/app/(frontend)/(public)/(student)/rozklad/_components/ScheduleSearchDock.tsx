@@ -14,12 +14,14 @@ interface ScheduleSearchDockProps {
   schedule: ScheduleData
   openSearch: () => void
   selectionTrigger: (children: ReactNode, ariaLabel: string) => ReactElement
+  shortcut?: ReactNode
 }
 
 export const ScheduleSearchDock = ({
   schedule,
   openSearch,
   selectionTrigger,
+  shortcut,
 }: ScheduleSearchDockProps) => {
   const { state, setState } = useScheduleExplorer()
 
@@ -77,11 +79,13 @@ export const ScheduleSearchDock = ({
       {selectionTrigger(
         <>
           <span className="truncate">{selectedLabel}</span>
-          <ChevronDownIcon
-            aria-hidden="true"
-            data-icon="inline-end"
-            className="size-4.5"
-          />
+          {shortcut ?? (
+            <ChevronDownIcon
+              aria-hidden="true"
+              data-icon="inline-end"
+              className="size-4.5"
+            />
+          )}
         </>,
         `${mode.selectionLabel}. Поточний вибір: ${selectedLabel}`
       )}

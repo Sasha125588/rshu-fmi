@@ -6,18 +6,23 @@ import { getScheduleMode } from '../_constants/modes'
 import { useScheduleExplorer } from './ScheduleExplorerContext'
 import { ScheduleSearchContent } from './ScheduleSearchContent'
 import { ScheduleSearchDock } from './ScheduleSearchDock'
+import { Kbd, KbdGroup } from '@/components/ui'
 import { Button } from '@/components/ui/button'
 import {
   Popover,
   PopoverContent,
+  PopoverDescription,
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import { useHotkeys, useMediaQuery, useOperatingSystem } from '@/shared/hooks'
 
 import type { ScheduleSource } from '@/shared/schedule/config'
 import type { ScheduleData } from '@/shared/schedule/types'
+
+const SCHEDULE_SHORTCUT_KEY = 'S'
 
 export function ScheduleSearchPanel({
   schedule,
@@ -27,10 +32,21 @@ export function ScheduleSearchPanel({
   source: ScheduleSource
 }) {
   const { state } = useScheduleExplorer()
-  const [desktopOpen, setDesktopOpen] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [opened, setOpened] = useState(false)
 
   const title = getScheduleMode(state.mode).selectionLabel
+
+  const isDesktop = useMediaQuery('(min-width: 40rem)')
+
+  const operatingSystem = useOperatingSystem()
+  const modifierLabel = isDesktop && operatingSystem === 'macos' ? '⌥' : 'Alt'
+
+  const openSearch = () => setOpened(true)
+  const closeSearch = () => setOpened(false)
+
+  useHotkeys(`alt+code:Key${SCHEDULE_SHORTCUT_KEY}`, () => openSearch(), {
+    enabled: isDesktop && !opened,
+  })
 
   return (
     <section
@@ -39,15 +55,26 @@ export function ScheduleSearchPanel({
     >
       <div className="hidden sm:block">
         <Popover
-          open={desktopOpen}
-          onOpenChange={setDesktopOpen}
+          open={opened && isDesktop}
+          onOpenChange={setOpened}
         >
           <ScheduleSearchDock
             schedule={schedule}
-            openSearch={() => setDesktopOpen(true)}
+            openSearch={openSearch}
+            shortcut={
+              <KbdGroup
+                aria-hidden="true"
+                data-icon="inline-end"
+                className="shrink-0"
+              >
+                <Kbd>{modifierLabel}</Kbd>
+                <Kbd>{SCHEDULE_SHORTCUT_KEY}</Kbd>
+              </KbdGroup>
+            }
             selectionTrigger={(children, ariaLabel) => (
               <PopoverTrigger
                 aria-label={ariaLabel}
+                aria-keyshortcuts={`Alt+${SCHEDULE_SHORTCUT_KEY}`}
                 render={
                   <Button
                     variant="ghost"
@@ -65,13 +92,17 @@ export function ScheduleSearchPanel({
             sideOffset={8}
             className="w-[min(24rem,var(--available-width))] gap-3"
           >
-            <PopoverHeader>
+            <PopoverHeader className="flex-row items-center justify-between gap-3">
               <PopoverTitle>{title}</PopoverTitle>
+              <PopoverDescription className="shrink-0">
+                <span className="sr-only">Натисніть Escape, щоб закрити панель.</span>
+                <Kbd aria-hidden="true">Esc</Kbd>
+              </PopoverDescription>
             </PopoverHeader>
             <ScheduleSearchContent
               schedule={schedule}
               source={source}
-              close={() => setDesktopOpen(false)}
+              close={closeSearch}
             />
           </PopoverContent>
         </Popover>
@@ -79,12 +110,12 @@ export function ScheduleSearchPanel({
 
       <div className="w-full sm:hidden">
         <Sheet
-          open={mobileOpen}
-          onOpenChange={setMobileOpen}
+          open={opened && !isDesktop}
+          onOpenChange={setOpened}
         >
           <ScheduleSearchDock
             schedule={schedule}
-            openSearch={() => setMobileOpen(true)}
+            openSearch={openSearch}
             selectionTrigger={(children, ariaLabel) => (
               <SheetTrigger
                 aria-label={ariaLabel}
@@ -111,7 +142,7 @@ export function ScheduleSearchPanel({
               <ScheduleSearchContent
                 schedule={schedule}
                 source={source}
-                close={() => setMobileOpen(false)}
+                close={closeSearch}
               />
             </div>
           </SheetContent>
