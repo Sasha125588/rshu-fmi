@@ -1,0 +1,26 @@
+.scope {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.scope button {
+  background: var(--theme-elevation-100);
+  border: 1px solid var(--theme-elevation-200);
+  border-radius: 4px;
+  color: var(--theme-text);
+  cursor: pointer;
+  font: inherit;
+  padding: 0.3rem 0.8rem;
+}
+
+.scope button[aria-pressed='true'] {
+  background: var(--theme-elevation-800);
+  border-color: var(--theme-elevation-800);
+  color: var(--theme-elevation-0);
+}
+
+.scope button:focus-visible {
+  outline: 2px solid var(--theme-elevation-800);
+  outline-offset: 2px;
+}

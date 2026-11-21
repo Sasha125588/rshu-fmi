@@ -12,6 +12,8 @@ import * as migration_20260724_134652_faculty_news_and_redirects from './2026072
 import * as migration_20260915_193152_schedule from './20260915_193152_schedule'
 import * as migration_20260916_155031_simplify_schedules from './20260916_155031_simplify_schedules'
 import * as migration_20261114_215403_department_profiles from './20261114_215403_department_profiles'
+import * as migration_20261119_135750_projects_board from './20261119_135750_projects_board'
+import * as migration_20261120_161625_project_intake_contacts from './20261120_161625_project_intake_contacts'
 
 export const migrations = [
   {
@@ -83,5 +85,15 @@ export const migrations = [
     up: migration_20261114_215403_department_profiles.up,
     down: migration_20261114_215403_department_profiles.down,
     name: '20261114_215403_department_profiles',
+  },
+  {
+    up: migration_20261119_135750_projects_board.up,
+    down: migration_20261119_135750_projects_board.down,
+    name: '20261119_135750_projects_board',
+  },
+  {
+    up: migration_20261120_161625_project_intake_contacts.up,
+    down: migration_20261120_161625_project_intake_contacts.down,
+    name: '20261120_161625_project_intake_contacts',
   },
 ]

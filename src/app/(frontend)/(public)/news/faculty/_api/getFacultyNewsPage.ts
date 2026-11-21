@@ -18,7 +18,7 @@ export const getFacultyNewsPage = async (page = 1, limit = 12) => {
     depth: 1,
     limit,
     overrideAccess: false,
-    page: page,
+    page,
     select: FACULTY_NEWS_CARD_SELECT,
     sort: ['-isPinned', '-publishedAt'],
   })

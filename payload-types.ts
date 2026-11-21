@@ -73,6 +73,9 @@ export interface Config {
     specialties: Specialty
     'educational-programs': EducationalProgram
     'faculty-news': FacultyNews
+    projects: Project
+    'project-proposals': ProjectProposal
+    'project-applications': ProjectApplication
     'admission-campaigns': AdmissionCampaign
     'tuition-rates': TuitionRate
     'document-categories': DocumentCategory
@@ -103,6 +106,9 @@ export interface Config {
     specialties: SpecialtiesSelect<false> | SpecialtiesSelect<true>
     'educational-programs': EducationalProgramsSelect<false> | EducationalProgramsSelect<true>
     'faculty-news': FacultyNewsSelect<false> | FacultyNewsSelect<true>
+    projects: ProjectsSelect<false> | ProjectsSelect<true>
+    'project-proposals': ProjectProposalsSelect<false> | ProjectProposalsSelect<true>
+    'project-applications': ProjectApplicationsSelect<false> | ProjectApplicationsSelect<true>
     'admission-campaigns': AdmissionCampaignsSelect<false> | AdmissionCampaignsSelect<true>
     'tuition-rates': TuitionRatesSelect<false> | TuitionRatesSelect<true>
     'document-categories': DocumentCategoriesSelect<false> | DocumentCategoriesSelect<true>
@@ -550,6 +556,115 @@ export interface FacultyNews {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number
+  title: string
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null
+  slug: string
+  summary: string
+  description: string
+  category:
+    | 'development'
+    | 'research'
+    | 'education'
+    | 'competition'
+    | 'volunteering'
+    | 'internship'
+    | 'other'
+  recruiting: boolean
+  /**
+   * РРРР-ММ-ДД. Набір триває до кінця цього дня за Києвом.
+   */
+  deadline?: string | null
+  publishedAt?: string | null
+  publisher?: (number | null) | User
+  sourceProposal?: (number | null) | ProjectProposal
+  initiatorName?: string | null
+  tasks?:
+    | {
+        text: string
+        id?: string | null
+      }[]
+    | null
+  roles?:
+    | {
+        title: string
+        description?: string | null
+        spots?: number | null
+        id?: string | null
+      }[]
+    | null
+  skills?:
+    | {
+        label: string
+        id?: string | null
+      }[]
+    | null
+  links?:
+    | {
+        label: string
+        url: string
+        id?: string | null
+      }[]
+    | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-proposals".
+ */
+export interface ProjectProposal {
+  id: number
+  title: string
+  description: string
+  name: string
+  group: string
+  course: number
+  /**
+   * Email або акаунт у Telegram.
+   */
+  contact: string
+  lookingFor?: string | null
+  showInitiatorName: boolean
+  status: 'new' | 'reviewed'
+  project?: (number | null) | Project
+  /**
+   * Увімкніть і збережіть пропозицію. Контактні дані не копіюються.
+   */
+  createDraft?: boolean | null
+  updatedAt: string
+  createdAt: string
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-applications".
+ */
+export interface ProjectApplication {
+  id: number
+  project: number | Project
+  publisher?: (number | null) | User
+  name: string
+  group: string
+  course: number
+  /**
+   * Email або акаунт у Telegram.
+   */
+  contact: string
+  message?: string | null
+  roleTitle?: string | null
+  status: 'new' | 'reviewed'
+  updatedAt: string
+  createdAt: string
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "document-categories".
  */
 export interface DocumentCategory {
@@ -697,6 +812,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'faculty-news'
         value: number | FacultyNews
+      } | null)
+    | ({
+        relationTo: 'projects'
+        value: number | Project
       } | null)
     | ({
         relationTo: 'admission-campaigns'
@@ -951,6 +1070,90 @@ export interface FacultyNewsSelect<T extends boolean = true> {
   updatedAt?: T
   createdAt?: T
   _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T
+  generateSlug?: T
+  slug?: T
+  summary?: T
+  description?: T
+  category?: T
+  recruiting?: T
+  deadline?: T
+  publishedAt?: T
+  publisher?: T
+  sourceProposal?: T
+  initiatorName?: T
+  tasks?:
+    | T
+    | {
+        text?: T
+        id?: T
+      }
+  roles?:
+    | T
+    | {
+        title?: T
+        description?: T
+        spots?: T
+        id?: T
+      }
+  skills?:
+    | T
+    | {
+        label?: T
+        id?: T
+      }
+  links?:
+    | T
+    | {
+        label?: T
+        url?: T
+        id?: T
+      }
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-proposals_select".
+ */
+export interface ProjectProposalsSelect<T extends boolean = true> {
+  title?: T
+  description?: T
+  name?: T
+  group?: T
+  course?: T
+  contact?: T
+  lookingFor?: T
+  showInitiatorName?: T
+  status?: T
+  project?: T
+  createDraft?: T
+  updatedAt?: T
+  createdAt?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-applications_select".
+ */
+export interface ProjectApplicationsSelect<T extends boolean = true> {
+  project?: T
+  publisher?: T
+  name?: T
+  group?: T
+  course?: T
+  contact?: T
+  message?: T
+  roleTitle?: T
+  status?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

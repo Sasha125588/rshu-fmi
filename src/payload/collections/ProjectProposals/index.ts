@@ -1,0 +1,108 @@
+import { convertProposalToDraft } from './hooks'
+import { adminOnly } from '@/payload/access'
+
+import type { CollectionConfig } from 'payload'
+
+export const ProjectProposals: CollectionConfig = {
+  slug: 'project-proposals',
+  typescript: { interface: 'ProjectProposal' },
+  labels: { singular: 'Пропозиція проєкту', plural: 'Пропозиції проєктів' },
+  access: {
+    admin: (args) => !!adminOnly(args),
+    create: adminOnly,
+    delete: adminOnly,
+    read: adminOnly,
+    update: adminOnly,
+  },
+  admin: {
+    group: 'Дошка проєктів',
+    defaultColumns: ['title', 'name', 'status', 'project', 'createdAt'],
+    listSearchableFields: ['title', 'name', 'group', 'contact'],
+    useAsTitle: 'title',
+  },
+  defaultSort: '-createdAt',
+  disableDuplicate: true,
+  lockDocuments: false,
+  fields: [
+    { name: 'title', type: 'text', label: 'Назва', required: true },
+    { name: 'description', type: 'textarea', label: 'Опис ідеї', required: true },
+    {
+      name: 'name',
+      type: 'text',
+      label: 'Ім’я',
+      required: true,
+      access: { update: () => false },
+      admin: { readOnly: true },
+    },
+    {
+      name: 'group',
+      type: 'text',
+      label: 'Група',
+      required: true,
+      access: { update: () => false },
+      admin: { readOnly: true },
+    },
+    {
+      name: 'course',
+      type: 'number',
+      label: 'Курс',
+      required: true,
+      access: { update: () => false },
+      admin: { readOnly: true },
+    },
+    {
+      name: 'contact',
+      type: 'text',
+      label: 'Контакт',
+      required: true,
+      access: { update: () => false },
+      admin: { readOnly: true, description: 'Email або акаунт у Telegram.' },
+    },
+    { name: 'lookingFor', type: 'textarea', label: 'Кого шукає ініціатор' },
+    {
+      name: 'showInitiatorName',
+      type: 'checkbox',
+      label: 'Дозвіл показати ім’я ініціатора',
+      defaultValue: false,
+      required: true,
+      access: { update: () => false },
+      admin: { readOnly: true },
+    },
+    {
+      name: 'status',
+      type: 'select',
+      label: 'Стан розгляду',
+      defaultValue: 'new',
+      required: true,
+      options: [
+        { value: 'new', label: 'Нова' },
+        { value: 'reviewed', label: 'Розглянута' },
+      ],
+      admin: { position: 'sidebar' },
+    },
+    {
+      name: 'project',
+      type: 'relationship',
+      label: 'Пов’язаний проєкт',
+      relationTo: 'projects',
+      access: { create: () => false, update: () => false },
+      admin: { position: 'sidebar', readOnly: true, allowCreate: false },
+    },
+    {
+      name: 'createDraft',
+      type: 'checkbox',
+      label: 'Створити чернетку проєкту',
+      virtual: true,
+      admin: {
+        condition: (data, _siblingData, { operation }) => operation === 'update' && !data.project,
+        readOnly: false,
+        description: 'Увімкніть і збережіть пропозицію. Контактні дані не копіюються.',
+        disableBulkEdit: true,
+        disableListColumn: true,
+        disableListFilter: true,
+        position: 'sidebar',
+      },
+    },
+  ],
+  hooks: { beforeChange: [convertProposalToDraft] },
+}

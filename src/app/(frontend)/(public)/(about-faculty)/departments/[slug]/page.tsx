@@ -47,8 +47,7 @@ export const generateMetadata = async ({ params }: ProfilePageProps): Promise<Me
   }
 }
 
-const DepartmentProfile = async ({ params }: Pick<ProfilePageProps, 'params'>) => {
-  const { slug } = await params
+const DepartmentProfile = async ({ slug }: { slug: string }) => {
   const department = await getDepartment(slug)
   if (!department) notFound()
 
@@ -539,7 +538,9 @@ const DepartmentProfileSkeleton = () => (
 
 const DepartmentPage = ({ params }: ProfilePageProps) => (
   <Suspense fallback={<DepartmentProfileSkeleton />}>
-    <DepartmentProfile params={params} />
+    {params.then(({ slug }) => (
+      <DepartmentProfile slug={slug} />
+    ))}
   </Suspense>
 )
 

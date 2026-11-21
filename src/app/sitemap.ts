@@ -17,12 +17,13 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   cacheTag(
     CONTENT_CACHE_TAGS.educationalPrograms,
     CONTENT_CACHE_TAGS.facultyNews,
-    CONTENT_CACHE_TAGS.departments
+    CONTENT_CACHE_TAGS.departments,
+    CONTENT_CACHE_TAGS.projects
   )
 
   const payload = await getPayload({ config })
 
-  const [educationalPrograms, facultyNews, departments] = await Promise.all([
+  const [educationalPrograms, facultyNews, departments, projects] = await Promise.all([
     payload.find({
       collection: 'educational-programs',
       depth: 0,
@@ -46,6 +47,16 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       sort: ['-isPinned', '-updatedAt', '-publishedAt'],
     }),
     getDepartments(),
+    payload.find({
+      collection: 'projects',
+      depth: 0,
+      overrideAccess: false,
+      pagination: false,
+      select: {
+        slug: true,
+        updatedAt: true,
+      },
+    }),
   ])
 
   return [
@@ -107,6 +118,11 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       changeFrequency: 'hourly',
       priority: 0.9,
     },
+    {
+      url: `${SITE_URL}/projects`,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
     ...[...EXTERNAL_NEWS_SOURCES, 'faculty'].map((source) => ({
       url: `${SITE_URL}/news/${source}`,
       changeFrequency: 'hourly' as const,
@@ -129,6 +145,12 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
       lastModified: updatedAt,
       changeFrequency: 'monthly' as const,
       priority: 0.9,
+    })),
+    ...projects.docs.map(({ slug, updatedAt }) => ({
+      url: `${SITE_URL}/projects/${slug}`,
+      lastModified: updatedAt,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
     })),
   ]
 }

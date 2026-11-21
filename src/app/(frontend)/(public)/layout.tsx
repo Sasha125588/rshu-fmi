@@ -16,7 +16,7 @@ interface PublicLayoutProps {
 }
 
 const PublicLayout = ({ children }: PublicLayoutProps) => (
-  <main className="h-full w-full">
+  <main className="h-full w-full pb-[var(--project-application-offset,0px)] max-lg:has-[[data-project-application-bar]]:[--project-application-offset:calc(4.75rem+env(safe-area-inset-bottom))]">
     <Header />
     {children}
     <Footer />

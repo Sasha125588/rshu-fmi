@@ -23,28 +23,31 @@ const isPayloadPath = (pathname: string) =>
   pathname === '/api' ||
   pathname.startsWith('/api/')
 
-const payloadNetworkOnly: RuntimeCaching = {
-  matcher: ({ sameOrigin, url }) => sameOrigin && isPayloadPath(url.pathname),
+const isNetworkOnlyPath = (pathname: string) =>
+  isPayloadPath(pathname) || pathname === '/projects' || pathname.startsWith('/projects/')
+
+const networkOnly: RuntimeCaching = {
+  matcher: ({ sameOrigin, url }) => sameOrigin && isNetworkOnlyPath(url.pathname),
   method: 'GET',
   handler: new NetworkOnly(),
 }
 
-const purgeLegacyPayloadEntries = async () => {
+const purgeNetworkOnlyEntries = async () => {
   for (const cacheName of await self.caches.keys()) {
     const cache = await self.caches.open(cacheName)
     const requests = await cache.keys()
-    const payloadRequests = requests.filter((request) => {
+    const networkOnlyRequests = requests.filter((request) => {
       const url = new URL(request.url)
 
-      return url.origin === self.location.origin && isPayloadPath(url.pathname)
+      return url.origin === self.location.origin && isNetworkOnlyPath(url.pathname)
     })
 
-    await Promise.all(payloadRequests.map((request) => cache.delete(request)))
+    await Promise.all(networkOnlyRequests.map((request) => cache.delete(request)))
   }
 }
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(purgeLegacyPayloadEntries())
+  event.waitUntil(purgeNetworkOnlyEntries())
 })
 
 const serwist = new Serwist({
@@ -52,7 +55,7 @@ const serwist = new Serwist({
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,
-  runtimeCaching: [payloadNetworkOnly, ...defaultCache],
+  runtimeCaching: [networkOnly, ...defaultCache],
   fallbacks: {
     entries: [
       {

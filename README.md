@@ -52,3 +52,28 @@ curl "http://localhost:8787/__scheduled"
 
 The local scheduled trigger also respects the current hour. To simulate a specific
 run, pass its Unix timestamp in milliseconds via the `time` query parameter.
+
+## Project board submissions
+
+The two public forms send Server Action `POST` requests to `/projects/propose`
+and `/projects/<slug>`. Before enabling the board on a public deployment, add
+a Vercel Firewall rate-limit rule on `POST` under `/projects/`, keyed by client
+IP. Start at 15 requests per IP per minute in staging and adjust for shared campus
+connections. Apply a blocking action, then confirm normal submissions reach
+Payload and requests above the limit do not create records. `GET` requests and
+Payload admin routes must remain outside the rule.
+
+The forms validate submissions with Zod on the server. Proposal and application
+records (including the applicant's group, course and email or Telegram handle)
+are private; no mail service is required.
+
+### Publish the website's own project
+
+After applying the project-board migration to the intended database, run
+`bun run payload run ./scripts/seed-website-project.ts`. This adds the
+«Сайт ФМІ РДГУ» project as a draft without touching an existing record.
+Review and publish it in Payload using the administrator account that will
+handle applications. To publish during a pre-build seed instead, set
+`PROJECTS_PUBLISHER_EMAIL` to that existing administrator's email when running
+the same command. Prefer admin publication on a running site so its caches
+are invalidated.

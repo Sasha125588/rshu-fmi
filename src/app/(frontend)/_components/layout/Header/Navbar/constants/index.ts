@@ -12,6 +12,7 @@ import {
   MapPinIcon,
   NetworkIcon,
   UsersIcon,
+  WaypointsIcon,
 } from 'lucide-react'
 
 import { DEFAULT_SCHEDULE_PATH } from '@/shared/schedule/config'
@@ -72,6 +73,12 @@ export const NAVIGATION: NavItem[] = [
         description: 'Пошук за групою, викладачем або аудиторією.',
         href: DEFAULT_SCHEDULE_PATH,
         icon: CalendarDaysIcon,
+      },
+      {
+        title: 'Долучитися',
+        description: 'Відкриті проєкти факультету й можливість запропонувати власну ідею.',
+        href: '/projects',
+        icon: WaypointsIcon,
       },
       {
         title: 'Усі спеціальності',
