@@ -5,7 +5,7 @@ type CatalogFilters = { q: string; category: ProjectCategory | ''; open: boolean
 type FilterableProject = {
   title: string
   category: ProjectCategory
-  skills: string[]
+  skills: readonly string[]
   open: boolean
 }
 
@@ -18,7 +18,7 @@ export const normalizeProjectSearch = (value: string) =>
     .trim()
 
 export const filterProjects = <T extends FilterableProject>(
-  projects: T[],
+  projects: readonly T[],
   { q, category, open }: CatalogFilters
 ): T[] => {
   const terms = normalizeProjectSearch(q).split(' ').filter(Boolean)
