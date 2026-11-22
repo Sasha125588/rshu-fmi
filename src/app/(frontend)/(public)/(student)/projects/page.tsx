@@ -1,14 +1,14 @@
 import { PlusIcon } from 'lucide-react'
+import { cacheLife } from 'next/cache'
 import Link from 'next/link'
-import { connection } from 'next/server'
 import { Suspense } from 'react'
 
 import { getProjects } from './_api/queries'
 import { ProjectCatalog } from './_components/ProjectCatalog'
 import { toProjectCard } from './_helpers'
 import { isRecruitmentOpen } from './_helpers/recruitment'
-import { buttonVariants } from '@/components/ui/button'
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton, buttonVariants } from '@/components/ui'
+import { CMS_CACHE_LIFE } from '@/shared/constants/cache'
 import { getSocialMetadata } from '@/shared/og'
 
 import type { Metadata } from 'next'
@@ -25,7 +25,10 @@ export const metadata: Metadata = {
 }
 
 const CatalogResults = async () => {
-  await connection()
+  'use cache'
+
+  cacheLife(CMS_CACHE_LIFE)
+
   const projects = await getProjects()
   const now = new Date()
 

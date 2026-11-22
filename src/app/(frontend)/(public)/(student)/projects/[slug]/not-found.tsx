@@ -5,7 +5,14 @@ import { Suspense } from 'react'
 import { getProjects } from '../_api/queries'
 import { ProjectRecruitmentBadge } from '../_components/ProjectCard'
 import { isRecruitmentOpen } from '../_helpers/recruitment'
-import { Empty, EmptyContent, EmptyDescription, EmptyHeader, buttonVariants } from '@/components/ui'
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  Skeleton,
+  buttonVariants,
+} from '@/components/ui'
 import { PROJECT_CATEGORY_LABELS } from '@/payload/collections/Projects/constants'
 
 const ProjectNotFound = () => (
@@ -39,7 +46,7 @@ const ProjectNotFound = () => (
         </Link>
       </EmptyContent>
     </Empty>
-    <Suspense>
+    <Suspense fallback={<OpenProjectsSkeleton />}>
       <OpenProjects />
     </Suspense>
   </div>
@@ -65,7 +72,7 @@ const OpenProjects = async () => {
       >
         Відкриті зараз
       </h2>
-      <ul className="bg-card divide-y rounded-xl border">
+      <ul className="bg-card divide-y overflow-hidden rounded-xl border">
         {projects.map((project) => (
           <li key={project.slug}>
             <Link
@@ -86,5 +93,35 @@ const OpenProjects = async () => {
     </section>
   )
 }
+
+const OpenProjectsSkeleton = () => (
+  <section
+    aria-busy="true"
+    aria-label="Завантаження відкритих проєктів"
+    className="mt-12 max-w-2xl md:mt-16"
+  >
+    <Skeleton
+      aria-hidden="true"
+      className="mb-3 h-7 w-36"
+    />
+    <ul
+      aria-hidden="true"
+      className="bg-card divide-y rounded-xl border"
+    >
+      {[0, 1, 2].map((row) => (
+        <li
+          key={row}
+          className="flex items-center justify-between gap-4 px-4 py-3 sm:px-5"
+        >
+          <div className="flex min-w-0 flex-col gap-1.5">
+            <Skeleton className="h-5 w-32 max-w-full sm:w-48" />
+            <Skeleton className="h-4 w-16" />
+          </div>
+          <Skeleton className="h-5 w-24 shrink-0 rounded-full" />
+        </li>
+      ))}
+    </ul>
+  </section>
+)
 
 export default ProjectNotFound

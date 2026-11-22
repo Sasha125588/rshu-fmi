@@ -85,7 +85,7 @@ export const SiteCommand = () => {
         <span className="hidden sm:inline">Пошук</span>
         <KbdGroup
           aria-hidden
-          className="hidden xl:[@media(any-pointer:fine)]:inline-flex"
+          className="ml-1 hidden xl:[@media(any-pointer:fine)]:inline-flex"
         >
           <Kbd>{modifierLabel}</Kbd>
           <Kbd>K</Kbd>

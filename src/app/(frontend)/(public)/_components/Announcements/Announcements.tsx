@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 
 import { DepartmentsAnnouncement } from './DepartmentsAnnouncement'
+import { ProjectsAnnouncement } from './ProjectsAnnouncement'
 import { ScheduleAnnouncement } from './ScheduleAnnouncement'
 
 export const Announcements = () => (
@@ -8,6 +9,7 @@ export const Announcements = () => (
     <Suspense fallback={null}>
       <ScheduleAnnouncement />
       <DepartmentsAnnouncement />
+      <ProjectsAnnouncement />
     </Suspense>
   </div>
 )

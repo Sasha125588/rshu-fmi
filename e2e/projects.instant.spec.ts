@@ -35,6 +35,18 @@ test.describe('Миттєва навігація дошки проєктів', (
     )
   })
 
+  test('shows the filtered catalog without request-time rendering', async ({ page, baseURL }) => {
+    await instant(
+      page,
+      async () => {
+        await page.goto(`/projects?q=${suffix}&open=true`)
+        await expect(page.getByRole('link', { name: title, exact: true })).toBeVisible()
+        await expect(page.getByRole('checkbox', { name: 'Лише відкритий набір' })).toBeChecked()
+      },
+      { baseURL }
+    )
+  })
+
   test('serves the project loading shell on a direct visit', async ({ page, baseURL }) => {
     const apply = page.getByRole('button', { name: 'Долучитися', exact: true })
 
@@ -73,13 +85,12 @@ test.describe('Миттєва навігація дошки проєктів', (
       await page.waitForURL((url) => url.pathname === path && !url.search)
       await expect(heading).toBeVisible()
       await expect(page.getByText(description, { exact: true })).toBeVisible()
+      await expect(roles).toBeVisible()
       await expect(apply).toHaveCount(0)
-      await expect(roles).toHaveCount(0)
       await expect(status).toHaveCount(0)
     })
 
     await expect(apply).toBeVisible()
-    await expect(roles).toBeVisible()
     await expect(status).toBeVisible()
   })
 })

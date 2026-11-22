@@ -1,44 +1,42 @@
+import { CalendarXIcon } from 'lucide-react'
 import Link from 'next/link'
 
 import { getRecruitmentOpen } from '../../../../_helpers'
 import { ApplicationDialog } from './components'
-import { buttonVariants } from '@/components/ui'
-import { cn } from '@/lib'
+import { Alert, AlertDescription, AlertTitle, Skeleton } from '@/components/ui'
 
 import type { ProjectDetail } from '../../../../_types'
 
-export const RecruitmentAction = async ({
-  project,
-  standalone,
-}: {
-  project: ProjectDetail
-  standalone: boolean
-}) => {
+const applicationBarClassName =
+  'max-lg:bg-background flex flex-col gap-2 max-lg:fixed max-lg:inset-x-0 max-lg:bottom-0 max-lg:z-40 max-lg:border-t max-lg:px-4 max-lg:pt-3 max-lg:pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:max-lg:px-6'
+
+export const RecruitmentAction = async ({ project }: { project: ProjectDetail }) => {
   const open = await getRecruitmentOpen(project)
 
   if (!open) {
     return (
-      <div
-        className={cn(
-          'flex flex-col gap-2',
-          standalone && 'max-lg:bg-card-new max-lg:rounded-xl max-lg:border max-lg:p-5'
-        )}
+      <Alert
+        role="status"
+        variant="warning"
+        className="rounded-xl"
       >
-        <p className="font-bold">Набір закрито</p>
+        <CalendarXIcon aria-hidden="true" />
+        <AlertTitle className="text-base">Набір закрито</AlertTitle>
+        <AlertDescription>Цей проєкт зараз не приймає заявки.</AlertDescription>
         <Link
           href="/projects?open=true"
-          className={buttonVariants({ variant: 'outline' })}
+          className="focus-visible:ring-warning-foreground col-start-2 mt-1.5 w-fit max-w-full rounded-sm font-semibold underline underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
         >
           Переглянути відкриті проєкти
         </Link>
-      </div>
+      </Alert>
     )
   }
 
   return (
     <div
       data-project-application-bar=""
-      className="max-lg:bg-background flex flex-col gap-2 max-lg:fixed max-lg:inset-x-0 max-lg:bottom-0 max-lg:z-40 max-lg:border-t max-lg:px-4 max-lg:pt-3 max-lg:pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:max-lg:px-6"
+      className={applicationBarClassName}
     >
       <ApplicationDialog
         projectId={project.id}
@@ -51,3 +49,13 @@ export const RecruitmentAction = async ({
     </div>
   )
 }
+
+export const RecruitmentActionSkeleton = () => (
+  <div
+    data-project-application-bar=""
+    aria-hidden="true"
+    className={applicationBarClassName}
+  >
+    <Skeleton className="h-10 w-full rounded-full max-lg:h-12" />
+  </div>
+)

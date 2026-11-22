@@ -5,7 +5,13 @@ import { Suspense } from 'react'
 import { getProject } from '../../../_api/queries'
 import { formatProjectDeadline } from '../../../_helpers/recruitment'
 import { PROJECT_DETAIL_LAYOUT, SPOT_FORMS } from '../../_constants'
-import { RecruitmentAction, RecruitmentBadge, RelatedProjects } from './components'
+import {
+  RecruitmentAction,
+  RecruitmentActionSkeleton,
+  RecruitmentBadge,
+  RelatedProjects,
+  RelatedProjectsSkeleton,
+} from './components'
 import { PageBreadcrumbs } from '@/components/common'
 import { Badge, Skeleton } from '@/components/ui'
 import { cn, pluralRules } from '@/lib'
@@ -102,15 +108,8 @@ export const ProjectDetail = async ({ slug }: { slug: string }) => {
                 </ul>
               </div>
             )}
-            <Suspense
-              fallback={
-                <Skeleton className={cn('h-10 w-full', !hasSidebarContent && 'max-lg:hidden')} />
-              }
-            >
-              <RecruitmentAction
-                project={project}
-                standalone={!hasSidebarContent}
-              />
+            <Suspense fallback={project.recruiting ? <RecruitmentActionSkeleton /> : null}>
+              <RecruitmentAction project={project} />
             </Suspense>
           </aside>
           <div className={PROJECT_DETAIL_LAYOUT.mainColumn}>
@@ -172,7 +171,7 @@ export const ProjectDetail = async ({ slug }: { slug: string }) => {
             )}
           </div>
         </div>
-        <Suspense>
+        <Suspense fallback={<RelatedProjectsSkeleton />}>
           <RelatedProjects
             slug={project.slug}
             category={project.category}

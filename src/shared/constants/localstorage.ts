@@ -4,5 +4,6 @@ export const LOCAL_STORAGE = {
   ANNOUNCEMENT: {
     SCHEDULE: `${LOCAL_STORAGE_PREFIX}-announcement-schedule`,
     DEPARTMENTS: `${LOCAL_STORAGE_PREFIX}-announcement-departments`,
+    PROJECTS: `${LOCAL_STORAGE_PREFIX}-announcement-projects`,
   },
 } as const
