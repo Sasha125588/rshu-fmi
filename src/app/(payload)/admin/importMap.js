@@ -18,6 +18,7 @@ import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc056
 
 import { DocumentTitleField as DocumentTitleField_22215b0d03d1872fe78b7e9747827f3e } from '@/payload/collections/Documents/components/DocumentTitleField'
 import { ApplicationsScope as ApplicationsScope_e0d3181f2fe00e518a1f80a97265f942 } from '@/payload/collections/ProjectApplications/components/ApplicationsScope'
+import { ImportGitHubButton as ImportGitHubButton_c039067af50e2b99547646662c51e57c } from '@/payload/collections/ProjectContributors/ImportGitHubButton'
 import { SyncScheduleButton as SyncScheduleButton_471dfa29823c2312342cfbb1fec0c1df } from '@/payload/collections/Schedules/components/SyncScheduleButton'
 import { StudyFormSelect as StudyFormSelect_94c3a901e3ba45520d44c306c8669a80 } from '@/payload/components/StudyFormSelect/StudyFormSelect'
 
@@ -54,6 +55,8 @@ export const importMap = {
     ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   '@/payload/collections/ProjectApplications/components/ApplicationsScope#ApplicationsScope':
     ApplicationsScope_e0d3181f2fe00e518a1f80a97265f942,
+  '@/payload/collections/ProjectContributors/ImportGitHubButton#ImportGitHubButton':
+    ImportGitHubButton_c039067af50e2b99547646662c51e57c,
   '@/payload/components/StudyFormSelect/StudyFormSelect#StudyFormSelect':
     StudyFormSelect_94c3a901e3ba45520d44c306c8669a80,
   '@/payload/collections/Documents/components/DocumentTitleField#DocumentTitleField':

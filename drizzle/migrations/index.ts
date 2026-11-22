@@ -14,6 +14,8 @@ import * as migration_20260916_155031_simplify_schedules from './20260916_155031
 import * as migration_20261114_215403_department_profiles from './20261114_215403_department_profiles'
 import * as migration_20261119_135750_projects_board from './20261119_135750_projects_board'
 import * as migration_20261120_161625_project_intake_contacts from './20261120_161625_project_intake_contacts'
+import * as migration_20261122_111214_project_contributors from './20261122_111214_project_contributors'
+import * as migration_20261122_113449_link_application_contributor from './20261122_113449_link_application_contributor'
 
 export const migrations = [
   {
@@ -95,5 +97,15 @@ export const migrations = [
     up: migration_20261120_161625_project_intake_contacts.up,
     down: migration_20261120_161625_project_intake_contacts.down,
     name: '20261120_161625_project_intake_contacts',
+  },
+  {
+    up: migration_20261122_111214_project_contributors.up,
+    down: migration_20261122_111214_project_contributors.down,
+    name: '20261122_111214_project_contributors',
+  },
+  {
+    up: migration_20261122_113449_link_application_contributor.up,
+    down: migration_20261122_113449_link_application_contributor.down,
+    name: '20261122_113449_link_application_contributor',
   },
 ]

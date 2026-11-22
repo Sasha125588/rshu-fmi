@@ -1,3 +1,4 @@
+import { linkApplicationContributor } from './hooks/linkContributor'
 import { adminOnly } from '@/payload/access'
 
 import type { CollectionConfig } from 'payload'
@@ -90,5 +91,54 @@ export const ProjectApplications: CollectionConfig = {
       ],
       admin: { position: 'sidebar' },
     },
+    {
+      name: 'contributor',
+      type: 'relationship',
+      relationTo: 'project-contributors',
+      label: 'Пов’язаний контриб’ютор',
+      access: { create: () => false, update: () => false },
+      admin: {
+        condition: (data) => !!data.contributor,
+        position: 'sidebar',
+        readOnly: true,
+        allowCreate: false,
+      },
+    },
+    {
+      name: 'createContributorDraft',
+      type: 'checkbox',
+      label: 'Створити чернетку контриб’ютора',
+      virtual: true,
+      admin: {
+        condition: (data, _siblingData, { operation }) =>
+          operation === 'update' && !data.contributor && !data.linkContributor,
+        description: 'Увімкни після підтвердження участі й збережи заявку.',
+        readOnly: false,
+        disableBulkEdit: true,
+        disableListColumn: true,
+        disableListFilter: true,
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'linkContributor',
+      type: 'relationship',
+      relationTo: 'project-contributors',
+      label: 'Прив’язати наявний профіль',
+      virtual: true,
+      admin: {
+        condition: (data, _siblingData, { operation }) =>
+          operation === 'update' && !data.contributor && !data.createContributorDraft,
+        description: 'Вибери профіль цієї людини й збережи заявку.',
+        readOnly: false,
+        allowCreate: false,
+        allowEdit: false,
+        disableBulkEdit: true,
+        disableListColumn: true,
+        disableListFilter: true,
+        position: 'sidebar',
+      },
+    },
   ],
+  hooks: { beforeChange: [linkApplicationContributor] },
 }

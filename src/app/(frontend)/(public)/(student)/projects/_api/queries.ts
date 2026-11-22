@@ -5,6 +5,25 @@ import { getPayload } from 'payload'
 import { CARD_SELECT } from '../_constants'
 import { CMS_CACHE_LIFE, CONTENT_CACHE_TAGS } from '@/shared/constants/cache'
 
+export const getProjectContributors = async () => {
+  'use cache'
+
+  cacheLife(CMS_CACHE_LIFE)
+  cacheTag(CONTENT_CACHE_TAGS.projectContributors)
+
+  const payload = await getPayload({ config })
+  const { docs } = await payload.find({
+    collection: 'project-contributors',
+    overrideAccess: false,
+    depth: 0,
+    pagination: false,
+    select: { name: true, source: true, githubId: true, githubAvatarUrl: true },
+    sort: ['name', 'id'],
+  })
+
+  return docs
+}
+
 export const getProjects = async (limit?: number) => {
   'use cache'
 

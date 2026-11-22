@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 
 import { getProjects } from './_api/queries'
-import { ProjectCatalog } from './_components/ProjectCatalog'
+import { ProjectCatalog, ProjectContributors } from './_components'
 import { toProjectCard } from './_helpers'
 import { isRecruitmentOpen } from './_helpers/recruitment'
 import { Skeleton, buttonVariants } from '@/components/ui'
@@ -22,21 +22,6 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: '/projects' },
   ...getSocialMetadata('/projects', title, description),
-}
-
-const CatalogResults = async () => {
-  'use cache'
-
-  cacheLife(CMS_CACHE_LIFE)
-
-  const projects = await getProjects()
-  const now = new Date()
-
-  return (
-    <ProjectCatalog
-      projects={projects.map((project) => toProjectCard(project, isRecruitmentOpen(project, now)))}
-    />
-  )
 }
 
 const ProjectsPage = () => (
@@ -57,25 +42,46 @@ const ProjectsPage = () => (
         Запропонувати проєкт
       </Link>
     </header>
-    <Suspense fallback={<CatalogLoading />}>
-      <CatalogResults />
-    </Suspense>
+    <div
+      id="project-catalog"
+      className="scroll-mt-20"
+    >
+      <Suspense fallback={<CatalogLoading />}>
+        <CatalogResults />
+      </Suspense>
+    </div>
+    <ProjectContributors />
     {/*<aside className="bg-card-new flex flex-wrap items-center justify-between gap-4 rounded-xl border p-5 sm:p-6">
-      <div>
-        <h2 className="text-lg font-extrabold">Є своя ідея?</h2>
-        <p className="text-muted-foreground mt-1 max-w-md text-sm">
-          Опиши її, а адміністратори розглянуть пропозицію та допоможуть зібрати команду.
-        </p>
-      </div>
-      <Link
-        href="/projects/propose"
-        className={buttonVariants({ variant: 'lavender' })}
-      >
-        Запропонувати проєкт
-      </Link>
-    </aside>*/}
+    <div>
+      <h2 className="text-lg font-extrabold">Є своя ідея?</h2>
+      <p className="text-muted-foreground mt-1 max-w-md text-sm">
+        Опиши її, а адміністратори розглянуть пропозицію та допоможуть зібрати команду.
+      </p>
+    </div>
+    <Link
+      href="/projects/propose"
+      className={buttonVariants({ variant: 'lavender' })}
+    >
+      Запропонувати проєкт
+    </Link>
+  </aside>*/}
   </div>
 )
+
+const CatalogResults = async () => {
+  'use cache'
+
+  cacheLife(CMS_CACHE_LIFE)
+
+  const projects = await getProjects()
+  const now = new Date()
+
+  return (
+    <ProjectCatalog
+      projects={projects.map((project) => toProjectCard(project, isRecruitmentOpen(project, now)))}
+    />
+  )
+}
 
 const CatalogLoading = () => (
   <div

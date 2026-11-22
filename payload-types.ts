@@ -76,6 +76,7 @@ export interface Config {
     projects: Project
     'project-proposals': ProjectProposal
     'project-applications': ProjectApplication
+    'project-contributors': ProjectContributor
     'admission-campaigns': AdmissionCampaign
     'tuition-rates': TuitionRate
     'document-categories': DocumentCategory
@@ -109,6 +110,7 @@ export interface Config {
     projects: ProjectsSelect<false> | ProjectsSelect<true>
     'project-proposals': ProjectProposalsSelect<false> | ProjectProposalsSelect<true>
     'project-applications': ProjectApplicationsSelect<false> | ProjectApplicationsSelect<true>
+    'project-contributors': ProjectContributorsSelect<false> | ProjectContributorsSelect<true>
     'admission-campaigns': AdmissionCampaignsSelect<false> | AdmissionCampaignsSelect<true>
     'tuition-rates': TuitionRatesSelect<false> | TuitionRatesSelect<true>
     'document-categories': DocumentCategoriesSelect<false> | DocumentCategoriesSelect<true>
@@ -660,8 +662,38 @@ export interface ProjectApplication {
   message?: string | null
   roleTitle?: string | null
   status: 'new' | 'reviewed'
+  contributor?: (number | null) | ProjectContributor
+  /**
+   * Увімкни після підтвердження участі й збережи заявку.
+   */
+  createContributorDraft?: boolean | null
+  /**
+   * Вибери профіль цієї людини й збережи заявку.
+   */
+  linkContributor?: (number | null) | ProjectContributor
   updatedAt: string
   createdAt: string
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-contributors".
+ */
+export interface ProjectContributor {
+  id: number
+  /**
+   * Публікуй ім’я учасника проєкту за його згодою.
+   */
+  name: string
+  source: 'project' | 'github' | 'both'
+  project?: (number | null) | Project
+  /**
+   * Прив’яжи підтверджений ID GitHub, щоб імпорт впізнав цей профіль.
+   */
+  githubId?: number | null
+  githubAvatarUrl?: string | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -816,6 +848,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects'
         value: number | Project
+      } | null)
+    | ({
+        relationTo: 'project-contributors'
+        value: number | ProjectContributor
       } | null)
     | ({
         relationTo: 'admission-campaigns'
@@ -1152,8 +1188,25 @@ export interface ProjectApplicationsSelect<T extends boolean = true> {
   message?: T
   roleTitle?: T
   status?: T
+  contributor?: T
+  createContributorDraft?: T
+  linkContributor?: T
   updatedAt?: T
   createdAt?: T
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-contributors_select".
+ */
+export interface ProjectContributorsSelect<T extends boolean = true> {
+  name?: T
+  source?: T
+  project?: T
+  githubId?: T
+  githubAvatarUrl?: T
+  updatedAt?: T
+  createdAt?: T
+  _status?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

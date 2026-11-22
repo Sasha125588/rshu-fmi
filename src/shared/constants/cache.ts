@@ -14,6 +14,7 @@ export const CONTENT_CACHE_TAGS = {
   educationalPrograms: 'content:educational-programs',
   facultyNews: 'content:faculty-news',
   media: 'content:media',
+  projectContributors: 'content:project-contributors',
   projects: 'content:projects',
   redirects: 'content:redirects',
   specialties: 'content:specialties',
