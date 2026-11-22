@@ -1,5 +1,5 @@
 import { getDepartment } from '../../(public)/(about-faculty)/departments/_api/queries'
-import { getEducationalProgramBySlug } from '../../(public)/educational-programs/[slug]/_api/getEducationalProgramBySlug'
+import { getEducationalProgramBySlug } from '../../(public)/(student)/educational-programs/[slug]/_api/getEducationalProgramBySlug'
 import { resolveFacultyNewsRoute } from '../../(public)/news/faculty/[slug]/_helpers'
 import { newsDateFormatter } from '@/lib/formatters'
 import { NEWS_SOURCE_CONFIG } from '@/shared/news/config'
