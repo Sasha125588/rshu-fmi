@@ -221,6 +221,27 @@ test.describe.serial('Дошка проєктів (одноразова лока
     }
   })
 
+  test('accepts an application without choosing an optional role', async ({ page, request }) => {
+    await page.goto(`/projects/${openSlug}`)
+    await page.getByRole('button', { name: 'Долучитися', exact: true }).click()
+    const form = page.getByRole('dialog')
+    const contact = `without-role-${stamp}@example.test`
+    await form.getByLabel(/ім’я/i).fill('Учасник без конкретної ролі')
+    await form.getByLabel('Група').fill('ІПЗ-21')
+    await form.getByLabel('Курс').selectOption('2')
+    await form.getByLabel('Email або Telegram').fill(contact)
+    await expect(form.getByLabel(/роль/i)).toHaveValue('')
+    await form.getByRole('button', { name: 'Надіслати заявку' }).click()
+    await expect(form.getByText('Заявку надіслано')).toBeVisible()
+
+    const params = new URLSearchParams({ 'where[contact][equals]': contact })
+    const rows = await json(
+      await request.get(`/api/project-applications?${params}`, { headers: auth(adminToken) })
+    )
+    expect(rows.totalDocs).toBe(1)
+    expect(rows.docs[0].roleTitle).toBeNull()
+  })
+
   test('retains fields when the project closes during submission', async ({ page, request }) => {
     await page.goto(`/projects/${openSlug}`)
     await page.getByRole('button', { name: 'Долучитися', exact: true }).click()

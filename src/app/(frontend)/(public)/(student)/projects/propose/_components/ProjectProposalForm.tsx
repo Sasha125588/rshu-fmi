@@ -63,7 +63,7 @@ export function ProjectProposalForm({ intro }: { intro: ReactNode }) {
           className="min-w-0 gap-6 disabled:opacity-75"
         >
           <FieldSet className="min-w-0 border-b pb-6">
-            <FieldLegend className="mb-4">Про ідею</FieldLegend>
+            <ProposalStepLegend step={1}>Про ідею</ProposalStepLegend>
             <FieldGroup className="gap-4">
               <Field
                 className="min-w-0 gap-1.5"
@@ -149,7 +149,7 @@ export function ProjectProposalForm({ intro }: { intro: ReactNode }) {
             </FieldGroup>
           </FieldSet>
           <FieldSet className="min-w-0">
-            <FieldLegend className="mb-4">Контактні дані</FieldLegend>
+            <ProposalStepLegend step={2}>Контактні дані</ProposalStepLegend>
             <FieldGroup className="gap-4">
               <Field
                 className="min-w-0 gap-1.5"
@@ -331,3 +331,17 @@ export function ProjectProposalForm({ intro }: { intro: ReactNode }) {
     </>
   )
 }
+
+const ProposalStepLegend = ({ step, children }: { step: number; children: ReactNode }) => (
+  <FieldLegend className="mb-4">
+    <span className="inline-flex items-center gap-2.5">
+      <span
+        aria-hidden="true"
+        className="bg-foreground text-background grid size-6 shrink-0 place-items-center rounded-full text-xs leading-none font-semibold tabular-nums"
+      >
+        {step}
+      </span>
+      {children}
+    </span>
+  </FieldLegend>
+)

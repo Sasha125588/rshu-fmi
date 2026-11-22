@@ -44,8 +44,9 @@ export async function submitProjectApplication(
     }
 
     const { roleId, ...application } = result.data
-    const roleTitle = project.roles?.find((role) => role.id === roleId)?.title
-    if (roleTitle === undefined) {
+    const roleTitle =
+      roleId === undefined ? undefined : project.roles?.find((role) => role.id === roleId)?.title
+    if (roleId !== undefined && roleTitle === undefined) {
       return {
         values,
         errors: {
